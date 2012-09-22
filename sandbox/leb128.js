@@ -34,16 +34,6 @@ var uleb128 = function(fn) { return leb128(fn, false); }
 var uleb128p1 = function(fn) { return leb128(fn, false) - 1; }
 var sleb128 = function(fn) { return leb128(fn, true); }
 
-// this is a closure that yields each item of an array as it is called; sorry
-var arr2stream = function(arr) {
-  var i = 0;
-  var len = arr.length;
-
-  return function() {
-    return arr[i++];
-  }
-}
-
 //
 // unit testing; examples from
 // http://source.android.com/tech/dalvik/dex-format.html 
