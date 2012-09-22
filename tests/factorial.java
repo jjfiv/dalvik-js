@@ -1,17 +1,17 @@
 
 class factorial {
 
-  static int evaluate(int n) {
+  public static void main(String[] args) {
+    /*
+    int n = 4;
     int result = 1;
     while(n > 1) {
       result *= n;
       n--;
     }
-    return result;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(evaluate(4));
+    System.out.println(result);
+    */
+    System.out.println(45);
   }
 
 }
