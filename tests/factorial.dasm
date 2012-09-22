@@ -1,0 +1,79 @@
+Processing 'factorial.dex'...
+Opened 'factorial.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lfactorial;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lfactorial;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00014c:                                        |[00014c] factorial.<init>:()V
+00015c: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+000162: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lfactorial; 
+
+    #1              : (in Lfactorial;)
+      name          : 'evaluate'
+      type          : '(I)I'
+      access        : 0x0008 (STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 0
+      insns size    : 9 16-bit code units
+000164:                                        |[000164] factorial.evaluate:(I)I
+000174: 1211                                   |0000: const/4 v1, #int 1 // #1
+000176: 0110                                   |0001: move v0, v1
+000178: 3712 0600                              |0002: if-le v2, v1, 0008 // +0006
+00017c: b220                                   |0004: mul-int/2addr v0, v2
+00017e: d802 02ff                              |0005: add-int/lit8 v2, v2, #int -1 // #ff
+000182: 28fb                                   |0007: goto 0002 // -0005
+000184: 0f00                                   |0008: return v0
+      catches       : (none)
+      positions     : 
+        0x0001 line=4
+        0x0002 line=5
+        0x0004 line=6
+        0x0005 line=7
+        0x0008 line=9
+      locals        : 
+
+    #2              : (in Lfactorial;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 11 16-bit code units
+000188:                                        |[000188] factorial.main:([Ljava/lang/String;)V
+000198: 6200 0000                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00019c: 1241                                   |0002: const/4 v1, #int 4 // #4
+00019e: 7110 0100 0100                         |0003: invoke-static {v1}, Lfactorial;.evaluate:(I)I // method@0001
+0001a4: 0a01                                   |0006: move-result v1
+0001a6: 6e20 0300 1000                         |0007: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(I)V // method@0003
+0001ac: 0e00                                   |000a: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=12
+        0x000a line=13
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 12 (factorial.java)
+
