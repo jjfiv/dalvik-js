@@ -155,6 +155,154 @@ var parse_dex_strings = function(file, string_ids) {
   return strings
 }
 
+var parse_dex_fields = function(file, strings, types, field_ids) {
+  file.seek(field_ids.offset)
+  var num_fields = field_ids.count
+  var i
+  var fields = []
+
+  for(i=0; i<num_fields; i++) {
+    var class_idx = file.get16()
+    var type_idx = file.get16()
+    var name_idx = file.get32()
+
+    fields[i] = {
+      defining_class: types[class_idx],
+      type: types[type_idx],
+      name: strings[name_idx],
+    }
+  }
+  return fields
+}
+
+var parse_dex_methods = function(file, strings, types, protos, method_ids) {
+  file.seek(method_ids.offset)
+  var num_methods = method_ids.count
+  var i
+  var methods = []
+
+  for(i=0; i<num_methods; i++) {
+    var class_idx = file.get16()
+    var type_idx = file.get16()
+    var name_idx = file.get32()
+
+    methods[i] = {
+      defining_class: types[class_idx],
+      prototype: protos[type_idx],
+      name: strings[name_idx],
+    }
+  }
+  return methods
+}
+
+// parse "encoded_field" objects
+var parse_encoded_fields = function(file, count, fields) {
+  var i;
+  var field_idx = 0;
+  var fields = []
+
+  for(i=0; i<count; i++) {
+    var field_idx_diff = file.get_uleb128()
+    var access_flags = file.get_uleb128()
+
+    field_idx += field_idx_diff;
+
+    fields[i] = {
+      idx: field_idx,
+      access_flags: access_flags,
+    }
+  }
+  return fields
+}
+
+// parse "encoded_method" objects
+var parse_encoded_methods = function(file, count, methods) {
+  var i;
+  var method_idx = 0;
+  var methods = []
+
+  for(i=0; i<count; i++) {
+    var method_idx_diff = file.get_uleb128()
+    var access_flags = file.get_uleb128()
+    var code_off = file.get_uleb128()
+
+    method_idx += method_idx_diff;
+
+    methods[i] = {
+      idx: method_idx,
+      access_flags: access_flags,
+      code_off: code_off
+    }
+  }
+  return methods;
+}
+
+// parse "class_data_item" objects
+var parse_dex_class_data = function(file) {
+  var static_fields_size = file.get_uleb128()
+  var instance_fields_size = file.get_uleb128()
+  var direct_methods_size = file.get_uleb128()
+  var virtual_methods_size = file.get_uleb128()
+
+  print("class has static="+static_fields_size+" instance="+instance_fields_size+" direct="+direct_methods_size+" virtual="+virtual_methods_size)
+
+  var static_fields = parse_encoded_fields(file, static_fields_size, fields)
+  var instance_fields = parse_encoded_fields(file, instance_fields_size, fields)
+  var direct_methods = parse_encoded_methods(file, direct_methods_size, methods)
+  var virtual_methods = parse_encoded_methods(file, virtual_methods_size, methods)
+}
+
+// parse "class_def_item" objects
+var parse_dex_classes = function(file, strings, types, fields, methods, class_defs) {
+  file.seek(class_defs.offset)
+  var i
+  var num_classes = class_defs.count
+  var classes = []
+
+  for(i=0; i<num_classes; i++) {
+    class_idx = file.get32()
+    access_flags = file.get32()
+    superclass_idx = file.get32()
+    interfaces_off = file.get32()
+    source_file_idx = file.get32()
+    annotations_off = file.get32()
+    class_data_off = file.get32()
+    static_values_off = file.get32()
+
+    // save offset for later
+    var nextClassDef = file.offset;
+
+    classes[i] = {
+      name: types[class_idx],
+      access: access_flags,
+      super: types[superclass_idx],
+      source_file: strings[source_file_idx],
+    }
+
+    print("Defining class \""+classes[i].name+"\"...")
+
+    if(interfaces_off !== 0) {
+      file.seek(interfaces_off)
+      classes[i].interfaces = parse_dex_type_list(file, types)
+    }
+    if(annotations_off !== 0) {
+      file.seek(annotations_off)
+      classes[i].annotations = parse_dex_annotations(file)
+    }
+    if(class_data_off !== 0) {
+      file.seek(class_data_off)
+      classes[i].class_data = parse_dex_class_data(file, fields, methods)
+    }
+    if(static_values_off !== 0) {
+      file.seek(static_values_off)
+      classes[i].static_values = parse_dex_class_static(file)
+    }
+
+    // restore file pointer if we went looking elsewhere
+    file.seek(nextClassDef);
+  }
+}
+
 var parse_dex = function(byte_data) {
   var i, j
   var N = byte_data.length;
@@ -227,7 +375,21 @@ var parse_dex = function(byte_data) {
           protos[i].return_type+"")
   }
 
-  //var fields = parse_dex_fields
+  var fields = parse_dex_fields(file, strings, types, field_ids)
+  for(i=0; i<fields.length; i++) {
+    var f = fields[i]
+    print("field:: class \"" + f.defining_class + "\" defines \"" + f.name + "\" which is a \"" + f.type + "\"")
+  }
+
+  var methods = parse_dex_methods(file, strings, types, protos, method_ids)
+  for(i=0; i<methods.length; i++) {
+    var m = methods[i]
+    var p = m.prototype
+    print("method:: class \"" + m.defining_class + "\" defines \"" + m.name + "\" which is a (" + p.params.join(", ") + ") -> " + p.return_type)
+  }
+
+  var classes = parse_dex_classes(file, strings, types, fields, methods, class_defs)
+
 }
 
 parse_dex(factorial_dex_data)
