@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dex VM on Js</title>
+    <script>
+      function singleStep() {
+        alert("Single Stepping to the beats");
+	  }
+	  
+	  function breakRun() {
+        alert("Break dancing to the beats");
+	  }
+	  
+	  function fullRun() {
+        alert("Running to the beats");
+	  }
+	  
+	  function nextStatement() {
+        alert("Next big thing is DalvikVM!!");
+	  }
+	</script>
+
+  </head>
+  <body>
+	<table style="frame=void;rules:cols">
+	  <tr>
+	    <th width="30%">Input Area</th>
+	    <th width="30%">Debug Area</th>
+	    <th width="30%">Output Area</th>
+	  </tr>
+	  <tr style="rules:cols">
+        <td>
+		  <textarea id="dexInput" rows="20" width="90%">
+		    Dex input goes here
+		  </textarea>
+		</td>
+		<td>
+		  <table>
+		    <tr><td>Memory State</td></tr>
+			<tr><td>
+			  <textarea id="regState" rows="10" width="90%">
+			    Current state of virtual registers
+			  </textarea>
+			</td></tr>
+			<tr>
+			  <td>PC: <input type="text" id="pctxt" readonly="readonly" name="PC Line"></input><td>
+			  <td><button onclick="nextStatement()">Next Statement</button></td>
+			</tr>
+			<tr><td>
+			  Return Value: <input type="text" id="retValuetxt" readonly="readonly" name="Return Value"></input>
+			</td></tr>
+		  </table>
+		</td>
+		<td>
+		  <textarea id="vmOutput" rows="20" width="90%" readonly="readonly">
+		    VM output appears here
+		  </textarea>
+		</td>
+	  </tr>
+      <tr>
+	    <td>
+		  <button onclick="singleStep()">Single Step</button>
+		  <button onclick="breakRun()">Break Run</button>
+		  <button onclick="fullRun()">Full Run</button>
+		</td>
+		<td>
+		  
+		</td>
+		<td></td>
+      </tr>	  
+    </table>   
+
+  </body>
+
+</html>
