@@ -222,30 +222,125 @@ var dexLoader = (function() {
     return fields
   }
 
+  // parse "code_item" objects
+  var parseCode = function(file, code_offset, types, fields, methods) {
+    var i;
+    file.seek(code_offset);
+
+    var registers_size = file.get16()
+    var ins_size = file.get16()
+    var outs_size = file.get16()
+    var tries_size = file.get16()
+    var debug_info_off = file.get32()
+    var insns_size = file.get32() // number of 16-bit code units
+    
+    var codeUnits = []
+    for(i=0; i<insns_size; i++) {
+      // grab next 16 bytes
+      codeUnits.push(file.get())
+      codeUnits.push(file.get())
+    }
+
+    // if there were an odd number of instructions, then there is 16 bits of padding to make the next bit 4-byte aligned.
+    if(insns_size % 2 == 1) {
+      var padding = file.get16()
+      assert(padding === 0, 'padding sanity check in code parsing')
+    }
+    
+    // parse "try" blocks
+    var tries = []
+    for(i=0; i<tries_size; i++) {
+      // parse "try_item"
+      tries[i] = {
+        start_addr: file.get32(),
+        insn_count: file.get16(),
+        handler_off: file.get16(),
+      }
+    }
+
+    // parse associated "catch" blocks
+    var handlers = []
+    if(tries_size) {
+      // parse "encoded_catch_handler_list"
+      var handlers_size = file.get_uleb128()
+      for(i=0; i<handlers_size; i++) {
+        var catch_types = file.get_sleb128()
+        var catch_all_present = (catch_types < 0)
+        catch_types = abs(catch_types)
+
+        var catch_handlers = {}
+        
+        var j;
+        for(j=0; j<catch_types; j++) {
+          var type_id = file.get_uleb128()
+          var handler_addr = file.get_uleb128()
+
+          catch_handlers[ types[type_id] ] = handler_addr
+          // e.g. catch_handlers["Ljava/lang/String;"] = pointer to where that exception type is handled
+        }
+        if(catch_all_present) {
+          var catch_all_addr = file.get_uleb128()
+          catch_handlers[""] = handler_addr
+        }
+
+        handlers[i] = catch_handlers;
+      }
+    }
+
+    // now translate codeUnits and other stuff
+    debug(codeUnits.map(function(n){ return "0x"+hex(n) }).join(", "))
+
+    i = 0;
+    while(i < codeUnits.length) {
+      var op = codeUnits[i];
+      var name = opcode[op].name
+      var format = opcode_format[op]
+
+      debug("  " + name)
+
+      i+= format.code_units*2
+    }
+
+  }
+
   // parse "encoded_method" objects
-  var parseEncodedMethods = function(file, count, methods) {
+  var parseEncodedMethods = function(file, count, types, fields, methods) {
     var i;
     var method_idx = 0;
-    var methods = []
+    var results = []
 
     for(i=0; i<count; i++) {
       var method_idx_diff = file.get_uleb128()
       var access_flags = file.get_uleb128()
       var code_off = file.get_uleb128()
 
+
       method_idx += method_idx_diff;
 
-      methods[i] = {
-        idx: method_idx,
-        access_flags: access_flags,
-        code_off: code_off
+      var methodDef = methods[method_idx]
+      var methodProto = methodDef.prototype
+
+      // save offset
+      var nextMethodOffset = file.offset;
+
+      debug("parseCode for " + methodDef.name)
+      // read in code for this method
+      var code = parseCode(file, code_off, types, fields, methods)
+      file.seek(nextMethodOffset); // queue up next entry
+
+      results[i] = {
+        name: methodDef.name,
+        parameterTypes: methodProto.params,
+        returnType: methodProto.return_type,
+        accessFlags: access_flags,
       }
+
     }
-    return methods;
+    return results;
   }
 
   // parse "class_data_item" objects
-  var parse_dex_class_data = function(file, fields, methods) {
+  var parseClassData = function(classDef, file, types, fields, methods) {
     var static_fields_size = file.get_uleb128()
     var instance_fields_size = file.get_uleb128()
     var direct_methods_size = file.get_uleb128()
@@ -253,10 +348,10 @@ var dexLoader = (function() {
 
     debug("class has static="+static_fields_size+" instance="+instance_fields_size+" direct="+direct_methods_size+" virtual="+virtual_methods_size)
 
-    var static_fields = parseEncodedFields(file, static_fields_size, fields)
-    var instance_fields = parseEncodedFields(file, instance_fields_size, fields)
-    var direct_methods = parseEncodedMethods(file, direct_methods_size, methods)
-    var virtual_methods = parseEncodedMethods(file, virtual_methods_size, methods)
+    classDef.staticFields = parseEncodedFields(file, static_fields_size, fields)
+    classDef.instanceFields = parseEncodedFields(file, instance_fields_size, fields)
+    classDef.directMethods = parseEncodedMethods(file, direct_methods_size, types, fields, methods)
+    classDef.virtualMethods = parseEncodedMethods(file, virtual_methods_size, types, fields, methods)
   }
 
   // parse "class_def_item" objects
@@ -279,38 +374,35 @@ var dexLoader = (function() {
       // save offset for later
       var nextClassDef = file.offset;
 
-      classes[i] = {
-        name: types[class_idx],
-        access: access_flags,
-        super: types[superclass_idx],
-        source_file: strings[source_file_idx],
-      }
+      // create a "Class.js" object
+      var className = types[class_idx]
+      var parentName = types[superclass_idx]
+      var c = makeClass(className, parentName, access_flags);
 
-      debug("Defining class \""+classes[i].name+"\"...")
+      debug("Defining class \""+c.name+"\"...")
 
       if(interfaces_off !== 0) {
         file.seek(interfaces_off)
-        classes[i].interfaces = parseTypeList(file, types)
+        c.interfaces = parseTypeList(file, types)
       }
-      if(annotations_off !== 0) {
-        file.seek(annotations_off)
-        classes[i].annotations = parse_dex_annotations(file)
-      }
+      //--- Since annotations have no runtime effect, ignore
       if(class_data_off !== 0) {
         file.seek(class_data_off)
-        classes[i].class_data = parse_dex_class_data(file, fields, methods)
+        parseClassData(c, file, types, fields, methods)
       }
       if(static_values_off !== 0) {
         file.seek(static_values_off)
-        classes[i].static_values = parse_dex_class_static(file)
+        c.static_values = parse_dex_class_static(file)
       }
+
+      classes[i] = c;
 
       // restore file pointer if we went looking elsewhere
       file.seek(nextClassDef);
     }
   }
 
-  var loadDex = function(byte_data) {
+  var parse = function(byte_data) {
     var i, j
     var N = byte_data.length;
 
@@ -397,16 +489,17 @@ var dexLoader = (function() {
 
     var classes = parseClasses(file, strings, types, fields, methods, class_defs)
 
+
   }
   
   return {
     load: function(byteArray) {
-      return loadDex(byteArray);
+      return parse(byteArray);
     },
   }
 })();
 
 var factorial_dex_data = [100,101,120,10,48,51,53,0,167,89,189,132,47,234,107,172,232,6,142,202,253,174,255,246,36,16,249,50,144,236,206,154,204,2,0,0,112,0,0,0,120,86,52,18,0,0,0,0,0,0,0,0,44,2,0,0,14,0,0,0,112,0,0,0,7,0,0,0,168,0,0,0,3,0,0,0,196,0,0,0,1,0,0,0,232,0,0,0,4,0,0,0,240,0,0,0,1,0,0,0,16,1,0,0,156,1,0,0,48,1,0,0,118,1,0,0,126,1,0,0,129,1,0,0,142,1,0,0,165,1,0,0,185,1,0,0,205,1,0,0,208,1,0,0,212,1,0,0,216,1,0,0,237,1,0,0,253,1,0,0,3,2,0,0,8,2,0,0,1,0,0,0,2,0,0,0,3,0,0,0,4,0,0,0,5,0,0,0,6,0,0,0,9,0,0,0,6,0,0,0,5,0,0,0,0,0,0,0,7,0,0,0,5,0,0,0,104,1,0,0,8,0,0,0,5,0,0,0,112,1,0,0,4,0,2,0,12,0,0,0,1,0,0,0,0,0,0,0,1,0,2,0,11,0,0,0,2,0,1,0,13,0,0,0,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,29,2,0,0,0,0,0,0,1,0,1,0,1,0,0,0,17,2,0,0,4,0,0,0,112,16,3,0,0,0,14,0,3,0,1,0,2,0,0,0,22,2,0,0,8,0,0,0,98,0,0,0,19,1,45,0,110,32,2,0,16,0,14,0,1,0,0,0,0,0,0,0,1,0,0,0,6,0,6,60,105,110,105,116,62,0,1,73,0,11,76,102,97,99,116,111,114,105,97,108,59,0,21,76,106,97,118,97,47,105,111,47,80,114,105,110,116,83,116,114,101,97,109,59,0,18,76,106,97,118,97,47,108,97,110,103,47,79,98,106,101,99,116,59,0,18,76,106,97,118,97,47,108,97,110,103,47,83,121,115,116,101,109,59,0,1,86,0,2,86,73,0,2,86,76,0,19,91,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,0,14,102,97,99,116,111,114,105,97,108,46,106,97,118,97,0,4,109,97,105,110,0,3,111,117,116,0,7,112,114,105,110,116,108,110,0,2,0,7,14,0,14,1,0,7,14,120,0,0,0,2,0,0,128,128,4,176,2,1,9,200,2,0,13,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,14,0,0,0,112,0,0,0,2,0,0,0,7,0,0,0,168,0,0,0,3,0,0,0,3,0,0,0,196,0,0,0,4,0,0,0,1,0,0,0,232,0,0,0,5,0,0,0,4,0,0,0,240,0,0,0,6,0,0,0,1,0,0,0,16,1,0,0,1,32,0,0,2,0,0,0,48,1,0,0,1,16,0,0,2,0,0,0,104,1,0,0,2,32,0,0,14,0,0,0,118,1,0,0,3,32,0,0,2,0,0,0,17,2,0,0,0,32,0,0,1,0,0,0,29,2,0,0,0,16,0,0,1,0,0,0,44,2,0,0]
 
-dexLoader.load(factorial_dex_data)
+var classes_defined = dexLoader.load(factorial_dex_data)
 

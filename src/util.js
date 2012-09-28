@@ -9,6 +9,13 @@ var hex = function(n) {
   return n.toString(16);
 }
 
+var abs = function(n) {
+  if(n < 0) {
+    return -n;
+  }
+  return n;
+}
+
 var nbits = function(n) { 
   assert(n < 56, "nbits 56-bit bounds check")
   return (1 << n) - 1;
