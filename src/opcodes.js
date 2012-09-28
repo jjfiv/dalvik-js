@@ -1,4 +1,8 @@
+'use strict'
+
 // Dalvik VM opcode list
+
+var opcode = []
 
 opcode[0x00].name = "nop"
 

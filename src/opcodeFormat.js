@@ -1,3 +1,4 @@
+'use strict'
 
 // this section will probably be used during the design phase of the DEX loader, and thrown away afterward
 

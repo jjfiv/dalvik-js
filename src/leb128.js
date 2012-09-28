@@ -1,3 +1,4 @@
+'use strict'
 
 // LEB128 variable byte encoding from DWARF 3 format used in .dex files
 var leb128 = function(get_byte, signed) {
@@ -5,7 +6,7 @@ var leb128 = function(get_byte, signed) {
   var value = 0;
   
   for(i=0; i<5; i++) {
-    cur = get_byte() & 0xff
+    var cur = get_byte() & 0xff
 
     // accum
     value |= (cur & 0x7f) << (7*i)

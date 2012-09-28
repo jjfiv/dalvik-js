@@ -1,3 +1,4 @@
+'use strict'
 
 var assert = function(cond, text) {
   if(!cond) {

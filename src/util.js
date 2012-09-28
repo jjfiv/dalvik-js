@@ -1,3 +1,5 @@
+'use strict'
+
 var int = function(n) { return n | 0; }
 var hex = function(n) {
   // this if statement prevents "signed hex printout"

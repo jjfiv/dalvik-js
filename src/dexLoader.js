@@ -1,3 +1,5 @@
+'use strict'
+
 var DEX_LOADER_DEBUG = true // refresh-time constant
 
 var dexLoader = (function() {
@@ -83,7 +85,7 @@ var dexLoader = (function() {
     file.seek(type_ids.offset)
     var num_descriptors = type_ids.count
 
-    types = []
+    var types = []
     for(i=0; i<num_descriptors; i++) {
       types[i] = strings[file.get32()]
     }
@@ -95,7 +97,7 @@ var dexLoader = (function() {
     var count = file.get32()
     var i
 
-    type_list = []
+    var type_list = []
     for(i=0; i<count; i++) {
       type_list.push(types[file.get16()])
     }
@@ -107,7 +109,7 @@ var dexLoader = (function() {
     file.seek(proto_ids.offset)
     var num_protos = proto_ids.count
 
-    protos = []
+    var protos = []
     for(i=0; i<num_protos; i++) {
       var shorty_idx = file.get32()
       var return_type_idx = file.get32()
@@ -265,14 +267,14 @@ var dexLoader = (function() {
     var classes = []
 
     for(i=0; i<num_classes; i++) {
-      class_idx = file.get32()
-      access_flags = file.get32()
-      superclass_idx = file.get32()
-      interfaces_off = file.get32()
-      source_file_idx = file.get32()
-      annotations_off = file.get32()
-      class_data_off = file.get32()
-      static_values_off = file.get32()
+      var class_idx = file.get32()
+      var access_flags = file.get32()
+      var superclass_idx = file.get32()
+      var interfaces_off = file.get32()
+      var source_file_idx = file.get32()
+      var annotations_off = file.get32()
+      var class_data_off = file.get32()
+      var static_values_off = file.get32()
 
       // save offset for later
       var nextClassDef = file.offset;
@@ -362,7 +364,7 @@ var dexLoader = (function() {
     var class_defs = readSection("class_defs", file)
     var data = readSection("data", file)
 
-    strings = parseStrings(file, string_ids)
+    var strings = parseStrings(file, string_ids)
     for(i=0; i<strings.length; i++) {
       var s = strings[i]
       debug("string["+i+"] len="+s.length+" data=\""+s+"\"")
