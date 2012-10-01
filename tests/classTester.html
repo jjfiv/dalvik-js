@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Class Builder</title>
+  </head>
+  <body>
+
+  <button onclick="foo()">Try it</button>
+
+
+
+  <script>
+    document.write("bla3");
+	
+	function array2dString() {
+      var string str;
+      var int i;
+      var int j;
+  
+      str = this.name;
+      for (i in this) {
+	    str = str + "\n  " + this[i];
+	    for (j in this[i]) {
+	      str = str + "\n    " + this[i][j];
+	    }
+      }
+	  return str;
+    }
+  
+    var classes = []
+    classes.push(makeclass(class1, none, public));
+    classes.class1.directMethods[0] = "foo";
+    classes.class1.directMethods[1] = "bar";
+
+    classes.push(makeclass(class2, class1, public));
+    classes.class2.directMethods[0] = "foo";
+    classes.class2.virtualMethods[0] = "bar";
+
+    classes.push(makeclass(class3, class1, public));
+    classes.class3.virtualMethods[0] = "foo";
+    classes.class3.directMethods[0] = "bar";
+
+    classes.push(makeclass(class4, class2, public));
+    classes.class4.virtualMethods[0] = "foo";
+    classes.class4.virtualMethods[1] = "bar";
+	
+	classes.arrayString = array2dString;
+	
+	function foo() {
+	  alert(classes.toString());
+	}    
+    
+	
+  </script>
+  </body>
+
+</html>
