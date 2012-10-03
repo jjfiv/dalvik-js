@@ -5,13 +5,53 @@
     <title>Class Builder</title>
   </head>
   <body>
+  
+  doc bla \n
+
 
   <button onclick="foo()">Try it</button>
 
 
 
   <script>
-    document.write("bla3");
+    document.write("\n bla3 \n");
+	
+	var mClass = function (cName) {
+	  name: cName,
+	  
+	  directMethods: [],
+	  virtualMethods: []
+	}
+	
+	var classes = []
+	
+    //classes.push(makeclass(class1, none, public));
+	classes.push("class1");
+	classes.class1.push("directMethods");
+   
+  
+    document.write("\n" + classes.toString());
+	function foo() {
+	  alert(classes.toString());
+	}    
+    
+	 classes.class1.directMethods[0] = "foo";
+    classes.class1.directMethods[1] = "bar";
+
+    //classes.push(makeclass(class2, class1, public));
+	classes.push("class2");
+    classes.class2.directMethods[0] = "foo";
+    classes.class2.virtualMethods[0] = "bar";
+
+    //classes.push(makeclass(class3, class1, public));
+	classes.push("class3");
+    classes.class3.virtualMethods[0] = "foo";
+    classes.class3.directMethods[0] = "bar";
+
+    //classes.push(makeclass(class4, class2, public));
+	classes.push("class4");
+    classes.class4.virtualMethods[0] = "foo";
+    classes.class4.virtualMethods[1] = "bar";
 	
 	function array2dString() {
       var string str;
@@ -27,30 +67,8 @@
       }
 	  return str;
     }
-  
-    var classes = []
-    classes.push(makeclass(class1, none, public));
-    classes.class1.directMethods[0] = "foo";
-    classes.class1.directMethods[1] = "bar";
-
-    classes.push(makeclass(class2, class1, public));
-    classes.class2.directMethods[0] = "foo";
-    classes.class2.virtualMethods[0] = "bar";
-
-    classes.push(makeclass(class3, class1, public));
-    classes.class3.virtualMethods[0] = "foo";
-    classes.class3.directMethods[0] = "bar";
-
-    classes.push(makeclass(class4, class2, public));
-    classes.class4.virtualMethods[0] = "foo";
-    classes.class4.virtualMethods[1] = "bar";
 	
-	classes.arrayString = array2dString;
-	
-	function foo() {
-	  alert(classes.toString());
-	}    
-    
+	//classes.arrayString = array2dString;
 	
   </script>
   </body>
