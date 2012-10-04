@@ -1,29 +1,34 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Class Builder</title>
-</head>
-<body>
+'use strict'
 
-classes.toString();
-
-</body>
-
-var classes = []
-classes.push(mkaeclass(class1, none, public));
-classes.class1.directMethods[0] = "foo";
-classes.class1.directMethods[1] = "bar";
-
-classes.push(mkaeclass(class2, class1, public));
-classes.class2.directMethods[0] = "foo";
-classes.class2.virtualMethods[0] = "bar";
-
-classes.push(mkaeclass(class3, class1, public));
-classes.class3.virtualMethods[0] = "foo";
-classes.class3.directMethods[0] = "bar";
-
-classes.push(mkaeclass(class4, class2, public));
-classes.class4.virtualMethods[0] = "foo";
-classes.class4.virtualMethods[1] = "bar";
-
-</html>
+	var mClass = function (cName) {
+	  return {name: cName,
+	    
+	    directMethods: [],
+	    virtualMethods: []
+	  }
+	}
+	
+	var classes = [];
+	
+	classes.push(mClass("class1"));
+	classes[0].directMethods.push("foo");
+    classes[0].directMethods.push("bar");
+	
+	classes.push(mClass("class2"));
+	classes[1].directMethods.push("foo");
+    classes[1].virtualMethods.push("bar");
+	
+	classes.push(mClass("class3"));
+	classes[2].virtualMethods.push("foo");
+    classes[2].directMethods.push("bar");
+	
+	classes.push(mClass("class4"));
+	classes[3].virtualMethods.push("foo");
+    classes[3].virtualMethods.push("bar");	
+   
+  
+    document.write("\n" + classes[0]);
+	function foo() {
+	  alert(JSON.stringify(classes));
+	}    
+  
