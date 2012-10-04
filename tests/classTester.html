@@ -17,8 +17,8 @@
     document.write("\n bla3 \n");
 	
 	var mClass = function (cName) {
-	  return {mName: cName,
-	  
+	  return {name: cName,
+	    
 	    directMethods: [],
 	    virtualMethods: []
 	  }
@@ -26,22 +26,21 @@
 	
 	var classes = [];
 	
-	classes[0] = mClass("class1");
-	classes.class1.directMethods[0] = "foo";
-    classes.class1.directMethods[1] = "bar";
+	classes.push(mClass("class1"));
+	classes[0].directMethods.push("foo");
+    classes[0].directMethods.push("bar");
 	
 	classes.push(mClass("class2"));
-	classes[1] = mClass("class2");
-	classes.class2.directMethods[0] = "foo";
-    classes.class2.virtualMethods[0] = "bar";
+	classes[1].directMethods.push("foo");
+    classes[1].virtualMethods.push("bar");
 	
 	classes.push(mClass("class3"));
-	classes.class3.virtualMethods[0] = "foo";
-    classes.class3.directMethods[0] = "bar";
+	classes[2].virtualMethods.push("foo");
+    classes[2].directMethods.push("bar");
 	
 	classes.push(mClass("class4"));
-	classes.class4.virtualMethods[0] = "foo";
-    classes.class4.virtualMethods[1] = "bar";
+	classes[3].virtualMethods.push("foo");
+    classes[3].virtualMethods.push("bar");
 	
 	//classes.array2dString = array2dString(classes);
 	
@@ -50,7 +49,8 @@
   
     document.write("\n" + classes[0]);
 	function foo() {
-	  alert(classes);
+        alert("asdf");
+	  alert(JSON.stringify(classes));
 	}    
   
 	
