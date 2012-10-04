@@ -1,0 +1,99 @@
+Processing 'cht.dex'...
+Opened 'cht.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LClassHierarchyTest;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LClassHierarchyTest;)
+      name          : 'birdName'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0000 ()
+    #1              : (in LClassHierarchyTest;)
+      name          : 'canFly'
+      type          : 'Ljava/lang/Boolean;'
+      access        : 0x0000 ()
+  Direct methods    -
+    #0              : (in LClassHierarchyTest;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;Ljava/lang/Boolean;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 1
+      insns size    : 8 16-bit code units
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0003 line=7
+        0x0005 line=8
+        0x0007 line=9
+      locals        : 
+        0x0000 - 0x0008 reg=0 this LClassHierarchyTest; 
+    #1              : (in LClassHierarchyTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 3
+      insns size    : 34 16-bit code units
+      catches       : (none)
+      positions     : 
+        0x0000 line=32
+        0x000c line=33
+        0x0013 line=35
+        0x001c line=36
+        0x0021 line=38
+      locals        : 
+  Virtual methods   -
+    #0              : (in LClassHierarchyTest;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 74 16-bit code units
+      catches       : (none)
+      positions     : 
+        0x0000 line=14
+        0x001b line=15
+        0x0023 line=16
+        0x0036 line=19
+        0x0049 line=21
+      locals        : 
+        0x0000 - 0x004a reg=2 this LClassHierarchyTest; 
+  source_file_idx   : 3 (ClassHierarchyTest.java)
+
+Class #1            -
+  Class descriptor  : 'LClassHierarchyTest$Penguin;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'LClassHierarchyTest;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LClassHierarchyTest$Penguin;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 3
+      insns size    : 9 16-bit code units
+      catches       : (none)
+      positions     : 
+        0x0000 line=27
+        0x0008 line=28
+      locals        : 
+        0x0000 - 0x0009 reg=1 this LClassHierarchyTest$Penguin; 
+  Virtual methods   -
+  source_file_idx   : 3 (ClassHierarchyTest.java)
+
