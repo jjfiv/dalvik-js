@@ -13,6 +13,7 @@ var mock_hello_classes = [
         name: "main",
         returnType: "V"
         params: ["[Ljava/lang/String;"],
+        numRegisters: 2,
         icode: [
           {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
           {op: "move-const", dest: 1, value: 45},
@@ -24,6 +25,7 @@ var mock_hello_classes = [
         name: "<init>",
         returnType: "V"
         params: ["[Ljava/lang/String;"],
+        numRegisters: 1,
         icode: [
           {op: "invoke", kind: "direct", argumentRegisters: [0], method: "Ljava/lang/Object;.<init>"}
           {op: "return"}

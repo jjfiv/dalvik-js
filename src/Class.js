@@ -15,8 +15,8 @@ var makeClass = function(typeName, parentName, access) {
     staticFields: [],
     instanceFields: [],
 
-    directMethods: [],
-    virtualMethods: [],
+    directMethods: [], // directMethods are "static" or class methods
+    virtualMethods: [], // virtualMethods are instance methods
 
 
     sanityCheck: function() {
