@@ -3,134 +3,132 @@
 // vm.js
 // This is the core of the VM
 // This is not global; initVM returns a new VM object
+// variables that are meant to be "private," as well as method names are prefixed with an underscore.
 
 var initVM = function() {
 
   return {
-    threads = []
+      threads : [],
 
-
-    createThread: function( directMethod ) {
-      var newThread = {
-
+    createThread: function(_directMethod) {
+	  // a method on the VM, executed for its side effects
+      var _newThread = {
         // magical result register
-        result: null, 
-
+        _result: null, 
         // stack of frames
-        stack: [],  
-
-        // start executing a given method
-        pushMethod: function(m) {
-          var frame = {
+        _stack: [],  
+        // start executing a given method -> this is executed strictly for its side effects
+        pushMethod: function(_m) {
+	  var _i;
+          var _frame = {
             pc: 0,
             regs: [],
-            method: method,
+            method: _m,
           };
-
-          var i;
-          for(i=0; i<method.numRegisters; i++) {
-            regs[i] = 0;
+          for(_i=0; _i<_m.numRegisters; _i++) {
+            regs[_i] = 0;
           }
 
           // TODO load up regs with arguments; I think we need to do this backwards?
 
 
-        },
+	  }, //ends pushMethod
         
         // grab the current frame object
         currentFrame: function() {
-          var s = this.stack;
-          var len = s.length;
+          var _s = this.stack;
+          var _len = _s.length;
           
           // this assert may be too paranoid eventually
-          assert(len !== 0, "Looking for non-existent stack frame!")
+          assert(_len !== 0, "Looking for non-existent stack frame!")
 
-          return s[len-1]
-        }
+          return _s[_len-1]
+	  }, //ends currentFrame
         
-        getRegister: function(idx) {
-          return currentFrame().regs[idx]
-        },
+        getRegister: function(_idx) {
+	      return this.currentFrame().regs[_idx]
+	  }, //ends getRegister
+	
+        setRegister: function(_idx, _value) {
+          this.currentFrame().regs[_idx] = _value
+	  }, //ends setRegister
 
-        setRegister: function(idx, value) {
-          currentFrame().regs[idx] = value
-        },
-
-        setResult: function(value) {
-          result = value;
-        }
+        setResult: function(_value) {
+          this.result = _value;
+	  }, //ends setResult
         
-        throwException: function(obj) {
-          val type = obj.type; //TODO, have instances designed
+        throwException: function(_obj) {
+          val _type = _obj.type; //TODO, have instances designed
 
           // find current method
           // find list of catches
           // find first match
           // frame.pc = first_match.pc
           // assert(nextInstruction == "move-exception")
-        },
+	  }, //ends throwException
 
         // do the next instruction
         doNextInstruction: function() {
-          terminal.println(statusString)
+	  terminal.println(this.statusString())
 
-          var frame = this.currentFrame()
-          var inst = frame.method.icode[frame.pc]
+          var _frame = this.currentFrame()
+          var _inst = _frame.method.icode[_frame.pc]
 
           // see icode.js
-          var handler = icode[inst.op];
+          var _handler = icode[_inst.op]
 
-          if(typeof(handler) === 'undefined') {
-            assert(0, "UNSUPPORTED OPCODE!");
+	  if(isUndefined(_handler) === 'undefined') {
+            assert(0, "UNSUPPORTED OPCODE!")
           }
 
-          handler(inst, this);
-          frame.pc++;
-        },
+	  var _inc = _handler(_inst, this)
+	  _frame.pc += isUndefined(_inc) ? 1 : _inc
+	  }, //end doNextInstruction
 
         // summarize where we are
         statusString: function() {
-          var f = this.currentFrame()
-          return "in " + f.method.name + " pc="+f.pc+" nextInstr=" f.method.icode[f.pc]+ " regs: " + f.regs
-        }
+          var _f = this.currentFrame()
+          return "in " + _f.method.name + " pc=" + _f.pc + " nextInstr=" + _f.method.icode[_f.pc] + " regs: " + _f.regs
+	  } //end statusString
       }
-
-
-      threads.push(newThread)
-    },
+      this.threads.push(_newThread)
+      }, //ends createThread
 
     //--- main entry point of VM
-    start: function(classList, mainClass) {
-      var publicStaticVoidMain = null
+    start: function(_classList, _mainClass) {
+      var _publicStaticVoidMain = null
 
-      for(class in classList) {
-        if(class.name === mainClass) {
-          for(m in class.directMethods) {
-            if(m.name === "main" && m.returnType === "V" && m.params.length === 1 && m.params[0] === "[Ljava/lang/String;") {
-              publicStaticVoidMain = m;
+      for(_class in _classList) {
+        if(_class.name === _mainClass) {
+          for(_m in _class.directMethods) {
+            if(_m.name === "main" && 
+	       _m.returnType === "V" &&
+	       _m.params.length === 1 &&
+	       _m.params[0] === "[Ljava/lang/String;") {
+              _publicStaticVoidMain = _m;
             }
           }
         }
       }
 
-      if(publicStaticVoidMain === null) {
-        terminal.println("main coulclassList, mainClassd not be found in " + mainClass);
+      if(_publicStaticVoidMain === null) {
+        terminal.println("main coulclassList, mainClassd not be found in " + _mainClass);
         return false
       }
 
-      startThread(publicStaticVoidMain)
+      this.createThread(_publicStaticVoidMain)
       return true
-    },
+      }, //ends start
   
 
     //--- clock tick; round-robin scheduler
     //    for now, do one instruction per thread
 
     clockTick: function () {
-      for(thread in threads) {
-        thread.doNextInstruction()
+      for(_thread in threads) {
+        _thread.doNextInstruction()
       }
-    }
+      } //ends clockTick
 
   }
 }
