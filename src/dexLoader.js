@@ -290,15 +290,22 @@ var dexLoader = (function() {
     // now translate codeUnits and other stuff
     debug(codeUnits.map(function(n){ return "0x"+hex(n) }).join(", "))
 
-    i = 0;
-    while(i < codeUnits.length) {
-      var op = codeUnits[i];
+    // translateCode
+    var codeFile = arrayFile(codeUnits);
+
+    var codeFileLen = codeUnits.length
+
+    while(codeFile.offset < codeFileLen) {
+      var start = codeFile.offset
+
+      var op = codeFile.get()
       var name = opcode[op].name
       var format = opcode_format[op]
 
+
       debug("  " + name)
 
-      i+= format.code_units*2
+      codeFile.seek(start + format.code_units*2)
     }
 
   }
