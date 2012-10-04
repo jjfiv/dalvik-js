@@ -1,3 +1,5 @@
+'use strict'
+
 
 var mock_hello_classes = [
   {

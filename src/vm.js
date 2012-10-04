@@ -2,7 +2,7 @@
 
 // vm.js
 // This is the core of the VM
-// This is a global; initVM returns a new VM object
+// This is not global; initVM returns a new VM object
 
 var initVM = function() {
 
@@ -37,7 +37,6 @@ var initVM = function() {
 
         },
         
-        thread 
         // grab the current frame object
         currentFrame: function() {
           var s = this.stack;
@@ -49,7 +48,28 @@ var initVM = function() {
           return s[len-1]
         }
         
+        getRegister: function(idx) {
+          return currentFrame().regs[idx]
+        },
+
+        setRegister: function(idx, value) {
+          currentFrame().regs[idx] = value
+        },
+
+        setResult: function(value) {
+          result = value;
+        }
         
+        throwException: function(obj) {
+          val type = obj.type; //TODO, have instances designed
+
+          // find current method
+          // find list of catches
+          // find first match
+          // frame.pc = first_match.pc
+          // assert(nextInstruction == "move-exception")
+        },
+
         // do the next instruction
         doNextInstruction: function() {
           terminal.println(statusString)
@@ -57,11 +77,15 @@ var initVM = function() {
           var frame = this.currentFrame()
           var inst = frame.method.icode[frame.pc]
 
-          if(inst.op == "return") {
-            stack.pop()
-          } else {
-            frame.pc++
+          // see icode.js
+          var handler = icode[inst.op];
+
+          if(typeof(handler) === 'undefined') {
+            assert(0, "UNSUPPORTED OPCODE!");
           }
+
+          handler(inst, this);
+          frame.pc++;
         },
 
         // summarize where we are
