@@ -68,7 +68,7 @@ Thread.prototype.doNextInstruction = function() {
   var _inst = _frame.method.icode[_frame.pc]
 
   // see icode.js
-  var _handler = icode[_inst.op];
+  var _handler = icodeHandlers[_inst.op];
 
   if(isUndefined(_handler)) {
     assert(0, "UNSUPPORTED OPCODE!");
