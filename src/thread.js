@@ -14,12 +14,12 @@ Thread.prototype.pushMethod = function(_m) {
   };
 
   for(_i=0; _i<_m.numRegisters; _i++) {
-    this.regs[_i] = 0;
+    _frame.regs[_i] = 0;
   }
 
   // TODO load up regs with arguments; I think we need to do this backwards?
 
-  this.stack.push(_frame);
+  this._stack.push(_frame);
 } //ends pushMethod
 
 // grab the current frame object

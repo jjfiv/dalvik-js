@@ -10,18 +10,18 @@
  *
  */
 
-var terminal = (function() {
-  var output = document.getElementById('output')
+var HTMLTerminal = function() {
+  this._output = document.getElementById('output')
+}
 
-  var module = {
-    print: function(str) {
-      output.appendChild(document.createTextNode(str))
-    },
-    println: function(str) {
-      module.print(str + '\n')
-    }
-  }
-  
-  return module;
-})()
+HTMLTerminal.prototype.print = function(str) {
+  this.output.appendChild(document.createTextNode(str))
+}
+
+HTMLTerminal.prototype.println = function(str) {
+  this.print(str + '\n');
+}
+
+//--- global
+var terminal = new HTMLTerminal();
 
