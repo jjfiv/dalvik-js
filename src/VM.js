@@ -17,10 +17,16 @@ VM.prototype.createThread = function( _directMethod ) {
 VM.prototype.start = function ( _classList, _mainClass ) {
   var _publicStaticVoidMain = null
 
+  terminal.println(_classList)
   // TODO this will probably be done often enough to merit being its own function
-  for(_class in _classList) {
+  var _i, _j, _class, _m;
+  for(_i = 0; _i < _classList.length; _i++) {
+    _class = _classList[_i];
+
     if(_class.name === _mainClass) {
-      for(_m in _class.directMethods) {
+      for(_j = 0; _j < _class.directMethods.length; _j++) {
+        _m = _class.directMethods[_j];
+
         if( _m.name === "main" &&
             _m.returnType === "V" &&
             _m.params.length === 1 &&
@@ -43,7 +49,9 @@ VM.prototype.start = function ( _classList, _mainClass ) {
 VM.prototype.clockTick = function() {
   //--- clock tick; round-robin scheduler
   //    for now, do one instruction per thread
-  for(_thread in this._threads) {
+  var _i, _thread;
+  for(_i=0; _i<this._threads.length; _i++) {
+    _thread = this._threads[_i];
     _thread.doNextInstruction()
   }
   //--- remove all finished threads
@@ -51,16 +59,16 @@ VM.prototype.clockTick = function() {
 }
 
 VM.prototype.hasThreads = function() {
-  return this._threads.length === 0
+  return this._threads.length !== 0
 }
 
 //--- example usage
-var myVM = new VM();
-myVM.start(mock_hello_classes, "Ltest/HelloWorld;");
-
-while(myVM.hasThreads()) {
-  myVM.clockTick();
-}
+//var myVM = new VM();
+//myVM.start(mock_hello_classes, "Ltest/HelloWorld;");
+//
+//while(myVM.hasThreads()) {
+//  myVM.clockTick();
+//}
 
 
 

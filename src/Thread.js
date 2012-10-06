@@ -9,7 +9,7 @@ var StackFrame = function(_m) {
   this.method = _m;
 
   for(_i=0; _i<_m.numRegisters; _i++) {
-    _frame.regs[_i] = 0;
+    this.regs[_i] = 0;
   }
 }
 
@@ -33,18 +33,18 @@ Thread.prototype.popMethod = function(_result) {
     this.setResult(_result);
   }
 
-  this.stack.pop()
+  this._stack.pop()
 }
 
 // a thread is done execution when all its methods return
 // so when the frame stack is empty
 Thread.prototype.isFinished = function() {
-  return this.stack.length === 0
+  return this._stack.length === 0
 }
 
 // grab the current frame object
 Thread.prototype.currentFrame = function() {
-  var _s = this.stack;
+  var _s = this._stack;
   var _len = _s.length;
 
   // this assert may be too paranoid eventually

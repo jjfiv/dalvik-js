@@ -18,7 +18,6 @@ var Method = function(_name, _definingClass, _paramTypes, _returnType) {
 
   // the interpreter-specific code
   this.icode = []
-
 }
 
 Method.prototype.numParameters = function() {

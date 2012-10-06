@@ -15,7 +15,7 @@ var HTMLTerminal = function() {
 }
 
 HTMLTerminal.prototype.print = function(str) {
-  this.output.appendChild(document.createTextNode(str))
+  this._output.appendChild(document.createTextNode(str))
 }
 
 HTMLTerminal.prototype.println = function(str) {
