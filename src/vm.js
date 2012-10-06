@@ -3,36 +3,39 @@
 // vm.js
 // This is the core of the VM
 // This is not global; initVM returns a new VM object
-// variables that are meant to be "private," as well as method names are prefixed with an underscore.
 
-var initVM = function() {
+var makeVM = function() {
 
   return {
-      threads : [],
+    threads: [],
 
-    createThread: function(_directMethod) {
-	  // a method on the VM, executed for its side effects
+
+    createThread: function( _directMethod ) {
       var _newThread = {
+
         // magical result register
         _result: null, 
+
         // stack of frames
         _stack: [],  
-        // start executing a given method -> this is executed strictly for its side effects
+
+        // start executing a given method
         pushMethod: function(_m) {
-	  var _i;
+          var _i;
           var _frame = {
             pc: 0,
             regs: [],
             method: _m,
           };
+
           for(_i=0; _i<_m.numRegisters; _i++) {
-            regs[_i] = 0;
+            this.regs[_i] = 0;
           }
 
           // TODO load up regs with arguments; I think we need to do this backwards?
 
-
-	  }, //ends pushMethod
+          this.stack.push(_frame);
+	      }, //ends pushMethod
         
         // grab the current frame object
         currentFrame: function() {
@@ -43,56 +46,58 @@ var initVM = function() {
           assert(_len !== 0, "Looking for non-existent stack frame!")
 
           return _s[_len-1]
-	  }, //ends currentFrame
+        }, //ends currentFrame
         
         getRegister: function(_idx) {
-	      return this.currentFrame().regs[_idx]
-	  }, //ends getRegister
-	
+          return this.currentFrame().regs[_idx]
+        }, //ends getRegister
+
         setRegister: function(_idx, _value) {
           this.currentFrame().regs[_idx] = _value
-	  }, //ends setRegister
+        }, //ends setRegister
 
         setResult: function(_value) {
-          this.result = _value;
-	  }, //ends setResult
+          result = _value;
+        }
         
         throwException: function(_obj) {
-          val _type = _obj.type; //TODO, have instances designed
+          var type = _obj.type; //TODO, have instances designed
 
           // find current method
           // find list of catches
           // find first match
-          // frame.pc = first_match.pc
+          // frame.pc = firstMatch.pc
           // assert(nextInstruction == "move-exception")
-	  }, //ends throwException
+        }, //ends throwException
 
         // do the next instruction
         doNextInstruction: function() {
-	  terminal.println(this.statusString())
+          terminal.println(this.statusString())
 
           var _frame = this.currentFrame()
           var _inst = _frame.method.icode[_frame.pc]
 
           // see icode.js
-          var _handler = icode[_inst.op]
+          var _handler = icode[_inst.op];
 
-	  if(isUndefined(_handler) === 'undefined') {
-            assert(0, "UNSUPPORTED OPCODE!")
+          if(isUndefined(_handler)) {
+            assert(0, "UNSUPPORTED OPCODE!");
           }
 
-	  var _inc = _handler(_inst, this)
-	  _frame.pc += isUndefined(_inc) ? 1 : _inc
-	  }, //end doNextInstruction
+          var _inc = _handler(_inst, this);
+          _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
+        },
 
         // summarize where we are
         statusString: function() {
           var _f = this.currentFrame()
           return "in " + _f.method.name + " pc=" + _f.pc + " nextInstr=" + _f.method.icode[_f.pc] + " regs: " + _f.regs
-	  } //end statusString
+        } //ends statusString
       }
-      this.threads.push(_newThread)
-      }, //ends createThread
+
+
+      threads.push(newThread)
+    }, // ends createThread
 
     //--- main entry point of VM
     start: function(_classList, _mainClass) {
@@ -101,10 +106,10 @@ var initVM = function() {
       for(_class in _classList) {
         if(_class.name === _mainClass) {
           for(_m in _class.directMethods) {
-            if(_m.name === "main" && 
-	       _m.returnType === "V" &&
-	       _m.params.length === 1 &&
-	       _m.params[0] === "[Ljava/lang/String;") {
+            if(_m.name === "main" &&
+               _m.returnType === "V" &&
+               _m.params.length === 1 &&
+               _m.params[0] === "[Ljava/lang/String;") {
               _publicStaticVoidMain = _m;
             }
           }
@@ -112,13 +117,13 @@ var initVM = function() {
       }
 
       if(_publicStaticVoidMain === null) {
-        terminal.println("main coulclassList, mainClassd not be found in " + _mainClass);
+        terminal.println("main could not be found in " + _mainClass);
         return false
       }
 
       this.createThread(_publicStaticVoidMain)
       return true
-      }, //ends start
+    }, //ends start
   
 
     //--- clock tick; round-robin scheduler
@@ -128,9 +133,21 @@ var initVM = function() {
       for(_thread in threads) {
         _thread.doNextInstruction()
       }
-      } //ends clockTick
+    } //ends clockTick
 
   }
 }
+
+
+//--- example usage
+var myVM = makeVM();
+myVM.start(classes, "Ltest/HelloWorld;");
+
+while(myVM.running()) {
+  myVM.clockTick();
+}
+
+
+
 
 

@@ -27,3 +27,7 @@ var inspect = function(obj) {
   }
 }
 
+var isUndefined = function(_obj) {
+  return typeof(obj) === 'undefined';
+}
+

@@ -26,7 +26,7 @@ var mock_hello_classes = [
       {
         name: "<init>",
         returnType: "V"
-        params: ["[Ljava/lang/String;"],
+        params: [],
         numRegisters: 1,
         icode: [
           {op: "invoke", kind: "direct", argumentRegisters: [0], method: "Ljava/lang/Object;.<init>"}

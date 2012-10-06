@@ -10,10 +10,10 @@ var icode = {
     }
   },
   "invoke": function(inst, vm) {
-    
+
   },
   "move-const": function(inst, vm) {
-    
+
   },
   "static-get": function(inst, vm) {
     
