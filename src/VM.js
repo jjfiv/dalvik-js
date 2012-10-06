@@ -6,7 +6,6 @@
 
 var VM = function() {
   this._threads = []
-  this._running = false
 }
 
 VM.prototype.createThread = function( _directMethod ) {
@@ -47,13 +46,19 @@ VM.prototype.clockTick = function() {
   for(_thread in this._threads) {
     _thread.doNextInstruction()
   }
+  //--- remove all finished threads
+  this._threads = this._threads.filter(function(_t) { return !_t.isFinished() });
+}
+
+VM.prototype.hasThreads = function() {
+  return this._threads.length === 0
 }
 
 //--- example usage
 var myVM = new VM();
 myVM.start(mock_hello_classes, "Ltest/HelloWorld;");
 
-while(myVM.running()) {
+while(myVM.hasThreads()) {
   myVM.clockTick();
 }
 

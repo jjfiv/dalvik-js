@@ -27,6 +27,21 @@ Thread.prototype.pushMethod = function(_m) {
   this._stack.push(_frame);
 } //ends pushMethod
 
+// param _result is optional
+Thread.prototype.popMethod = function(_result) {
+  if(!isUndefined(_result)) {
+    this.setResult(_result);
+  }
+
+  this.stack.pop()
+}
+
+// a thread is done execution when all its methods return
+// so when the frame stack is empty
+Thread.prototype.isFinished = function() {
+  return this.stack.length === 0
+}
+
 // grab the current frame object
 Thread.prototype.currentFrame = function() {
   var _s = this.stack;
@@ -80,6 +95,10 @@ Thread.prototype.doNextInstruction = function() {
 
 // summarize where we are
 Thread.prototype.statusString = function() {
+  if(this.isFinished()) {
+    return "Thread terminated"
+  }
+
   var _f = this.currentFrame()
   return "in " + _f.method.name + " pc=" + _f.pc + " nextInstr=" + _f.method.icode[_f.pc] + " regs: " + _f.regs
 } //ends statusString
