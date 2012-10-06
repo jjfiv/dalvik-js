@@ -13,7 +13,9 @@ var native = {
     "length": function(vm) {
       vm.setResult(vm.getRegister(0).strData.length)
     }
-  }
+  },
 }
+
+var nativeFields = {} 
 
 

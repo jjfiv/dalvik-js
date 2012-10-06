@@ -22,10 +22,21 @@ var icodeHandlers = {
     }
   },
   "move-const": function(_inst, _thread) {
-
+    _thread.setRegister(_inst.dest, _inst.value);
   },
   "static-get": function(_inst, _thread) {
-    return 1;
+    var dest = _inst.dest;
+
+    
+    var value;
+    if(_inst.field === "Ljava/lang/System;.out:Ljava/io/PrintStream;") {
+      //value = {name: "Ljava/lang/System.out", type: "Ljava/io/PrintStream;"}
+      value = "System.out"
+    } else {
+      assert(0, 'given field ' + _inst.field + ' could not be found!')
+    }
+
+    _thread.setRegister(dest, value);
   },
 };
 

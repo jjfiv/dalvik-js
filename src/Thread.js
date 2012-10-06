@@ -89,6 +89,7 @@ Thread.prototype.doNextInstruction = function() {
     assert(0, "UNSUPPORTED OPCODE! " + _inst.op);
   }
 
+  console.log('execute ' + _inst.op)
   var _inc = _handler(_inst, this);
   _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
 }
