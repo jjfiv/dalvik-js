@@ -77,7 +77,7 @@ Thread.prototype.throwException = function(_obj) {
 
 // do the next instruction
 Thread.prototype.doNextInstruction = function() {
-  terminal.println(this.statusString())
+  console.log(this.statusString())
 
   var _frame = this.currentFrame()
   var _inst = _frame.method.icode[_frame.pc]
@@ -101,7 +101,7 @@ Thread.prototype.statusString = function() {
   }
 
   var _f = this.currentFrame()
-  return "in " + _f.method.name + " pc=" + _f.pc + " nextInstr=" + _f.method.icode[_f.pc] + " regs: " + _f.regs
+  return "in " + _f.method.name + "\n  pc=" + _f.pc + "\n  nextInstr=" + _f.method.icode[_f.pc].op + "\n  regs: " + _f.regs
 } //ends statusString
 
 

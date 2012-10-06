@@ -17,7 +17,6 @@ VM.prototype.createThread = function( _directMethod ) {
 VM.prototype.start = function ( _classList, _mainClass ) {
   var _publicStaticVoidMain = null
 
-  terminal.println(_classList)
   // TODO this will probably be done often enough to merit being its own function
   var _i, _j, _class, _m;
   for(_i = 0; _i < _classList.length; _i++) {

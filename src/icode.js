@@ -19,6 +19,7 @@ var icodeHandlers = {
 
     if(methodName == "Ljava/io/Printstream;.println") {
       console.log("print " + argValues[1] + " to " + argValues[0] + "!")
+      terminal.println(argValues[1])
     }
   },
   "move-const": function(_inst, _thread) {
