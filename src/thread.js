@@ -1,21 +1,26 @@
 'use strict'
 
+var StackFrame = function(_m) {
+  var _i;
+
+  //--- public members
+  this.regs = []
+  this.pc = 0
+  this.method = _m;
+
+  for(_i=0; _i<_m.numRegisters; _i++) {
+    _frame.regs[_i] = 0;
+  }
+}
+
+
 var Thread = function() {
   this._result = null
   this._stack = []
 }
 
 Thread.prototype.pushMethod = function(_m) {
-  var _i;
-  var _frame = {
-    pc: 0,
-    regs: [],
-    method: _m,
-  };
-
-  for(_i=0; _i<_m.numRegisters; _i++) {
-    _frame.regs[_i] = 0;
-  }
+  var _frame = new StackFrame(_m)
 
   // TODO load up regs with arguments; I think we need to do this backwards?
 
