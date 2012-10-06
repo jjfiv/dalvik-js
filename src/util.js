@@ -21,10 +21,46 @@ var nbits = function(n) {
   return (1 << n) - 1;
 }
 
+var isObject = function(_obj) {
+  return _obj instanceof Object;
+}
+
+var isArray = function(_obj) {
+  return _obj instanceof Array
+}
+
 var inspect = function(obj) {
+  var key, value, text, i;
+
+  text = ""
+
+  if(isArray(obj)) {
+    text += '['
+    obj.map(function(item) { text += inspect(item) + ', ' })
+    text += ']'
+
+    return text
+  }
+  
+  if(!isObject(obj)) {
+    return obj.toString()
+  }
+  
+
   var text = "{"
-  for(var key in obj) {
-    text += ("\""+key + "\" : \"" + obj[key] + "\", ")
+  
+  for(key in obj) {
+    value = obj[key]
+
+    text += "\""+key + "\" :"
+
+    if(typeof(value) === 'object') {
+      text += inspect(value)
+    } else {
+      text += "\"" + obj[key] + "\""
+    }
+
+    text += ", "
   }
   text += "}"
 
