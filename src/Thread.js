@@ -86,7 +86,7 @@ Thread.prototype.doNextInstruction = function() {
   var _handler = icodeHandlers[_inst.op];
 
   if(isUndefined(_handler)) {
-    assert(0, "UNSUPPORTED OPCODE!");
+    assert(0, "UNSUPPORTED OPCODE! " + _inst.op);
   }
 
   var _inc = _handler(_inst, this);

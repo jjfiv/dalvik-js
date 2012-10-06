@@ -22,12 +22,16 @@ var nbits = function(n) {
 }
 
 var inspect = function(obj) {
+  var text = "{"
   for(var key in obj) {
-    console.log("\""+key + "\" : \"" + obj[key] + "\"")
+    text += ("\""+key + "\" : \"" + obj[key] + "\", ")
   }
+  text += "}"
+
+  return text
 }
 
 var isUndefined = function(_obj) {
-  return typeof(obj) === 'undefined';
+  return typeof(_obj) === 'undefined';
 }
 
