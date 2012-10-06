@@ -1,0 +1,5 @@
+
+1. Thou shalt use this whenever appropriate to referencing an object's own stuff.
+2. Thou shalt prefix private variables with _; var _i=0;
+3. Thou shalt append end comments on functions
+
