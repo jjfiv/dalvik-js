@@ -1,7 +1,10 @@
 //--- this is a file meant to allow things to be run from node.js
 //
 
-#include "assert.js"
+// better, custom assert for nodejs only
+#define assert(condition, message) \
+  if(!(condition)) { console.log(__FILE__ + ":" + __LINE__ + ": Assert("+#condition+") failed! \""+message+"\""); }
+
 #include "util.js"
 
 // --- custom terminal for nodejs
