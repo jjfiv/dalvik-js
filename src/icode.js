@@ -21,7 +21,7 @@ var icodeHandlers = {
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); })
 
     if(methodName == "Ljava/io/Printstream;.println") {
-      console.log("print " + argValues[1] + " to " + argValues[0] + "!")
+      console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!")
       terminal.println(argValues[1])
     }
   },

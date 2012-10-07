@@ -43,7 +43,7 @@ var inspect = function(obj) {
   }
   
   if(!isObject(obj)) {
-    return obj.toString()
+    return obj+''
   }
   
 
@@ -70,4 +70,19 @@ var inspect = function(obj) {
 var isUndefined = function(_obj) {
   return typeof(_obj) === 'undefined';
 }
+
+var enumerate = function(_name, _array) {
+  if(!isArray(_array)) {
+    return _name + " = " +inspect(_array)
+  }
+
+  var _text = ""
+  var _i;
+  for(_i = 0; _i<_array.length; _i++) {
+    _text += _name + "[" + _i + "] = " + inspect(_array[_i]) + '\n'
+  }
+
+  return _text
+}
+
 
