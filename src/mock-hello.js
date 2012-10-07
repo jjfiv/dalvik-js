@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 
 var mock_hello_classes = [
@@ -36,6 +36,6 @@ var mock_hello_classes = [
     ]
 
   },
-]
+];
 
 

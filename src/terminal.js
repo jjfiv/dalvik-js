@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
  * This file contains all functions related to I/O
@@ -11,16 +11,16 @@
  */
 
 var HTMLTerminal = function() {
-  this._output = document.getElementById('output')
-}
+  this._output = document.getElementById('output');
+};
 
 HTMLTerminal.prototype.print = function(str) {
-  this._output.appendChild(document.createTextNode(str))
-}
+  this._output.appendChild(document.createTextNode(str));
+};
 
 HTMLTerminal.prototype.println = function(str) {
   this.print(str + '\n');
-}
+};
 
 //--- global
 var terminal = new HTMLTerminal();

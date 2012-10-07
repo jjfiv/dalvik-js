@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 // icode is the "Internal or Interpreter Codes"
 
 var icodeHandlers = {
@@ -9,20 +9,23 @@ var icodeHandlers = {
       result = _thread.getRegister(_inst.src);
       // TODO, also deal with wide
     }
-    _thread.popMethod(result)
+    _thread.popMethod(result);
   },
 
   // handles invoking a method on an object or statically
   "invoke": function(_inst, _thread) {
     var kind = _inst.kind;
-    var methodName = _inst.method
-    var argRegs = _inst.argumentRegisters
+    var methodName = _inst.method;
+    var argRegs = _inst.argumentRegisters;
 
-    var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); })
+    var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
 
-    if(methodName == "Ljava/io/Printstream;.println") {
-      console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!")
-      terminal.println(argValues[1])
+    if(methodName === "Ljava/io/Printstream;.println") {
+      
+      console.log("print " + argValues[1] +
+                  " to " + inspect(argValues[0]) + "!");
+
+      terminal.println(argValues[1]);
     }
   },
 
@@ -39,18 +42,18 @@ var icodeHandlers = {
 
     var _field = FieldFromString(_inst.field);
     
-    var _result = {}
+    var _result = {};
     
-    console.log(_field)
+    console.log(_field);
     // assume we're going to find something of the correct type
     // set to "null" initially --- TODO actual null?
     _result.type = _field.type;
-    _result.value = 0
+    _result.value = 0;
 
-    if(_field.definingClass === "Ljava/lang/System;" && _field.name == "out") {
-      _result.value = "System.out"
+    if(_field.definingClass === "Ljava/lang/System;" && _field.name === "out") {
+      _result.value = "System.out";
     } else {
-      assert(0, 'given field ' + _inst.field + ' could not be found!')
+      assert(0, 'given field ' + _inst.field + ' could not be found!');
     }
 
     _thread.setRegister(dest, _result);

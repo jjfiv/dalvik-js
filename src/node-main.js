@@ -10,12 +10,12 @@
 // --- custom terminal for nodejs
 var terminal = {
   print: function(s) {
-    process.stdout.write(s)
+    process.stdout.write(s);
   },
   println: function(s) {
-    this.print(s+'\n')
+    this.print(s+'\n');
   }
-}
+};
 
 #include "icode.js"
 #include "mock-hello.js"

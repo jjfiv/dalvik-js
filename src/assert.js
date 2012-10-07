@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-var assert = function(cond, text) {
-  if(!cond) {
-    throw Error('assert failed: ' +text)
+var assert = function(_cond, _text) {
+  if(!_cond) {
+    throw Error('assert failed: ' + _text);
   }
-}
+};
 

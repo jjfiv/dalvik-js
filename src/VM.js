@@ -1,21 +1,21 @@
-'use strict'
+'use strict';
 
 // vm.js
 // This is the core of the VM
 // This is not global; initVM returns a new VM object
 
 var VM = function() {
-  this._threads = []
-}
+  this._threads = [];
+};
 
 VM.prototype.createThread = function( _directMethod ) {
   var _newThread = new Thread();
   _newThread.pushMethod(_directMethod);
-  this._threads.push(_newThread)
-}
+  this._threads.push(_newThread);
+};
 
 VM.prototype.start = function ( _classList, _mainClass ) {
-  var _publicStaticVoidMain = null
+  var _publicStaticVoidMain = null;
 
   // TODO this will probably be done often enough to merit being its own function
   var _i, _j, _class, _m;
@@ -38,12 +38,12 @@ VM.prototype.start = function ( _classList, _mainClass ) {
 
   if(_publicStaticVoidMain === null) {
     terminal.println("main could not be found in " + _mainClass);
-    return false
+    return false;
   }
 
-  this.createThread(_publicStaticVoidMain)
-  return true
-}
+  this.createThread(_publicStaticVoidMain);
+  return true;
+};
 
 VM.prototype.clockTick = function() {
   //--- clock tick; round-robin scheduler
@@ -51,23 +51,15 @@ VM.prototype.clockTick = function() {
   var _i, _thread;
   for(_i=0; _i<this._threads.length; _i++) {
     _thread = this._threads[_i];
-    _thread.doNextInstruction()
+    _thread.doNextInstruction();
   }
   //--- remove all finished threads
-  this._threads = this._threads.filter(function(_t) { return !_t.isFinished() });
-}
+  this._threads = this._threads.filter(function(_t) { return !_t.isFinished(); });
+};
 
 VM.prototype.hasThreads = function() {
-  return this._threads.length !== 0
-}
-
-//--- example usage
-//var myVM = new VM();
-//myVM.start(mock_hello_classes, "Ltest/HelloWorld;");
-//
-//while(myVM.hasThreads()) {
-//  myVM.clockTick();
-//}
+  return this._threads.length !== 0;
+};
 
 
 
