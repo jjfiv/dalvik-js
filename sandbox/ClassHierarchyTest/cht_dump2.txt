@@ -1,0 +1,168 @@
+Processing 'cht.dex'...
+Opened 'cht.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LClassHierarchyTest;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LClassHierarchyTest;)
+      name          : 'birdName'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0000 ()
+    #1              : (in LClassHierarchyTest;)
+      name          : 'canFly'
+      type          : 'Ljava/lang/Boolean;'
+      access        : 0x0000 ()
+  Direct methods    -
+    #0              : (in LClassHierarchyTest;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;Ljava/lang/Boolean;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 1
+      insns size    : 8 16-bit code units
+000280:                                        |[000280] ClassHierarchyTest.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V
+000290: 7010 0800 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0008
+000296: 5b01 0000                              |0003: iput-object v1, v0, LClassHierarchyTest;.birdName:Ljava/lang/String; // field@0000
+00029a: 5b02 0100                              |0005: iput-object v2, v0, LClassHierarchyTest;.canFly:Ljava/lang/Boolean; // field@0001
+00029e: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0003 line=7
+        0x0005 line=8
+        0x0007 line=9
+      locals        : 
+        0x0000 - 0x0008 reg=0 this LClassHierarchyTest; 
+
+    #1              : (in LClassHierarchyTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 3
+      insns size    : 34 16-bit code units
+0002a0:                                        |[0002a0] ClassHierarchyTest.main:([Ljava/lang/String;)V
+0002b0: 2200 0100                              |0000: new-instance v0, LClassHierarchyTest; // type@0001
+0002b4: 1a01 2400                              |0002: const-string v1, "rexy" // string@0024
+0002b8: 1212                                   |0004: const/4 v2, #int 1 // #1
+0002ba: 7110 0700 0200                         |0005: invoke-static {v2}, Ljava/lang/Boolean;.valueOf:(Z)Ljava/lang/Boolean; // method@0007
+0002c0: 0c02                                   |0008: move-result-object v2
+0002c2: 7030 0100 1002                         |0009: invoke-direct {v0, v1, v2}, LClassHierarchyTest;.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V // method@0001
+0002c8: 2201 0000                              |000c: new-instance v1, LClassHierarchyTest$Penguin; // type@0000
+0002cc: 1a02 2200                              |000e: const-string v2, "pingu" // string@0022
+0002d0: 7020 0000 2100                         |0010: invoke-direct {v1, v2}, LClassHierarchyTest$Penguin;.<init>:(Ljava/lang/String;)V // method@0000
+0002d6: 6202 0200                              |0013: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0002
+0002da: 6e10 0300 0000                         |0015: invoke-virtual {v0}, LClassHierarchyTest;.toString:()Ljava/lang/String; // method@0003
+0002e0: 0c00                                   |0018: move-result-object v0
+0002e2: 6e20 0500 0200                         |0019: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0005
+0002e8: 6200 0200                              |001c: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0002
+0002ec: 6e20 0400 1000                         |001e: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0004
+0002f2: 0e00                                   |0021: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=32
+        0x000c line=33
+        0x0013 line=35
+        0x001c line=36
+        0x0021 line=38
+      locals        : 
+
+  Virtual methods   -
+    #0              : (in LClassHierarchyTest;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 74 16-bit code units
+0002f4:                                        |[0002f4] ClassHierarchyTest.toString:()Ljava/lang/String;
+000304: 2200 0900                              |0000: new-instance v0, Ljava/lang/StringBuilder; // type@0009
+000308: 7010 0900 0000                         |0002: invoke-direct {v0}, Ljava/lang/StringBuilder;.<init>:()V // method@0009
+00030e: 1a01 1300                              |0005: const-string v1, "The bird " // string@0013
+000312: 6e20 0a00 1000                         |0007: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+000318: 0c00                                   |000a: move-result-object v0
+00031a: 5421 0000                              |000b: iget-object v1, v2, LClassHierarchyTest;.birdName:Ljava/lang/String; // field@0000
+00031e: 6e20 0a00 1000                         |000d: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+000324: 0c00                                   |0010: move-result-object v0
+000326: 1a01 0000                              |0011: const-string v1, " can" // string@0000
+00032a: 6e20 0a00 1000                         |0013: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+000330: 0c00                                   |0016: move-result-object v0
+000332: 6e10 0b00 0000                         |0017: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@000b
+000338: 0c00                                   |001a: move-result-object v0
+00033a: 5421 0100                              |001b: iget-object v1, v2, LClassHierarchyTest;.canFly:Ljava/lang/Boolean; // field@0001
+00033e: 6e10 0600 0100                         |001d: invoke-virtual {v1}, Ljava/lang/Boolean;.booleanValue:()Z // method@0006
+000344: 0a01                                   |0020: move-result v1
+000346: 3901 1500                              |0021: if-nez v1, 0036 // +0015
+00034a: 2201 0900                              |0023: new-instance v1, Ljava/lang/StringBuilder; // type@0009
+00034e: 7010 0900 0100                         |0025: invoke-direct {v1}, Ljava/lang/StringBuilder;.<init>:()V // method@0009
+000354: 6e20 0a00 0100                         |0028: invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+00035a: 0c00                                   |002b: move-result-object v0
+00035c: 1a01 2000                              |002c: const-string v1, "not" // string@0020
+000360: 6e20 0a00 1000                         |002e: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+000366: 0c00                                   |0031: move-result-object v0
+000368: 6e10 0b00 0000                         |0032: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@000b
+00036e: 0c00                                   |0035: move-result-object v0
+000370: 2201 0900                              |0036: new-instance v1, Ljava/lang/StringBuilder; // type@0009
+000374: 7010 0900 0100                         |0038: invoke-direct {v1}, Ljava/lang/StringBuilder;.<init>:()V // method@0009
+00037a: 6e20 0a00 0100                         |003b: invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+000380: 0c00                                   |003e: move-result-object v0
+000382: 1a01 0100                              |003f: const-string v1, " fly" // string@0001
+000386: 6e20 0a00 1000                         |0041: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@000a
+00038c: 0c00                                   |0044: move-result-object v0
+00038e: 6e10 0b00 0000                         |0045: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@000b
+000394: 0c00                                   |0048: move-result-object v0
+000396: 1100                                   |0049: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=14
+        0x001b line=15
+        0x0023 line=16
+        0x0036 line=19
+        0x0049 line=21
+      locals        : 
+        0x0000 - 0x004a reg=2 this LClassHierarchyTest; 
+
+  source_file_idx   : 3 (ClassHierarchyTest.java)
+
+Class #1            -
+  Class descriptor  : 'LClassHierarchyTest$Penguin;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'LClassHierarchyTest;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LClassHierarchyTest$Penguin;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 3
+      insns size    : 9 16-bit code units
+000398:                                        |[000398] ClassHierarchyTest.Penguin.<init>:(Ljava/lang/String;)V
+0003a8: 1200                                   |0000: const/4 v0, #int 0 // #0
+0003aa: 7110 0700 0000                         |0001: invoke-static {v0}, Ljava/lang/Boolean;.valueOf:(Z)Ljava/lang/Boolean; // method@0007
+0003b0: 0c00                                   |0004: move-result-object v0
+0003b2: 7030 0100 2100                         |0005: invoke-direct {v1, v2, v0}, LClassHierarchyTest;.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V // method@0001
+0003b8: 0e00                                   |0008: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=27
+        0x0008 line=28
+      locals        : 
+        0x0000 - 0x0009 reg=1 this LClassHierarchyTest$Penguin; 
+
+  Virtual methods   -
+  source_file_idx   : 3 (ClassHierarchyTest.java)
+
