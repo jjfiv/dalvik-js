@@ -1,286 +1,264 @@
-'use strict'
+// dependencies: leb128.js, terminal.js, util.js
+'use strict';
 
-var DEX_LOADER_DEBUG = true // refresh-time constant
+var DEX_LOADER_DEBUG = true; // refresh-time constant
 
 var dexLoader = (function() {
 
   // file format constants
-  var DEX_FILE_MAGIC = [ 0x64, 0x65, 0x78, 0xa, 0x30, 0x33, 0x35, 0x00 ]
-  var ENDIAN_CONSTANT = 0x12345678
-  var REVERSE_ENDIAN_CONSTANT = 0x78563412
-
-  //
-  // arrayFile returns a "File" object wrapped around an array of data
-  // this abstraction is used throughout the dex_loader functions
-  //
-  var arrayFile = function(data) {
-    return {
-      data: data,
-      offset: 0,
-      get: function() {
-        return this.data[this.offset++];
-      },
-      get16: function() {
-        var i = this.offset
-        var d = this.data
-
-        this.offset += 2;
-
-        // little endian
-        return (d[i+1] << 8) | d[i];
-      },
-      get32: function() {
-        var i = this.offset
-        var d = this.data
-
-        this.offset += 4;
-
-        // little endian
-        return (d[i+3] << 24) | (d[i+2] << 16) | (d[i+1] << 8) | d[i];
-      },
-      get_uleb128: function() {
-        var file = this;
-        return uleb128(function() { return file.get() });
-      },
-      seek: function(new_offset) {
-        this.offset = new_offset;
-      }
-    };
-  }
+  var DEX_FILE_MAGIC = [ 0x64, 0x65, 0x78, 0xa, 0x30, 0x33, 0x35, 0x00 ];
+  var ENDIAN_CONSTANT = 0x12345678;
+  var REVERSE_ENDIAN_CONSTANT = 0x78563412;
 
   // prints a line of debug information from dexLoader, if appropriate
-  var debug = function(s) { }
+  var debug = function(_s) { };
   if(DEX_LOADER_DEBUG) {
     //redirect calls to debug() to appropriate function
     
     //debug = console.log // for line numbers
-    debug = terminal.println // for debugging inline with other output
+    debug = terminal.println; // for debugging inline with other output
   }
 
-  var readSection = function(name, file) {
-    var size = file.get32()
-    var offset = file.get32()
+  function File(_data) {
+      //File constructor
+      this.data=_data;
+      this.offset=0;
+      this.get=function(_chunk) { 
+          var doc = 'Grabs a chunk of data. Arg options: none, 16, 32, uleb128';
+          if (typeof _chunk === 'undefined'){
+              return this.data[this.offset++]; 
+          } else if (_chunk === 16){
+              var _i = this.offset;
+              var _d = this.data;
+              this.offset += 2;
+              // little endian
+              return (_d[i+1] << 8) | _d[i];
+          } else if (_chunk === 32){
+              var _i = this.offset;
+              var _d = this.data;
+              this._offset += 4;
+              // little endian
+              return (_d[_i+3] << 24) | (_d[_i+2] << 16) | (_d[_i+1] << 8) | _d[_i];
+          } else if (_chunk === 'uleb128'){
+              var _file = this;
+              return uleb128(function() { return _file.get(); });
+          } else throw "Unrecognized argument to File constructor.";
+      }; //end get
+      this.seek=function(_newOffset) {
+          this.offset = _newOffset;
+      }; //end seek
+  }; //end File constructor
 
-    debug("Section \""+name+"\" size: 0x"+hex(size)+" offset: 0x"+hex(offset))
+  function Locator(_sectionName, _file, _chunk) {
+      // A Locator instruction. Locator objects indicate the location within a file of a particular section.
+      this.count=_file.get(_chunk);
+      this.offset=_file.get(_chunk);
+      this.name=_sectionName;
+      if (DEX_LOADER_DEBUG){
+          debug("Section \""+_sectionName+"\" size: 0x"+hex(_size)+" offset: 0x"+hex(_offset));
+      };
+  }; //end Locator
 
-    return {
-      count: size,
-      offset: offset,
-    }
-  }
+  function PrototypeMeta(_shortyDescriptor, _returnType){
+      this.shortyDescriptor= _shortyDescriptor;
+      this.returnType=_returnType;
+  }; //end PrototypeMeta
 
-  var readMUTF8 = function(file) {
-    var bytes = []
+  function Field(_definingClass, _type, _name){
+      this.definingClass= _definingClass;
+      this.type=_type;
+      this.name= _name;
+  }; //end Field
+
+  function Method(_definingClass, _prototype, _name){
+      this.definingClass=_definingClass;
+      this.prototype=_prototype;
+      this.name=_name;
+  }; //end Method
+
+  function EncodedField(_idx, _accessFlags){
+      this.idx=_idx;
+      this.accessFlags=_accessFlags;
+  }; //end EncodedField
+                 
+  function TryBlock(_startAddr, insnCount, _handlerOff){
+      this.startAddr=_startAddr;
+      this.insnCount=_insnCount;
+      this.handlerOff=_handlerOff;
+  } //end TryBlock
+
+  var readMUTF8 = function(_file) {
+    var _bytes = [];
     while(1) {
-      var c = file.get()
-      if ( c === 0 )
-        break
-      bytes.push(c)
+      var c = _file.get();
+      if ( _c === 0 )
+        break;
+      _bytes.push(_c);
     }
-    return String.fromCharCode.apply(null, bytes);
-  }
+    return String.fromCharCode.apply(null, _bytes);
+  }; //end readMUTF8
 
-  var parseTypes = function(file, strings, type_ids) {
-    var i
-    file.seek(type_ids.offset)
-    var num_descriptors = type_ids.count
-
-    var types = []
-    for(i=0; i<num_descriptors; i++) {
-      types[i] = strings[file.get32()]
+  var parseTypes = function(_file, _strings, _typeIds) {
+    var _i;
+    _file.seek(_typeIds.offset);
+    var _numDescriptors = _typeIds.count;
+    var _types = [];
+    for(_i=0; _i<_numDescriptors; _i++) {
+      _types[i] = _strings[_file.get(32)];
     }
-    return types
-  }
+    return _types;
+  }; //end parseTypes
 
-  var parseTypeList = function(file, types, offset) {
-    file.seek(offset)
-    var count = file.get32()
-    var i
-
-    var type_list = []
-    for(i=0; i<count; i++) {
-      type_list.push(types[file.get16()])
+  var parseTypeList = function(_file, _types, _offset) {
+    var _i;
+    _file.seek(_offset);
+    var _typeList = [];
+    for(_i=0; _i<_file.get(16); _i++) {
+      _typeList.push(_types[_file.get(16)]);
     }
-    return type_list;
-  }
+    return _typeList;
+  }; //end parseTypeList
 
-  var parsePrototypes = function(file, strings, types, proto_ids) {
-    var i
-    file.seek(proto_ids.offset)
-    var num_protos = proto_ids.count
 
-    var protos = []
-    for(i=0; i<num_protos; i++) {
-      var shorty_idx = file.get32()
-      var return_type_idx = file.get32()
-      var parameters_off = file.get32()
-
-      protos[i] = {
-        shorty_descriptor: strings[shorty_idx],
-        return_type: types[return_type_idx],
-      }
-
+  var parsePrototypes = function(_file, _strings, _types, _protoIds) {
+    var _i;
+    _file.seek(_protoIds.offset);
+    var _numProtos = _protoIds.count;
+    var _protos = [];
+    for(_i=0; _i<_numProtos; _i++) {
+      var _shortyIdx = _file.get(32);
+      var _returnTypeIdx = _file.get(32);
+      var _parametersOff = _file.get(32);
+      _protos[_i] = PrototypeMeta(_strings[_shortyIdx], _types[_returnTypeIdx]);
     }
-
-    for(i=0; i<num_protos; i++) {
-      protos[i].params = parseTypeList(file, types, parameters_off);
-
+    for(_i=0; _i<_numProtos; _i++) {
+      _protos[_i]._params = _parseTypeList(_file, _types, _parametersOff);
     }
+    return _protos;
+  };
 
-    return protos;
-  }
-
-  var parseStrings = function(file, string_ids) {
-    var i
-
+  var parseStrings = function(_file, _stringIds) {
+    var _i;
     //--- jump to string section
-    file.seek(string_ids.offset)
-    var num_string_ids = string_ids.count
-
+    _file.seek(_stringIds.offset);
+    var _num_string_ids = string_ids.count;
+    var _strings = [];
+    var _offset = [];
     //--- loop through string_ids and save the offsets
-    var offset = []
-    for(i=0; i<num_string_ids; i++) {
-      offset.push(file.get32())
+    for(_i=0; _i<_numStringIds; _i++) {
+      _offset.push(_file.get(32));
     }
-
-    var strings = []
     //--- go to each offset into data section and read the data there
-    for(i=0; i<num_string_ids; i++) {
-      file.seek(offset[i])
-
-      var len = file.get_uleb128()
-      var str = readMUTF8(file)
-
+    for(_i=0; _i<_numStringIds; _i++) {
+      _file.seek(_offset[_i]);
+      var _len = _file.get('uleb128');
+      var _str = _readMUTF8(_file);
       //--- mutf-8 scares me
-      if(str.length !== len) {
-        console.log("BAD STRING LENGTH? code-points: "+len + " strlen: "+str.length)
+      if(_str.length !== _len) {
+        console.log("BAD STRING LENGTH? code-points: " + _len + " strlen: " + _str.length);
       }
 
-      strings[i] = str
+      _strings[_i] = _str;
     }
+    return _strings;
+  }; //end parseStrings
 
-    return strings
-  }
 
-  var parseFields = function(file, strings, types, field_ids) {
-    file.seek(field_ids.offset)
-    var num_fields = field_ids.count
-    var i
-    var fields = []
+  var parseFields = function(_file, _strings, _types, _fieldIds) {
+    var _i;
+    _file.seek(_fieldIds.offset);
+    var _numFields = _fieldIds.count;
+    var _fields = [];
+    for(_i=0; _i<_numFields; _i++) {
+      var _classIdx = _file.get(16);
+      var _typeIdx = _file.get(16);
+      var _nameIdx = _file.get(32);
+      _fields[_i] = Field(_types[_classIdx], _types[_typeIdx], _strings[_nameIdx]);
+    }    
+    return fields;
+  }; //end parseFields
 
-    for(i=0; i<num_fields; i++) {
-      var class_idx = file.get16()
-      var type_idx = file.get16()
-      var name_idx = file.get32()
+  var parseMethods = function(_file, _strings, _types, _protos, _methodIds) {
+    var _i;
+    _file.seek(_methodIds.offset);
+    var _numMethods = _methodIds.count;
+    var _methods = [];
+    for(_i=0; _i<_numMethods; _i++) {
+      var _classIdx = file.get(16);
+      var _typeIdx = file.get(16);
+      var _nameIdx = file.get(32);
 
-      fields[i] = {
-        definingClass: types[class_idx],
-        type: types[type_idx],
-        name: strings[name_idx],
-      }
+      _methods[_i] = Method(_types[_classIdx], _protos[_typeIdx], _strings[_nameIdx]);
     }
-    return fields
-  }
-
-  var parseMethods = function(file, strings, types, protos, method_ids) {
-    file.seek(method_ids.offset)
-    var num_methods = method_ids.count
-    var i
-    var methods = []
-
-    for(i=0; i<num_methods; i++) {
-      var class_idx = file.get16()
-      var type_idx = file.get16()
-      var name_idx = file.get32()
-
-      methods[i] = {
-        definingClass: types[class_idx],
-        prototype: protos[type_idx],
-        name: strings[name_idx],
-      }
-    }
-    return methods
-  }
+    return _methods;
+  }; //end parseMethods
 
   // parse "encoded_field" objects
-  var parseEncodedFields = function(file, count, fields) {
-    var i;
-    var field_idx = 0;
-    var fields = []
-
-    for(i=0; i<count; i++) {
-      var field_idx_diff = file.get_uleb128()
-      var access_flags = file.get_uleb128()
-
-      field_idx += field_idx_diff;
-
-      fields[i] = {
-        idx: field_idx,
-        access_flags: access_flags,
-      }
+  var parseEncodedFields = function(_file, _count) {
+    var _i;
+    var _fieldIdx = 0;
+    var _fields = [];
+    for(_i=0; _i<_count; _i++) {
+      var _fieldIdxDiff = _file.get('uleb128');
+      var _accessFlags = _file.get('uleb128');
+      _fieldIdx += _fieldIdxDiff;
+      _fields[_i] = EncodedField(_fieldIdx, _accessFlags);
     }
-    return fields
-  }
+    return fields;
+  }; //end parseEncodedFields
 
   // parse "code_item" objects
-  var parseCode = function(file, code_offset, types, fields, methods) {
-    var i;
-    file.seek(code_offset);
-
-    var registers_size = file.get16()
-    var ins_size = file.get16()
-    var outs_size = file.get16()
-    var tries_size = file.get16()
-    var debug_info_off = file.get32()
-    var insns_size = file.get32() // number of 16-bit code units
+  var parseCode = function(_file, _codeOffset, _types, _fields, _methods) {
+    var _i;
+    _file.seek(_codeOffset);
+    var _registersSize = _file.get(16); 
+    var _insSize = _file.get(16); //don't think this var is actually used...
+    var _outsSize = _file.get(16); //don't think this var is actually used...
+    var _triesSize = _file.get(16);
+    var _debugInfoOff = _file.get(32); //don't think this var is actually used...
+    var _insnsSize = _file.get(32); // number of 16-bit code units
     
-    var codeUnits = []
-    for(i=0; i<insns_size; i++) {
+    var _codeUnits = [];
+    for(_i=0; _i<_insnsSize; _i++) {
       // grab next 16 bytes
-      codeUnits.push(file.get())
-      codeUnits.push(file.get())
+      _codeUnits.push(_file.get());
+      _codeUnits.push(_file.get());
     }
 
     // if there were an odd number of instructions, then there is 16 bits of padding to make the next bit 4-byte aligned.
-    if(insns_size % 2 == 1) {
-      var padding = file.get16()
-      assert(padding === 0, 'padding sanity check in code parsing')
+    if(_insnsSize % 2 == 1) {
+      var _padding = _file.get(16);
+      assert(_padding === 0, 'padding sanity check in code parsing');
     }
-    
-    // parse "try" blocks
-    var tries = []
-    for(i=0; i<tries_size; i++) {
-      // parse "try_item"
-      tries[i] = {
-        start_addr: file.get32(),
-        insn_count: file.get16(),
-        handler_off: file.get16(),
-      }
+      // parse "try" blocks
+    var _tries = [];
+    for(var _i=0; _i<_triesSize; _i++) {
+      _tries[i] = TryBlock(_file.get(32), _file.get(16), _file.get(16));
     }
 
     // parse associated "catch" blocks
-    var handlers = []
-    if(tries_size) {
+    var _handlers = [];
+    if(_triesSize) {
       // parse "encoded_catch_handler_list"
-      var handlers_size = file.get_uleb128()
+      var handlers_size = _file.get('uleb128');
       for(i=0; i<handlers_size; i++) {
-        var catch_types = file.get_sleb128()
-        var catch_all_present = (catch_types < 0)
-        catch_types = abs(catch_types)
+        var catch_types = _file.get_sleb128();
+        var catch_all_present = (catch_types < 0);
+        catch_types = abs(catch_types);
 
-        var catch_handlers = {}
+        var catch_handlers = {};
         
         var j;
         for(j=0; j<catch_types; j++) {
-          var type_id = file.get_uleb128()
-          var handler_addr = file.get_uleb128()
+          var type_id = _file.get('uleb128');
+          var handler_addr = _file.get('uleb128');
 
-          catch_handlers[ types[type_id] ] = handler_addr
+          catch_handlers[ types[type_id] ] = handler_addr;
           // e.g. catch_handlers["Ljava/lang/String;"] = pointer to where that exception type is handled
         }
         if(catch_all_present) {
-          var catch_all_addr = file.get_uleb128()
-          catch_handlers[""] = handler_addr
+          var catch_all_addr = _file.get('uleb128');
+          catch_handlers[""] = handler_addr;
         }
 
         handlers[i] = catch_handlers;
@@ -288,98 +266,98 @@ var dexLoader = (function() {
     }
 
     // now translate codeUnits and other stuff
-    debug(codeUnits.map(function(n){ return "0x"+hex(n) }).join(", "))
+    debug(codeUnits.map(function(n){ return "0x"+hex(n); }).join(", "));
 
     // translateCode
-    var codeFile = arrayFile(codeUnits);
+    var code_File = array_File(codeUnits);
 
-    var codeFileLen = codeUnits.length
+    var code_FileLen = codeUnits.length;
 
-    while(codeFile.offset < codeFileLen) {
-      var start = codeFile.offset
+    while(code_File.offset < code_FileLen) {
+      var start = code_File.offset;
 
-      var op = codeFile.get()
-      var name = opcode[op].name
-      var format = opcode_format[op]
+      var op = code_File.get();
+      var name = opcode[op].name;
+      var format = opcode_format[op];
 
 
-      debug("  " + name)
+      debug("  " + name);
 
-      codeFile.seek(start + format.code_units*2)
+      code_File.seek(start + format.code_units*2);
     }
 
   }
 
   // parse "encoded_method" objects
-  var parseEncodedMethods = function(file, count, types, fields, methods) {
+  var parseEncodedMethods = function(_file, count, types, fields, methods) {
     var i;
     var method_idx = 0;
-    var results = []
+    var results = [];
 
     for(i=0; i<count; i++) {
-      var method_idx_diff = file.get_uleb128()
-      var access_flags = file.get_uleb128()
-      var code_off = file.get_uleb128()
+      var method_idx_diff = _file.get('uleb128');
+      var access_flags = _file.get('uleb128');
+      var code_off = _file.get('uleb128');
 
 
       method_idx += method_idx_diff;
 
-      var methodDef = methods[method_idx]
-      var methodProto = methodDef.prototype
+      var methodDef = methods[method_idx];
+      var methodProto = methodDef.prototype;
 
       // save offset
-      var nextMethodOffset = file.offset;
+      var nextMethodOffset = _file.offset;
 
-      debug("parseCode for " + methodDef.name)
-      // read in code for this method
-      var code = parseCode(file, code_off, types, fields, methods)
-      file.seek(nextMethodOffset); // queue up next entry
+      debug("parseCode for " + methodDef.name);
+      // read in code for this method;
+      var code = parseCode(_file, code_off, types, fields, methods);
+      _file.seek(nextMethodOffset); // queue up next entry
 
       results[i] = {
         name: methodDef.name,
         parameterTypes: methodProto.params,
         returnType: methodProto.return_type,
-        accessFlags: access_flags,
-      }
+        accessFlags: access_flags
+      };
 
     }
     return results;
   }
 
   // parse "class_data_item" objects
-  var parseClassData = function(classDef, file, types, fields, methods) {
-    var static_fields_size = file.get_uleb128()
-    var instance_fields_size = file.get_uleb128()
-    var direct_methods_size = file.get_uleb128()
-    var virtual_methods_size = file.get_uleb128()
+  var parseClassData = function(classDef, _file, types, fields, methods) {
+    var static_fields_size = _file.get('uleb128')
+    var instance_fields_size = _file.get('uleb128')
+    var direct_methods_size = _file.get('uleb128')
+    var virtual_methods_size = _file.get('uleb128')
 
     debug("class has static="+static_fields_size+" instance="+instance_fields_size+" direct="+direct_methods_size+" virtual="+virtual_methods_size)
 
-    classDef.staticFields = parseEncodedFields(file, static_fields_size, fields)
-    classDef.instanceFields = parseEncodedFields(file, instance_fields_size, fields)
-    classDef.directMethods = parseEncodedMethods(file, direct_methods_size, types, fields, methods)
-    classDef.virtualMethods = parseEncodedMethods(file, virtual_methods_size, types, fields, methods)
+    classDef.staticFields = parseEncodedFields(_file, static_fields_size, fields)
+    classDef.instanceFields = parseEncodedFields(_file, instance_fields_size, fields)
+    classDef.directMethods = parseEncodedMethods(_file, direct_methods_size, types, fields, methods)
+    classDef.virtualMethods = parseEncodedMethods(_file, virtual_methods_size, types, fields, methods)
   }
 
   // parse "class_def_item" objects
-  var parseClasses = function(file, strings, types, fields, methods, class_defs) {
-    file.seek(class_defs.offset)
+  var parseClasses = function(_file, strings, types, fields, methods, class_defs) {
+    _file.seek(class_defs.offset)
     var i
     var num_classes = class_defs.count
     var classes = []
 
     for(i=0; i<num_classes; i++) {
-      var class_idx = file.get32()
-      var access_flags = file.get32()
-      var superclass_idx = file.get32()
-      var interfaces_off = file.get32()
-      var source_file_idx = file.get32()
-      var annotations_off = file.get32()
-      var class_data_off = file.get32()
-      var static_values_off = file.get32()
+      var class_idx = _file.get(32)
+      var access_flags = _file.get(32)
+      var superclass_idx = _file.get(32)
+      var interfaces_off = _file.get(32)
+      var source__file_idx = _file.get(32)
+      var annotations_off = _file.get(32)
+      var class_data_off = _file.get(32)
+      var static_values_off = _file.get(32)
 
       // save offset for later
-      var nextClassDef = file.offset;
+      var nextClassDef = _file.offset;
 
       // create a "Class.js" object
       var className = types[class_idx]
@@ -389,23 +367,23 @@ var dexLoader = (function() {
       debug("Defining class \""+c.name+"\"...")
 
       if(interfaces_off !== 0) {
-        file.seek(interfaces_off)
-        c.interfaces = parseTypeList(file, types)
+        _file.seek(interfaces_off)
+        c.interfaces = parseTypeList(_file, types)
       }
       //--- Since annotations have no runtime effect, ignore
       if(class_data_off !== 0) {
-        file.seek(class_data_off)
-        parseClassData(c, file, types, fields, methods)
+        _file.seek(class_data_off)
+        parseClassData(c, _file, types, fields, methods)
       }
       if(static_values_off !== 0) {
-        file.seek(static_values_off)
-        c.static_values = parse_dex_class_static(file)
+        _file.seek(static_values_off)
+        c.static_values = parse_dex_class_static(_file)
       }
 
       classes[i] = c;
 
-      // restore file pointer if we went looking elsewhere
-      file.seek(nextClassDef);
+      // restore _file pointer if we went looking elsewhere
+      _file.seek(nextClassDef);
     }
   }
 
@@ -413,88 +391,88 @@ var dexLoader = (function() {
     var i, j
     var N = byte_data.length;
 
-    var file = arrayFile(byte_data);
+    var _file = array_File(byte_data);
 
     //--- check magic number
-    for(i=0; i<DEX_FILE_MAGIC.length; i++) {
-      if(DEX_FILE_MAGIC[i] !== file.get()) {
-        debug("Error, DEX_FILE_MAGIC["+i+"] not found!\n")
+    for(i=0; i<DEX__FILE_MAGIC.length; i++) {
+      if(DEX__FILE_MAGIC[i] !== _file.get()) {
+        debug("Error, DEX__FILE_MAGIC["+i+"] not found!\n")
         return
       }
     }
-    debug("DEX_FILE_MAGIC correct");
+    debug("DEX__FILE_MAGIC correct");
 
     //--- skip checksum?
-    var checksum = file.get32()
+    var checksum = _file.get(32)
     debug("adler32 checksum: 0x" + hex(checksum))
 
     //--- SHA1 20 bytes
     var result=""
     for(i=0; i<20; i++) {
-      result += hex(file.get())
+      result += hex(_file.get())
     }
     debug("SHA1: 0x" + result)
 
-    var file_size = file.get32()
-    debug("file_size: " + file_size + " bytes, length="+N);
-    if(file_size !== N) {
-      debug("file size not correct!")
+    var _file_size = _file.get(32)
+    debug("_file_size: " + _file_size + " bytes, length="+N);
+    if(_file_size !== N) {
+      debug("_file size not correct!")
     }
 
-    var header_size = file.get32()
+    var header_size = _file.get(32)
     debug("header_size = 0x" + hex(header_size))
 
-    var endian_tag = file.get32()
+    var endian_tag = _file.get(32)
     debug("ENDIAN_TAG = 0x" + hex(endian_tag))
     if(endian_tag !== ENDIAN_CONSTANT) {
-      debug("TODO need to do some sort of swapping with this file")
+      debug("TODO need to do some sort of swapping with this _file")
     }
 
-    var link = readSection("link", file)
+    var link = readSection("link", _file)
 
-    var map_off = file.get32()
+    var map_off = _file.get(32)
     debug("Map offset=0x"+hex(map_off))
 
-    var string_ids = readSection("string_ids", file)
-    var type_ids = readSection("type_ids", file)
-    var proto_ids = readSection("proto_ids", file)
-    var field_ids = readSection("field_ids", file)
-    var method_ids = readSection("method_ids", file)
-    var class_defs = readSection("class_defs", file)
-    var data = readSection("data", file)
+    var string_ids = readSection("string_ids", _file)
+    var type_ids = readSection("type_ids", _file)
+    var proto_ids = readSection("proto_ids", _file)
+    var field_ids = readSection("field_ids", _file)
+    var method_ids = readSection("method_ids", _file)
+    var class_defs = readSection("class_defs", _file)
+    var data = readSection("data", _file)
 
-    var strings = parseStrings(file, string_ids)
+    var strings = parseStrings(_file, string_ids)
     for(i=0; i<strings.length; i++) {
       var s = strings[i]
       debug("string["+i+"] len="+s.length+" data=\""+s+"\"")
     }
 
-    var types = parseTypes(file, strings, type_ids)
+    var types = parseTypes(_file, strings, type_ids)
     for(i=0; i<types.length; i++) {
       debug("type["+i+"] = \""+types[i]+"\"");
     }
 
-    var protos = parsePrototypes(file, strings, types, proto_ids)
+    var protos = parsePrototypes(_file, strings, types, proto_ids)
     for(i=0; i<protos.length; i++) {
       debug("prototype \""+protos[i].shorty_descriptor+"\" "+
             "( " + protos[i].params.join(", ") + " ) -> " +
             protos[i].return_type+"")
     }
 
-    var fields = parseFields(file, strings, types, field_ids)
+    var fields = parseFields(_file, strings, types, field_ids)
     for(i=0; i<fields.length; i++) {
       var f = fields[i]
       debug("field:: class \"" + f.definingClass + "\" defines \"" + f.name + "\" which is a \"" + f.type + "\"")
     }
 
-    var methods = parseMethods(file, strings, types, protos, method_ids)
+    var methods = parseMethods(_file, strings, types, protos, method_ids)
     for(i=0; i<methods.length; i++) {
       var m = methods[i]
       var p = m.prototype
       debug("method:: class \"" + m.definingClass + "\" defines \"" + m.name + "\" which is a (" + p.params.join(", ") + ") -> " + p.return_type)
     }
 
-    var classes = parseClasses(file, strings, types, fields, methods, class_defs)
+    var classes = parseClasses(_file, strings, types, fields, methods, class_defs)
 
 
   }
