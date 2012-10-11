@@ -1,4 +1,3 @@
-'use strict'
 
 // This file contains a definitoin of a Type object
 
@@ -28,21 +27,42 @@ Type.prototype.isArray = function() {
   return this._arrayDim > 0;
 };
 
+//
+// if this is an array
+// [Lflying/Bird;
+// Then this method should return
+// Lflying/Bird
+//
+Type.prototype.getArrayBase = function() {
+  
+};
+
 Type.prototype.defaultJSObject = function() {
   if( this.isArray() ) {
-    return new Array();
-  } else if (this.isClass() ) {
+    return [];
+  }
+  if (this.isClass() ) {
     return {
       type: this,
       value: { }
-    }
+    };
   }
+};
+
+Type.prototype.isVoid = function () {
+  return this._typeString === 'V';
+};
+
+// returns true if one of
+// V,Z,B,S,C,I,J,F,D
+Type.prototype.isPrimitive = function () {
+
 };
 
 
 Type.prototype.isEquals = function( other ) {
   
-}
+};
 
 
 var t = new Type("LBird;");
@@ -52,3 +72,15 @@ assert(t.isArray() === false, "Making sure bird is not an array");
 assert(t._arrayDim === 0, "Making sure the array is of 0 dimensions");
 assert(t._type === "L", "Making sure the type is a complicated class");
 assert(t._name === "Bird", "Making sure type name is Bird");
+
+var jStringType = new Type("Ljava/lang/String;");
+assert(jStringType.isArray() === false, "Making sure String is not an array");
+
+var arrayOfStrings = new Type("[Ljava/lang/String;");
+assert(arrayOfStrings.isArray() === true, "Making sure String is not an array");
+
+assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");
+
+
+
+
