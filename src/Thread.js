@@ -13,10 +13,17 @@ var StackFrame = function(_m) {
   }
 };
 
+StackFrame.prototype.toString = function() {
+  return "{ pc:"+this.pc+" method:"+this.method+" regs:"+this.regs+" }";
+};
 
 var Thread = function() {
   this._result = null;
   this._stack = [];
+};
+
+Thread.prototype.toString = function(){
+  return this._stack[0].toString()+"...";
 };
 
 Thread.prototype.pushMethod = function(_m) {
