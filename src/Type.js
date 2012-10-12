@@ -34,7 +34,7 @@ Type.prototype.isArray = function() {
 // Lflying/Bird
 //
 Type.prototype.getArrayBase = function() {
-  
+  return new Type(this._typeString.substr(this._arrayDim));
 };
 
 Type.prototype.defaultJSObject = function() {
@@ -61,7 +61,9 @@ Type.prototype.isPrimitive = function () {
 
 
 Type.prototype.isEquals = function( other ) {
-  
+    // right now just comparing type strings
+    // Do we want to just consider _name and _type?
+    return this._typeString === other._typeString;
 };
 
 
