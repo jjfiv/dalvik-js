@@ -57,6 +57,14 @@ VM.prototype.clockTick = function() {
   this._threads = this._threads.filter(function(_t) { return !_t.isFinished(); });
 };
 
+VM.prototype.getThreadState = function() {
+  var _s="", _i;
+  for (_i=0; _i<this._threads.length; _i++){
+    _s+=this._threads[_i].toString()+"\t";
+  }
+  return _s;
+};
+
 VM.prototype.hasThreads = function() {
   return this._threads.length !== 0;
 };

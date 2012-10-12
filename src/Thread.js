@@ -14,7 +14,14 @@ var StackFrame = function(_m) {
 };
 
 StackFrame.prototype.toString = function() {
-  return "{ pc:"+this.pc+" method:"+this.method+" regs:"+this.regs+" }";
+  var _i, _regs=" ";
+  var _pc = this.pc;
+  var _method = this.method.name;
+  var _opcode = this.method.icode[_pc].op;
+  for (_i=0 ; _i<this.regs.length ; _i++){
+    _regs+=this.regs[_i].toString()+" ";
+  }
+  return "{ PC:"+_pc+"\t\tMETHOD:"+_method+"\t\tOPCODE:"+_opcode+"\t\tREGS:["+_regs+"] }";
 };
 
 var Thread = function() {

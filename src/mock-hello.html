@@ -26,9 +26,14 @@
 <script>
 //--- main
 var myVM = new VM();
+var counter = 0;
 myVM.start(mock_hello_classes, "Ltest/HelloWorld;");
 
 while(myVM.hasThreads()) {
+  if (DEBUG) {
+    terminal.appendDebug(counter+":\t"+myVM.getThreadState()+"\n", document.body);
+    counter++;
+  }
   myVM.clockTick();
 }
 </script>
