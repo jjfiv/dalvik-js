@@ -1,13 +1,6 @@
-'use strict';
-
-var int = function(n) { return n | 0; };
-var hex = function(n) {
-  // this if statement prevents "signed hex printout"
-  if(n < 0) {
-    n += 0xffffffff + 1;
-  }
-  return n.toString(16);
-};
+//
+// Random javascript utilities: util.js
+//
 
 var abs = function(n) {
   if(n < 0) {
@@ -15,10 +8,23 @@ var abs = function(n) {
   }
   return n;
 };
+assert(abs(-5) === abs(5), "Simple abs() test");
 
-var nbits = function(n) {
-  assert(n < 56, "nbits 56-bit bounds check");
-  return (1 << n) - 1;
+
+var max = function(a, b) {
+  return (a < b) ? b : a;
+};
+
+var min = function(a, b) {
+  return (a < b) ? a : b;
+};
+
+assert(min(7,10) === 7, "min test");
+assert(max(7,10) === 10, "max test");
+
+
+var isUndefined = function(_obj) {
+  return typeof(_obj) === 'undefined';
 };
 
 var isObject = function(_obj) {
@@ -43,9 +49,8 @@ var inspect = function(obj) {
   }
 
   if(!isObject(obj)) {
-    return (''+obj);
+    return obj.toString();
   }
-
 
   text = "{";
 
@@ -69,13 +74,9 @@ var inspect = function(obj) {
   return text;
 };
 
-var isUndefined = function(_obj) {
-  return typeof(_obj) === 'undefined';
-};
-
 var enumerate = function(_name, _array) {
   if(!isArray(_array)) {
-    return _name + " = " +inspect(_array);
+    return _name + " = " + inspect(_array);
   }
 
   var _text = "";
