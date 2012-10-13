@@ -1,5 +1,3 @@
-'use strict';
-
 /*
  * This file contains all functions related to I/O
  * This should be the only place that knows how to

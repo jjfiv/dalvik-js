@@ -1,5 +1,3 @@
-'use strict';
-
 //--- the two methods in here are junk, just to mock up what I think will need to happen "Object.equals" and "String.length"
 
 

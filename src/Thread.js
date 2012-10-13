@@ -1,4 +1,3 @@
-'use strict';
 
 var StackFrame = function(_m) {
   var _i;

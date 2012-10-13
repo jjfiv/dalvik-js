@@ -1,5 +1,3 @@
-'use strict';
-
 // This file contains a definition of a method
 
 var Method = function (_name, _definingClass, _paramTypes, _returnType) {

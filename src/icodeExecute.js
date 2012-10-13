@@ -1,4 +1,3 @@
-'use strict';
 // icode is the "Internal or Interpreter Codes"
 
 var icodeHandlers = {

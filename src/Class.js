@@ -1,5 +1,3 @@
-'use strict';
-
 //
 // This module defines our own internal representation of classes
 //

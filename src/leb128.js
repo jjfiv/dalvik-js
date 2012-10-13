@@ -1,5 +1,3 @@
-'use strict';
-
 // LEB128 variable byte encoding from DWARF 3 format used in .dex files
 var leb128 = function(get_byte, signed) {
   var i;

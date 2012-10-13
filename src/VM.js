@@ -1,8 +1,5 @@
-'use strict';
-
 // vm.js
 // This is the core of the VM
-// This is not global; initVM returns a new VM object
 
 var VM = function() {
   this._threads = [];
@@ -17,7 +14,8 @@ VM.prototype.createThread = function( _directMethod ) {
 VM.prototype.start = function ( _classList, _mainClass ) {
   var _publicStaticVoidMain = null;
 
-  // TODO this will probably be done often enough to merit being its own function
+  // TODO this would be rectified by having a class to handle all the defined classes and a method to "find class"
+  // on class, there should be a method "find method"
   var _i, _j, _class, _m;
   for(_i = 0; _i < _classList.length; _i++) {
     _class = _classList[_i];
