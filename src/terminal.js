@@ -9,6 +9,8 @@
  * but for now it should just offer simple printing.
  *
  */
+ 
+var DEBUG = true;
 
 var HTMLTerminal = function() {
   this._output = document.getElementById('output');
@@ -20,6 +22,10 @@ HTMLTerminal.prototype.print = function(str) {
 
 HTMLTerminal.prototype.println = function(str) {
   this.print(str + '\n');
+};
+
+HTMLTerminal.prototype.appendDebug = function(data, docObj){
+    docObj.innerText+=data;
 };
 
 //--- global
