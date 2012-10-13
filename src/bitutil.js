@@ -45,3 +45,17 @@ var hex = function(n) {
 };
 assert(hex(0xdeadbeef) === 'deadbeef', "hex test");
 
+//
+// A nibble is four bits; return the high four bits of a byte
+//
+var highNibble = function(x, n) {
+  return (x & 0xf0) >> 4;
+};
+
+//
+// A nibble is four bits; return the low four bits of a byte
+//
+var lowNibble = function(x, n) {
+  return (x & 0xf);
+};
+

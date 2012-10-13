@@ -88,4 +88,15 @@ var enumerate = function(_name, _array) {
   return _text;
 };
 
+// 
+// A small function to set a lot of values in an array to the same value
+// Start and End here are inclusive.
+// This is a side-effect function; the array passed in is modified.
+//
+var setArrayRange = function(_array, _start, _end, _value) {
+  var _i;
+  for(_i=_start; _i<=_end; _i++) {
+    _array[_i] = _value;
+  }
+};
 
