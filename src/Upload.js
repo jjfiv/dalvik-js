@@ -2,6 +2,7 @@
 // Upload class
 //
 // Handles the File Input object as needed
+// dependencies: ArrayFile.js, dexLoader.js
 //
 
 var Upload = function() {
@@ -56,6 +57,7 @@ Upload.prototype.onClickLoad = function(clickEvent) {
 
 // TODO have a protocol for setting this callback
 Upload.prototype.onFileReady = function(fileName, fileData) {
+  // DEXData is from dexLoader.js
   var dex = new DEXData(new ArrayFile(fileData));
 };
 
