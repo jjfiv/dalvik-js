@@ -1,5 +1,5 @@
 // icode is the "Internal or Interpreter Codes"
-// dependencies: icodeGen.js (needed to resolve values for keys)
+// dependencies: icodeGen.js (needed to resolve values for keys), assert.js
 
 var icodeHandlers = [];
 icodeHandlers[moveFamilyIcode] = function(_inst, _thread){
@@ -104,6 +104,6 @@ var icodeHandlers_old = {
 
 
 // sanity check of usage
-assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
+//assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
 
 
