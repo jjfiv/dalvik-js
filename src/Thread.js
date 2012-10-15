@@ -95,7 +95,7 @@ Thread.prototype.doNextInstruction = function() {
   var _frame = this.currentFrame();
   var _inst = _frame.method.icode[_frame.pc];
   if (DEBUG){
-      ICODES.putICODE(_inst);
+      ICODES.putICODE(_inst.op);
   }
 
   // see icode.js
