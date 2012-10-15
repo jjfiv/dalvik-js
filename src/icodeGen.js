@@ -1,6 +1,11 @@
 //--- A disassembler for Dalvik Bytecode
 // dependencies : bitutil.js, dexLoader.js, util.js
 
+var INCREMENTER = 0;
+var inc = function(){
+    INCREMENTER+=1;
+    return INCREMENTER;
+};
 
 // These are helper functions for parsing bytecode arguments
 var dest4src4 = function(_fp, _op) {
@@ -39,29 +44,32 @@ var dest8src8lit8 = function(_code, _out, _dex) {
 // Dalvik VM opcode names
 
 var opName = []; // a list of names
-var opArgs = []; // a list of function for getting the arguments
+var iCode = []; //RISC family codes
+var iCodeAddrSize = []; //since we have specialized hardware for arguments of different sizes, to convert the CISC encoding to RISC encoding, we need to make these specs arguments
+var iCodeRegSize = [];
 
-opName[0x00] = "nop";
-opArgs[0x00] = function () { };
+opName[0x00] = "nop", opArgs[0x00] = function () { };
+iCode[0x00] = inc(); //note: this means we're starting counting from one.
 
 //////////////////////////////////////// MOVE COMMANDS ////////////////////////////////////////
-
-opName[0x01] = "move", opArgs[0x01] = dest4src4;
-opName[0x02] = "move/from16", opArgs[0x02] = dest8src16;
-opName[0x03] = "move/16", opArgs[0x03] = dest16src16;
-opName[0x04] = "move-wide", opName[0x05] = "move-wide/from16";
-opName[0x06] = "move-wide/16", opArgs[0x06] = function(_code, _out, _dex) {
-    _out.wide = true;
-    _out.dest = _code.get16();
-    _out.src = _code.get16();
-};
-opName[0x07] = "move-object", opArgs[0x07] = dest4src4;
-opName[0x08] = "move-object/from16", opArgs[0x08] = dest8src16;
-opName[0x09] = "move-object/16", opArgs[0x09] = dest16src16;
-opName[0x0a] = "move-result";
-opName[0x0b] = "move-result-wide";
-opName[0x0c] = "move-result-object";
-opName[0x0d] = "move-exception";
+var moveFamilyIcode = inc();
+// note that this is a family of icodes because all args have similar semantic meaning 
+setArrayRange(iCode,0x01,0x09,moveFamilyIcode);
+opName[0x01] = "move", iCodeAddrSize[0x01] = [4,4], iCodeRegSize[0x01] = [32,32];
+opName[0x02] = "move/from16", iCodeArgSize[0x02] = [8, 16], iCodeRegSize[0x02] = [32,32];
+opName[0x03] = "move/16", iCodeArgSize[0x03] = [16,16], iCodeRegSize[0x03] = [32,32];
+opName[0x04] = "move-wide", iCodeArgSize[0x04] = [4,4], iCodeRegSize[0x04] = [64,64];
+opName[0x05] = "move-wide/from16", iCodeArgSize[0x05] = [8,16], iCodeRegSize[0x05] = [64,64];
+opName[0x06] = "move-wide/16", iCodeArgSize[0x06] = [16,16], iCodeRegSize[0x06] = [64, 64];
+opName[0x07] = "move-object", iCodeArgSize[0x07]=[4,4], iCodeRegSize[0x07]=[32,32];
+opName[0x08] = "move-object/from16", iCodeArgSize[0x08] = [8, 16], iCodeRegSize[0x08] = [32,32];
+opName[0x09] = "move-object/16", iCodeArgSize[0x09] = [16,16], iCodeRegSize[0x09] = [32,32];
+var moveResultFamilyIcode = inc();
+setArrayRange(iCode,0x0a,0x0d,moveResultFamilyIcode);
+opName[0x0a] = "move-result", iCodeArgSize[0x0a]=[8], iCodeRegSize[0x0a]=[32];
+opName[0x0b] = "move-result-wide", iCodeArgSize[0x0b]=[8], iCodeRegSize[0x0b]=[64];
+opName[0x0c] = "move-result-object", iCodeArgSize[0x0c]=[8], iCodeRegSize[0x0c]=[32];
+opName[0x0d] = "move-exception", iCodeArgSize[0x0d]=[8], iCodeRegSize[0x0d]=[32];
 
 //////////////////////////////////////// RETURN COMMANDS ////////////////////////////////////////
 // var dest8 = 
@@ -345,35 +353,49 @@ opName[0xe2] = "ushr-int/lit8";
 //
 // outputs:
 //   array of objects in the following form:
-//   { op: opcodeNumber, offset: #, args: []}
-//
+//   { op: opcodeNumber, offset: #, args: [], argsize: []}
+
 var icodeGen = function(_dex, _code) {
-  var _op, _out;
+  var _op, _risc, _i=0;
   var _output = [];
+  var _parser = function (_fp, _dexStuff, _arrayOfBitChunks, _name){
+      // some prolems will use dex and I will need another data structure for that
+      // BUT for now, I'm just pushing through for move operations.
+      _args = [];
+      while (_i<_arrayOfBitChunks.length){
+          // so what's the problem with switch statements?
+          // do we deal with the uleb thing here?
+          var _me = _arrayOfBitChunks[_i];
+          if (_me===4){
+              var _x = _fp.get();
+              _args[_i] = highNibble(x);
+              _args[_i+1] = lowNibble(x);
+              _i+=1;
+          } else if (me===8){
+              _args[_i]=_fp.get();
+          } else if (_me===16){
+              _args[_i]=_fp.get16();
+          } else if (_me===32){
+              _args[_i]=_fp.get32();
+          } else {
+              throw "Unrecognized chunk size ("+_me+") for "+_name;
+          }
+          _i+=1;
+      }
+      return _args;
+  };
   
   while(!_code.eof()) {
-    _out = {}; // our new "RISC" icode opcode
-    
-    // store offset
-    _out.offset = _code.offset;
-
-    // get the opcode itself
-    _op = _code.get();
-
-    // get name from table
-    _out.name = opName[_op];
-    
-    // get parser from table
-    var parser = opArgs[_op];
-    if(isUndefined(parser)) {
-      console.log("Need to implement " + _out.name);
-      break;
-    }
-    // call it
-    parser(_code, _out, _dex);
-
+      // get the native dalvik opcode itself
+      _op = _code.get();
+      _risc = { icode : iCode[_op],
+                offset : _code.offset,
+                name : opName[_op], //native davlik name, for debugging only
+                args : _parser(_fp, _dex, iCodeAddrSize[_op]),
+                argsize : iCodeRegSize[_op]
+              };
     // add it to result list
-    _output.push(_out);
+    _output.push(_risc);
   }
 
   return _output;
