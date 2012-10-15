@@ -70,9 +70,19 @@ Thread.prototype.getRegister = function(_idx) {
   return this.currentFrame().regs[_idx];
 }; //ends getRegister
 
+Thread.prototype.getRegisterWide = function(_idx){
+  return [this.currentFrame().regs[_idx], this.currentFrame().regs[_idx+1]];
+}
+
 Thread.prototype.setRegister = function(_idx, _value) {
-  this.currentFrame().regs[_idx] = _value
+  this.currentFrame().regs[_idx] = _value;
 }; //ends setRegister
+
+Thread.prototype.setRegisterWide = function(_idx, _value){
+  // TODO: need to implement function to parse out upper 32 and lower 32 bits of 62-bit _value
+  this.currentFrame().regs[_idx]=upperWide(_value);
+  this.currentFrame().regs[_idx+1]=lowerWide(_value);
+}
 
 Thread.prototype.setResult = function(_value) {
   this.result = _value;
