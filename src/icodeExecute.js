@@ -1,50 +1,6 @@
 // icode is the "Internal or Interpreter Codes"
-// dependencies: icodeGen.js (needed to resolve values for keys), assert.js
 
-var icodeHandlers = [];
-icodeHandlers[moveFamilyIcode] = function(_inst, _thread){
-    // move family values have two args
-    if (DEBUG){
-        assert(_inst.args.length===2 && _inst.args.argsize===2);        
-    }
-    var _destRegSize = _inst.argsize[0], _srcRegSize = _inst.argsize[1];
-    //lookup in _actionMap is by srcRegSize, then destRegSize
-    // I have these guys throwing things to detect errors, since they're bound to happen
-    // in a hand-coded icodeGen.js
-    var _actionMap = {
-        32 : { 32 : function () { _thread.setRegister(_destAddr, _thread.getRegister(_srcAddr)); },
-               64 : function () { throw "Cannot move from 32 bit register to 64 bit register."; }
-             },
-        64 : { 32 : function () { throw "Really cannot move from 64 bit register to 32 bit register."},
-               64 : function () { _thread.setRegisterWide(_destAddr, _thread.getRegisterWide(_srcAddr)); }
-             }
-    };
-    //note that move is like cp in that it does touch the contents at srcAddr
-    try {
-        actionMap[_srcRegSize][_destRegSize]();
-    } catch (_x) {
-        // do something?
-    }
-};
-icodeHandlers[moveResultFamilyIcode] = function(_inst, _thread){
-    // result codes depend on the final value of some execution, either invoke-* or an exception. 
-    // We're assuming that the dex file has ordered these appropriately and so for now
-    // we aren't checking that the types match
-    var _destRegSize = _inst.argsize[0];
-    var _value = function () {throw "Need to figure out how to grab the last computation and pass it in.";}();
-    var _actionMap = {
-        32 : function () { _thread.setRegister(_destAddr, _value); },
-        64 : function () { _thread.setRegisterWide(_destAddr, _value); }
-    };
-    try{
-        _actionMap[_destRegSize]();
-    } catch (_x) {
-        // do something?
-    }
-};
-
-
-var icodeHandlers_old = {
+var icodeHandlers = {
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
     var result;
@@ -78,6 +34,7 @@ var icodeHandlers_old = {
     _thread.setRegister(_inst.dest, _inst.value);
   },
 
+
   // handles getting a static field from a class
   "static-get": function(_inst, _thread) {
     var dest = _inst.dest;
@@ -104,6 +61,6 @@ var icodeHandlers_old = {
 
 
 // sanity check of usage
-//assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
+assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
 
 
