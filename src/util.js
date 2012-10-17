@@ -140,6 +140,12 @@ function floatFromDouble (_number) {
   return _result;
 } // End function floatFromDouble
 
+assert (floatFromDouble(0) === 0, "Zero test");
+assert (floatFromDouble(1) === 1, "Test for 1");
+assert (floatFromDouble(-1) === -1, "Test for -1");
+assert (!isFinite (floatFromDouble (5e39)), "Test for out of bounds");
+assert (floatFromDouble(50000000000) !== 50000000000, "Check if truncated");
+
 /* This function was taken from blog.coolmuse.com to separate out the 
 exponent and mantissa parts of the double precision number, with some
 modifications */
@@ -215,5 +221,3 @@ function decodeIEEE64 (_value) {
   _result.exponent -= 1023;
   return _result;
 } /* End function decodeIEEE64. */
-
-
