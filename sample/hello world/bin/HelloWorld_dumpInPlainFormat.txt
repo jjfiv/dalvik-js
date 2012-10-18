@@ -1,0 +1,65 @@
+Processing '/home/vjd215/workspace/hello world/bin/classes.dex'...
+Opened '/home/vjd215/workspace/hello world/bin/classes.dex', DEX version '035'
+Class #0 header:
+class_idx           : 0
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 2
+annotations_off     : 0 (0x000000)
+class_data_off      : 590 (0x00024e)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LHelloWorld;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LHelloWorld;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000138:                                        |[000138] HelloWorld.<init>:()V
+000148: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00014e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LHelloWorld; 
+
+    #1              : (in LHelloWorld;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 8 16-bit code units
+000150:                                        |[000150] HelloWorld.main:([Ljava/lang/String;)V
+000160: 6200 0000                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000164: 1a01 0100                              |0002: const-string v1, "Hello, World" // string@0001
+000168: 6e20 0200 1000                         |0004: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+00016e: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=16
+        0x0007 line=18
+      locals        : 
+        0x0000 - 0x0008 reg=2 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 2 (HelloWorld.java)
+

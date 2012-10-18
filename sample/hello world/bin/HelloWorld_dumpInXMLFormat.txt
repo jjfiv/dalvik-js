@@ -1,0 +1,45 @@
+<api>
+Class #0 header:
+class_idx           : 0
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 2
+annotations_off     : 0 (0x000000)
+class_data_off      : 590 (0x00024e)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+<package name=""
+>
+<class name="HelloWorld"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ visibility="public"
+>
+<constructor name="HelloWorld"
+ type="HelloWorld"
+ static="false"
+ final="false"
+ visibility="public"
+>
+</constructor>
+<method name="main"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ visibility="public"
+>
+<parameter name="arg0" type="java.lang.String[]">
+</parameter>
+</method>
+</class>
+</package>
+</api>
