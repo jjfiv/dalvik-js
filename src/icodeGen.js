@@ -42,8 +42,8 @@ var dest8src8lit8 = function(_dcode, _icode, _dex) {
 
 // Dalvik VM opcode names
 
-var opName = []; // a list of names
-var opArgs = []; // a list of function for getting the arguments
+var opName = []; // a list of dalvik instruction names
+var opArgs = []; // parse functions for each dalvik instruction
 
 opName[0x00] = "nop";
 opArgs[0x00] = function (_dcode, _icode, _dex) {

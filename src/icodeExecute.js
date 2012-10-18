@@ -1,4 +1,5 @@
 // icode is the "Internal or Interpreter Codes"
+// dependencies: icodeGen.js (needed to resolve values for keys), assert.js
 
 // NYI or "Not Yet Implemented"
 var NYI = function(_inst) {
@@ -266,6 +267,6 @@ var icodeHandlers = {
 
 
 // sanity check of usage
-assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
+//assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
 
 
