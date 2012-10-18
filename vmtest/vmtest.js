@@ -1,3 +1,9 @@
+
+//
+// This method is mostly taken from various sites, just adds the
+// given entry to the given table defined by HTML, hard to find
+// an example that doesn't depend on jQuery
+//
 var addRow = function(_tableId, _testId, _expected, _actual) {
   var _table = document.getElementById(_tableId);
   var _numRows = _table.rows.length;
@@ -13,7 +19,13 @@ var addRow = function(_tableId, _testId, _expected, _actual) {
   _actcell.innerHTML = _actual;
 };
 
+//
+// This method creates a VM, runs the test, captures the output, and clears it
+// Creates an entry in the appropriate table when run.
+//
 var doTest = function(testId, classes, mainClass, expectedOutput) {
+  document.getElementById('output').innerHTML = "";
+
   //--- main
   var myVM = new VM();
   myVM.start(classes, mainClass);
@@ -41,8 +53,8 @@ classSet.push({
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: 45},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println"},
+        {op: "move-const", dest: 1, value: {type: TYPE_INT, value:45}},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
         {op: "return"}
         ]
     }
@@ -59,14 +71,56 @@ classSet.push({
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: "Hello World!"},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println"},
+        {op: "move-const", dest: 1, value: {type: new Type("Ljava/lang/String;"), value:"Hello World!"}},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
         {op: "return"}
         ]
     },
   ]
 });
 
-doTest("println(45)", classSet, "Ltest/PrintFortyFive;", "45\n");
-doTest("println(100)", classSet, "LPrintHello;", "Hello World!\n");
+classSet.push({
+  name: "LAdd0;",
+  directMethods: [
+    {
+      name: "main",
+      returnType: "V",
+      params: ["[Ljava/lang/String;"],
+      numRegisters: 3,
+      icode: [
+        {op: "move-const", dest: 1, value: {type: TYPE_INT, value:20} },
+        {op: "move-const", dest: 2, value: {type: TYPE_INT, value:22} },
+        {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
+        {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
+        {op: "return"}
+        ]
+    },
+  ]
+});
+
+classSet.push({
+  name: "LAddWide0;",
+  directMethods: [
+    {
+      name: "main",
+      returnType: "V",
+      params: ["[Ljava/lang/String;"],
+      numRegisters: 3,
+      icode: [
+        {op: "move-const", dest: 1, value: {type: TYPE_LONG, value:gLong.fromNumber(42)} },
+        {op: "move-const", dest: 2, value: {type: TYPE_LONG, value:gLong.fromString("10000000000")} }, // 10 bil
+        {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
+        {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(J)V"},
+        {op: "return"}
+        ]
+    },
+  ]
+});
+
+doTest('println(45)', classSet, "Ltest/PrintFortyFive;", "45\n");
+doTest('println("Hello World!")', classSet, "LPrintHello;", "Hello World!\n");
+doTest('20+22', classSet, "LAdd0;", "42\n");
+doTest('10bil+42', classSet, "LAddWide0;", "10000000042\n");
 
