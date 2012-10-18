@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hello World pushthrough | Dalvik VM</title>
+<style>
+  td {
+    white-space:pre;
+    font-family:monospace;
+  }
+</style>
+</head>
+<body>
+
+<h2>Tests Passed:</h2>
+<table id="passTable" width="95%" border="1">
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td></tr>
+</table>
+
+<h2>Tests Failed:</h2>
+<table id="failTable" width="95%" border="1">
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td></tr>
+</table>
+
+<!-- I used a pre because I like monospace output. That's it, basically. -->
+<pre id="output"></pre>
+
+
+</body>
+
+<!-- after body so that can append to div "output" -->
+<script src="../src/assert.js"></script>
+<script src="../src/util.js"></script>
+<script src="../src/bitutil.js"></script>
+<script src="../src/terminal.js"></script>
+<script src="../src/icodeExecute.js"></script>
+<script src="../src/Class.js"></script>
+<script src="../src/Type.js"></script>
+<script src="../src/Field.js"></script>
+<script src="../src/Method.js"></script>
+<script src="../src/Thread.js"></script>
+<script src="../src/VM.js"></script>
+<script src="vmtest.js"></script>
+
+
+</html>
+
