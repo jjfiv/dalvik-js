@@ -116,6 +116,19 @@ Type.prototype.toDots = function () {
   return str1;
 };
 
+//--- Primitive Types:
+// V,Z,B,S,C,I,J,F,D
+var TYPE_VOID    = new Type('V');
+var TYPE_BOOLEAN = new Type('Z');
+var TYPE_BYTE    = new Type('B');
+var TYPE_SHORT   = new Type('S');
+var TYPE_CHAR    = new Type('C');
+var TYPE_INT     = new Type('I');
+var TYPE_LONG    = new Type('J');
+var TYPE_FLOAT   = new Type('F');
+var TYPE_DOUBLE  = new Type('D');
+var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
+
 var t = new Type("LBird;");
 console.log(t._type);
 console.log(t.isPrimitive());
