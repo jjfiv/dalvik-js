@@ -1,7 +1,7 @@
 
 // This file contains a definitoin of a Type object
 
-var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
+
 
 var Type = function (typeString) {
   var dimNum, num;
@@ -37,10 +37,13 @@ Type.prototype.isVoid = function () {
   return this._typeString === 'V';
 };
 
-// returns true if one of
-// V,Z,B,S,C,I,J,F,D
-// Tried using an array to store all the primitives, but indexOf doesn't seem to work :(
 Type.prototype.isPrimitive = function () {
+  var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
+  if (primitives.indexOf(this._type) > -1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 Type.prototype.getArrayBase = function() {
@@ -57,7 +60,42 @@ Type.prototype.defaultJSObject = function() {
       value: { }
     };
   }
-  
+  if (this.isPrimitive() ) {
+    if (this._type === "Z") {
+	  return {
+	    type: "boolean",
+		value: false
+	  };	
+	} else if (this._type === "B") {
+	  return {
+	    type: "byte",
+		value: 0
+	  };
+	} else if (this._type === "S") {
+	  return {
+	    type: "short",
+		value: 0
+	  };
+	} else if (this._type === "C") {
+	  return {
+	    type: "char",
+		value: 0
+	  };
+	} else if (this._type === "I") {
+	  return {
+	    type: "int",
+		value: 0
+	  };
+	} else if (this._type === "J") {
+	  return {
+	    type: "long",
+		value: {
+		  high: 0,
+		  low: 0
+		};
+	  };
+	} else if 
+  }
 };
 
 Type.prototype.isEquals = function( other ) {
@@ -80,7 +118,7 @@ Type.prototype.toDots = function () {
 
 var t = new Type("LBird;");
 console.log(t._type);
-console.log(t.toDots());
+console.log(t.isPrimitive());
 assert(t.isArray() === false, "Making sure bird is not an array");
 assert(t._arrayDim === 0, "Making sure the array is of 0 dimensions");
 assert(t._type === "L", "Making sure the type is a complicated class");
