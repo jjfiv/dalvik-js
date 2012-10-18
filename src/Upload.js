@@ -21,22 +21,25 @@ Upload.prototype.onClickLoad = function(clickEvent) {
   var selectedFiles = this.fileInput.files;
   var i;
 
-  var fileReady = function(loadEvent) {
-    console.log('fileReady!');
-    console.log(target);
-    var target = loadEvent.target;
+  var fileReady = function(self, f){
+    return function(loadEvent) {
+      var target = loadEvent.target;
+      var byteArray = new Uint8Array(target.result);
+      
+      console.log('fileReady!');
+      console.log(target);
+    
+      // this error happens when in Chrome with default settings
+      if(target.result === null) {
+        console.log(target.error);
+        console.log("Are you facing the Chrome security problem?");
+        return;
+      }
 
-    // this error happens when in Chrome with default settings
-    if(target.result === null) {
-      console.log(target.error);
-      console.log("Are you facing the Chrome security problem?");
-      return;
-    }
+      console.log('Loaded "' +f.name+'"');
 
-    console.log('Loaded "' +f.name+'"');
-
-    var byteArray = new Uint8Array(target.result);
-    self.onFileReady(f.name, byteArray);
+      self.onFileReady(f.name, byteArray);
+    };
   };
 
   console.log(selectedFiles);
@@ -48,7 +51,7 @@ Upload.prototype.onClickLoad = function(clickEvent) {
     var self = this;
 
     //reader.onload = fileReady;
-    reader.onloadend = fileReady;
+    reader.onloadend = fileReady(self, f);
     reader.readAsArrayBuffer(f);
 
     console.log(reader);
