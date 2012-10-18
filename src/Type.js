@@ -62,40 +62,47 @@ Type.prototype.defaultJSObject = function() {
   }
   if (this.isPrimitive() ) {
     if (this._type === "Z") {
-	  return {
-	    type: "boolean",
+	  return { // Boolean
+	    type: this,
 		value: false
 	  };	
 	} else if (this._type === "B") {
-	  return {
-	    type: "byte",
+	  return { // Byte
+	    type: this,
 		value: 0
 	  };
 	} else if (this._type === "S") {
-	  return {
-	    type: "short",
+	  return { // Short
+	    type: this,
 		value: 0
 	  };
 	} else if (this._type === "C") {
-	  return {
-	    type: "char",
+	  return { // Char
+	    type: this,
 		value: 0
 	  };
 	} else if (this._type === "I") {
-	  return {
-	    type: "int",
+	  return { // Int
+	    type: this,
 		value: 0
 	  };
 	} else if (this._type === "J") {
-	  return {
-	    type: "long",
-		value: {
-		  high: 0,
-		  low: 0
-		};
+	  return { // Long
+	    type: this,
+		value: gLong.fromNumber(0)
 	  };
-	} else if 
-  }
+	} else if (this._type === "F") {
+	  return { // Float
+	    type: this,
+		value: 0.0
+	  };
+    } else (this._type === "D") {
+	  return { // Double
+	    type: this,
+		value: 0.0
+	  };
+    } // end of if selecting appropriate primitive type
+  } // end of if isPrimitive
 };
 
 Type.prototype.isEquals = function( other ) {
