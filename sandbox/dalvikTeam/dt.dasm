@@ -1,0 +1,197 @@
+Processing 'dt.dex'...
+Opened 'dt.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LteamMember;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LteamMember;)
+      name          : '_knowsJS'
+      type          : 'Z'
+      access        : 0x0000 ()
+    #1              : (in LteamMember;)
+      name          : '_name'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0000 ()
+  Direct methods    -
+    #0              : (in LteamMember;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 1
+      insns size    : 9 16-bit code units
+000248:                                        |[000248] teamMember.<init>:(Ljava/lang/String;)V
+000258: 7010 0100 0100                         |0000: invoke-direct {v1}, Ljava/lang/Object;.<init>:()V // method@0001
+00025e: 5b12 0200                              |0003: iput-object v2, v1, LteamMember;._name:Ljava/lang/String; // field@0002
+000262: 1200                                   |0005: const/4 v0, #int 0 // #0
+000264: 5c10 0100                              |0006: iput-boolean v0, v1, LteamMember;._knowsJS:Z // field@0001
+000268: 0e00                                   |0008: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+        0x0003 line=6
+        0x0005 line=7
+        0x0008 line=8
+      locals        : 
+        0x0000 - 0x0009 reg=1 this LteamMember; 
+        0x0000 - 0x0009 reg=2 name Ljava/lang/String; 
+
+  Virtual methods   -
+    #0              : (in LteamMember;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 48 16-bit code units
+00026c:                                        |[00026c] teamMember.toString:()Ljava/lang/String;
+00027c: 5520 0100                              |0000: iget-boolean v0, v2, LteamMember;._knowsJS:Z // field@0001
+000280: 3800 1800                              |0002: if-eqz v0, 001a // +0018
+000284: 2200 0400                              |0004: new-instance v0, Ljava/lang/StringBuilder; // type@0004
+000288: 5421 0200                              |0006: iget-object v1, v2, LteamMember;._name:Ljava/lang/String; // field@0002
+00028c: 7110 0200 0100                         |0008: invoke-static {v1}, Ljava/lang/String;.valueOf:(Ljava/lang/Object;)Ljava/lang/String; // method@0002
+000292: 0c01                                   |000b: move-result-object v1
+000294: 7020 0300 1000                         |000c: invoke-direct {v0, v1}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0003
+00029a: 1a01 0100                              |000f: const-string v1, " knows JavaScript" // string@0001
+00029e: 6e20 0500 1000                         |0011: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0005
+0002a4: 0c00                                   |0014: move-result-object v0
+0002a6: 6e10 0600 0000                         |0015: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
+0002ac: 0c00                                   |0018: move-result-object v0
+0002ae: 1100                                   |0019: return-object v0
+0002b0: 2200 0400                              |001a: new-instance v0, Ljava/lang/StringBuilder; // type@0004
+0002b4: 5421 0200                              |001c: iget-object v1, v2, LteamMember;._name:Ljava/lang/String; // field@0002
+0002b8: 7110 0200 0100                         |001e: invoke-static {v1}, Ljava/lang/String;.valueOf:(Ljava/lang/Object;)Ljava/lang/String; // method@0002
+0002be: 0c01                                   |0021: move-result-object v1
+0002c0: 7020 0300 1000                         |0022: invoke-direct {v0, v1}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0003
+0002c6: 1a01 0000                              |0025: const-string v1, " doesn't know JavaScript" // string@0000
+0002ca: 6e20 0500 1000                         |0027: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0005
+0002d0: 0c00                                   |002a: move-result-object v0
+0002d2: 6e10 0600 0000                         |002b: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
+0002d8: 0c00                                   |002e: move-result-object v0
+0002da: 28ea                                   |002f: goto 0019 // -0016
+      catches       : (none)
+      positions     : 
+        0x0000 line=11
+        0x0004 line=12
+        0x0019 line=14
+      locals        : 
+        0x0000 - 0x0030 reg=2 this LteamMember; 
+
+  source_file_idx   : 36 (teamMember.java)
+
+Class #1            -
+  Class descriptor  : 'LvmTeam;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LvmTeam;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002dc:                                        |[0002dc] vmTeam.<init>:()V
+0002ec: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+0002f2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LvmTeam; 
+
+    #1              : (in LvmTeam;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 2
+      insns size    : 107 16-bit code units
+0002f4:                                        |[0002f4] vmTeam.main:([Ljava/lang/String;)V
+000304: 1206                                   |0000: const/4 v6, #int 0 // #0
+000306: 1215                                   |0001: const/4 v5, #int 1 // #1
+000308: 1252                                   |0002: const/4 v2, #int 5 // #5
+00030a: 2320 0b00                              |0003: new-array v0, v2, [LteamMember; // type@000b
+00030e: 2202 0600                              |0005: new-instance v2, LteamMember; // type@0006
+000312: 1a03 0800                              |0007: const-string v3, "John" // string@0008
+000316: 7020 0700 3200                         |0009: invoke-direct {v2, v3}, LteamMember;.<init>:(Ljava/lang/String;)V // method@0007
+00031c: 4d02 0006                              |000c: aput-object v2, v0, v6
+000320: 2202 0600                              |000e: new-instance v2, LteamMember; // type@0006
+000324: 1a03 0400                              |0010: const-string v3, "Emma" // string@0004
+000328: 7020 0700 3200                         |0012: invoke-direct {v2, v3}, LteamMember;.<init>:(Ljava/lang/String;)V // method@0007
+00032e: 4d02 0005                              |0015: aput-object v2, v0, v5
+000332: 1222                                   |0017: const/4 v2, #int 2 // #2
+000334: 2203 0600                              |0018: new-instance v3, LteamMember; // type@0006
+000338: 1a04 0700                              |001a: const-string v4, "Jennie" // string@0007
+00033c: 7020 0700 4300                         |001c: invoke-direct {v3, v4}, LteamMember;.<init>:(Ljava/lang/String;)V // method@0007
+000342: 4d03 0002                              |001f: aput-object v3, v0, v2
+000346: 1232                                   |0021: const/4 v2, #int 3 // #3
+000348: 2203 0600                              |0022: new-instance v3, LteamMember; // type@0006
+00034c: 1a04 0500                              |0024: const-string v4, "Guptha" // string@0005
+000350: 7020 0700 4300                         |0026: invoke-direct {v3, v4}, LteamMember;.<init>:(Ljava/lang/String;)V // method@0007
+000356: 4d03 0002                              |0029: aput-object v3, v0, v2
+00035a: 1242                                   |002b: const/4 v2, #int 4 // #4
+00035c: 2203 0600                              |002c: new-instance v3, LteamMember; // type@0006
+000360: 1a04 1600                              |002e: const-string v4, "Vicenzo" // string@0016
+000364: 7020 0700 4300                         |0030: invoke-direct {v3, v4}, LteamMember;.<init>:(Ljava/lang/String;)V // method@0007
+00036a: 4d03 0002                              |0033: aput-object v3, v0, v2
+00036e: 4602 0006                              |0035: aget-object v2, v0, v6
+000372: 5c25 0100                              |0037: iput-boolean v5, v2, LteamMember;._knowsJS:Z // field@0001
+000376: 4602 0005                              |0039: aget-object v2, v0, v5
+00037a: 5c25 0100                              |003b: iput-boolean v5, v2, LteamMember;._knowsJS:Z // field@0001
+00037e: 1201                                   |003d: const/4 v1, #int 0 // #0
+000380: 2102                                   |003e: array-length v2, v0
+000382: 3421 0300                              |003f: if-lt v1, v2, 0042 // +0003
+000386: 0e00                                   |0041: return-void
+000388: 6202 0000                              |0042: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00038c: 2203 0400                              |0044: new-instance v3, Ljava/lang/StringBuilder; // type@0004
+000390: 1a04 1300                              |0046: const-string v4, "Team member #" // string@0013
+000394: 7020 0300 4300                         |0048: invoke-direct {v3, v4}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0003
+00039a: d804 0101                              |004b: add-int/lit8 v4, v1, #int 1 // #01
+00039e: 6e20 0400 4300                         |004d: invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0004
+0003a4: 0c03                                   |0050: move-result-object v3
+0003a6: 1a04 0200                              |0051: const-string v4, ": " // string@0002
+0003aa: 6e20 0500 4300                         |0053: invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0005
+0003b0: 0c03                                   |0056: move-result-object v3
+0003b2: 4604 0001                              |0057: aget-object v4, v0, v1
+0003b6: 6e10 0800 0400                         |0059: invoke-virtual {v4}, LteamMember;.toString:()Ljava/lang/String; // method@0008
+0003bc: 0c04                                   |005c: move-result-object v4
+0003be: 6e20 0500 4300                         |005d: invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0005
+0003c4: 0c03                                   |0060: move-result-object v3
+0003c6: 6e10 0600 0300                         |0061: invoke-virtual {v3}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
+0003cc: 0c03                                   |0064: move-result-object v3
+0003ce: 6e20 0000 3200                         |0065: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0000
+0003d4: d801 0101                              |0068: add-int/lit8 v1, v1, #int 1 // #01
+0003d8: 28d4                                   |006a: goto 003e // -002c
+      catches       : (none)
+      positions     : 
+        0x0002 line=8
+        0x0022 line=9
+        0x0035 line=10
+        0x0039 line=11
+        0x003d line=13
+        0x0041 line=17
+        0x0042 line=14
+        0x0068 line=13
+      locals        : 
+        0x0035 - 0x006b reg=0 dalvik [LteamMember; 
+        0x003e - 0x006b reg=1 i I 
+        0x0000 - 0x006b reg=7 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 40 (vmTeam.java)
+
