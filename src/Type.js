@@ -2,8 +2,6 @@
 // This file contains a definitoin of a Type object
 // Dependencies: gLong.js
 
-'use strict';
-
 var Type = function (typeString) {
   var dimNum, num;
   // Copying the full type name to a type member
@@ -134,7 +132,7 @@ Type.prototype.defaultJSObject = function() {
     } else if(this._type === "D") {
 	  return { // Double
 	    type: this,
-		value: 0.0
+      value: 0.0
 	  };
     } else {
 	  assert("Undefined primitive type");
