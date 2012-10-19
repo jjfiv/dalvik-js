@@ -152,12 +152,14 @@ var TYPE_DOUBLE  = new Type('D');
 var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
 
 var t = new Type("LBird;");
-console.log(t._type);
-console.log(t.isPrimitive());
+console.log(t.toStr());
+console.log(t.getName());
 assert(t.isArray() === false, "Making sure bird is not an array");
 assert(t._arrayDim === 0, "Making sure the array is of 0 dimensions");
-assert(t._type === "L", "Making sure the type is a complicated class");
-assert(t._name === "Bird", "Making sure type name is Bird");
+//assert(t._type === "L", "Making sure the type is a complicated class");
+assert(t.getType() === "L", "Making sure the type is a complicated class");
+//assert(t._name === "Bird", "Making sure type name is Bird");
+assert(t.getName() === "Bird", "Making sure type name is Bird");
 
 var jStringType = new Type("Ljava/lang/String;");
 console.log(jStringType.toDots());
