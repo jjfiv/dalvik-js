@@ -19,6 +19,10 @@ MethodSignature.prototype.getName = function() {
   return this._name;
 };
 
+MethodSignature.prototype.getReturnType = function() {
+  return this._returnType;
+};
+
 MethodSignature.prototype.equals = function (other) {
   return this.toStr() === other.toStr();
 };
@@ -27,11 +31,11 @@ MethodSignature.prototype.toStr = function () {
 //print(TypeA,TypeB,TypeC)ReturnType
   var str;
   
-  str = this._name + "(";
+  str = this.getName() + "(";
   if (this._parameterAmount > 0) {
   }
   
-  str += ")" + this._returnType;
+  str += ")" + this.getReturnType();
   
   return str;  
 }

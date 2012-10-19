@@ -34,6 +34,10 @@ Type.prototype.getType = function() {
   return this._type;
 };
 
+Type.prototype.getArrayDim = function() {
+  return this._arrayDim;
+};
+
 Type.prototype.isEquals = function( other ) {
     // right now just comparing type strings
     // Do we want to just consider _name and _type?
@@ -155,10 +159,8 @@ var t = new Type("LBird;");
 console.log(t.toStr());
 console.log(t.getName());
 assert(t.isArray() === false, "Making sure bird is not an array");
-assert(t._arrayDim === 0, "Making sure the array is of 0 dimensions");
-//assert(t._type === "L", "Making sure the type is a complicated class");
+assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
 assert(t.getType() === "L", "Making sure the type is a complicated class");
-//assert(t._name === "Bird", "Making sure type name is Bird");
 assert(t.getName() === "Bird", "Making sure type name is Bird");
 
 var jStringType = new Type("Ljava/lang/String;");
