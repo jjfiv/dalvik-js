@@ -5,13 +5,13 @@
 var MethodSignature = function(name, returnType, parameterTypes) { 
   
   this._name = name;
-  this._returnType = returnType.getType();
+  this._returnType = returnType;
   this._parameterTypes = [];
   this._parameterAmount = parameterTypes.length;
   if (this._parameterAmount != 0) { // Assigning parameter array if there are any
     var i;
 	for (i = 0; i < this._parameterAmount; i++) {
-      this._parameterTypes.push(parameterTypes[i].getType());
+      this._parameterTypes.push(parameterTypes[i]);
 	}
   }
   
@@ -37,13 +37,13 @@ MethodSignature.prototype.toStr = function () {
   str = this._name + "(";
   if (this._parameterAmount > 0) {
   // Taking care of amount of commas
-    str += this._parameterTypes[0];
+    str += this._parameterTypes[0].getType();
     var i;
 	for (i = 1; i < this._parameterAmount; i++) {
-	  str += "," + this._parameterTypes[i];
+	  str += "," + this._parameterTypes[i].getType();
 	}
   }  
-  str += ")" + this._returnType;
+  str += ")" + this._returnType.getType();
   
   return str;  
 }
