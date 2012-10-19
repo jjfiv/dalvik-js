@@ -1,7 +1,8 @@
 
 // This file contains a definitoin of a Type object
+// Dependencies: gLong.js
 
-
+'use strict';
 
 var Type = function (typeString) {
   var dimNum, num;
