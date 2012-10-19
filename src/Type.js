@@ -152,6 +152,8 @@ var TYPE_LONG    = new Type('J');
 var TYPE_FLOAT   = new Type('F');
 var TYPE_DOUBLE  = new Type('D');
 var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
+var TYPE_STRING  = new Type('Ljava/lang/String;');
+var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 
 var t = new Type("LBird;");
 console.log(t.toStr());

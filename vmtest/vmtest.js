@@ -4,7 +4,7 @@
 // given entry to the given table defined by HTML, hard to find
 // an example that doesn't depend on jQuery
 //
-var addRow = function(_tableId, _testId, _expected, _actual) {
+var _addRow = function(_tableId, _testId, _expected, _actual) {
   var _table = document.getElementById(_tableId);
   var _numRows = _table.rows.length;
   var _row = _table.insertRow(_numRows);
@@ -21,25 +21,29 @@ var addRow = function(_tableId, _testId, _expected, _actual) {
 
 //
 // This method creates a VM, runs the test, captures the output, and clears it
-// Creates an entry in the appropriate table when run.
+// Creates an entry in the appropriate table when run."V"
 //
 var doTest = function(testId, classes, mainClass, expectedOutput) {
-  document.getElementById('output').innerHTML = "";
+  var _outField = document.getElementById('output');
+  var _clearOutput = function() {
+    _outField.innerHTML = "";
+  };
+
+  _clearOutput();
 
   //--- main
   var myVM = new VM();
   myVM.start(classes, mainClass);
 
   while(myVM.hasThreads()) {
-    console.log("\t"+myVM.getThreadState()+"\n", document.body);
     myVM.clockTick();
   }
 
-  output = document.getElementById('output').innerHTML;
-  var tableId = (output === expectedOutput) ? "passTable" : "failTable";
-  addRow(tableId, testId, expectedOutput, output);
+  var _output = _outField.innerHTML;
+  var tableId = (_output === expectedOutput) ? "passTable" : "failTable";
+  _addRow(tableId, testId, expectedOutput, _output);
 
-  document.getElementById('output').innerHTML = "";
+  _clearOutput();
 };
 
 var classSet = [];
@@ -48,12 +52,12 @@ classSet.push({
   directMethods: [
     {
       name: "main",
-      returnType: "V",
-      params: ["[Ljava/lang/String;"],
+      returnType: TYPE_VOID,
+      params: [TYPE_ARR_STRING],
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: {type: TYPE_INT, value:45}},
+        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_INT,45)},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
         {op: "return"}
         ]
@@ -66,12 +70,12 @@ classSet.push({
   directMethods: [
     {
       name: "main",
-      returnType: "V",
-      params: ["[Ljava/lang/String;"],
+      returnType: TYPE_VOID,
+      params: [TYPE_ARR_STRING],
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: {type: new Type("Ljava/lang/String;"), value:"Hello World!"}},
+        {op: "move-const", dest: 1, value: new RegisterValue("Ljava/lang/String;", "Hello World!")},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
         {op: "return"}
         ]
@@ -84,12 +88,12 @@ classSet.push({
   directMethods: [
     {
       name: "main",
-      returnType: "V",
-      params: ["[Ljava/lang/String;"],
+      returnType: TYPE_VOID,
+      params: [TYPE_ARR_STRING],
       numRegisters: 3,
       icode: [
-        {op: "move-const", dest: 1, value: {type: TYPE_INT, value:20} },
-        {op: "move-const", dest: 2, value: {type: TYPE_INT, value:22} },
+        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_INT, 20) },
+        {op: "move-const", dest: 2, value: new RegisterValue(TYPE_INT, 22) },
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
@@ -104,12 +108,12 @@ classSet.push({
   directMethods: [
     {
       name: "main",
-      returnType: "V",
-      params: ["[Ljava/lang/String;"],
+      returnType: TYPE_VOID,
+      params: [TYPE_ARR_STRING],
       numRegisters: 3,
       icode: [
-        {op: "move-const", dest: 1, value: {type: TYPE_LONG, value:gLong.fromNumber(42)} },
-        {op: "move-const", dest: 2, value: {type: TYPE_LONG, value:gLong.fromString("10000000000")} }, // 10 bil
+        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_LONG, gLong.fromNumber(42)) },
+        {op: "move-const", dest: 2, value: new RegisterValue(TYPE_LONG, gLong.fromString("10000000000")) }, // 10 bil
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(J)V"},
