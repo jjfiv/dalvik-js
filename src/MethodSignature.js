@@ -26,6 +26,10 @@ MethodSignature.prototype.getReturnType = function() {
   return this._returnType;
 };
 
+MethodSignature.prototype.getParameterAmount = function() {
+  return this._parameterAmount;
+};
+
 MethodSignature.prototype.equals = function (other) {
   return this.toStr() === other.toStr();
 };
@@ -55,4 +59,5 @@ var ret2 = new Type("B");
 var methParam = [ret1, ret2];
 var meth = new MethodSignature(methName, methRet, methParam);
 
-console.log(meth.toStr());
+assert(meth.toStr() === "testMeth(Z,B)L", "Something went wrong in the toStr");
+assert(meth.getParameterAmount() === 2, "Wrong number of parameters in method");
