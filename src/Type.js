@@ -26,6 +26,36 @@ var Type = function (typeString) {
   }
 };
 
+Type.prototype.getName = function() {
+  return this._name;
+};
+
+Type.prototype.getType = function() {
+  return this._type;
+};
+
+Type.prototype.isEquals = function( other ) {
+    // right now just comparing type strings
+    // Do we want to just consider _name and _type?
+    return this.toStr() === other.toStr();
+};
+
+Type.prototype.toDots = function () {
+  if (this._type === "L") {
+    var str1, str2;
+	str1 = this._typeString.substr(this._arrayDim + 1);
+	// A RegExp is needed to replace more than one instance of a string
+	str2 = str1.replace(/\//g, ".");	
+	return str2;
+  }
+  // Returning the typeName as it is after arrays + type letter
+  return str1;
+};
+
+Type.prototype.toStr = function() {
+  return this._typeString;
+};
+
 Type.prototype.isArray = function() {
   return this._arrayDim > 0;
 };
@@ -97,31 +127,15 @@ Type.prototype.defaultJSObject = function() {
 	    type: this,
 		value: 0.0
 	  };
-    } else (this._type === "D") {
+    } else if(this._type === "D") {
 	  return { // Double
 	    type: this,
 		value: 0.0
 	  };
-    } // end of if selecting appropriate primitive type
+    } else {
+	  assert("Undefined primitive type");
+	}// end of if selecting appropriate primitive type
   } // end of if isPrimitive
-};
-
-Type.prototype.isEquals = function( other ) {
-    // right now just comparing type strings
-    // Do we want to just consider _name and _type?
-    return this._typeString === other._typeString;
-};
-
-Type.prototype.toDots = function () {
-  if (this._type === "L") {
-    var str1, str2;
-	str1 = this._typeString.substr(this._arrayDim + 1);
-	// A RegExp is needed to replace more than one instance of a string
-	str2 = str1.replace(/\//g, ".");	
-	return str2;
-  }
-  // Returning the typeName as it is after arrays + type letter
-  return str1;
 };
 
 //--- Primitive Types:
