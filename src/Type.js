@@ -1,6 +1,6 @@
 
 // This file contains a definitoin of a Type object
-// Dependencies: gLong.js
+// Dependencies: gLong.js, RegisterValue.js
 
 var Type = function (typeString) {
   var dimNum, num;
