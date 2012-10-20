@@ -166,7 +166,7 @@ opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   
   _icode.dest = _dcode.get();
-  _icode.value = _dcode32.get();
+  _icode.value = _dcode.get32();
   
   NOT_IMPLEMENTED(_icode);
 };
@@ -183,9 +183,10 @@ opArgs[0x15] = function(_dcode, _icode, _dex) {
 opName[0x16] = "const-wide/16";
 opArgs[0x16] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
+  _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  dest8src16(_dcode, _icode, _dex);
+  _icode.value = _dcode.get16(); //get64?
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
@@ -193,9 +194,10 @@ opArgs[0x16] = function(_dcode, _icode, _dex) {
 opName[0x17] = "const-wide/32";
 opArgs[0x17] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
+  _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  dest8src16(_dcode, _icode, _dex);
+  _icode.value = _dcode.get32(); //get64?
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
@@ -203,9 +205,11 @@ opArgs[0x17] = function(_dcode, _icode, _dex) {
 opName[0x18] = "const-wide";
 opArgs[0x18] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
+  _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  dest8src16(_dcode, _icode, _dex);
+  _icode.low = _dcode.get32();  //get64?
+  _icode.high = _dcode.get32();  //get64?
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
@@ -213,9 +217,11 @@ opArgs[0x18] = function(_dcode, _icode, _dex) {
 opName[0x19] = "const-wide/high16";
 opArgs[0x19] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
+  _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  dest8src16(_dcode, _icode, _dex);
+  _icode.low = _dcode.get32();  //get64?
+  _icode.high = _dcode.get32();  //get64?
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
@@ -327,12 +333,14 @@ opArgs[0x28] = function(_dcode, _icode, _dex) {
 opName[0x29] = "goto/16";
 opArgs[0x29] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2a] = "goto/32";
 opArgs[0x2a] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
+  _icode.address = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
