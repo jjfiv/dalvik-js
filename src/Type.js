@@ -84,16 +84,13 @@ Type.prototype.getArrayBase = function() {
 };
 
 Type.prototype.defaultJSObject = function() {
-  if( this.isArray() ) {
-    return [];
+  if( this.isArray() ) { // Array
+    return new RegisterValue(this, []);	
   }
-  if (this.isClass() ) {
-    return {
-      type: this,
-      value: { }
-    };
+  if (this.isClass() ) { // Class
+    return new RegisterValue(this, { });
   }
-  if (this.isPrimitive() ) {
+  if (this.isPrimitive() ) { // Primitives
     if (this._type === "Z") { // Boolean
 	  return new RegisterValue(this, false);	
 	} else if (this._type === "B") { // Byte
