@@ -39,6 +39,12 @@ var dest8src8lit8 = function(_dcode, _icode, _dex) {
   _icode.literal = signExtend(_dcode.get(), 8, 32);
 };
 
+var varA4varB4 = function(_dcode, _icode, _dex) {
+// For binary operations with 2 variable, 4 bit offset for each
+  var x = _dcode.get();
+  _icode.varA = highNibble(x);
+  _icode.varB = lowNibble(x);
+};
 
 // Dalvik VM opcode names
 
@@ -397,72 +403,102 @@ opArgs[0x31] = function(_dcode, _icode, _dex) {
 opName[0x32] = "if-eq";
 opArgs[0x32] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x33] = "if-ne";
 opArgs[0x33] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x34] = "if-lt";
 opArgs[0x34] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x35] = "if-ge";
 opArgs[0x35] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x36] = "if-gt";
 opArgs[0x36] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x37] = "if-le";
 opArgs[0x37] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  varA4varB4(_dcode, _icode, _dex);
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x38] = "if-eqz";
 opArgs[0x38] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x39] = "if-nez";
 opArgs[0x39] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3a] = "if-ltz";
 opArgs[0x3a] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3b] = "if-gez";
 opArgs[0x3b] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3c] = "if-gtz";
 opArgs[0x3c] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3d] = "if-lez";
 opArgs[0x3d] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
+  _icode.varA = 0;
+  _icode.varB = _dcode.get();
+  _icode.address = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
