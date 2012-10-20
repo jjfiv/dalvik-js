@@ -1,5 +1,6 @@
 
 // This file contains a definitoin of a Type object
+// Dependencies: gLong.js
 
 var Type = function (typeString) {
   var dimNum, num;
@@ -10,7 +11,7 @@ var Type = function (typeString) {
   this._arrayDim = typeString.lastIndexOf("[") + 1;
   dimNum = this._arrayDim; // Useful for later calcs
   
-  // Getting the objectType of the Type, always first letter of [
+  // Getting the objectType of the Type, always first letter after last [
   this._type = typeString.substr(dimNum, 1);
   
   // Extracting pure type name
@@ -23,16 +24,61 @@ var Type = function (typeString) {
   }
 };
 
+Type.prototype.getName = function() {
+  return this._name;
+};
+
+Type.prototype.getType = function() {
+  return this._type;
+};
+
+Type.prototype.getArrayDim = function() {
+  return this._arrayDim;
+};
+
+Type.prototype.isEquals = function( other ) {
+    // right now just comparing type strings
+    // Do we want to just consider _name and _type?
+    return this.toStr() === other.toStr();
+};
+
+Type.prototype.toDots = function () {
+  if (this._type === "L") {
+    var str1, str2;
+	str1 = this._typeString.substr(this._arrayDim + 1);
+	// A RegExp is needed to replace more than one instance of a string
+	str2 = str1.replace(/\//g, ".");	
+	return str2;
+  }
+  // Returning the typeName as it is after arrays + type letter
+  return str1;
+};
+
+Type.prototype.toStr = function() {
+  return this._typeString;
+};
+
 Type.prototype.isArray = function() {
   return this._arrayDim > 0;
 };
 
-//
-// if this is an array
-// [Lflying/Bird;
-// Then this method should return
-// Lflying/Bird
-//
+Type.prototype.isClass = function() {
+  return this._type === "L";
+};
+
+Type.prototype.isVoid = function () {
+  return this._typeString === 'V';
+};
+
+Type.prototype.isPrimitive = function () {
+  var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
+  if (primitives.indexOf(this._type) > -1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 Type.prototype.getArrayBase = function() {
   return new Type(this._typeString.substr(this._arrayDim));
 };
@@ -47,38 +93,82 @@ Type.prototype.defaultJSObject = function() {
       value: { }
     };
   }
+  if (this.isPrimitive() ) {
+    if (this._type === "Z") {
+	  return { // Boolean
+	    type: this,
+		value: false
+	  };	
+	} else if (this._type === "B") {
+	  return { // Byte
+	    type: this,
+		value: 0
+	  };
+	} else if (this._type === "S") {
+	  return { // Short
+	    type: this,
+		value: 0
+	  };
+	} else if (this._type === "C") {
+	  return { // Char
+	    type: this,
+		value: 0
+	  };
+	} else if (this._type === "I") {
+	  return { // Int
+	    type: this,
+		value: 0
+	  };
+	} else if (this._type === "J") {
+	  return { // Long
+	    type: this,
+		value: gLong.fromNumber(0)
+	  };
+	} else if (this._type === "F") {
+	  return { // Float
+	    type: this,
+		value: 0.0
+	  };
+    } else if(this._type === "D") {
+	  return { // Double
+	    type: this,
+      value: 0.0
+	  };
+    } else {
+	  assert("Undefined primitive type");
+	}// end of if selecting appropriate primitive type
+  } // end of if isPrimitive
 };
 
-Type.prototype.isVoid = function () {
-  return this._typeString === 'V';
-};
-
-// returns true if one of
+//--- Primitive Types:
 // V,Z,B,S,C,I,J,F,D
-Type.prototype.isPrimitive = function () {
-
-};
-
-
-Type.prototype.isEquals = function( other ) {
-    // right now just comparing type strings
-    // Do we want to just consider _name and _type?
-    return this._typeString === other._typeString;
-};
-
+var TYPE_VOID    = new Type('V');
+var TYPE_BOOLEAN = new Type('Z');
+var TYPE_BYTE    = new Type('B');
+var TYPE_SHORT   = new Type('S');
+var TYPE_CHAR    = new Type('C');
+var TYPE_INT     = new Type('I');
+var TYPE_LONG    = new Type('J');
+var TYPE_FLOAT   = new Type('F');
+var TYPE_DOUBLE  = new Type('D');
+var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
+var TYPE_STRING  = new Type('Ljava/lang/String;');
+var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 
 var t = new Type("LBird;");
-console.log(t._arrayDim);
-console.log(t._type);
+console.log(t.toStr());
+console.log(t.getName());
 assert(t.isArray() === false, "Making sure bird is not an array");
-assert(t._arrayDim === 0, "Making sure the array is of 0 dimensions");
-assert(t._type === "L", "Making sure the type is a complicated class");
-assert(t._name === "Bird", "Making sure type name is Bird");
+assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
+assert(t.getType() === "L", "Making sure the type is a complicated class");
+assert(t.getName() === "Bird", "Making sure type name is Bird");
 
 var jStringType = new Type("Ljava/lang/String;");
+console.log(jStringType.toDots());
 assert(jStringType.isArray() === false, "Making sure String is not an array");
 
 var arrayOfStrings = new Type("[Ljava/lang/String;");
+console.log(arrayOfStrings.toDots());
 assert(arrayOfStrings.isArray() === true, "Making sure String is not an array");
 
 assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");

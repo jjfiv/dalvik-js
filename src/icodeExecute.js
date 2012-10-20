@@ -1,6 +1,29 @@
 // icode is the "Internal or Interpreter Codes"
+// dependencies: icodeGen.js (needed to resolve values for keys), assert.js
+
+// NYI or "Not Yet Implemented"
+var NYI = function(_inst) {
+  console.log("Instruction " + _inst.op + " from Dalvik '"+_inst.dalvikName+"' not yet implemented.");
+  throw "Not Implemented";
+};
 
 var icodeHandlers = {
+  "nop": function(_inst, _thread) {
+    // does nothing
+  },
+  
+  "move": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "move-result": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "move-exception": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
     var result;
@@ -11,29 +34,83 @@ var icodeHandlers = {
     _thread.popMethod(result);
   },
 
-  // handles invoking a method on an object or statically
-  "invoke": function(_inst, _thread) {
-    var kind = _inst.kind;
-    var methodName = _inst.method;
-    var argRegs = _inst.argumentRegisters;
-
-    var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
-
-    if(methodName === "Ljava/io/Printstream;.println") {
-      
-      console.log("print " + argValues[1] +
-                  " to " + inspect(argValues[0]) + "!");
-
-      terminal.println(argValues[1]);
-    }
-  },
-
   // handles loading a constant into a register
   // this can be a number, a string, a type, ...
   "move-const": function(_inst, _thread) {
-    _thread.setRegister(_inst.dest, _inst.value);
+    if(_inst.wide) {
+      NYI(_inst);
+    } else {
+      _thread.setRegister(_inst.dest, _inst.value);
+    }
   },
 
+  "monitor-enter": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "monitor-exit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "check-cast": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "instance-of": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "array-length": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "new-instance": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "new-array": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "fill-array": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "throw": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "goto": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "switch": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "cmp": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "if": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "array-get": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "array-put": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "instance-get": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "instance-put": function(_inst, _thread) {
+    NYI(_inst);
+  },
 
   // handles getting a static field from a class
   "static-get": function(_inst, _thread) {
@@ -49,6 +126,7 @@ var icodeHandlers = {
     _result.type = _field.type;
     _result.value = 0;
 
+    // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
     } else {
@@ -57,10 +135,138 @@ var icodeHandlers = {
 
     _thread.setRegister(dest, _result);
   },
+
+  "static-put": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  // handles invoking a method on an object or statically
+  "invoke": function(_inst, _thread) {
+    var kind = _inst.kind;
+    var methodName = _inst.method;
+    var argRegs = _inst.argumentRegisters;
+
+    // convert given argument registers into the values of their registers
+    var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
+
+    //TODO handle more than just this method;
+    //     will need to call into ClassLibrary to find things
+    if(methodName === "Ljava/io/Printstream;.println") {
+      
+      console.log("print " + argValues[1] +
+                  " to " + inspect(argValues[0]) + "!");
+
+      terminal.println(argValues[1]);
+    }
+  },
+
+  "negate": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "not": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "primitive-cast": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "int-cast": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "add": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "sub": function(_inst, _thread) {
+    NYI(_inst);
+  },
+  
+  "mul": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "div": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "rem": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "and": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "or": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "xor": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "shl": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "shr": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "ushr": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "add-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "sub-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+  
+  "mul-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "div-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "rem-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "and-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "or-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "xor-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "shl-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "shr-lit": function(_inst, _thread) {
+    NYI(_inst);
+  },
+
+  "ushr-lit": function(_inst, _thread) {
+    NYI(_inst);
+  }
 };
 
 
 // sanity check of usage
-assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
+//assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
 
 

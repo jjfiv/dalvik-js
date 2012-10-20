@@ -1,0 +1,128 @@
+.class public MathCalc
+.super java/lang/Object
+.source MathCalc.java
+
+
+.method public <init>()V
+.limit registers 1
+; this: v0 (LMathCalc;)
+.line 2
+	invoke-direct	{v0},java/lang/Object/<init>	; <init>()V
+; v0 : LMathCalc;
+	return-void	
+.end method
+
+.method public static main([Ljava/lang/String;)V
+.limit registers 10
+; parameter[0] : v9 ([Ljava/lang/String;)
+.line 9
+	const/4	v3,2
+; v3 : single-length
+.line 10
+	const/4	v4,4
+; v4 : single-length
+.line 11
+	const/4	v5,0
+; v5 : single-length
+.line 13
+	add-int	v5,v3,v4
+; v5 : single-length , v3 : single-length , v4 : single-length
+.line 14
+	sget-object	v6,java/lang/System.out Ljava/io/PrintStream;
+; v6 : Ljava/io/PrintStream;
+	new-instance	v7,java/lang/StringBuilder
+; v7 : Ljava/lang/StringBuilder;
+	const-string	v8,"Sum of entered integers = "
+; v8 : Ljava/lang/String;
+	invoke-direct	{v7,v8},java/lang/StringBuilder/<init>	; <init>(Ljava/lang/String;)V
+; v7 : Ljava/lang/StringBuilder; , v8 : Ljava/lang/String;
+	invoke-virtual	{v7,v5},java/lang/StringBuilder/append	; append(I)Ljava/lang/StringBuilder;
+; v7 : Ljava/lang/StringBuilder; , v5 : single-length
+	move-result-object	v7
+; v7 : Ljava/lang/StringBuilder;
+	invoke-virtual	{v7},java/lang/StringBuilder/toString	; toString()Ljava/lang/String;
+; v7 : Ljava/lang/StringBuilder;
+	move-result-object	v7
+; v7 : Ljava/lang/String;
+	invoke-virtual	{v6,v7},java/io/PrintStream/println	; println(Ljava/lang/String;)V
+; v6 : Ljava/io/PrintStream; , v7 : Ljava/lang/String;
+.line 17
+	const/4	v2,0
+; v2 : single-length
+.line 18
+	sub-int	v2,v4,v3
+; v2 : single-length , v4 : single-length , v3 : single-length
+.line 19
+	sget-object	v6,java/lang/System.out Ljava/io/PrintStream;
+; v6 : Ljava/io/PrintStream;
+	new-instance	v7,java/lang/StringBuilder
+; v7 : Ljava/lang/StringBuilder;
+	const-string	v8,"Subtraction of entered integers = "
+; v8 : Ljava/lang/String;
+	invoke-direct	{v7,v8},java/lang/StringBuilder/<init>	; <init>(Ljava/lang/String;)V
+; v7 : Ljava/lang/StringBuilder; , v8 : Ljava/lang/String;
+	invoke-virtual	{v7,v2},java/lang/StringBuilder/append	; append(I)Ljava/lang/StringBuilder;
+; v7 : Ljava/lang/StringBuilder; , v2 : single-length
+	move-result-object	v7
+; v7 : Ljava/lang/StringBuilder;
+	invoke-virtual	{v7},java/lang/StringBuilder/toString	; toString()Ljava/lang/String;
+; v7 : Ljava/lang/StringBuilder;
+	move-result-object	v7
+; v7 : Ljava/lang/String;
+	invoke-virtual	{v6,v7},java/io/PrintStream/println	; println(Ljava/lang/String;)V
+; v6 : Ljava/io/PrintStream; , v7 : Ljava/lang/String;
+.line 22
+	const/4	v1,0
+; v1 : single-length
+.line 23
+	mul-int	v1,v3,v4
+; v1 : single-length , v3 : single-length , v4 : single-length
+.line 24
+	sget-object	v6,java/lang/System.out Ljava/io/PrintStream;
+; v6 : Ljava/io/PrintStream;
+	new-instance	v7,java/lang/StringBuilder
+; v7 : Ljava/lang/StringBuilder;
+	const-string	v8,"Multiple integers = "
+; v8 : Ljava/lang/String;
+	invoke-direct	{v7,v8},java/lang/StringBuilder/<init>	; <init>(Ljava/lang/String;)V
+; v7 : Ljava/lang/StringBuilder; , v8 : Ljava/lang/String;
+	invoke-virtual	{v7,v1},java/lang/StringBuilder/append	; append(I)Ljava/lang/StringBuilder;
+; v7 : Ljava/lang/StringBuilder; , v1 : single-length
+	move-result-object	v7
+; v7 : Ljava/lang/StringBuilder;
+	invoke-virtual	{v7},java/lang/StringBuilder/toString	; toString()Ljava/lang/String;
+; v7 : Ljava/lang/StringBuilder;
+	move-result-object	v7
+; v7 : Ljava/lang/String;
+	invoke-virtual	{v6,v7},java/io/PrintStream/println	; println(Ljava/lang/String;)V
+; v6 : Ljava/io/PrintStream; , v7 : Ljava/lang/String;
+.line 27
+	const/4	v0,0
+; v0 : single-length
+.line 28
+	div-int	v0,v4,v3
+; v0 : single-length , v4 : single-length , v3 : single-length
+.line 29
+	sget-object	v6,java/lang/System.out Ljava/io/PrintStream;
+; v6 : Ljava/io/PrintStream;
+	new-instance	v7,java/lang/StringBuilder
+; v7 : Ljava/lang/StringBuilder;
+	const-string	v8,"Divide integers = "
+; v8 : Ljava/lang/String;
+	invoke-direct	{v7,v8},java/lang/StringBuilder/<init>	; <init>(Ljava/lang/String;)V
+; v7 : Ljava/lang/StringBuilder; , v8 : Ljava/lang/String;
+	invoke-virtual	{v7,v0},java/lang/StringBuilder/append	; append(I)Ljava/lang/StringBuilder;
+; v7 : Ljava/lang/StringBuilder; , v0 : single-length
+	move-result-object	v7
+; v7 : Ljava/lang/StringBuilder;
+	invoke-virtual	{v7},java/lang/StringBuilder/toString	; toString()Ljava/lang/String;
+; v7 : Ljava/lang/StringBuilder;
+	move-result-object	v7
+; v7 : Ljava/lang/String;
+	invoke-virtual	{v6,v7},java/io/PrintStream/println	; println(Ljava/lang/String;)V
+; v6 : Ljava/io/PrintStream; , v7 : Ljava/lang/String;
+.line 32
+	return-void	
+.end method
+
+
