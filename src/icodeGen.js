@@ -164,7 +164,9 @@ opArgs[0x13] = function(_dcode, _icode, _dex) {
 opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
-  NOT_IMPLEMENTED(_icode);
+  
+  _icode.dest = _dcode.get();
+  _icode.value = _dcode.get32();
 };
 
 opName[0x15] = "const/high16";
