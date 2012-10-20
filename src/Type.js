@@ -91,24 +91,18 @@ Type.prototype.defaultJSObject = function() {
     return new RegisterValue(this, { });
   }
   if (this.isPrimitive() ) { // Primitives
-    if (this._type === "Z") { // Boolean
-	  return new RegisterValue(this, false);	
-	} else if (this._type === "B") { // Byte
+    var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
+	var primIndex = primitives.indexOf(this._type);
+	if ( primIndex === 1) { // Boolean
+	  return new RegisterValue(this, false);
+	} else if ((primIndex > 1) && (primIndex < 6)) { // Byte, Short, Chat, Int
 	  return new RegisterValue(this, 0);
-	} else if (this._type === "S") { // Short
-	  return new RegisterValue(this, 0);
-	} else if (this._type === "C") { // Char
-	  return new RegisterValue(this, 0);
-	} else if (this._type === "I") { // Int
-	  return new RegisterValue(this, 0);
-	} else if (this._type === "J") { // Long
-	  return new RegisterValue(this, 0);
-	} else if (this._type === "F") { // Float
-	  return new RegisterValue(this, 0.0);
-    } else if(this._type === "D") { // Double
+	} else if ( primIndex === 6) { // Long
+	  return new RegisterValue(this, gLong.fromNumber(0));
+	} else if ((primIndex === 7) || (primIndex === 8)) { // Float or Double
 	  return new RegisterValue(this, 0.0);
     } else {
-	  assert("Undefined primitive type");
+	  assert(false, "Undefined primitive type");
 	}// end of if selecting appropriate primitive type
   } // end of if isPrimitive
 };
