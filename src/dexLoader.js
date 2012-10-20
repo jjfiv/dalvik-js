@@ -1,6 +1,19 @@
 // Conventions:
 //  ignored variables are listed with __*
 //  private/local variables are listed with _*
+//
+//
+//  Dependencies:
+//    util.js bitutil.js
+//    Field.js
+//    MethodSignature.js
+//    Method.js
+//    Class.js
+//    Type.js
+//    TryRange.js
+//    ArrayFile.js
+//    icodeGen.js
+//
 
 
 // controls whether dexDebug does anything or not
@@ -9,7 +22,8 @@ var DEX_LOADER_DEBUG = true; // refresh-time constant
 // prints a line of dexDebug information from dexLoader, if appropriate
 var dexDebug = function(s) { };
 if(DEX_LOADER_DEBUG) {
-  dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
+  //dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
+  dexDebug = console.log; // for debugging inline with other output
 }
 
 // file format constants
@@ -37,9 +51,6 @@ var DEXData = function(file) {
   this.methods = []; // array of Method
   this.classes = []; // array of Class
 
-  // MethodSignature by index
-  this.methodSig = [];
-  
   //--- parse the file
   this.parse();
 
@@ -234,16 +245,11 @@ DEXData.prototype._parseClassMethods = function(_count) {
 
     // pointer into method table
     var _m = this.methods[_currentIndex];
-    
-    // get index and translate to string instantly
-    _methods[_i] = { 
-      definingClass: _m.definingClass,
-      returnType: _m.returnType,
-      parameters: _m.parameters,
-      name: _m.name,
-      accessFlags: _accessFlags,
-      isNative: _codeOffset === 0,
-    };
+    // save that pointer in this classes list
+    _methods[_i] = _m;
+
+    _m.accessFlags = _accessFlags;
+    _m.isNative = _codeOffset === 0;
 
     if(_codeOffset === 0) {
       //console.log("Native Method: " + _m.name + " in " + _m.definingClass);
@@ -256,7 +262,7 @@ DEXData.prototype._parseClassMethods = function(_count) {
       var _here = _fp.offset;
       _fp.seek(_codeOffset);
 
-      this._translateCode(_methods[_i]);
+      this._parseCode(_methods[_i]);
 
       //--- restore file offset
       _fp.seek(_here);
@@ -498,24 +504,11 @@ DEXData.prototype._parseMethods = function(_section) {
     var _nameIndex = _fp.get32();
 
     var _proto = this.prototypes[_protoIndex];
-
     var _name = this.strings[_nameIndex];
+    var _defClass = this.types[_classIndex];
 
-    //--- store a method signature argument
-    this.methodSig[_i] = new MethodSignature(_name, _proto.returnType, _proto.parameters);
-    //--- don't know if this is important or not...
-    this.methodSig[_i].definingClass = this.types[_classIndex];
-
-    this.methods[_i] = {
-      definingClass: this.types[_classIndex],
-      returnType: _proto.returnType,
-      parameters: _proto.parameters,
-      name: this.strings[_nameIndex],
-    };
+    this.methods[_i] = new Method(_name, _defClass, _proto.parameters, _proto.returnType);
   }
-
-  //--- no longer need prototype definitions
-  delete this.prototypes;
 };
 
 DEXData.prototype._parseClasses = function(_section) {
@@ -550,53 +543,74 @@ DEXData.prototype._parseClasses = function(_section) {
 
 };
 
-DEXData.prototype._parseTryCatchInfo = function(_numTries) {
+//
+// Takes the number of tries and the offset to icode translation array
+//
+DEXData.prototype._parseTryCatch = function(_numTries, _offset) {
   if(_numTries === 0) {
     return [];
   }
 
-  var _fp = this._file;
-  var _i, _j;
-  var _tries = []; // "try_item"s
+  var _convertAddress = makeAddressConverter(_offset);
 
-  // this encodes the range of tries
+  var _fp = this._file;
+  var _startAddress;
+  var _endAddress;
+  var _numCatchTypes;
+  var _catchAllExists;
+
+  var _tryRanges = [];
+  var _handlerOffset = [];
+
   for(_i=0; _i<_numTries; _i++) {
-    _tries[_i] = {
-      startAddress: _fp.get32(),
-      numInstructions: _fp.get16(),
-      handlerOffset: _fp.get16(),
-      handlers: [],
-    };
+    // parse "try_item"
+    // grab addresses and immediately convert them
+    // 
+    _startAddress = _convertAddress(_fp.get32());
+    _endAddress = _convertAddress(_startAddress + _fp.get16());
+    _handlerOffset[_i] = _fp.get16();
+    
+    // since addresses are defined to be not inclusive
+    assert(_startAddress < _endAddress, "Start and End addresses of tryCatch are valid");
+
+    // create with a null _catchBlock for now and fill in later
+    _tryRanges[_i] = new TryRange(_startAddress, _endAddress, null);
   }
 
-  // parse associated "catch" blocks
-  var handlers = [];
+  // save file position
+  var _startOffset = _fp.offset;
+
+  // variables for this loop
+  var _types, _addr, _catchAll;
   
-  // parse "encoded_catch_handler_list"
-  var _numHandlers = _fp.getUleb128();
+  for(_i=0; _i<_numTries; _i++) {
+    // reset variables
+    _types = [];
+    _addr = [];
+    _catchAll = undefined;
 
-  //assert(_numHandlers === _numTries, "num handlers === num tries?");
+    // jump to this handler & parse
+    _fp.seek(_startOffset + _handlerOffset);
 
-  for(_i=0; _i<_numHandlers; _i++) {
-    var _numCatchTypes = _fp.getSleb128();
-    var _catchAllExists = (_numCatchTypes < 0);
+    // parse "encoded_catch_handler"
+    // if numCatchTypes is negative, it has a catch all
+    _numCatchTypes = _fp.getSleb128();
+    _catchAllExists = (_numCatchTypes < 0);
     _numCatchTypes = abs(_numCatchTypes);
 
-    var _catchHandlers = {};
-
     for(_j=0; _j<_numCatchTypes; _j++) {
-      var _typeIndex = _fp.getUleb128();
-      var _handlerAddress = _fp.getUleb128();
-      
-      var _typeName = this.types[_typeIndex];
-      _catchHandlers[ _typeName ] = _handlerAddress;
+      _types[_j] = this.types[_fp.getUleb128()];
+      _addr[_j] = _convertAddress(_fp.getUleb128());
     }
     if(_catchAllExists) {
-      _catchHandlers["*"] = _fp.getUleb128();
+      _catchAll = _convertAddress(_fp.getUleb128());
     }
-
-    handlers[_i] = _catchHandlers;
+    
+    // break rules and modify _catchBlock
+    _tryRanges[_i]._catchBlock = new CatchBlock(_types, _addr, _catchAll);
   }
+
+  return _tryRanges;
 };
 
 //--- this method shall define
@@ -608,7 +622,7 @@ DEXData.prototype._parseTryCatchInfo = function(_numTries) {
 //    etc.
 //    upon the given method _m
 //*** assumes this._file already points at the given code
-DEXData.prototype._translateCode = function(_m) {
+DEXData.prototype._parseCode = function(_m) {
   var _i;
   var _fp = this._file;
 
@@ -628,10 +642,22 @@ DEXData.prototype._translateCode = function(_m) {
     _byteCode.push(_fp.get());
   }
 
-  dexDebug(_m.name);
+  dexDebug("_parseCode for " + _m.getName());
   // see icodeGen.js
-  var icode = icodeGen(this, new ArrayFile(_byteCode));
-  dexDebug(icode);
+  var _icode = icodeGen(this, new ArrayFile(_byteCode));
+  dexDebug(_icode);
+
+  // create a translation list of offsets for this function, pulling the offset field out
+  var _offsets = _icode.map(function(_inst) {
+    var _off = _inst.offset;
+    assert(!isUndefined(_off), "offset should not be undefined");
+    delete _inst.offset;
+    return _off;
+  });
+
+  // translateAddresses to icode-based (indexed) addressing, store in the method for later
+  _m.icode = translateAddresses(_icode, _offsets);
+
 
   // if there were an odd number of instructions, then there is an
   // extra two bytes of zeroes to preserve 4-byte alignment
@@ -640,8 +666,10 @@ DEXData.prototype._translateCode = function(_m) {
     assert(__padding === 0, "padding should be zero");
   }
 
-  // grab try and handler information
-  var _tryCatch = this._parseTryCatchInfo(_numTries);
+  // grab try / catch and handler information
+  //  returns an array of TryRange objects
+  var _tryCatch = this._parseTryCatch(_numTries, _offsets);
+  enumerate('try-catch', _tryCatch);
 
   return;
 };
