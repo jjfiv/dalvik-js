@@ -284,3 +284,67 @@ assert (isNaN(floatFromByteStream('7F800008')), "floatFromByteStream: +NaN");
 assert (floatFromByteStream('FF800000') === -Infinity, "floatFromByteStream: -Infinity");
 assert (floatFromByteStream('7F800000') === Infinity, "floatFromByteStream: +Infinity");
 assert (floatFromByteStream('FF700008') === -3.1901488124765664e+38, "floatFromByteStream: Random neg float");
+
+/* Function Name: doubleFromByteStream
+
+This function converts a bytestream into a double.
+
+Inputs:   A bytestream of format fedcba9876543210
+Returns:  A double number - check for NaN and (-)Infinity */
+
+function doubleFromByteStream (_string) {
+  var _exponent = 0;
+  var _mantissa = 1.0;
+  var _mantissaPart = new gLong();
+  var _number = 0.0;
+  var _ptr = 51;
+  var _ptrExt = _ptr;
+  var _stream;
+  var _tempPow = new gLong();
+
+  _string = (_string);
+  _stream = Number ('0x' + _string.substring(0, 3));
+
+  _exponent = (_stream & 0x7ff) - 1023;
+
+  if (_exponent === -1023)
+  {
+    _mantissa = 0.0; // The smallest of them all
+    _ptrExt = 52;
+  }
+  
+  _mantissaPart = gLong.fromString(_string.substring(3), 16);
+  for (; _ptr >= 0; _ptr--) {
+    _tempPow = gLong.fromNumber (Math.pow (2, _ptr));
+    if (_tempPow.equals (_mantissaPart.and (_tempPow))) {
+      _mantissa += Math.pow (2, (_ptrExt - 52));
+    }
+    _ptrExt--;
+  }
+
+  if (_exponent === 1024) {
+    if (_mantissa === 1.0) {
+      _number = Infinity;
+    }
+    else {
+      _number = NaN;
+    }
+  }
+  else {
+    _number = _mantissa * Math.pow (2, _exponent);
+  }
+  
+  if ((Number('0x' + _string.substring(0,1))) > 7) {
+    _number = -_number; // No -0.0 in JS. It will be 0.0 anyway.
+  }
+  return _number;
+}
+assert (doubleFromByteStream('80000000000000000') === 0.0, "floatFromByteStream: 0");
+assert (doubleFromByteStream('C0000000000000000') === -2.0, "floatFromByteStream: -2.0");
+assert (doubleFromByteStream('3FF00000000000000') === 1.0, "floatFromByteStream: 1.0");
+assert (doubleFromByteStream('3FFFFFFFFFFFFFFF') === 1.9999999999999998, "floatFromByteStream: 1.9999999");
+assert (isNaN(doubleFromByteStream('FFF0000000000001')), "floatFromByteStream: -NaN");
+assert (isNaN(doubleFromByteStream('7FF1000000000000')), "floatFromByteStream: +NaN");
+assert (doubleFromByteStream('FFF0000000000000') === -Infinity, "floatFromByteStream: -Infinity");
+assert (doubleFromByteStream('7FF0000000000000') === Infinity, "floatFromByteStream: +Infinity");
+assert (doubleFromByteStream('FF70000839993499') === -7.022293890254943e+305, "floatFromByteStream: Random neg float");
