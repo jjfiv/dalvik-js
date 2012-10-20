@@ -29,12 +29,23 @@ var DEXData = function(file) {
   var _i;
 
   this._file = file;
+
+  this.strings = [];
+  this.types = []; // array of Type
+  this.prototypes = []; // array of {returnType, parameters}
+  this.fields = []; // array of Field
+  this.methods = []; // array of Method
+  this.classes = []; // array of Class
+
+  // MethodSignature by index
+  this.methodSig = [];
   
   //--- parse the file
   this.parse();
 
   dexDebug("Done Parsing!");
   //console.log(this.classes); // uncommenting this on core.dex crashes firefox :)
+  
 };
 
 DEXData.prototype.parse = function() {
@@ -132,7 +143,8 @@ DEXData.prototype._parseTypes = function(_section) {
 
   this.types = [];
   for(_i=0; _i<_section.count; _i++) {
-    this.types[_i] = this.strings[_fp.get32()];
+    // get string by index and convert it to a Type object
+    this.types[_i] = new Type(this.strings[_fp.get32()]);
   }
 };
 
@@ -157,7 +169,7 @@ DEXData.prototype._parseTypeList = function(_offset) {
   //assert(_count < 15, "Count is reasonable.");
 
   for(_i=0; _i<_count; _i++) {
-    // get index and translate to string instantly
+    // get index and translate to type instantly
     _types[_i] = this.types[_fp.get16()] ;
   }
 
@@ -190,14 +202,9 @@ DEXData.prototype._parseClassFields = function(_count) {
 
     // pointer into field table
     var _f = this.fields[_currentIndex];
+    _f.accessFlags = _accessFlags;
     
-    // get index and translate to string instantly
-    _fields[_i] = { 
-      definingClass: _f.definingClass,
-      type: _f.type,
-      name: _f.name,
-      accessFlags: _accessFlags,
-    };
+    _fields[_i] = _f;
   }
 
   return _fields;
@@ -452,7 +459,7 @@ DEXData.prototype._parsePrototypes = function(_section) {
     var _paramOffset = _fp.get32();
 
     this.prototypes[_i] = {
-      returnType: this.strings[_returnTypeIndex],
+      returnType: this.types[_returnTypeIndex],
       parameters: this._parseTypeList(_paramOffset),
     };
   }
@@ -470,11 +477,11 @@ DEXData.prototype._parseFields = function(_section) {
     var _typeIndex = _fp.get16();
     var _nameIndex = _fp.get32();
 
-    this.fields[_i] = {
-      definingClass: this.types[_classIndex],
-      type: this.types[_typeIndex],
-      name: this.strings[_nameIndex],
-    };
+    var _name = this.strings[_nameIndex];
+    var _type = this.types[_typeIndex];
+    var _defClass = this.types[_classIndex];
+
+    this.fields[_i] = new Field(_name, _type, _defClass);
   }
 };
 
@@ -491,6 +498,13 @@ DEXData.prototype._parseMethods = function(_section) {
     var _nameIndex = _fp.get32();
 
     var _proto = this.prototypes[_protoIndex];
+
+    var _name = this.strings[_nameIndex];
+
+    //--- store a method signature argument
+    this.methodSig[_i] = new MethodSignature(_name, _proto.returnType, _proto.parameters);
+    //--- don't know if this is important or not...
+    this.methodSig[_i].definingClass = this.types[_classIndex];
 
     this.methods[_i] = {
       definingClass: this.types[_classIndex],

@@ -35,6 +35,10 @@ var isArray = function(_obj) {
   return _obj instanceof Array;
 };
 
+var isFunction = function(_obj) {
+  return typeof(_obj) === 'function';
+};
+
 var inspect = function(obj) {
   var key, value, text, i;
 
@@ -46,6 +50,10 @@ var inspect = function(obj) {
     text += ']';
 
     return text;
+  }
+  
+  if(isFunction(obj.toStr)) {
+    return obj.toStr();
   }
 
   if(!isObject(obj)) {

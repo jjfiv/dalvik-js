@@ -1,4 +1,5 @@
 // This file deals with method signatures
+// Dependencies: Type.js
 
 'use strict';
 

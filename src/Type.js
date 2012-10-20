@@ -1,6 +1,6 @@
 
 // This file contains a definitoin of a Type object
-// Dependencies: gLong.js
+// Dependencies: gLong.js, RegisterValue.js
 
 var Type = function (typeString) {
   var dimNum, num;
@@ -84,56 +84,29 @@ Type.prototype.getArrayBase = function() {
 };
 
 Type.prototype.defaultJSObject = function() {
-  if( this.isArray() ) {
-    return [];
+  if( this.isArray() ) { // Array
+    return new RegisterValue(this, []);	
   }
-  if (this.isClass() ) {
-    return {
-      type: this,
-      value: { }
-    };
+  if (this.isClass() ) { // Class
+    return new RegisterValue(this, { });
   }
-  if (this.isPrimitive() ) {
-    if (this._type === "Z") {
-	  return { // Boolean
-	    type: this,
-		value: false
-	  };	
-	} else if (this._type === "B") {
-	  return { // Byte
-	    type: this,
-		value: 0
-	  };
-	} else if (this._type === "S") {
-	  return { // Short
-	    type: this,
-		value: 0
-	  };
-	} else if (this._type === "C") {
-	  return { // Char
-	    type: this,
-		value: 0
-	  };
-	} else if (this._type === "I") {
-	  return { // Int
-	    type: this,
-		value: 0
-	  };
-	} else if (this._type === "J") {
-	  return { // Long
-	    type: this,
-		value: gLong.fromNumber(0)
-	  };
-	} else if (this._type === "F") {
-	  return { // Float
-	    type: this,
-		value: 0.0
-	  };
-    } else if(this._type === "D") {
-	  return { // Double
-	    type: this,
-      value: 0.0
-	  };
+  if (this.isPrimitive() ) { // Primitives
+    if (this._type === "Z") { // Boolean
+	  return new RegisterValue(this, false);	
+	} else if (this._type === "B") { // Byte
+	  return new RegisterValue(this, 0);
+	} else if (this._type === "S") { // Short
+	  return new RegisterValue(this, 0);
+	} else if (this._type === "C") { // Char
+	  return new RegisterValue(this, 0);
+	} else if (this._type === "I") { // Int
+	  return new RegisterValue(this, 0);
+	} else if (this._type === "J") { // Long
+	  return new RegisterValue(this, 0);
+	} else if (this._type === "F") { // Float
+	  return new RegisterValue(this, 0.0);
+    } else if(this._type === "D") { // Double
+	  return new RegisterValue(this, 0.0);
     } else {
 	  assert("Undefined primitive type");
 	}// end of if selecting appropriate primitive type
