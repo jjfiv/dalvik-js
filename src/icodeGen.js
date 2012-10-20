@@ -347,12 +347,16 @@ opArgs[0x2a] = function(_dcode, _icode, _dex) {
 opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
+  _icode.value = _dcode.get();
+  _icode.address = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
+  _icode.value = _dcode.get();
+  _icode.address = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
