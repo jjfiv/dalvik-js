@@ -1,0 +1,176 @@
+Processing 'Animal.dex'...
+Opened 'Animal.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LAnimal;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LAnimal;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001e8:                                        |[0001e8] Animal.<init>:()V
+0001f8: 7010 0800 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0008
+0001fe: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LAnimal; 
+
+    #1              : (in LAnimal;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 29 16-bit code units
+000200:                                        |[000200] Animal.main:([Ljava/lang/String;)V
+000210: 2200 0200                              |0000: new-instance v0, LDog; // type@0002
+000214: 7010 0400 0000                         |0002: invoke-direct {v0}, LDog;.<init>:()V // method@0004
+00021a: 2201 0100                              |0005: new-instance v1, LCat; // type@0001
+00021e: 7010 0200 0100                         |0007: invoke-direct {v1}, LCat;.<init>:()V // method@0002
+000224: 6202 0000                              |000a: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000228: 7210 0600 0000                         |000c: invoke-interface {v0}, LIAnimal;.speak:()Ljava/lang/String; // method@0006
+00022e: 0c00                                   |000f: move-result-object v0
+000230: 6e20 0700 0200                         |0010: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+000236: 6200 0000                              |0013: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00023a: 7210 0600 0100                         |0015: invoke-interface {v1}, LIAnimal;.speak:()Ljava/lang/String; // method@0006
+000240: 0c01                                   |0018: move-result-object v1
+000242: 6e20 0700 1000                         |0019: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+000248: 0e00                                   |001c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+        0x0005 line=21
+        0x000a line=23
+        0x0013 line=24
+        0x001c line=25
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Animal.java)
+
+Class #1            -
+  Class descriptor  : 'LIAnimal;'
+  Access flags      : 0x0600 (INTERFACE ABSTRACT)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+  Virtual methods   -
+    #0              : (in LIAnimal;)
+      name          : 'speak'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0401 (PUBLIC ABSTRACT)
+      code          : (none)
+
+  source_file_idx   : 1 (Animal.java)
+
+Class #2            -
+  Class descriptor  : 'LCat;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'LIAnimal;'
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LCat;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00024c:                                        |[00024c] Cat.<init>:()V
+00025c: 7010 0800 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0008
+000262: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=12
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LCat; 
+
+  Virtual methods   -
+    #0              : (in LCat;)
+      name          : 'speak'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 3 16-bit code units
+000264:                                        |[000264] Cat.speak:()Ljava/lang/String;
+000274: 1a00 0b00                              |0000: const-string v0, "Meow." // string@000b
+000278: 1100                                   |0002: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=14
+      locals        : 
+        0x0000 - 0x0003 reg=1 this LCat; 
+
+  source_file_idx   : 1 (Animal.java)
+
+Class #3            -
+  Class descriptor  : 'LDog;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'LIAnimal;'
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LDog;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00027c:                                        |[00027c] Dog.<init>:()V
+00028c: 7010 0800 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0008
+000292: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LDog; 
+
+  Virtual methods   -
+    #0              : (in LDog;)
+      name          : 'speak'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 3 16-bit code units
+000294:                                        |[000294] Dog.speak:()Ljava/lang/String;
+0002a4: 1a00 0e00                              |0000: const-string v0, "Woof!" // string@000e
+0002a8: 1100                                   |0002: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+      locals        : 
+        0x0000 - 0x0003 reg=1 this LDog; 
+
+  source_file_idx   : 1 (Animal.java)
+
