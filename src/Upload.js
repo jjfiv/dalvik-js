@@ -64,5 +64,5 @@ Upload.prototype.onFileReady = function(fileName, fileData) {
   var dex = new DEXData(new ArrayFile(fileData));
 };
 
-var upload = new Upload();
+
 
