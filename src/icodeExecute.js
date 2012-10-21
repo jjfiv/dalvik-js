@@ -221,6 +221,9 @@ var icodeHandlers = {
   },
 
   "add-lit": function(_inst, _thread) {
+    var _src = _thread.getRegister(_inst.src);
+	_src.value += _inst.literal;
+    _thread.setRegister(_inst.dest, _src);
     NYI(_inst);
   },
 
