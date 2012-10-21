@@ -104,6 +104,7 @@ Type.prototype.trimNum = function(value) {
     return value;
   } else {
     assert(false, "This function doesn't implement trim for type " + type);
+  }
 };
 
 Type.prototype.defaultJSObject = function() {
