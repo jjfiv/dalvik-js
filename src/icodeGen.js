@@ -372,12 +372,12 @@ opArgs[0x27] = function(_dcode, _icode, _dex) {
 opName[0x28] = "goto";
 opArgs[0x28] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
-  _icode.addrOffset = _dcode.get();
+  _icode.addrOffset = signExtend(_dcode.get(), 8, 32);
 };
 opName[0x29] = "goto/16";
 opArgs[0x29] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
 };
 
 opName[0x2a] = "goto/32";
