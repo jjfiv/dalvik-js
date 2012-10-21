@@ -153,19 +153,19 @@ var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 // unit tests
 (function() {
   var t = new Type("LBird;");
-  console.log(t.toStr());
-  console.log(t.getName());
+  //console.log(t.toStr());
+  //console.log(t.getName());
   assert(t.isArray() === false, "Making sure bird is not an array");
   assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
   assert(t.getType() === "L", "Making sure the type is a complicated class");
   assert(t.getName() === "Bird", "Making sure type name is Bird");
 
   var jStringType = new Type("Ljava/lang/String;");
-  console.log(jStringType.toDots());
+  //console.log(jStringType.toDots());
   assert(jStringType.isArray() === false, "Making sure String is not an array");
 
   var arrayOfStrings = new Type("[Ljava/lang/String;");
-  console.log(arrayOfStrings.toDots());
+  //console.log(arrayOfStrings.toDots());
   assert(arrayOfStrings.isArray() === true, "Making sure String is not an array");
 
   assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");
