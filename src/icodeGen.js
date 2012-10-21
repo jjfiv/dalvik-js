@@ -1095,77 +1095,77 @@ opName[0x90] = "add-int";
 opArgs[0x90] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x91] = "sub-int";
 opArgs[0x91] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x92] = "mul-int";
 opArgs[0x92] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x93] = "div-int";
 opArgs[0x93] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x94] = "rem-int";
 opArgs[0x94] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x95] = "and-int";
 opArgs[0x95] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x96] = "or-int";
 opArgs[0x96] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x97] = "xor-int";
 opArgs[0x97] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x98] = "shl-int";
 opArgs[0x98] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x99] = "shr-int";
 opArgs[0x99] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x9a] = "ushr-int";
 opArgs[0x9a] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0x9b] = "add-long";
@@ -1173,7 +1173,7 @@ opArgs[0x9b] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x9c] = "sub-long";
@@ -1181,7 +1181,7 @@ opArgs[0x9c] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x9d] = "mul-long";
@@ -1189,7 +1189,7 @@ opArgs[0x9d] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x9e] = "div-long";
@@ -1197,7 +1197,7 @@ opArgs[0x9e] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x9f] = "rem-long";
@@ -1205,7 +1205,7 @@ opArgs[0x9f] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa0] = "and-long";
@@ -1213,7 +1213,7 @@ opArgs[0xa0] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa1] = "or-long";
@@ -1221,7 +1221,7 @@ opArgs[0xa1] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa2] = "xor-long";
@@ -1229,7 +1229,7 @@ opArgs[0xa2] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa3] = "shl-long";
@@ -1237,7 +1237,7 @@ opArgs[0xa3] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa4] = "shr-long";
@@ -1245,7 +1245,7 @@ opArgs[0xa4] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa5] = "ushr-long";
@@ -1253,42 +1253,42 @@ opArgs[0xa5] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xa6] = "add-float";
 opArgs[0xa6] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xa7] = "sub-float";
 opArgs[0xa7] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xa8] = "mul-float";
 opArgs[0xa8] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xa9] = "div-float";
 opArgs[0xa9] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xaa] = "rem-float";
 opArgs[0xaa] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xab] = "add-double";
@@ -1296,7 +1296,7 @@ opArgs[0xab] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xac] = "sub-double";
@@ -1304,7 +1304,7 @@ opArgs[0xac] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xad] = "mul-double";
@@ -1312,7 +1312,7 @@ opArgs[0xad] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xae] = "div-double";
@@ -1320,7 +1320,7 @@ opArgs[0xae] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xaf] = "rem-double";
@@ -1328,7 +1328,7 @@ opArgs[0xaf] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 // 2 addr varieties are like increment operators
@@ -1342,77 +1342,77 @@ opName[0xb0] = "add-int/2addr";
 opArgs[0xb0] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb1] = "sub-int/2addr";
 opArgs[0xb1] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb2] = "mul-int/2addr";
 opArgs[0xb2] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb3] = "div-int/2addr";
 opArgs[0xb3] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb4] = "rem-int/2addr";
 opArgs[0xb4] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb5] = "and-int/2addr";
 opArgs[0xb5] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb6] = "or-int/2addr";
 opArgs[0xb6] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb7] = "xor-int/2addr";
 opArgs[0xb7] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb8] = "shl-int/2addr";
 opArgs[0xb8] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xb9] = "shr-int/2addr";
 opArgs[0xb9] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xba] = "ushr-int/2addr";
 opArgs[0xba] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_INT;
+  _icode.type = TYPE_INT;
 };
 
 opName[0xbb] = "add-long/2addr";
@@ -1420,7 +1420,7 @@ opArgs[0xbb] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xbc] = "sub-long/2addr";
@@ -1428,7 +1428,7 @@ opArgs[0xbc] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xbd] = "mul-long/2addr";
@@ -1436,7 +1436,7 @@ opArgs[0xbd] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xbe] = "div-long/2addr";
@@ -1444,7 +1444,7 @@ opArgs[0xbe] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xbf] = "rem-long/2addr";
@@ -1452,7 +1452,7 @@ opArgs[0xbf] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc0] = "and-long/2addr";
@@ -1460,7 +1460,7 @@ opArgs[0xc0] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc1] = "or-long/2addr";
@@ -1468,7 +1468,7 @@ opArgs[0xc1] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc2] = "xor-long/2addr";
@@ -1476,7 +1476,7 @@ opArgs[0xc2] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc3] = "shl-long/2addr";
@@ -1484,7 +1484,7 @@ opArgs[0xc3] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc4] = "shr-long/2addr";
@@ -1492,7 +1492,7 @@ opArgs[0xc4] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc5] = "ushr-long/2addr";
@@ -1500,42 +1500,42 @@ opArgs[0xc5] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_LONG;
+  _icode.type = TYPE_LONG;
 };
 
 opName[0xc6] = "add-float/2addr";
 opArgs[0xc6] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xc7] = "sub-float/2addr";
 opArgs[0xc7] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xc8] = "mul-float/2addr";
 opArgs[0xc8] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xc9] = "div-float/2addr";
 opArgs[0xc9] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xca] = "rem-float/2addr";
 opArgs[0xca] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_FLOAT;
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0xcb] = "add-double/2addr";
@@ -1543,7 +1543,7 @@ opArgs[0xcb] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xcc] = "sub-double/2addr";
@@ -1551,7 +1551,7 @@ opArgs[0xcc] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xcd] = "mul-double/2addr";
@@ -1559,7 +1559,7 @@ opArgs[0xcd] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xce] = "div-double/2addr";
@@ -1567,7 +1567,7 @@ opArgs[0xce] = function(_dcode, _icode, _dex) {
   _icode.op = "div";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xcf] = "rem-double/2addr";
@@ -1575,7 +1575,7 @@ opArgs[0xcf] = function(_dcode, _icode, _dex) {
   _icode.op = "rem";
   _icode.wide = true;
   destsrcA4srcB4(_dcode, _icode, _dex);
-  _icode.srcType = TYPE_DOUBLE;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xd0] = "add-int/lit16";
