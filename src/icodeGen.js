@@ -1723,8 +1723,8 @@ var icodeGen = function(_dex, _dcode) {
   while(!_dcode.eof()) {
     _icode = {}; // our new "RISC" icode opcode
     
-    // store offset
-    _icode.offset = _dcode.offset;
+    // store offset as the number of code units
+    _icode.offset = _dcode.offset / 2;
 
     // get the opcode itself
     _op = _dcode.get();
@@ -1745,6 +1745,11 @@ var icodeGen = function(_dex, _dcode) {
       parser(_dcode, _icode, _dex);
     } catch (_notImplemented) {
       return _icodeput;
+    }
+
+    // this is a hack of sorts; dalvik instructions are pieced together in "code-units" which means that there's always an even number of bytes that should be consumed.
+    if(_dcode.offset % 2) {
+      _dcode.get();
     }
 
     // add it to result list

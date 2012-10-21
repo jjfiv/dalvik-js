@@ -31,16 +31,29 @@ var translateAddresses = function(_icode, _offsets) {
   assert(_icode.length === _offsets.length, "translateAddresses: Translation array is not consistent with _icode array!");
 
   var _convertAddress = makeAddressConverter(_offsets);
-
+  var _convertRelativeAddress = function(_relAddr, _index) {
+    console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
+    console.log("abs address: " + (_relAddr + _offsets[_index]));
+    // convert to absolute address for translation, then back to relative after
+    return _convertAddress(_relAddr + _offsets[_index]) - _i;
+  };
+  
+  // we need an index to convert from relative addressing
+  var _i = 0;
   return _icode.map(function(_inst) {
+    
     if(!isUndefined(_inst.addrOffset)) {
-      _inst.address = _convertAddress(_inst.addrOffset);
+      _inst.address = _convertRelativeAddress(_inst.addrOffset, _i);
       delete _inst.addrOffset;
     }
     if(!isUndefined(_inst.addrOffsets)) {
-      _inst.addresses = _inst.addrOffsets.map(_convertAddress);
-      delete _inst.addrOffset;
+      _inst.addresses = _inst.addrOffsets.map(function(_addrOffset) {
+        return _convertRelativeAddress(_addrOffset,_i);
+      });
+      delete _inst.addrOffsets;
     }
+
+    _i++;
     return _inst;
   });
 };
@@ -55,16 +68,16 @@ var translateAddresses = function(_icode, _offsets) {
   // This is like the input icode
   //
   var _testInput = [
-    {op: "goto", addrOffset: 7 },
-    {op: "make-believe"},
-    {op: "make-believe"},
-    {op: "switch", src: 2, values: [0, 4, 5, 6, 7], addrOffsets: [5, 5, 7, 16, 22]},
-    {op: "make-believe"},
-    {op: "if", addrOffset: 19},
-    {op: "make-believe"},
-    {op: "goto", addrOffset: 14},
-    {op: "make-believe"},
-    {op: "make-believe"},
+    /*  0 */ {op: "goto", addrOffset: 7 },
+    /*  5 */ {op: "make-believe"},
+    /*  7 */ {op: "make-believe"},
+    /* 10 */ {op: "switch", src: 2, values: [0, 4, 5, 6, 7], addrOffsets: [-5, -5, -3, 6, 12]},
+    /* 12 */ {op: "make-believe"},
+    /* 14 */ {op: "if", addrOffset: 5},
+    /* 16 */ {op: "make-believe"},
+    /* 19 */ {op: "goto", addrOffset: -5},
+    /* 21 */ {op: "make-believe"},
+    /* 22 */ {op: "make-believe"},
   ];
 
   // this is the dalvik address to icode address translation table
@@ -77,7 +90,7 @@ var translateAddresses = function(_icode, _offsets) {
     /* 0 */ {op: "goto", address: 2 },
     /* 1 */ {op: "make-believe"},
     /* 2 */ {op: "make-believe"},
-    /* 3 */ {op: "switch", src: 2, cases: [0, 4, 5, 6, 7], addresses: [1, 1, 2, 6, 9]},
+    /* 3 */ {op: "switch", src: 2, cases: [0, 4, 5, 6, 7], addresses: [-2, -2, -1, 3, 6]},
     /* 4 */ {op: "make-believe"},
     /* 5 */ {op: "if", address: 7},
     /* 6 */ {op: "make-believe"},
@@ -112,7 +125,7 @@ var translateAddresses = function(_icode, _offsets) {
 
       for(_j = 0; _j<_eaddr.length; _j++) {
         assert(_eaddr[_j] === _aaddr[_j],
-               "AddressTranslator: Expected address in " + _in + " to be resolved to " + _exp + "; but actually " + _act);
+               "AddressTranslator: Expected address in " + inspect(_in) + " to be resolved to " + inspect(_exp) + "; but actually " + inspect(_act));
       }
     }
   }
