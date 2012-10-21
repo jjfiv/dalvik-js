@@ -196,7 +196,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, trimNum(numA * numB));
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB);
 	} else {
 	  assert (false, "Unidentified type for multiplication");
 	}

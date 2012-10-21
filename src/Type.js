@@ -103,7 +103,7 @@ Type.prototype.trimNum = function(value) {
   } else if (this.type.isEquals(TYPE_DOUBLE)) {
     return value;
   } else {
-    assert(false, "This function doesn't implement trip for type " + type);
+    assert(false, "This function doesn't implement trim for type " + type);
 };
 
 Type.prototype.defaultJSObject = function() {
