@@ -57,7 +57,7 @@ classSet.push({
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_INT,45)},
+        {op: "move-const", dest: 1, value: 45},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
         {op: "return"}
         ]
@@ -75,7 +75,7 @@ classSet.push({
       numRegisters: 2,
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "move-const", dest: 1, value: new RegisterValue("Ljava/lang/String;", "Hello World!")},
+        {op: "move-const", dest: 1, value: "Hello World!"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
         {op: "return"}
         ]
@@ -92,8 +92,8 @@ classSet.push({
       params: [TYPE_ARR_STRING],
       numRegisters: 3,
       icode: [
-        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_INT, 20) },
-        {op: "move-const", dest: 2, value: new RegisterValue(TYPE_INT, 22) },
+        {op: "move-const", dest: 1, value: 20},
+        {op: "move-const", dest: 2, value: 22},
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
@@ -112,8 +112,8 @@ classSet.push({
       params: [TYPE_ARR_STRING],
       numRegisters: 3,
       icode: [
-        {op: "move-const", dest: 1, value: new RegisterValue(TYPE_LONG, gLong.fromNumber(42)) },
-        {op: "move-const", dest: 2, value: new RegisterValue(TYPE_LONG, gLong.fromString("10000000000")) }, // 10 bil
+        {op: "move-const", dest: 1, value:gLong.fromNumber(42) },
+        {op: "move-const", dest: 2, value:gLong.fromString("10000000000") }, // 10 bil
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(J)V"},

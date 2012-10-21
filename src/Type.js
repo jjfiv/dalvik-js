@@ -1,6 +1,6 @@
 
 // This file contains a definitoin of a Type object
-// Dependencies: gLong.js, RegisterValue.js
+// Dependencies: gLong.js
 
 var Type = function (typeString) {
   var dimNum, num;
@@ -93,22 +93,22 @@ Type.prototype.getArrayBase = function() {
 
 Type.prototype.defaultJSObject = function() {
   if( this.isArray() ) { // Array
-    return new RegisterValue(this, []);	
+    return [];	
   }
   if (this.isClass() ) { // Class
-    return new RegisterValue(this, { });
+    return { };
   }
   if (this.isPrimitive() ) { // Primitives
     var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
 	var primIndex = primitives.indexOf(this._type);
 	if ( primIndex === 1) { // Boolean
-	  return new RegisterValue(this, false);
+	  return false;
 	} else if ((primIndex > 1) && (primIndex < 6)) { // Byte, Short, Chat, Int
-	  return new RegisterValue(this, 0);
+	  return 0;
 	} else if ( primIndex === 6) { // Long
-	  return new RegisterValue(this, gLong.fromNumber(0));
+	  return gLong.fromNumber(0);
 	} else if ((primIndex === 7) || (primIndex === 8)) { // Float or Double
-	  return new RegisterValue(this, 0.0);
+	  return 0.0;
     } else {
 	  assert(false, "Undefined primitive type");
 	}// end of if selecting appropriate primitive type
