@@ -221,50 +221,47 @@ var icodeHandlers = {
   },
 
   "add-lit": function(_inst, _thread) {
-    var _src = _thread.getRegister(_inst.src);
-	_src.value += _inst.literal;
-    _thread.setRegister(_inst.dest, _src);
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) + _inst.literal);
   },
 
   "sub-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) - _inst.literal);
   },
   
   "mul-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) * _inst.literal);
   },
 
   "div-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) / _inst.literal);
   },
 
   "rem-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) % _inst.literal);
   },
 
   "and-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) & _inst.literal);
   },
 
   "or-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) | _inst.literal);
   },
 
   "xor-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) ^ _inst.literal);
   },
 
   "shl-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) << _inst.literal);
   },
 
   "shr-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) >> _inst.literal);
   },
 
   "ushr-lit": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) >>> _inst.literal);
   }
 };
 
