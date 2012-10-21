@@ -54,7 +54,7 @@ var varA4varB4offset16 = function(_dcode, _icode, _dex) {
 
 var arrayTriplet = function(_dcode, _icode, _dex) {
 //------------------------------------------------------
-// Relevant to all array ops:                          |
+// Relevant to all array ops (get/put):                |
 // _icode.value == value to deal with (8bit)           |
 // _icode.array == offset to beginning of array (8bit) |
 // _icode.index == offset within array (8bit)          |
@@ -66,7 +66,7 @@ var arrayTriplet = function(_dcode, _icode, _dex) {
 
 var dest8src8val8 = function(_dcode, _icode, _dex) {
 //---------------------------------------------------
-// Relevant to all binary ops:                      |
+// Relevant to binary ops of type c = a + b:        |
 // _icode.dest == target register (8bit)            |
 // _icode.varA == register with first value (8bit)  |
 // _icode.varB == register with second value (8bit) |
@@ -78,7 +78,7 @@ var dest8src8val8 = function(_dcode, _icode, _dex) {
 
 var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
 //---------------------------------------------------
-// Relevant to all binary ops:                      |
+// Relevant to binary ops of type a += b:           |
 // Target register is same as source register       |
 // _icode.dest == target register (4bit)            |
 // _icode.varA == register with first value (4bit)  |
@@ -88,6 +88,19 @@ var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
   _icode.varA = highNibble(x);
   _icode.varB = lowNibble(x);
   _icode.dest = _icode.varA;
+};
+
+var dest4src4lit16 = function(_dcode, _icode, _dex) {
+//-----------------------------------------------------
+// Relevant to binary ops c = a + b; b is a literal:  |
+// _icode.dest == target register (4bit)              |
+// _icode.varA == register with first value (4bit)    |
+// _icode.varB == register with second value (16bit)  |
+//-----------------------------------------------------
+  var x = _dcode.get();
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
+  _icode.literal = signExtend(_dcode.get16(), 16, 32);
 };
 
 // Dalvik VM opcode names
@@ -1568,49 +1581,49 @@ opArgs[0xcf] = function(_dcode, _icode, _dex) {
 opName[0xd0] = "add-int/lit16";
 opArgs[0xd0] = function(_dcode, _icode, _dex) {
   _icode.op = "add-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd1] = "rsub-int";
 opArgs[0xd1] = function(_dcode, _icode, _dex) {
   _icode.op = "rsub-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd2] = "mul-int/lit16";
 opArgs[0xd2] = function(_dcode, _icode, _dex) {
   _icode.op = "mul-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd3] = "div-int/lit16";
 opArgs[0xd3] = function(_dcode, _icode, _dex) {
   _icode.op = "div-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd4] = "rem-int/lit16";
 opArgs[0xd4] = function(_dcode, _icode, _dex) {
   _icode.op = "rem-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd5] = "and-int/lit16";
 opArgs[0xd5] = function(_dcode, _icode, _dex) {
   _icode.op = "and-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd6] = "or-int/lit16";
 opArgs[0xd6] = function(_dcode, _icode, _dex) {
   _icode.op = "or-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd7] = "xor-int/lit16";
 opArgs[0xd7] = function(_dcode, _icode, _dex) {
   _icode.op = "xor-lit";
-  NOT_IMPLEMENTED(_icode);
+  dest4src4lit16(_dcode, _icode, _dex);
 };
 
 opName[0xd8] = "add-int/lit8";
@@ -1623,71 +1636,61 @@ opArgs[0xd8] = function(_dcode, _icode, _dex) {
 opName[0xd9] = "rsub-int/lit8";
 opArgs[0xd9] = function(_dcode, _icode, _dex) {
   _icode.op = "rsub-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xda] = "mul-int/lit8";
 opArgs[0xda] = function(_dcode, _icode, _dex) {
   _icode.op = "mul-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xdb] = "div-int/lit8";
 opArgs[0xdb] = function(_dcode, _icode, _dex) {
   _icode.op = "div-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xdc] = "rem-int/lit8";
 opArgs[0xdc] = function(_dcode, _icode, _dex) {
   _icode.op = "rem-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xdd] = "and-int/lit8";
 opArgs[0xdd] = function(_dcode, _icode, _dex) {
   _icode.op = "and-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xde] = "or-int/lit8";
 opArgs[0xde] = function(_dcode, _icode, _dex) {
   _icode.op = "or-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xdf] = "xor-int/lit8";
 opArgs[0xdf] = function(_dcode, _icode, _dex) {
   _icode.op = "xor-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xe0] = "shl-int/lit8";
 opArgs[0xe0] = function(_dcode, _icode, _dex) {
   _icode.op = "shl-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xe1] = "shr-int/lit8";
 opArgs[0xe1] = function(_dcode, _icode, _dex) {
   _icode.op = "shr-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xe2] = "ushr-int/lit8";
 opArgs[0xe2] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 
