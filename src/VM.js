@@ -1,8 +1,13 @@
 // vm.js
 // This is the core of the VM
+// dependencies: Upload.js, Thread.js
 
-var VM = function() {
+var VM = function() {  
   this._threads = [];
+  this._classLibrary = new ClassLibrary();
+  this._upload = new Upload(function(_fileName, _fileData){
+                              var dex = new DEXData(new ArrayFile(_fileData));
+                            });
 };
 
 VM.prototype.createThread = function( _directMethod ) {

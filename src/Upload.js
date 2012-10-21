@@ -5,13 +5,13 @@
 // dependencies: ArrayFile.js, dexLoader.js
 //
 
-var Upload = function() {
+var Upload = function(cbk) {
   this.loadButton = document.getElementById('loadButton');
   this.fileInput = document.getElementById('fileInput');
 
   var self = this;
   this.callback = function(evt) { self.onClickLoad(evt); };
-
+  this.onFileReady = cbk;
   this.loadButton.addEventListener('click', this.callback, false);
 
   console.log("Hello");
@@ -59,10 +59,7 @@ Upload.prototype.onClickLoad = function(clickEvent) {
 };
 
 // TODO have a protocol for setting this callback
-Upload.prototype.onFileReady = function(fileName, fileData) {
-  // DEXData is from dexLoader.js
-  var dex = new DEXData(new ArrayFile(fileData));
-};
-
-
-
+// Upload.prototype.onFileReady = function(fileName, fileData) {
+//   // DEXData is from dexLoader.js
+//   var dex = new DEXData(new ArrayFile(fileData));
+// };
