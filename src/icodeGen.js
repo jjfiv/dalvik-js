@@ -408,31 +408,43 @@ opArgs[0x2c] = function(_dcode, _icode, _dex) {
 opName[0x2d] = "cmpl-float";
 opArgs[0x2d] = function(_dcode, _icode, _dex) {
   _icode.op = "cmp";
-  NOT_IMPLEMENTED(_icode);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
+  _icode.bias = "lt";
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0x2e] = "cmpg-float";
 opArgs[0x2e] = function(_dcode, _icode, _dex) {
   _icode.op = "cmp";
-  NOT_IMPLEMENTED(_icode);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
+  _icode.bias = "gt";
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0x2f] = "cmpl-double";
 opArgs[0x2f] = function(_dcode, _icode, _dex) {
   _icode.op = "cmp";
-  NOT_IMPLEMENTED(_icode);
+  _icode.wide = true;
+  dest8srcA8srcB8(_dcode, _icode, _dex);
+  _icode.bias = "lt";
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0x30] = "cmpg-double";
 opArgs[0x30] = function(_dcode, _icode, _dex) {
   _icode.op = "cmp";
-  NOT_IMPLEMENTED(_icode);
+  _icode.wide = true;
+  dest8srcA8srcB8(_dcode, _icode, _dex);
+  _icode.bias = "gt";
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0x31] = "cmp-long";
 opArgs[0x31] = function(_dcode, _icode, _dex) {
   _icode.op = "cmp";
-  NOT_IMPLEMENTED(_icode);
+  _icode.wide = true;
+  dest8srcA8srcB8(_dcode, _icode, _dex);
+  _icode.type = TYPE_LONG;
 };
 
 
