@@ -166,13 +166,14 @@ opArgs[0x09] = opArgs[0x03]; // this is the same handling as "move/16"
 opName[0x0a] = "move-result";
 opArgs[0x0a] = function(_dcode, _icode, _dex) {
   _icode.op = "move-result";
-  NOT_IMPLEMENTED(_icode);
+  _icode.dest = _dcode.get();
 };
 
 opName[0x0b] = "move-result-wide";
 opArgs[0x0b] = function(_dcode, _icode, _dex) {
   _icode.op = "move-result";
-  NOT_IMPLEMENTED(_icode);
+  _icode.wide = true;
+  _icode.dest = _dcode.get();
 };
 
 opName[0x0c] = "move-result-object";
@@ -181,7 +182,7 @@ opArgs[0x0c] = opArgs[0x0a]; // this is the same handling as "move-result"
 opName[0x0d] = "move-exception";
 opArgs[0x0d] = function(_dcode, _icode, _dex) {
   _icode.op = "move-exception";
-  NOT_IMPLEMENTED(_icode);
+  _icode.dest = _dcode.get();
 };
 
 //////////////////////////////////////// RETURN COMMANDS ////////////////////////////////////////
