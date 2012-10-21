@@ -194,13 +194,14 @@ opArgs[0x0e] = function(_dcode, _icode, _dex) {
 opName[0x0f] = "return";
 opArgs[0x0f] = function(_dcode, _icode, _dex) {
   _icode.op = "return";
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dcode.get();
 };
 
 opName[0x10] = "return-wide";
 opArgs[0x10] = function(_dcode, _icode, _dex) {
   _icode.op = "return";
-  NOT_IMPLEMENTED(_icode);
+  _icode.wide = true;
+  _icode.value = _dcode.get();
 };
 
 opName[0x11] = "return-object";
