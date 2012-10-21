@@ -40,7 +40,7 @@ Method.prototype.getParameterAmount = function() {
 // Class.name(TA,TB)RT
 //
 Method.prototype.toStr = function() {
-  return this.definingClass + "." + this.signature.toStr();
+  return this.definingClass.toStr() + "." + this.signature.toStr();
 };
 
 Method.prototype.numParameters = function() {
