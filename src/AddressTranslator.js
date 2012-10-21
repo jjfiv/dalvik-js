@@ -32,8 +32,8 @@ var translateAddresses = function(_icode, _offsets) {
 
   var _convertAddress = makeAddressConverter(_offsets);
   var _convertRelativeAddress = function(_relAddr, _index) {
-    console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
-    console.log("abs address: " + (_relAddr + _offsets[_index]));
+    //console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
+    //console.log("abs address: " + (_relAddr + _offsets[_index]));
     // convert to absolute address for translation, then back to relative after
     return _convertAddress(_relAddr + _offsets[_index]) - _i;
   };
@@ -92,9 +92,9 @@ var translateAddresses = function(_icode, _offsets) {
     /* 2 */ {op: "make-believe"},
     /* 3 */ {op: "switch", src: 2, cases: [0, 4, 5, 6, 7], addresses: [-2, -2, -1, 3, 6]},
     /* 4 */ {op: "make-believe"},
-    /* 5 */ {op: "if", address: 7},
+    /* 5 */ {op: "if", address: 2},
     /* 6 */ {op: "make-believe"},
-    /* 7 */ {op: "goto", address: 5},
+    /* 7 */ {op: "goto", address: -2},
     /* 8 */ {op: "make-believe"},
     /* 9 */ {op: "make-believe"},
   ];
