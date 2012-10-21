@@ -23,8 +23,9 @@ StackFrame.prototype.toString = function() {
   return "{ PC:"+_pc+"\t\tMETHOD:"+_method+"\t\tOPCODE:"+_opcode+"\t\tREGS:["+_regs+"] }";
 };
 
-var Thread = function() {
+var Thread = function(vm) {
   this._result = null;
+  this._vm = vm;
   this._stack = [];
 };
 

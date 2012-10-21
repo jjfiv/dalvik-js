@@ -6,7 +6,7 @@ var VM = function() {
 };
 
 VM.prototype.createThread = function( _directMethod ) {
-  var _newThread = new Thread();
+  var _newThread = new Thread(this);
   _newThread.pushMethod(_directMethod);
   this._threads.push(_newThread);
 };
