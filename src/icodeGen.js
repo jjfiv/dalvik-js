@@ -44,24 +44,24 @@ var varA4varB4offset16 = function(_dcode, _icode, _dex) {
 // Relevant to all binary control-comparators ops:  |
 // _icode.varA == register with first value (4bit)  |
 // _icode.varB == register with second value (4bit) |
-// _icode.address == offset to next command (16bit) |
+// _icode.addrOffset == offset to next command (16bit) |
 //---------------------------------------------------
   var x = _dcode.get();
   _icode.varA = highNibble(x);
   _icode.varB = lowNibble(x);
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
 };
 
 var arrayTriplet = function(_dcode, _icode, _dex) {
 //--------------------------------------------------------
 // Relevant to all array ops:                            |
 // _icode.value == value to deal with (8bit)             |
-// _icode.address == offset to beginning of array (8bit) |
-// _icode.offset == offset within array (8bit)           |
+// _icode.array == offset to beginning of array (8bit) |
+// _icode.index == offset within array (8bit)           |
 //--------------------------------------------------------
   _icode.value = _dcode.get();
-  _icode.address = _dcode.get();
-  _icode.offset = _dcode.get();
+  _icode.array = _dcode.get();
+  _icode.index = _dcode.get();
 };
 
 var dest8src8val8 = function(_dcode, _icode, _dex) {
@@ -312,7 +312,7 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
   _icode.op = "new-array";
   _icode.dest = _dcode.get();
   _icode.sizeReg = _dcode.get();
-  _icode.type = _dcode.get16();
+  _icode.type = _dex.types[_dcode.get16()];
 };
 
 opName[0x24] = "filled-new-array";
@@ -345,19 +345,19 @@ opArgs[0x27] = function(_dcode, _icode, _dex) {
 opName[0x28] = "goto";
 opArgs[0x28] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
-  _icode.address = _dcode.get();
+  _icode.addrOffset = _dcode.get();
 };
 opName[0x29] = "goto/16";
 opArgs[0x29] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2a] = "goto/32";
 opArgs[0x2a] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
-  _icode.address = _dcode.get32();
+  _icode.addrOffset = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -365,7 +365,7 @@ opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
   _icode.value = _dcode.get();
-  _icode.address = _dcode.get32();
+  _icode.addrOffset = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -373,7 +373,7 @@ opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
   _icode.value = _dcode.get();
-  _icode.address = _dcode.get32();
+  _icode.addrOffset = _dcode.get32();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -458,7 +458,7 @@ opArgs[0x38] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = 0;
   _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -467,16 +467,16 @@ opArgs[0x39] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = 0;
   _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3a] = "if-ltz";
 opArgs[0x3a] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.varA = _dcode.get();
+  _icode.cmp = "lt";
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -485,7 +485,7 @@ opArgs[0x3b] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = 0;
   _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -494,7 +494,7 @@ opArgs[0x3c] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = 0;
   _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -503,7 +503,7 @@ opArgs[0x3d] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = 0;
   _icode.varB = _dcode.get();
-  _icode.address = _dcode.get16();
+  _icode.addrOffset = _dcode.get16();
   NOT_IMPLEMENTED(_icode);
 };
 
