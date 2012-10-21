@@ -897,42 +897,42 @@ opName[0x7b] = "neg-int";
 opArgs[0x7b] = function(_dcode, _icode, _dex) {
   _icode.op = "negate";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x7c] = "not-int";
 opArgs[0x7c] = function(_dcode, _icode, _dex) {
   _icode.op = "not";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x7d] = "neg-long";
 opArgs[0x7d] = function(_dcode, _icode, _dex) {
   _icode.op = "negate";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x7e] = "not-long";
 opArgs[0x7e] = function(_dcode, _icode, _dex) {
   _icode.op = "not";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_LONG;
 };
 
 opName[0x7f] = "neg-float";
 opArgs[0x7f] = function(_dcode, _icode, _dex) {
   _icode.op = "negate";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_FLOAT;
 };
 
 opName[0x80] = "neg-double";
 opArgs[0x80] = function(_dcode, _icode, _dex) {
   _icode.op = "negate";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_DOUBLE;
 };
 
 //// PRIMITIVE CAST
@@ -941,84 +941,96 @@ opName[0x81] = "int-to-long";
 opArgs[0x81] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_LONG;
 };
 
 opName[0x82] = "int-to-float";
 opArgs[0x82] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_FLOAT;
 };
 
 opName[0x83] = "int-to-double";
 opArgs[0x82] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_DOUBLE;
 };
 
 opName[0x84] = "long-to-int";
 opArgs[0x84] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_LONG;
+  _icode.destType = TYPE_INT;
 };
 
 opName[0x85] = "long-to-float";
 opArgs[0x85] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_LONG;
+  _icode.destType = TYPE_FLOAT;
 };
 
 opName[0x86] = "long-to-double";
 opArgs[0x86] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_LONG;
+  _icode.destType = TYPE_DOUBLE;
 };
 
 opName[0x87] = "float-to-int";
 opArgs[0x87] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_FLOAT;
+  _icode.destType = TYPE_INT;
 };
 
 opName[0x88] = "float-to-long";
 opArgs[0x88] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_FLOAT;
+  _icode.destType = TYPE_LONG;
 };
 
 opName[0x89] = "float-to-double";
 opArgs[0x89] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_FLOAT;
+  _icode.destType = TYPE_DOUBLE;
 };
 
 opName[0x8a] = "double-to-int";
 opArgs[0x8a] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_DOUBLE;
+  _icode.destType = TYPE_INT;
 };
 
 opName[0x8b] = "double-to-long";
 opArgs[0x8b] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_DOUBLE;
+  _icode.destType = TYPE_LONG;
 };
 
 opName[0x8c] = "double-to-float";
 opArgs[0x8c] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_DOUBLE;
+  _icode.destType = TYPE_FLOAT;
 };
 
 //// INT CAST
@@ -1027,21 +1039,24 @@ opName[0x8d] = "int-to-byte";
 opArgs[0x8d] = function(_dcode, _icode, _dex) {
   _icode.op = "int-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_BYTE;
 };
 
 opName[0x8e] = "int-to-char";
 opArgs[0x8e] = function(_dcode, _icode, _dex) {
   _icode.op = "int-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_CHAR;
 };
 
 opName[0x8f] = "int-to-short";
 opArgs[0x8f] = function(_dcode, _icode, _dex) {
   _icode.op = "int-cast";
   dest4src4(_dcode, _icode, _dex);
-  NOT_IMPLEMENTED(_icode);
+  _icode.srcType = TYPE_INT;
+  _icode.destType = TYPE_SHORT;
 };
 
 
