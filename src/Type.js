@@ -91,6 +91,21 @@ Type.prototype.getArrayBase = function() {
   return new Type(this._typeString.substr(this._arrayDim));
 };
 
+Type.prototype.trimNum = function(value, type) {
+  if (type === TYPE_BYTE) {
+    return value & 0xFF;
+  } else if (type === TYPE_SHORT || type === TYPE_CHAR) {
+    return value & 0xFFFF;
+  } else if (type === TYPE_INT) {
+    return value & 0xFFFFFFFF;
+  } else if (type === TYPE_FLOAT) {
+    return floatFromDouble(value);
+  } else if (type === TYPE_DOUBLE) {
+    assert (false, "Don't know yet how to trim doubles");
+  } else () {
+    assert(false, "This function doesn't implement trip for type " + type);
+};
+
 Type.prototype.defaultJSObject = function() {
   if( this.isArray() ) { // Array
     return [];	

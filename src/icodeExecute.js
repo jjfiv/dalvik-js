@@ -192,7 +192,7 @@ var icodeHandlers = {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
 	  _thread.setRegister(_inst.dest, numA.multiply(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT || _inst.type === TYPE_CHAR ||
+	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
