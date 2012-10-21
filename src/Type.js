@@ -13,6 +13,10 @@ var Type = function (typeString) {
   
   // Getting the objectType of the Type, always first letter after last [
   this._type = typeString.substr(dimNum, 1);
+  this._wide = false;
+  if (this._type === "D" || this._type === "J") {
+    this._type = true;
+  }
   
   // Extracting pure type name
   num = typeString.lastIndexOf("/");
@@ -68,6 +72,10 @@ Type.prototype.isClass = function() {
 
 Type.prototype.isVoid = function () {
   return this._typeString === 'V';
+};
+
+Type.prototype.isWide = function () {
+  return this._wide;
 };
 
 Type.prototype.isPrimitive = function () {
