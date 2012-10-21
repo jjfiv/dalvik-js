@@ -186,11 +186,17 @@ var icodeHandlers = {
   
   "mul": function(_inst, _thread) {
     if (_inst.type === TYPE_DOUBLE) {
+	  assert(false, "Multiplying a Double is not high priority");
       NYI(_inst);
 	} else if (_inst.type === TYPE_LONG) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
 	  _thread.setRegister(_inst.dest, numA.multiply(numB));
+	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT || _inst.type === TYPE_CHAR ||
+	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
+	  var numA = _thread.getRegister(_inst.srcA);
+	  var numB = _thread.getRegister(_inst.srcB);
+	  _thread.setRegister(_inst.dest, numA * numB);
 	} else {
 	  assert (false, "Unidentified type for multiplication");
 	}
