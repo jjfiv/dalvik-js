@@ -46,6 +46,18 @@ var varA4varB4 = function(_dcode, _icode, _dex) {
   _icode.varB = lowNibble(x);
 };
 
+var arrayTriplet = function(_dcode, _icode, _dex) {
+//--------------------------------------------------
+// Relevant to all array ops:                      |
+// _icode.value == value to deal with              |
+// _icode.address == offset to beginning of array  |
+// _icode.offset == offset within array            |
+//--------------------------------------------------
+  _icode.value = _dcode.get();
+  _icode.address = _dcode.get();
+  _icode.offset = _dcode.get();
+};
+
 // Dalvik VM opcode names
 
 var opName = []; // a list of dalvik instruction names
@@ -506,84 +518,98 @@ opArgs[0x3d] = function(_dcode, _icode, _dex) {
 opName[0x44] = "aget";
 opArgs[0x44] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x45] = "aget-wide";
 opArgs[0x45] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x46] = "aget-object";
 opArgs[0x46] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x47] = "aget-boolean";
 opArgs[0x47] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x48] = "aget-byte";
 opArgs[0x48] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x49] = "aget-char";
 opArgs[0x49] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4a] = "aget-short";
 opArgs[0x4a] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4b] = "aput";
 opArgs[0x4b] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4c] = "aput-wide";
 opArgs[0x4c] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4d] = "aput-object";
 opArgs[0x4d] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4e] = "aput-boolean";
 opArgs[0x4e] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x4f] = "aput-byte";
 opArgs[0x4f] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x50] = "aput-char";
 opArgs[0x50] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x51] = "aput-short";
 opArgs[0x51] = function(_dcode, _icode, _dex) {
   _icode.op = "array-put";
+  arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
