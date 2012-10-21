@@ -182,8 +182,7 @@ opArgs[0x11] = opArgs[0x0f]; // should be the same handling as "return"
 //////////////////////////////////////// HANDLING CONSTANTS ////////////////////////////////////////
 opName[0x12] = "const/4";
 opArgs[0x12] = function(_dcode, _icode, _dex) {
-  _icode.op = "move-const";
-  
+  _icode.op = "move-const";  
   var x = _dcode.get();
   _icode.dest = highNibble(x);
   _icode.value = signExtend(lowNibble(x), 4, 32);
@@ -192,97 +191,81 @@ opArgs[0x12] = function(_dcode, _icode, _dex) {
 opName[0x13] = "const/16";
 opArgs[0x13] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
-
   _icode.dest = _dcode.get();
   _icode.value = signExtend(_dcode.get16(), 16, 32);
 };
 
 opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
-  _icode.op = "move-const";
-  
+  _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = _dcode.get32();
-  
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dcode.get32();  
 };
 
 opName[0x15] = "const/high16";
 opArgs[0x15] = function(_dcode, _icode, _dex) {
-  _icode.op = "move-const";
-  
+  _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = signExtend(_dcode.get16(), 16, 32);
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dcode.get16() << 16;
 };
 
 opName[0x16] = "const-wide/16";
 opArgs[0x16] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  // tentative
   _icode.wide = true;
-  _icode.value = _dcode.get16(); //get64?
-  // pending issue #64
-  NOT_IMPLEMENTED(_icode);
+  // ugly hack to sign extend for 64-bit
+  // take number as is, shift left to the top of the high part, create 64 bit thing
+  // shift all the way right to fill the 64 bit thing
+  _icode.value = gLong.fromBits(0, _dcode.get16() << 16).shiftRight(48);
 };
 
 opName[0x17] = "const-wide/32";
 opArgs[0x17] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  // tentative
   _icode.wide = true;
-  _icode.value = _dcode.get32(); //get64?
-  // pending issue #64
-  NOT_IMPLEMENTED(_icode);
+  // see comment in 0x16
+  _icode.value = gLong.fromBits(0, _dcode.get32()).shiftRight(32);
 };
 
 opName[0x18] = "const-wide";
 opArgs[0x18] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  // tentative
   _icode.wide = true;
-  _icode.value = gLong(_dcode.get32(), _dcode.get32());
-  // pending issue #64
-  NOT_IMPLEMENTED(_icode);
+  var low = _dcode.get32();
+  var high = _dcode.get32();
+  _icode.value = gLong.fromBits(low, high);
 };
 
 opName[0x19] = "const-wide/high16";
 opArgs[0x19] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  // tentative
   _icode.wide = true;
-  _icode.value = gLong(_dcode.get32(), _dcode.get32());
-  // pending issue #64
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = gLong.fromBits(0, _dcode.get16() << 16);
 };
 
 opName[0x1a] = "const-string";
 opArgs[0x1a] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  _icode.value = _dcode16.get();
-  // will need to ask _dex to resolve the string index
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dex.strings[_dcode.get16()];
 };
 
 opName[0x1b] = "const-string/jumbo";
 opArgs[0x1b] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  _icode.value = _dcode32.get();
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dex.strings[_dcode.get32()];
 };
 
 opName[0x1c] = "const-class";
 opArgs[0x1c] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";
   _icode.dest = _dcode.get();
-  _icode.value = _dcode16.get();
-  NOT_IMPLEMENTED(_icode);
+  _icode.value = _dex.types[_dcode.get16()];
 };
 
 //////////////////////////////////////// HANDLING MONITORS ////////////////////////////////////////
@@ -535,6 +518,7 @@ opArgs[0x44] = function(_dcode, _icode, _dex) {
 opName[0x45] = "aget-wide";
 opArgs[0x45] = function(_dcode, _icode, _dex) {
   _icode.op = "array-get";
+  _icode.wide = true;
   arrayTriplet(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
