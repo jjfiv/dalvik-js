@@ -244,8 +244,7 @@ opArgs[0x18] = function(_dcode, _icode, _dex) {
   _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  _icode.low = _dcode.get32();  //get64?
-  _icode.high = _dcode.get32();  //get64?
+  _icode.value = gLong(_dcode.get32(), _dcode.get32());
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
@@ -256,8 +255,7 @@ opArgs[0x19] = function(_dcode, _icode, _dex) {
   _icode.dest = _dcode.get();
   // tentative
   _icode.wide = true;
-  _icode.low = _dcode.get32();  //get64?
-  _icode.high = _dcode.get32();  //get64?
+  _icode.value = gLong(_dcode.get32(), _dcode.get32());
   // pending issue #64
   NOT_IMPLEMENTED(_icode);
 };
