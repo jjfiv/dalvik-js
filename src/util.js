@@ -44,6 +44,10 @@ var inspect = function(obj) {
 
   text = "";
 
+  if(isUndefined(obj)) {
+    return '*undefined*';
+  }
+
   if(isArray(obj)) {
     text += '[';
     obj.map(function(item) { text += inspect(item) + ', '; });
@@ -120,14 +124,14 @@ function floatFromDouble (_number) {
   var _ieee_num_struc = decodeIEEE64 (_number);
 
   // Checking if exponent field is out of bounds.
-    if (_ieee_num_struc.exponent > Math.pow(2, 7)) {
+  if (_ieee_num_struc.exponent > Math.pow(2, 7)) {
     if (_ieee_num_struc.isNegative) {
       return -Infinity;
     }
     return Infinity;
   }
   // Checking if the number is too small - making it 0 in that case.
-  else if (_ieee_num_struc.exponent < -Math.pow(2, 7)) {
+  if (_ieee_num_struc.exponent < -Math.pow(2, 7)) {
     return 0;
   }
 
@@ -159,8 +163,9 @@ exponent and mantissa parts of the double precision number, with some
 modifications */
 function decodeIEEE64 (_value) {
 
-  if ( typeof _value !== "number" )
+  if ( typeof _value !== "number" ) {
     throw new TypeError( "_value must be a Number" );
+  }
 
   var _result = {
     isNegative : false,

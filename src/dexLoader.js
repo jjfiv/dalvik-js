@@ -22,8 +22,8 @@ var DEX_LOADER_DEBUG = true; // refresh-time constant
 // prints a line of dexDebug information from dexLoader, if appropriate
 var dexDebug = function(s) { };
 if(DEX_LOADER_DEBUG) {
-  //dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
-  dexDebug = console.log; // for debugging inline with other output
+  dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
+  //dexDebug = console.log; // for debugging inline with other output
 }
 
 // file format constants
@@ -645,8 +645,8 @@ DEXData.prototype._parseCode = function(_m) {
   dexDebug("_parseCode for " + _m.getName());
   // see icodeGen.js
   var _icode = icodeGen(this, new ArrayFile(_byteCode));
-  dexDebug(_icode);
 
+  dexDebug(enumerate("_icode",_icode));
   // create a translation list of offsets for this function, pulling the offset field out
   var _offsets = _icode.map(function(_inst) {
     var _off = _inst.offset;
@@ -658,6 +658,7 @@ DEXData.prototype._parseCode = function(_m) {
   // translateAddresses to icode-based (indexed) addressing, store in the method for later
   _m.icode = translateAddresses(_icode, _offsets);
 
+  dexDebug(enumerate("_m.icode",_m._icode));
 
   // if there were an odd number of instructions, then there is an
   // extra two bytes of zeroes to preserve 4-byte alignment

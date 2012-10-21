@@ -32,7 +32,7 @@ var translateAddresses = function(_icode, _offsets) {
 
   var _convertAddress = makeAddressConverter(_offsets);
 
-  _icode.map(function(_inst) {
+  return _icode.map(function(_inst) {
     if(!isUndefined(_inst.addrOffset)) {
       _inst.address = _convertAddress(_inst.addrOffset);
       delete _inst.addrOffset;
@@ -41,9 +41,8 @@ var translateAddresses = function(_icode, _offsets) {
       _inst.addresses = _inst.addrOffsets.map(_convertAddress);
       delete _inst.addrOffset;
     }
+    return _inst;
   });
-
-  return _icode;
 };
 
 // self-test
