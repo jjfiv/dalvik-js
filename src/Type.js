@@ -79,12 +79,8 @@ Type.prototype.isWide = function () {
 };
 
 Type.prototype.isPrimitive = function () {
-  var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
-  if (primitives.indexOf(this._type) > -1) {
-    return true;
-  } else {
-    return false;
-  }
+  var primitives = ["V", "Z", "B", "S", "C", "I", "J", "F", "D"];
+  return primitives.indexOf(this._type) !== -1;
 };
 
 Type.prototype.getArrayBase = function() {
@@ -94,16 +90,21 @@ Type.prototype.getArrayBase = function() {
 Type.prototype.trimNum = function(value) {
   if (this.type.isEquals(TYPE_BYTE)) {
     return value & 0xFF;
-  } else if (this.type.isEquals(TYPE_SHORT) || this.type.isEquals(TYPE_CHAR)) {
+  }
+  if (this.type.isEquals(TYPE_SHORT) || this.type.isEquals(TYPE_CHAR)) {
     return value & 0xFFFF;
-  } else if (this.type.isEquals(TYPE_INT)) {
+  }
+  if (this.type.isEquals(TYPE_INT)) {
     return value & 0xFFFFFFFF;
-  } else if (this.type.isEquals(TYPE_FLOAT)) {
+  }
+  if (this.type.isEquals(TYPE_FLOAT)) {
     return floatFromDouble(value);
-  } else if (this.type.isEquals(TYPE_DOUBLE)) {
+  }
+  if (this.type.isEquals(TYPE_DOUBLE)) {
     return value;
-  } else {
-    assert(false, "This function doesn't implement trim for type " + type);
+  }
+  
+  assert(false, "This function doesn't implement trim for type " + type);
 };
 
 Type.prototype.defaultJSObject = function() {
@@ -114,19 +115,21 @@ Type.prototype.defaultJSObject = function() {
     return { };
   }
   if (this.isPrimitive() ) { // Primitives
-    var primitives = new Array ("V", "Z", "B", "S", "C", "I", "J", "F", "D");
-	var primIndex = primitives.indexOf(this._type);
-	if ( primIndex === 1) { // Boolean
-	  return false;
-	} else if ((primIndex > 1) && (primIndex < 6)) { // Byte, Short, Chat, Int
-	  return 0;
-	} else if ( primIndex === 6) { // Long
-	  return gLong.fromNumber(0);
-	} else if ((primIndex === 7) || (primIndex === 8)) { // Float or Double
-	  return 0.0;
-    } else {
-	  assert(false, "Undefined primitive type");
-	}// end of if selecting appropriate primitive type
+    var primitives = ["V", "Z", "B", "S", "C", "I", "J", "F", "D"];
+    var primIndex = primitives.indexOf(this._type);
+    if ( primIndex === 1) { // Boolean
+      return false;
+    }
+    if ((primIndex > 1) && (primIndex < 6)) { // Byte, Short, Chat, Int
+      return 0;
+    }
+    if ( primIndex === 6) { // Long
+      return gLong.fromNumber(0);
+    }
+    if ((primIndex === 7) || (primIndex === 8)) { // Float or Double
+      return 0.0;
+    }
+    assert(false, "Undefined primitive type");
   } // end of if isPrimitive
 };
 
@@ -141,28 +144,32 @@ var TYPE_INT     = new Type('I');
 var TYPE_LONG    = new Type('J');
 var TYPE_FLOAT   = new Type('F');
 var TYPE_DOUBLE  = new Type('D');
+
+// assorted class constants
 var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
 var TYPE_STRING  = new Type('Ljava/lang/String;');
 var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 
-var t = new Type("LBird;");
-console.log(t.toStr());
-console.log(t.getName());
-assert(t.isArray() === false, "Making sure bird is not an array");
-assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
-assert(t.getType() === "L", "Making sure the type is a complicated class");
-assert(t.getName() === "Bird", "Making sure type name is Bird");
+// unit tests
+(function() {
+  var t = new Type("LBird;");
+  console.log(t.toStr());
+  console.log(t.getName());
+  assert(t.isArray() === false, "Making sure bird is not an array");
+  assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
+  assert(t.getType() === "L", "Making sure the type is a complicated class");
+  assert(t.getName() === "Bird", "Making sure type name is Bird");
 
-var jStringType = new Type("Ljava/lang/String;");
-console.log(jStringType.toDots());
-assert(jStringType.isArray() === false, "Making sure String is not an array");
+  var jStringType = new Type("Ljava/lang/String;");
+  console.log(jStringType.toDots());
+  assert(jStringType.isArray() === false, "Making sure String is not an array");
 
-var arrayOfStrings = new Type("[Ljava/lang/String;");
-console.log(arrayOfStrings.toDots());
-assert(arrayOfStrings.isArray() === true, "Making sure String is not an array");
+  var arrayOfStrings = new Type("[Ljava/lang/String;");
+  console.log(arrayOfStrings.toDots());
+  assert(arrayOfStrings.isArray() === true, "Making sure String is not an array");
 
-assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");
-
+  assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");
+}());
 
 
 
