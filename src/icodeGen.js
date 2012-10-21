@@ -317,7 +317,7 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
+  _icode.op = "new-array";  
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -351,14 +351,12 @@ opName[0x29] = "goto/16";
 opArgs[0x29] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
   _icode.addrOffset = _dcode.get16();
-  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2a] = "goto/32";
 opArgs[0x2a] = function(_dcode, _icode, _dex) {
   _icode.op = "goto";
   _icode.addrOffset = _dcode.get32();
-  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2b] = "packed-switch";
@@ -415,6 +413,7 @@ opName[0x32] = "if-eq";
 opArgs[0x32] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "eq";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -422,6 +421,7 @@ opName[0x33] = "if-ne";
 opArgs[0x33] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "ne";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -429,6 +429,7 @@ opName[0x34] = "if-lt";
 opArgs[0x34] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "lt";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -436,6 +437,7 @@ opName[0x35] = "if-ge";
 opArgs[0x35] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "ge";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -443,6 +445,7 @@ opName[0x36] = "if-gt";
 opArgs[0x36] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "gt";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -450,24 +453,25 @@ opName[0x37] = "if-le";
 opArgs[0x37] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   varA4varB4offset16(_dcode, _icode, _dex);
+  _icode.cmp = "le";
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x38] = "if-eqz";
 opArgs[0x38] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
+  _icode.varA = _dcode.get();
   _icode.addrOffset = _dcode.get16();
+  _icode.cmp = "eq";
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x39] = "if-nez";
 opArgs[0x39] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
+  _icode.varA = _dcode.get();
   _icode.addrOffset = _dcode.get16();
+  _icode.cmp = "ne";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -483,27 +487,27 @@ opArgs[0x3a] = function(_dcode, _icode, _dex) {
 opName[0x3b] = "if-gez";
 opArgs[0x3b] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
+  _icode.varA = _dcode.get();
   _icode.addrOffset = _dcode.get16();
+  _icode.cmp = "ge";
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3c] = "if-gtz";
 opArgs[0x3c] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
+  _icode.varA = _dcode.get();
   _icode.addrOffset = _dcode.get16();
+  _icode.cmp = "gt";
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x3d] = "if-lez";
 opArgs[0x3d] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  _icode.varA = 0;
-  _icode.varB = _dcode.get();
+  _icode.varA = _dcode.get();
   _icode.addrOffset = _dcode.get16();
+  _icode.cmp = "le";
   NOT_IMPLEMENTED(_icode);
 };
 
