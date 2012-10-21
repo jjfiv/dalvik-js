@@ -102,7 +102,7 @@ Type.prototype.trimNum = function(value, type) {
     return floatFromDouble(value);
   } else if (type === TYPE_DOUBLE) {
     assert (false, "Don't know yet how to trim doubles");
-  } else () {
+  } else {
     assert(false, "This function doesn't implement trip for type " + type);
 };
 
