@@ -185,7 +185,15 @@ var icodeHandlers = {
   },
   
   "mul": function(_inst, _thread) {
-    NYI(_inst);
+    if (_inst.type === TYPE_DOUBLE) {
+      NYI(_inst);
+	} else if (_inst.type === TYPE_LONG) {
+	  var numA = _thread.getRegister(_inst.srcA);
+	  var numB = _thread.getRegister(_inst.srcB);
+	  _thread.setRegister(_inst.dest, numA.multiply(numB));
+	} else {
+	  assert (false, "Unidentified type for multiplication");
+	}
   },
 
   "div": function(_inst, _thread) {
