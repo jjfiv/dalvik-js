@@ -1629,8 +1629,7 @@ opArgs[0xd7] = function(_dcode, _icode, _dex) {
 opName[0xd8] = "add-int/lit8";
 opArgs[0xd8] = function(_dcode, _icode, _dex) {
   _icode.op = "add-lit";
-  // dest8src8lit8
-  NOT_IMPLEMENTED(_icode);
+  dest8src8lit8(_dcode, _icode, _dex);
 };
 
 opName[0xd9] = "rsub-int/lit8";
