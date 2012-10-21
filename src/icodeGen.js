@@ -39,20 +39,38 @@ var dest8src8lit8 = function(_dcode, _icode, _dex) {
   _icode.literal = signExtend(_dcode.get(), 8, 32);
 };
 
-var varA4varB4 = function(_dcode, _icode, _dex) {
-// For binary operations with 2 variable, 4 bit offset for each
+var varA4varB4offset16 = function(_dcode, _icode, _dex) {
+//---------------------------------------------------
+// Relevant to all binary control-comparators ops:  |
+// _icode.varA == offset to first value (4bit)      |
+// _icode.varB == offset to second value (4bit)     |
+// _icode.address == offset to next command (16bit) |
+//---------------------------------------------------
   var x = _dcode.get();
   _icode.varA = highNibble(x);
   _icode.varB = lowNibble(x);
+  _icode.address = _dcode.get16();
 };
 
 var arrayTriplet = function(_dcode, _icode, _dex) {
-//--------------------------------------------------
-// Relevant to all array ops:                      |
-// _icode.value == value to deal with              |
-// _icode.address == offset to beginning of array  |
-// _icode.offset == offset within array            |
-//--------------------------------------------------
+//--------------------------------------------------------
+// Relevant to all array ops:                            |
+// _icode.value == value to deal with (8bit)             |
+// _icode.address == offset to beginning of array (8bit) |
+// _icode.offset == offset within array (8bit)           |
+//--------------------------------------------------------
+  _icode.value = _dcode.get();
+  _icode.address = _dcode.get();
+  _icode.offset = _dcode.get();
+};
+
+var dest8src8val8 = function(_dcode, _icode, _dex) {
+//--------------------------------------------------------
+// Relevant to all binary ops:                            |
+// _icode.dest == target register (8bit) |
+// _icode.src == source r (8bit)           |
+// _icode.value == value to deal with (8bit)             |
+//--------------------------------------------------------
   _icode.value = _dcode.get();
   _icode.address = _dcode.get();
   _icode.offset = _dcode.get();
@@ -415,48 +433,42 @@ opArgs[0x31] = function(_dcode, _icode, _dex) {
 opName[0x32] = "if-eq";
 opArgs[0x32] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x33] = "if-ne";
 opArgs[0x33] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x34] = "if-lt";
 opArgs[0x34] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x35] = "if-ge";
 opArgs[0x35] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x36] = "if-gt";
 opArgs[0x36] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x37] = "if-le";
 opArgs[0x37] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
-  varA4varB4(_dcode, _icode, _dex);
-  _icode.address = _dcode.get16();
+  varA4varB4offset16(_dcode, _icode, _dex);
   NOT_IMPLEMENTED(_icode);
 };
 
