@@ -116,14 +116,14 @@ var icodeHandlers = {
   "static-get": function(_inst, _thread) {
     var dest = _inst.dest;
 
-    var _field = FieldFromString(_inst.field);
+    var _field = _inst.field;
     
     var _result = {};
     
     console.log(_field);
     // assume we're going to find something of the correct type
     // set to "null" initially --- TODO actual null?
-    _result.type = _field.type;
+    _result.primtype = _field.type;
     _result.value = 0;
 
     // replace this with calls to ClassLibrary, and fallback to native
@@ -143,7 +143,7 @@ var icodeHandlers = {
   // handles invoking a method on an object or statically
   "invoke": function(_inst, _thread) {
     var kind = _inst.kind;
-    var methodName = _inst.method;
+    var method = _inst.method;
     var argRegs = _inst.argumentRegisters;
 
     // convert given argument registers into the values of their registers
@@ -151,12 +151,15 @@ var icodeHandlers = {
 
     //TODO handle more than just this method;
     //     will need to call into ClassLibrary to find things
-    if(methodName === "Ljava/io/Printstream;.println") {
+    //if(methodName === "Ljava/io/Printstream;.println") {
+    if ((method.getName() === "println") && (method.definingClass.isEquals(new Type ("Ljava/io/Printstream;")))) {
       
       console.log("print " + argValues[1] +
                   " to " + inspect(argValues[0]) + "!");
 
       terminal.println(argValues[1]);
+    } else {
+      assert(false, "Invoke only works for println");
     }
   },
 

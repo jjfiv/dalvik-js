@@ -848,7 +848,7 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   var argCount = highNibble(_byte0);
   var methodIndex = (lowNibble(_byte0) << 8) | (_byte1);
 
-  _icode.methodName = _dex.methods[methodIndex];
+  _icode.method = _dex.methods[methodIndex];
 
   // the remaining 3 bytes are argCount register arguments
   _icode.argumentRegisters = [];
