@@ -2,30 +2,58 @@
 <head>
 <meta charset="utf-8">
 <title>Dalvik VM</title>
+<style>
+  pre {
+    background-color: #000;
+    color: #fff;
+    padding: 3pt;
+  }
+</style>
 </head>
 <body>
 
+
+<h3>File Upload:</h3>
 <!-- form elements needed for HTML5 File API; handled by Upload.js -->
 <input type="file" id="fileInput" name="files[]" multiple />
 <input type="button" id="loadButton" value="Load File" />
 
+<h3>Runnable Classes:</h3>
+<select id="runnableClasses" size="6"></select>
+<input type="button" id="runButton" value="Run Class" />
+
+<h3>VM Output:</h3>
 <!-- I used a pre because I like monospace output. That's it, basically. -->
-<pre id="output"></pre>
+<pre id="output">
+Dalvik-JS
+===
+
+</pre>
 
 </body>
 
 <!-- after body so that can append to div "output" -->
 <script src="assert.js"></script>
+<script src="gLong.js"></script>
 <script src="util.js"></script>
 <script src="bitutil.js"></script>
-<script src="gLong.js"></script>
+<script src="TryRange.js"></script>
 <script src="terminal.js"></script>
 <script src="leb128.js"></script>
 <script src="ArrayFile.js"></script>
 <script src="icodeGen.js"></script>
 <script src="Class.js"></script>
+<script src="Type.js"></script>
+<script src="MethodSignature.js"></script>
+<script src="Method.js"></script>
+<script src="Field.js"></script>
+<script src="AddressTranslator.js"></script>
 <script src="dexLoader.js"></script>
 <script src="Upload.js"></script>
-
+<script src="ClassChooser.js"></script>
+<script src="Thread.js"></script>
+<script src="ClassLibrary.js"></script>
+<script src="VM.js"></script>
+<script>var myVM = new VM();</script>
 </html>
 
