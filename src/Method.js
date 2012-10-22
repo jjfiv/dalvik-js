@@ -21,6 +21,10 @@ var Method = function (_name, _definingClass, _paramTypes, _returnType) {
   this.icode = [];
 };
 
+Method.prototype.isMain = function() {
+  return this.signature.isMain();
+};
+
 Method.prototype.getName = function() {
   return this.signature.getName();
 };
