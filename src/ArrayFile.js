@@ -2,6 +2,9 @@
 //
 // wraps up an array of bytes into a file pointer style object
 //
+// Dependencies:
+//   leb128.js
+//
 
 var ArrayFile = function(data) {
   this._data = data;
