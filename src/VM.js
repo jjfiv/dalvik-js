@@ -2,18 +2,26 @@
 // This is the core of the VM
 // dependencies: Upload.js, Thread.js, ClassLibrary.js
 
-var VM = function() {  
+var VM = function() {
+  var _self = this;
   this._threads = [];
   this._classLibrary = new ClassLibrary();
   this._source = function(){
       try { 
         return new Upload(function(_fileName, _fileData){
-                            var dex = new DEXData(new ArrayFile(_fileData));
+                            var _dex = new DEXData(new ArrayFile(_fileData));
+                            _self.defineClasses(_dex.classes);
                           });
       } catch (x) {
+        //thinking about having this take any arguments to the VM constructor, but for now:
         return false;
       };
-  };
+  }();
+};
+
+VM.prototype.defineClasses = function(_data){
+  this._classLibrary.defineClasses(_data);
+  if (DEBUG){ console.log(this._classLibrary._classes.toString()); }
 };
 
 VM.prototype.createThread = function( _directMethod ) {
