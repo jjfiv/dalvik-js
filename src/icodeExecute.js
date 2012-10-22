@@ -188,7 +188,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB));
 	} else {
 	  assert (false, "Unidentified type for addition");
 	}
@@ -206,7 +206,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
 	} else {
 	  assert (false, "Unidentified type for substraction");
 	}
@@ -224,7 +224,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB));
 	} else {
 	  assert (false, "Unidentified type for multiplication");
 	}
@@ -242,7 +242,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB));
 	} else {
 	  assert (false, "Unidentified type for division");
 	}
@@ -260,7 +260,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB));
 	} else {
 	  assert (false, "Unidentified type for getting a remainder");
 	}
@@ -278,7 +278,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB));
 	} else {
 	  assert (false, "Unidentified type for an 'And' operation");
 	}
@@ -296,7 +296,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA | numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA | numB));
 	} else {
 	  assert (false, "Unidentified type for an 'Or' operation");
 	}
@@ -314,7 +314,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA ^ numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA ^ numB));
 	} else {
 	  assert (false, "Unidentified type for a 'Xor' operation");
 	}
@@ -332,7 +332,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA << numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA << numB));
 	} else {
 	  assert (false, "Unidentified type for Shifting Left");
 	}
@@ -350,7 +350,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >> numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >> numB));
 	} else {
 	  assert (false, "Unidentified type for Shifting Right");
 	}
@@ -368,7 +368,7 @@ var icodeHandlers = {
 	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
 	  var numA = _thread.getRegister(_inst.srcA);
 	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >>> numB);
+	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >>> numB));
 	} else {
 	  assert (false, "Unidentified type for Unsigned Shifting Right");
 	}
