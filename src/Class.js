@@ -16,6 +16,11 @@ var Class = function(_name, _parent, _accessFlags) {
   this.virtualMethods = []; // virtualMethods are instance methods
 };
 
+Class.prototype.hasMain = function() {
+    var _foo = this.directMethods.map(function(_method){ return _method.hasMain(); });
+    return _foo.reduce(function(a, b){ return a || b; });
+};
+
 Class.prototype.sanityCheck = function() {
   assert(this.name !== "", "Class name check");
   assert(this.name[0] === "L", "Class name check: L");
