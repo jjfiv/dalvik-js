@@ -1,0 +1,77 @@
+Processing 'mine.dex'...
+Opened 'mine.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LtryCatch;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LtryCatch;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00015c:                                        |[00015c] tryCatch.<init>:()V
+00016c: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+000172: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LtryCatch; 
+
+    #1              : (in LtryCatch;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 14 16-bit code units
+000174:                                        |[000174] tryCatch.main:([Ljava/lang/String;)V
+000184: 1210                                   |0000: const/4 v0, #int 1 // #1
+000186: 7110 0400 0000                         |0001: invoke-static {v0}, LtryCatch;.test:(I)I // method@0004
+00018c: 0e00                                   |0004: return-void
+00018e: 0d00                                   |0005: move-exception v0
+000190: 6200 0000                              |0006: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000194: 1a01 0900                              |0008: const-string v1, "No way!
+" // string@0009
+000198: 6e20 0000 1000                         |000a: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0000
+00019e: 28f7                                   |000d: goto 0004 // -0009
+      catches       : 1
+        0x0001 - 0x0004
+          Ljava/lang/ArithmeticException; -> 0x0005
+      positions     : 
+        0x0000 line=6
+        0x0004 line=11
+        0x0005 line=8
+        0x0006 line=9
+      locals        : 
+
+    #2              : (in LtryCatch;)
+      name          : 'test'
+      type          : '(I)I'
+      access        : 0x0008 (STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 3 16-bit code units
+0001ac:                                        |[0001ac] tryCatch.test:(I)I
+0001bc: db00 0100                              |0000: div-int/lit8 v0, v1, #int 0 // #00
+0001c0: 0f00                                   |0002: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=13
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 17 (tryCatch.java)
+

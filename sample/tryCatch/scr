@@ -1,0 +1,4 @@
+javac tryCatch.java 
+dx --dex --output mine.dex tryCatch.class 
+dexdump -d mine.dex > mine.dump
+
