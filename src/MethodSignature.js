@@ -1,22 +1,23 @@
-// This file deals with method signatures
+// This file deals with method signature
 // Dependencies: Type.js
 
 'use strict';
 
 var MethodSignature = function(name, returnType, parameterTypes) { 
-  
+  var _i;  
   this._name = name;
   this._returnType = returnType;
   this._parameterTypes = [];
   this._parameterAmount = parameterTypes.length;
   if (this._parameterAmount != 0) { // Assigning parameter array if there are any
-    var i;
-	for (i = 0; i < this._parameterAmount; i++) {
-      this._parameterTypes.push(parameterTypes[i]);
-	}
+    for (_i = 0; _i < this._parameterAmount; _i++) {
+      this._parameterTypes.push(parameterTypes[_i]);
+    }
   }
-  
-  
+};
+
+MethodSignature.prototype.isMain = function(){
+  return this._name==='main';
 };
 
 MethodSignature.prototype.getName = function() {
@@ -51,14 +52,16 @@ MethodSignature.prototype.toStr = function () {
   str += ")" + this._returnType.getType();
   
   return str;  
-}
+};
 
-var methName = "testMeth";
-var methRet = new Type("LBird;");
-var ret1 = new Type("Z");
-var ret2 = new Type("B");
-var methParam = [ret1, ret2];
-var meth = new MethodSignature(methName, methRet, methParam);
+function testing(){
+  var methName = "testMeth";
+  var methRet = new Type("LBird;");
+  var ret1 = new Type("Z");
+  var ret2 = new Type("B");
+  var methParam = [ret1, ret2];
+  var meth = new MethodSignature(methName, methRet, methParam);
 
-assert(meth.toStr() === "testMeth(Z,B)L", "Something went wrong in the toStr");
-assert(meth.getParameterAmount() === 2, "Wrong number of parameters in method");
+  assert(meth.toStr() === "testMeth(Z,B)L", "Something went wrong in the toStr");
+  assert(meth.getParameterAmount() === 2, "Wrong number of parameters in method");
+};
