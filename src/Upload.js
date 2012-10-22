@@ -5,20 +5,28 @@
 // dependencies: ArrayFile.js, dexLoader.js
 //
 
-var Upload = function(cbk) {
-  this.loadButton = document.getElementById('loadButton');
-  this.fileInput = document.getElementById('fileInput');
-
-  var self = this;
-  this.callback = function(evt) { self.onClickLoad(evt); };
-  this.onFileReady = cbk;
-  this.loadButton.addEventListener('click', this.callback, false);
-
+var Upload = function(_cbk, _vm) {
+  var _self = this;
+  this._classChooser = new ClassChooser();
+  this._loadButton = document.getElementById('loadButton');
+  this._runButton = document.getElementById('runButton');
+  this._fileInput = document.getElementById('fileInput');
+  this.onFileReady = _cbk;
+  this._loadButton.addEventListener('click', function(evt) { _self.onClickLoad(evt); }, false);
+  this._runButton.addEventListener('click', function(evt) { 
+                                     var _cc = _self._classChooser;
+                                     if (_cc.selectedIndex()!==-1){
+                                       _vm.start(_cc.selectedItem());
+                                       while(_vm.hasThreads()){
+                                         _vm.clockTick();
+                                       }
+                                     }
+                                   }, false);
   console.log("Hello");
 };
 
 Upload.prototype.onClickLoad = function(clickEvent) {
-  var selectedFiles = this.fileInput.files;
+  var selectedFiles = this._fileInput.files;
   var i;
 
   var fileReady = function(self, f){
@@ -58,8 +66,3 @@ Upload.prototype.onClickLoad = function(clickEvent) {
   }
 };
 
-// TODO have a protocol for setting this callback
-// Upload.prototype.onFileReady = function(fileName, fileData) {
-//   // DEXData is from dexLoader.js
-//   var dex = new DEXData(new ArrayFile(fileData));
-// };

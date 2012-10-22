@@ -1,3 +1,5 @@
+// Thread.js -> also contains StackFrame object
+// dependencies: icodeExecute.js
 
 var StackFrame = function(_m) {
   var _i;

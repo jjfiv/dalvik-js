@@ -8,17 +8,7 @@
 
 var ClassChooser = function() {
   this._listView = document.getElementById('runnableClasses');
-  this._runButton = document.getElementById('runButton');
-
   var _self = this;
-  var _callback = function(evt) {
-    if(_self.selectedIndex() === -1) {
-      return;
-    }
-    console.log(_self.selectedItem());
-  };
-
-  this._runButton.addEventListener('click', _callback, false);
 };
 
 ClassChooser.prototype._optList = function() {

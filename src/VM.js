@@ -5,13 +5,17 @@
 var VM = function() {
   var _self = this;
   this._threads = [];
-  this._classLibrary = new ClassLibrary();
+  this.classLibrary = new ClassLibrary();
   this._source = function(){
       try { 
         return new Upload(function(_fileName, _fileData){
                             var _dex = new DEXData(new ArrayFile(_fileData));
+                            var _k, _classes = _self.classLibrary._classes;
                             _self.defineClasses(_dex.classes);
-                          });
+                            for (_k in _classes){
+                              this._classChooser.addClass(_classes[_k].name);
+                            }
+                          }, _self);
       } catch (x) {
         //thinking about having this take any arguments to the VM constructor, but for now:
         return false;
@@ -20,8 +24,8 @@ var VM = function() {
 };
 
 VM.prototype.defineClasses = function(_data){
-  this._classLibrary.defineClasses(_data);
-  if (DEBUG){ console.log(this._classLibrary._classes.toString()); }
+  this.classLibrary.defineClasses(_data);
+  if (DEBUG){ console.log(this.classLibrary._classes.toString()); }
 };
 
 VM.prototype.createThread = function( _directMethod ) {
@@ -30,36 +34,10 @@ VM.prototype.createThread = function( _directMethod ) {
   this._threads.push(_newThread);
 };
 
-VM.prototype.start = function ( _classList, _mainClass ) {
-  var _publicStaticVoidMain = null;
-
-  // TODO this would be rectified by having a class to handle all the defined classes and a method to "find class"
-  // on class, there should be a method "find method"
-  var _i, _j, _class, _m;
-  for(_i = 0; _i < _classList.length; _i++) {
-    _class = _classList[_i];
-
-    if(_class.name === _mainClass) {
-      for(_j = 0; _j < _class.directMethods.length; _j++) {
-        _m = _class.directMethods[_j];
-
-        if( _m.name === "main" &&
-            _m.returnType === "V" &&
-            _m.params.length === 1 &&
-            _m.params[0] === "[Ljava/lang/String;") {
-          _publicStaticVoidMain = _m;
-        }
-      }
-    }
-  }
-
-  if(_publicStaticVoidMain === null) {
-    terminal.println("main could not be found in " + _mainClass);
-    return false;
-  }
-
-  this.createThread(_publicStaticVoidMain);
-  return true;
+VM.prototype.start = function ( _selectedClassAsType ) {
+  if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
+  var _class = this.classLibrary.findClass(_selectedClassAsType);
+  return this.createThread(_class.getMain()) && true;
 };
 
 VM.prototype.clockTick = function() {

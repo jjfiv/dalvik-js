@@ -21,8 +21,10 @@ ClassLibrary.prototype.defineClasses = function(_classes){
   _classes.forEach(this.addClass, this);
 };
 
-ClassLibrary.prototype.findClass = function (_typeNameString){
-  return this._classes[_typeNameString]; //returns a class object
+ClassLibrary.prototype.findClass = function (_type){
+  var _c = this._classes[_type.getName()]; 
+  return new Class(_c.name, _c.parent, _c.accessFlags, _c.interfaces
+                   , _c.staticFields, _c.instanceFields, _c.directMethods, _c.virtualMethods);
 };
 
 ClassLibrary.prototype.getClasses = function(){
