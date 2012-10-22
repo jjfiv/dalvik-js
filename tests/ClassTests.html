@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ClassTest</title>
+</head>
+<body>
+
+  doc bla \n
+
+
+  <button onclick="foo()">Try it</button>
+
+
+
+  <script>
+    document.write("\n Class \n");
+	
+	var Class = function (_name, _accessFlag, _parent) {
+		//Returns Class Name		
+		this.name = _name;		
+		this.getClassName = function() {
+			var classData = ["name:LMathCalc;","accessFlag:(PUBLIC)","parent:Ljava/lang/Object;"];		
+			var _className = classData.this.name;
+			return _className;
+			}
+
+		//Returns accessFlag
+		this.accessFlag = _accessFlag;
+		this.getAccessFlag = function() {
+			var _accessField = classData.this.accessFlag;			
+			return _accessField;
+			}
+
+		//Returns accessFlag
+		this.parent = _parent;		
+		this.getParentClassName = function() {
+			var _classParent = classData.this.parent;
+
+			return _classParent;
+			}
+
+	}
+	
+
+
+	
+	document.write("\n" + classData[0]);
+	function foo(classData) {
+
+	  alert(JSON.stringify(classData));
+  
+
+	}    
+  
+/*
+	<!DOCTYPE html>
+	<html>
+	<body>
+	<h2>Create Object from JSON String</h3>
+	<p>
+	Class Name: <span id="fname"></span><br> 
+	Parent Name: <span id="lname"></span><br> 
+	</p> 
+	<script>
+	var txt = '{"class":[' +'{"name":"Ltest/HelloWorld;","parent":"Ljava/lang/Object;"}]}';
+
+	obj = JSON.parse(txt);
+
+	document.getElementById("fname").innerHTML=obj.class[0].name 
+	document.getElementById("lname").innerHTML=obj.class[0].parent 
+	</script>
+	</body>
+	</html>
+	
+	<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Click the button to display the array values after the split.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction()
+{
+var str="LMathCalc";
+var n=str.split("L");
+//var c= n.indexOf(n);
+document.getElementById("demo").innerHTML=n;
+}
+</script>
+
+</body>
+</html>
+*/
+	
+  </script>
+
+</body>
+</html>
