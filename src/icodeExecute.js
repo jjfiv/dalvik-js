@@ -93,7 +93,34 @@ var icodeHandlers = {
   },
 
   "if": function(_inst, _thread) {
-    NYI(_inst);
+    var ifOp = _inst.cmp;
+    if (ifOp === "eq") {
+	  if (_inst.varA === _inst.varB) {
+	    return _inst.address;
+	  }
+	} else if (ifOp === "ne") {
+	  if (_inst.varA != _inst.varB) {
+	    return _inst.address;
+	  }
+	} else if (ifOp === "lt") {
+	  if (_inst.varA < _inst.varB) {
+	    return _inst.address;
+	  }
+	} else if (ifOp === "ge") {
+	  if (_inst.varA >= _inst.varB) {
+	    return _inst.address;
+	  }
+	} else if (ifOp === "gt") {
+	  if (_inst.varA > _inst.varB) {
+	    return _inst.address;
+	  }
+	} else if (ifOp === "le") {
+	  if (_inst.varA <= _inst.varB) {
+	    return _inst.address;
+	  }
+	} else {
+	  assert (false, "Undefined If Comparison operation");
+	}
   },
 
   "array-get": function(_inst, _thread) {
