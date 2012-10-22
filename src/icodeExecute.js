@@ -127,7 +127,7 @@ var icodeHandlers = {
     _result.value = 0;
 
     // replace this with calls to ClassLibrary, and fallback to native
-    if(_field.definingClass === "Ljava/lang/System;" && _field.name === "out") {
+    if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
     } else {
       assert(0, 'given field ' + _inst.field + ' could not be found!');
