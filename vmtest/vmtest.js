@@ -58,7 +58,7 @@ classSet.push({
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "move-const", dest: 1, value: 45},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], methodName: "Ljava/io/Printstream;.println(I)V"},
         {op: "return"}
         ]
     }
@@ -76,7 +76,7 @@ classSet.push({
       icode: [
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
         {op: "move-const", dest: 1, value: "Hello World!"},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], methodName: "Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
         {op: "return"}
         ]
     },
@@ -96,7 +96,7 @@ classSet.push({
         {op: "move-const", dest: 2, value: 22},
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(I)V"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], methodName: "Ljava/io/Printstream;.println(I)V"},
         {op: "return"}
         ]
     },
@@ -116,7 +116,7 @@ classSet.push({
         {op: "move-const", dest: 2, value:gLong.fromString("10000000000") }, // 10 bil
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
         {op: "static-get", dest: 0, field:"Ljava/lang/System;.out:Ljava/io/PrintStream;"},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], method: "Ljava/io/Printstream;.println(J)V"},
+        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], methodName: "Ljava/io/Printstream;.println(J)V"},
         {op: "return"}
         ]
     },

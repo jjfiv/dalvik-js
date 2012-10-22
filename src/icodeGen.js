@@ -848,19 +848,19 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   var argCount = highNibble(_byte0);
   var methodIndex = (lowNibble(_byte0) << 8) | (_byte1);
 
-  _icode.method = _dex.methods[methodIndex];
+  _icode.methodName = _dex.methods[methodIndex];
 
   // the remaining 3 bytes are argCount register arguments
-  _icode.args = [];
+  _icode.argumentRegisters = [];
   for(_i=0; _i<3; _i++) {
     _x = _dcode.get();
-    _icode.args.push(highNibble(_x));
-    _icode.args.push(lowNibble(_x));
+    _icode.argumentRegisters.push(highNibble(_x));
+    _icode.argumentRegisters.push(lowNibble(_x));
   }
   
   // chop to the right number of arguments
-  _icode.args = _icode.args.splice(0, argCount);
-  console.log("args:" + _icode.args);
+  _icode.argumentRegisters = _icode.argumentRegisters.splice(0, argCount);
+  console.log("args:" + _icode.argumentRegisters);
 };
 
 //////////////////////////////////////// HANDLING METHOD TYPES ////////////////////////////////////////

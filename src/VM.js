@@ -44,9 +44,9 @@ VM.prototype.start = function ( _classList, _mainClass ) {
         _m = _class.directMethods[_j];
 
         if( _m.name === "main" &&
-            _m.returnType === "V" &&
+            _m.returnType.isEquals(TYPE_VOID) &&
             _m.params.length === 1 &&
-            _m.params[0] === "[Ljava/lang/String;") {
+            TYPE_ARR_STRING.isEquals(_m.params[0])) {
           _publicStaticVoidMain = _m;
         }
       }

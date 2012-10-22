@@ -88,19 +88,19 @@ Type.prototype.getArrayBase = function() {
 };
 
 Type.prototype.trimNum = function(value) {
-  if (this.type.isEquals(TYPE_BYTE)) {
+  if (this.isEquals(TYPE_BYTE)) {
     return value & 0xFF;
   }
-  if (this.type.isEquals(TYPE_SHORT) || this.type.isEquals(TYPE_CHAR)) {
+  if (this.isEquals(TYPE_SHORT) || this.isEquals(TYPE_CHAR)) {
     return value & 0xFFFF;
   }
-  if (this.type.isEquals(TYPE_INT)) {
+  if (this.isEquals(TYPE_INT)) {
     return value & 0xFFFFFFFF;
   }
-  if (this.type.isEquals(TYPE_FLOAT)) {
+  if (this.isEquals(TYPE_FLOAT)) {
     return floatFromDouble(value);
   }
-  if (this.type.isEquals(TYPE_DOUBLE)) {
+  if (this.isEquals(TYPE_DOUBLE)) {
     return value;
   }
   
