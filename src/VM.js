@@ -11,8 +11,10 @@ var VM = function() {
                             var dex = new DEXData(new ArrayFile(_fileData));
                           });
       } catch (x) {
+        return false;
       };
   };
+};
 
 VM.prototype.createThread = function( _directMethod ) {
   var _newThread = new Thread(this);
