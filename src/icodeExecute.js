@@ -81,7 +81,7 @@ var icodeHandlers = {
   },
 
   "goto": function(_inst, _thread) {
-    NYI(_inst);
+    return _inst.address;
   },
 
   "switch": function(_inst, _thread) {
