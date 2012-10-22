@@ -17,12 +17,12 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-00015c:                                        |[00015c] tryCatch.<init>:()V
-00016c: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
-000172: 0e00                                   |0003: return-void
+00019c:                                        |[00019c] tryCatch.<init>:()V
+0001ac: 7010 0200 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0002
+0001b2: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
-        0x0000 line=2
+        0x0000 line=8
       locals        : 
         0x0000 - 0x0004 reg=0 this LtryCatch; 
 
@@ -34,25 +34,42 @@ Class #0            -
       registers     : 3
       ins           : 1
       outs          : 2
-      insns size    : 14 16-bit code units
-000174:                                        |[000174] tryCatch.main:([Ljava/lang/String;)V
-000184: 1210                                   |0000: const/4 v0, #int 1 // #1
-000186: 7110 0400 0000                         |0001: invoke-static {v0}, LtryCatch;.test:(I)I // method@0004
-00018c: 0e00                                   |0004: return-void
-00018e: 0d00                                   |0005: move-exception v0
-000190: 6200 0000                              |0006: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-000194: 1a01 0900                              |0008: const-string v1, "No way!
-" // string@0009
-000198: 6e20 0000 1000                         |000a: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0000
-00019e: 28f7                                   |000d: goto 0004 // -0009
+      insns size    : 34 16-bit code units
+0001b4:                                        |[0001b4] tryCatch.main:([Ljava/lang/String;)V
+0001c4: 1210                                   |0000: const/4 v0, #int 1 // #1
+0001c6: 7110 0500 0000                         |0001: invoke-static {v0}, LtryCatch;.test:(I)I // method@0005
+0001cc: 1210                                   |0004: const/4 v0, #int 1 // #1
+0001ce: 7110 0600 0000                         |0005: invoke-static {v0}, LtryCatch;.testThrow:(I)I // method@0006
+0001d4: 2200 0100                              |0008: new-instance v0, LcustomException; // type@0001
+0001d8: 1a01 0100                              |000a: const-string v1, "Calling custom exception
+" // string@0001
+0001dc: 7020 0000 1000                         |000c: invoke-direct {v0, v1}, LcustomException;.<init>:(Ljava/lang/String;)V // method@0000
+0001e2: 2700                                   |000f: throw v0
+0001e4: 0d00                                   |0010: move-exception v0
+0001e6: 6200 0000                              |0011: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ea: 1a01 0d00                              |0013: const-string v1, "No way!
+" // string@000d
+0001ee: 6e20 0100 1000                         |0015: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0001
+0001f4: 0e00                                   |0018: return-void
+0001f6: 0d00                                   |0019: move-exception v0
+0001f8: 6200 0000                              |001a: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001fc: 1a01 0200                              |001c: const-string v1, "Caught my own exception 
+" // string@0002
+000200: 6e20 0100 1000                         |001e: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0001
+000206: 28f7                                   |0021: goto 0018 // -0009
       catches       : 1
-        0x0001 - 0x0004
-          Ljava/lang/ArithmeticException; -> 0x0005
+        0x0001 - 0x0010
+          Ljava/lang/ArithmeticException; -> 0x0010
+          LcustomException; -> 0x0019
       positions     : 
-        0x0000 line=6
-        0x0004 line=11
-        0x0005 line=8
-        0x0006 line=9
+        0x0000 line=12
+        0x0004 line=13
+        0x0008 line=14
+        0x0010 line=16
+        0x0011 line=17
+        0x0018 line=22
+        0x0019 line=19
+        0x001a line=20
       locals        : 
 
     #2              : (in LtryCatch;)
@@ -64,14 +81,44 @@ Class #0            -
       ins           : 1
       outs          : 0
       insns size    : 3 16-bit code units
-0001ac:                                        |[0001ac] tryCatch.test:(I)I
-0001bc: db00 0100                              |0000: div-int/lit8 v0, v1, #int 0 // #00
-0001c0: 0f00                                   |0002: return v0
+000218:                                        |[000218] tryCatch.test:(I)I
+000228: db00 0100                              |0000: div-int/lit8 v0, v1, #int 0 // #00
+00022c: 0f00                                   |0002: return v0
       catches       : (none)
       positions     : 
-        0x0000 line=13
+        0x0000 line=24
+      locals        : 
+
+    #3              : (in LtryCatch;)
+      name          : 'testThrow'
+      type          : '(I)I'
+      access        : 0x0008 (STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 14 16-bit code units
+000230:                                        |[000230] tryCatch.testThrow:(I)I
+000240: 1210                                   |0000: const/4 v0, #int 1 // #1
+000242: 3302 0c00                              |0001: if-ne v2, v0, 000d // +000c
+000246: 2200 0100                              |0003: new-instance v0, LcustomException; // type@0001
+00024a: 1a01 0100                              |0005: const-string v1, "Calling custom exception
+" // string@0001
+00024e: 7020 0000 1000                         |0007: invoke-direct {v0, v1}, LcustomException;.<init>:(Ljava/lang/String;)V // method@0000
+000254: 2700                                   |000a: throw v0
+000256: 0d00                                   |000b: move-exception v0
+000258: 2700                                   |000c: throw v0
+00025a: 0f00                                   |000d: return v0
+      catches       : 1
+        0x0003 - 0x000b
+          <any> -> 0x000b
+      positions     : 
+        0x0001 line=28
+        0x0003 line=30
+        0x000b line=33
+        0x000d line=34
       locals        : 
 
   Virtual methods   -
-  source_file_idx   : 17 (tryCatch.java)
+  source_file_idx   : 22 (tryCatch.java)
 
