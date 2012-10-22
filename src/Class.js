@@ -1,12 +1,9 @@
-//
-// This module defines our own internal representation of classes
-//
-
-var Class = function(_name, _parent, _accessFlags) {
-  this.name = _name;
-  this.parent = _parent;
-  this.accessFlags = _accessFlags;
-
+// Class.js
+// dependencies:
+var Class = function (name, accessFlags, parent) {		
+  this.name = name;
+  this.accessFlag = accessFlags;
+  this.parent = parent;		
   this.interfaces = arguments[3] || [];
 
   this.staticFields = arguments[4] || [];
@@ -25,9 +22,4 @@ Class.prototype.getMain = function(){
   var _main = this.directMethods.filter(function(_method){ return _method.isMain(); });
   assert(_main.length==1, 'There should only be one main method per class.');
   return _main[0];
-};
-
-Class.prototype.sanityCheck = function() {
-  assert(this.name !== "", "Class name check");
-  assert(this.name[0] === "L", "Class name check: L");
 };
