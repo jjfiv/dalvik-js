@@ -436,7 +436,6 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _dcode.seek(currentOffset);// return to previous poition  
   console.log("final offset = " + _dcode.offset);
 
-  throw "Hello?";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -906,6 +905,7 @@ opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.type = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
+
 
 var arg4method12args = function (_dcode, _icode, _dex) {
   var _i, _x, _byte0, _byte1;
@@ -1793,8 +1793,6 @@ var icodeGen = function(_dex, _dcode) {
   var _op, _icode;
   var _icodeput = [];
   
-  console.log("icodeGen start size=" + _dcode.size());
-
   while(!_dcode.eof()) {
     _icode = {}; // our new "RISC" icode opcode
     
@@ -1806,8 +1804,6 @@ var icodeGen = function(_dex, _dcode) {
 
     // get name from table
     _icode.dalvikName = opName[_op];
-
-    console.log("icodeGen parse " + opName[_op]);
     
     // get parser from table
     var parser = opArgs[_op];
