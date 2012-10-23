@@ -9,8 +9,8 @@ var NOT_IMPLEMENTED = function(_icode) {
 // These are helper functions for parsing bytecode arguments
 var dest4src4 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
-  _icode.src = highNibble(x);
-  _icode.dest = lowNibble(x);
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
 };
 
 var dest8src16 = function(_dcode, _icode, _dex) {
