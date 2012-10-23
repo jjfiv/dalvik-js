@@ -1126,7 +1126,7 @@ opArgs[0x82] = function(_dcode, _icode, _dex) {
 };
 
 opName[0x83] = "int-to-double";
-opArgs[0x82] = function(_dcode, _icode, _dex) {
+opArgs[0x83] = function(_dcode, _icode, _dex) {
   _icode.op = "primitive-cast";
   dest4src4(_dcode, _icode, _dex);
   _icode.srcType = TYPE_INT;
