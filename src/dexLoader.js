@@ -528,13 +528,7 @@ DEXData.prototype._parseClasses = function(_section) {
     var _classDataOffset = _fp.get32();
     var _staticValuesOffset = _fp.get32();
 
-    this.classes[_i] = {
-      name: this.types[_classIndex],
-      parent: this.types[_superIndex],
-      accessFlags: _accessFlags,
-      interfaces: this._parseTypeList(_interfacesOffset),
-    };
-
+    this.classes[_i] = new Class(this.types[_classIndex], _accessFlags, this.types[_superIndex], this._parseTypeList(_interfacesOffset));
     this._parseClassData(this.classes[_i], _classDataOffset);
     //console.log("_parseStaticValues start ("+_staticValuesOffset+")");
     this._parseStaticValues(this.classes[_i], _staticValuesOffset);
