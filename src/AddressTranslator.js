@@ -14,7 +14,8 @@ var makeAddressConverter = function(_offset) {
     var _i; 
     for(_i=0; _i<_offset.length; _i++) {
       // return the first icode address whose offset is greater than or equal to the input bytecode address
-      if(_offset[_i] >= _addr) {
+      //if(_offset[_i] >= _addr) {
+      if(_offset[_i] === _addr) {
         return _i;
       }
     }
@@ -32,8 +33,8 @@ var translateAddresses = function(_icode, _offsets) {
 
   var _convertAddress = makeAddressConverter(_offsets);
   var _convertRelativeAddress = function(_relAddr, _index) {
-    //console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
-    //console.log("abs address: " + (_relAddr + _offsets[_index]));
+    console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
+    console.log("abs address: " + (_relAddr + _offsets[_index]));
     // convert to absolute address for translation, then back to relative after
     return _convertAddress(_relAddr + _offsets[_index]) - _i;
   };
