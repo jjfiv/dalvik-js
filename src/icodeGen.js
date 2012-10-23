@@ -301,13 +301,13 @@ opArgs[0x1c] = function(_dcode, _icode, _dex) {
 opName[0x1d] = "monitor-enter";
 opArgs[0x1d] = function(_dcode, _icode, _dex) {
   _icode.op = "monitor-enter";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
 };
 
 opName[0x1e] = "monitor-exit";
 opArgs[0x1e] = function(_dcode, _icode, _dex) {
   _icode.op = "monitor-exit";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
 };
 
 //////////////////////////////////////// TYPE SHIZZ ////////////////////////////////////////
