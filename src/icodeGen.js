@@ -964,6 +964,26 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   console.log("args:" + _icode.argumentRegisters);
 };
 
+var arg8method16args16 = function (_dcode, _icode, _dex) {
+  //---------------------------------------|
+  // Relevant to all invoke-range opCodes: |
+  // --------------------------------------|
+  var _i, firstReg;
+
+  var argCount = _dcode.get();
+  var methodIndex = _dcode.get16();
+  var firstReg = _dcode.get16();
+
+  _icode.method = _dex.methods[methodIndex];
+
+  // Build the array of all needed arguements
+  _icode.argumentRegisters = [];
+  for (_i = 0; _i < argCount + firstReg - 1; _i++) {
+    _icode.argumentRegisters.push(_dcode.get16());
+  }
+
+};
+
 //////////////////////////////////////// HANDLING METHOD TYPES ////////////////////////////////////////
 opName[0x6e] = "invoke-virtual";
 opArgs[0x6e] = function(_dcode, _icode, _dex) {
