@@ -383,8 +383,9 @@ opArgs[0x22] = function(_dcode, _icode, _dex) {
 opName[0x23] = "new-array";
 opArgs[0x23] = function(_dcode, _icode, _dex) {
   _icode.op = "new-array";
-  _icode.dest = _dcode.get();
-  _icode.sizeReg = _dcode.get();
+  var x = _dcode.get();
+  _icode.dest = lowNibble(x);
+  _icode.sizeReg = highNibble(x);
   _icode.type = _dex.types[_dcode.get16()];
 };
 
