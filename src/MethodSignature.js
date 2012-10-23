@@ -1,15 +1,13 @@
 // This file deals with method signature
 // Dependencies: Type.js
 
-'use strict';
-
 var MethodSignature = function(name, returnType, parameterTypes) { 
-  var _i;  
+  var _i;
   this._name = name;
   this._returnType = returnType;
   this._parameterTypes = [];
   this._parameterAmount = parameterTypes.length;
-  if (this._parameterAmount != 0) { // Assigning parameter array if there are any
+  if (this._parameterAmount !== 0) { // Assigning parameter array if there are any
     for (_i = 0; _i < this._parameterAmount; _i++) {
       this._parameterTypes.push(parameterTypes[_i]);
     }
@@ -17,7 +15,10 @@ var MethodSignature = function(name, returnType, parameterTypes) {
 };
 
 MethodSignature.prototype.isMain = function(){
-  return this._name==='main';
+  return this._name==='main' &&
+         this._returnType.isEquals(TYPE_VOID) &&
+         this._parameterTypes[0].isEquals(TYPE_ARR_STRING) &&
+         this._parameterTypes.length === 1;
 };
 
 MethodSignature.prototype.getName = function() {
@@ -54,7 +55,7 @@ MethodSignature.prototype.toStr = function () {
   return str;  
 };
 
-function testing(){
+(function(){
   var methName = "testMeth";
   var methRet = new Type("LBird;");
   var ret1 = new Type("Z");
@@ -64,4 +65,5 @@ function testing(){
 
   assert(meth.toStr() === "testMeth(Z,B)L", "Something went wrong in the toStr");
   assert(meth.getParameterAmount() === 2, "Wrong number of parameters in method");
-};
+}());
+
