@@ -19,6 +19,11 @@ ArrayFile.prototype.size = function() {
   return this._data.length;
 };
 
+// skip ahead by n bytes
+ArrayFile.prototype.skip = function(n) {
+  this.offset += n;
+};
+
 ArrayFile.prototype.get = function() {
   return this._data[this.offset++];
 };
