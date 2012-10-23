@@ -979,8 +979,8 @@ var arg8method16args16 = function (_dcode, _icode, _dex) {
 
   // Build the array of all needed arguements
   _icode.argumentRegisters = [];
-  for (_i = 0; _i < argCount + firstReg - 1; _i++) {
-    _icode.argumentRegisters.push(_dcode.get16());
+  for (_i = 0; _i < argCount; _i++) {
+    _icode.argumentRegisters.push(_dcode.get());
   }
 
 };
