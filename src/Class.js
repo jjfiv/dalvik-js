@@ -23,3 +23,7 @@ Class.prototype.getMain = function(){
   assert(_main.length==1, 'There should only be one main method per class.');
   return _main[0];
 };
+
+Class.prototype.makeNew = function(){
+  return new Instance(this.name.clone(), this.instanceFields.map(function(_f){ return _f.clone();}));
+};
