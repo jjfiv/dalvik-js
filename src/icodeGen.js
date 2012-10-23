@@ -391,7 +391,7 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";  
+  _icode.op = "new-array";
   NOT_IMPLEMENTED(_icode);
 };
 
@@ -404,7 +404,46 @@ opArgs[0x25] = function(_dcode, _icode, _dex) {
 opName[0x26] = "fill-array-data";
 opArgs[0x26] = function(_dcode, _icode, _dex) {
   _icode.op = "fill-array";
-  NOT_IMPLEMENTED(_icode);
+  _icode.dest = _dcode.get();
+  
+  // each code unit is 2 bytes
+  // (-6) because it's relative to the beginning of the opCode:
+  // 1 - opCode name
+  // 1 - src reg
+  // 4 - offset to data
+  var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
+  var currentOffset = _dcode.offset;
+  var tableOffset = relativeOffset + currentOffset;
+  _dcode.seek(tableOffset);
+
+  var magicNum = _dcode.get16();//get magic number
+  assert( magicNum === 0x0300, "fill-array-data payload magic number is bad");
+  var elementWidth = _dcode.get16(); // width of array element
+  var numElements = _dcode.get32(); //size of array
+  var i;
+  _icode.data = []; // data
+  
+  // Aqcuiring data 
+  for (i=0; i< numElements; i++) {
+    switch (elementWidth) {
+      case 1:
+        _icode.data[i] = _dcode.get();
+        break;
+      case 2:
+        _icode.data[i] = _dcode.get16();
+        break;
+      case 4:
+        _icode.data[i] = _dcode.get32();
+        break;
+      case 8:
+        _icode.data[i] = gLong.fromBits(_dcode.get32(), _dcode.get32());
+        break;
+      default:
+        assert(false, "Unidentified data size in array");
+    }
+  }
+
+  _dcode.seek(currentOffset);// return to previous poition  
 };
 
 
@@ -441,7 +480,12 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
 
   _icode.src = _dcode.get();
   //console.log("switch(v"+_icode.src+")");
-
+  
+  // each code unit is 2 bytes
+  // (-6) because it's relative to the beginning of the opCode:
+  // 1 - opCode name
+  // 1 - src reg
+  // 4 - offset to data
   var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset;
   //console.log("relativeOffset = 0x"+hex(relativeOffset));
@@ -474,9 +518,10 @@ opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
   _icode.src = _dcode.get();
-  var relativeOffset = _dcode.get32();// relative offset
+  //var relativeOffset = _dcode.get32();// relative offset
+  var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset; // current location
-  var tableOffset = relative + currentOffset; // where to go next
+  var tableOffset = relativeOffset + currentOffset; // where to go next
   _dcode.seek(tableOffset);
   var magicNum = _dcode.get16();//get magic number
   assert( magicNum === 0x0200, "Sparse switch payload magic number is bad");
