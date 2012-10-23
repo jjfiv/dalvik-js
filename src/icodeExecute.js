@@ -39,7 +39,7 @@ var icodeHandlers = {
   // this can be a number, a string, a type, ...
   "move-const": function(_inst, _thread) {
     if(_inst.wide) {
-      NYI(_inst);
+      _thread.setRegister(_inst.dest, _inst.value);
     } else {
       _thread.setRegister(_inst.dest, _inst.value);
     }
@@ -92,13 +92,48 @@ var icodeHandlers = {
   },
 
   "cmp": function(_inst, _thread) {
-    NYI(_inst);
+    var _srcA = _thread.getRegister (_inst.srcA);
+    var _srcB = _thread.getRegister (_inst.srcB);
+    if (!(_inst.type.isEquals(TYPE_LONG))) {
+      if ((isNaN(_srcA)) || (isNaN(_srcB))) {
+        if (_inst.bias === "lt") {
+          _thread.setRegister (_inst.dest, -1);
+        }
+        else {
+          _thread.setRegister (_inst.dest, 1);
+        }
+        return;
+      }
+      if (_srcB < _srcA) {
+        _thread.setRegister (_inst.dest, -1);
+      }
+      else if (_srcB > _srcA) {
+        _thread.setRegister (_inst.dest, 1);
+      }
+      else {
+        _thread.setRegister (_inst.dest, 0);
+      }
+    }
+    else {
+      if (_srcB.lessThan(_srcA)) {
+        _thread.setRegister (_inst.dest, -1);
+      }
+      else if (_srcB.greaterThan(_srcA)) {
+        _thread.setRegister (_inst.dest, 1);
+      }
+      else {
+        _thread.setRegister (_inst.dest, 0);
+      }
+    }
   },
 
   "if": function(_inst, _thread) {
       var ifOp = _inst.cmp;
       var varA = _thread.getRegister(_inst.varA);
-      var varB = _thread.getRegister(_inst.varB);
+      var varB = 0;
+      if(!isUndefined(_inst.varB)) {
+        varB = _thread.getRegister(_inst.varB);
+      }
       if (ifOp === "eq") {
           if (varA === varB) {
               return _inst.address;
@@ -190,6 +225,8 @@ var icodeHandlers = {
                   " to " + inspect(argValues[0]) + "!");
 
       terminal.println(argValues[1]);
+      console.log("geth");
+      console.log(argValues[1]);
     } else {
       assert(false, "Invoke only works for println");
     }

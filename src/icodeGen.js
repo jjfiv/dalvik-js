@@ -935,9 +935,8 @@ opArgs[0x6d] = function(_dcode, _icode, _dex) {
   dest8field16(_dcode, _icode, _dex);
 };
 
-
-var arg4method12args = function (_dcode, _icode, _dex) {
-  var _i, _x, _byte0, _byte1;
+var arg5method16args = function (_dcode, _icode, _dex) {
+  var _i, _x, _byte0;
 
   //
   // note that the bytecode spec thinks there is 16 bits of method index
@@ -945,20 +944,20 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   //
   
   _byte0 = _dcode.get();
-  _byte1 = _dcode.get();
+  _methodIndex = _dcode.get16();
 
   var argCount = highNibble(_byte0);
-  var methodIndex = (lowNibble(_byte0) << 8) | (_byte1);
 
-  _icode.method = _dex.methods[methodIndex];
+  _icode.method = _dex.methods[_methodIndex];
 
   // the remaining 3 bytes are argCount register arguments
   _icode.argumentRegisters = [];
-  for(_i=0; _i<3; _i++) {
+  for(_i=0; _i<2; _i++) {
     _x = _dcode.get();
-    _icode.argumentRegisters.push(highNibble(_x));
     _icode.argumentRegisters.push(lowNibble(_x));
+    _icode.argumentRegisters.push(highNibble(_x));
   }
+  _icode.argumentRegisters.push(lowNibble(_byte0));
   
   // chop to the right number of arguments
   _icode.argumentRegisters = _icode.argumentRegisters.splice(0, argCount);
@@ -990,35 +989,35 @@ opName[0x6e] = "invoke-virtual";
 opArgs[0x6e] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
   _icode.kind = "virtual";
-  arg4method12args(_dcode, _icode, _dex);
+  arg5method16args(_dcode, _icode, _dex);
 };
 
 opName[0x6f] = "invoke-super";
 opArgs[0x6f] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
   _icode.kind = "super";
-  arg4method12args(_dcode, _icode, _dex);
+  arg5method16args(_dcode, _icode, _dex);
 };
 
 opName[0x70] = "invoke-direct";
 opArgs[0x70] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
   _icode.kind = "direct";
-  arg4method12args(_dcode, _icode, _dex);
+  arg5method16args(_dcode, _icode, _dex);
 };
 
 opName[0x71] = "invoke-static";
 opArgs[0x71] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
   _icode.kind = "static";
-  arg4method12args(_dcode, _icode, _dex);
+  arg5method16args(_dcode, _icode, _dex);
 };
 
 opName[0x72] = "invoke-interface";
 opArgs[0x72] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
   _icode.kind = "interface";
-  arg4method12args(_dcode, _icode, _dex);
+  arg5method16args(_dcode, _icode, _dex);
 };
 
 //0x73 is unused on purpose
