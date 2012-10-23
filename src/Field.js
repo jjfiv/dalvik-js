@@ -5,13 +5,18 @@
 // Dependencies: Type.js 
 
 var Field = function(_name, _type, _definingClass) {
-  this.name = _name;
+  this.name = _name; //string
   this.type = _type;
-  this.definingClass = _definingClass;
+  this.definingClass = _definingClass; //type
 
   // these are defined separately from first three pieces of data
   this.accessFlags = 0;
 };
+
+Field.prototype.clone = function() {
+  return new Field(this.name, this.type.clone(), this.definingClass.clone(), this.accessFlags);
+};
+
 
 //
 // toStr method to build a string of the form
