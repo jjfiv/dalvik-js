@@ -62,6 +62,10 @@ Type.prototype.toStr = function() {
   return this._typeString;
 };
 
+Type.prototype.clone = function(){
+  return new Type(this.toStr());
+};
+
 Type.prototype.isArray = function() {
   return this._arrayDim > 0;
 };
@@ -170,6 +174,5 @@ var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 
   assert(arrayOfStrings.getArrayBase().isEquals(jStringType), "The base of an array of strings ought to be a string");
 }());
-
 
 

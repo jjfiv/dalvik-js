@@ -8,5 +8,5 @@ var Instance = function(_type, _fields){
 };
 
 Instance.prototype.new = function (){
-  return new Instance(this.type, this.fields);
+  return new Instance(this.type.clone(), this.fields.map(function(_f){return _f.clone();}));
 };
