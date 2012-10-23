@@ -383,8 +383,9 @@ opArgs[0x22] = function(_dcode, _icode, _dex) {
 opName[0x23] = "new-array";
 opArgs[0x23] = function(_dcode, _icode, _dex) {
   _icode.op = "new-array";
-  _icode.dest = _dcode.get();
-  _icode.sizeReg = _dcode.get();
+  var x = _dcode.get();
+  _icode.dest = lowNibble(x);
+  _icode.sizeReg = highNibble(x);
   _icode.type = _dex.types[_dcode.get16()];
 };
 
@@ -964,6 +965,26 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   console.log("args:" + _icode.argumentRegisters);
 };
 
+var arg8method16args16 = function (_dcode, _icode, _dex) {
+  //---------------------------------------|
+  // Relevant to all invoke-range opCodes: |
+  // --------------------------------------|
+  var _i, firstReg;
+
+  var argCount = _dcode.get();
+  var methodIndex = _dcode.get16();
+  var firstReg = _dcode.get16();
+
+  _icode.method = _dex.methods[methodIndex];
+
+  // Build the array of all needed arguements
+  _icode.argumentRegisters = [];
+  for (_i = 0; _i < argCount; _i++) {
+    _icode.argumentRegisters.push(_dcode.get());
+  }
+
+};
+
 //////////////////////////////////////// HANDLING METHOD TYPES ////////////////////////////////////////
 opName[0x6e] = "invoke-virtual";
 opArgs[0x6e] = function(_dcode, _icode, _dex) {
@@ -1005,31 +1026,36 @@ opArgs[0x72] = function(_dcode, _icode, _dex) {
 opName[0x74] = "invoke-virtual/range";
 opArgs[0x74] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
-  NOT_IMPLEMENTED(_icode);
+  _icode.kind = "virtual";
+  arg8method16args16(_dcode, _icode, _dex);
 };
 
 opName[0x75] = "invoke-super/range";
 opArgs[0x75] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
-  NOT_IMPLEMENTED(_icode);
+  _icode.kind = "super";
+  arg8method16args16(_dcode, _icode, _dex);
 };
 
 opName[0x76] = "invoke-direct/range";
 opArgs[0x76] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
-  NOT_IMPLEMENTED(_icode);
+  _icode.kind = "direct";
+  arg8method16args16(_dcode, _icode, _dex);
 };
 
 opName[0x77] = "invoke-static/range";
 opArgs[0x77] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
-  NOT_IMPLEMENTED(_icode);
+  _icode.kind = "static";
+  arg8method16args16(_dcode, _icode, _dex);
 };
 
 opName[0x78] = "invoke-interface/range";
 opArgs[0x78] = function(_dcode, _icode, _dex) {
   _icode.op = "invoke";
-  NOT_IMPLEMENTED(_icode);
+  _icode.kind = "interface";
+  arg8method16args16(_dcode, _icode, _dex);
 };
 
 //0x79-7a unused
