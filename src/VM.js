@@ -6,21 +6,19 @@ var VM = function() {
   var _self = this;
   this._threads = [];
   this.classLibrary = new ClassLibrary();
-  this._source = function(){
-      try { 
-        return new Upload(function(_fileName, _fileData){
-                            var _dex = new DEXData(new ArrayFile(_fileData));
-                            var _k, _classes = _self.classLibrary._classes;
-                            _self.defineClasses(_dex.classes);
-                            for (_k in _classes){
-                              this._classChooser.addClass(_classes[_k].name);
-                            }
-                          }, _self);
-      } catch (x) {
-        //thinking about having this take any arguments to the VM constructor, but for now:
-        return false;
-      };
-  }();
+  this._source = (function(){
+    return new Upload(function(_fileName, _fileData){
+                        var _dex = new DEXData(new ArrayFile(_fileData));
+                        var _k, _classes = _self.classLibrary._classes;
+                        _self.defineClasses(_dex.classes);
+                        for (_k in _classes){
+                          // just magic to make for in work forever
+                          if(_classes.hasOwnProperty(_k)) {
+                            this._classChooser.addClass(_classes[_k].name);
+                          }
+                        }
+                      }, _self);
+  }());
 };
 
 VM.prototype.defineClasses = function(_data){
