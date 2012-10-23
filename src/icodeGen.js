@@ -803,106 +803,100 @@ opArgs[0x5f] = function(_dcode, _icode, _dex) {
 opName[0x60] = "sget";
 opArgs[0x60] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_INT;
+  _icode.type = TYPE_INT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x61] = "sget-wide";
 opArgs[0x61] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_LONG;
+  _icode.type = TYPE_LONG;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x62] = "sget-object";
 opArgs[0x62] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_OBJECT;
+  _icode.type = TYPE_OBJECT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x63] = "sget-boolean";
 opArgs[0x63] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BOOLEAN;
+  _icode.type = TYPE_BOOLEAN;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x64] = "sget-byte";
 opArgs[0x64] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BYTE;
+  _icode.type = TYPE_BYTE;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x65] = "sget-char";
 opArgs[0x65] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_CHAR;
+  _icode.type = TYPE_CHAR;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x66] = "sget-short";
 opArgs[0x66] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_SHORT;
+  _icode.type = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x67] = "sput";
 opArgs[0x67] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x68] = "sput-wide";
 opArgs[0x68] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x69] = "sput-object";
 opArgs[0x69] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_OBJECT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6a] = "sput-boolean";
 opArgs[0x6a] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BOOLEAN;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6b] = "sput-byte";
 opArgs[0x6b] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BYTE;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6c] = "sput-char";
 opArgs[0x6c] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_CHAR;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6d] = "sput-short";
 opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_SHORT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 var arg4method12args = function (_dcode, _icode, _dex) {
