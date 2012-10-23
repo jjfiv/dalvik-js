@@ -103,6 +103,19 @@ var dest4src4lit16 = function(_dcode, _icode, _dex) {
   _icode.literal = signExtend(_dcode.get16(), 16, 32);
 };
 
+var val4obj4field16 = function(_dcode, _icode, _dex) {
+//------------------------------------------------
+// Relevant to instance gets/puts:               |
+// _icode.value == value register address (4bit) |
+// _icode.obj == object register address (4bit)  |
+// _icode.field == field register (16bit)        |
+//------------------------------------------------
+  var x = _dcode.get();
+  _icode.value = highNibble(x);
+  _icode.obj = lowNibble(x);
+  _icode.field = _dcode.get16();
+};
+
 // Dalvik VM opcode names
 
 var opName = []; // a list of dalvik instruction names
@@ -374,7 +387,7 @@ opArgs[0x26] = function(_dcode, _icode, _dex) {
 opName[0x27] = "throw";
 opArgs[0x27] = function(_dcode, _icode, _dex) {
   _icode.op = "throw";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
 };
 
 //////////////////////////////////////// CONTROL COMMANDS ////////////////////////////////////////
@@ -688,85 +701,101 @@ opArgs[0x51] = function(_dcode, _icode, _dex) {
 opName[0x52] = "iget";
 opArgs[0x52] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x53] = "iget-wide";
 opArgs[0x53] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x54] = "iget-object";
 opArgs[0x54] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x55] = "iget-boolean";
 opArgs[0x55] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x56] = "iget-byte";
 opArgs[0x56] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x57] = "iget-char";
 opArgs[0x57] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x58] = "iget-short";
 opArgs[0x58] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 opName[0x59] = "iput";
 opArgs[0x59] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x5a] = "iput-wide";
 opArgs[0x5a] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x5b] = "iput-object";
 opArgs[0x5b] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x5c] = "iput-boolean";
 opArgs[0x5c] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x5d] = "iput-byte";
 opArgs[0x5d] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x5e] = "iput-char";
 opArgs[0x5e] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x5f] = "iput-short";
 opArgs[0x5f] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 
