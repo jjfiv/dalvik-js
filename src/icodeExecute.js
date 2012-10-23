@@ -13,7 +13,8 @@ var icodeHandlers = {
   },
   
   "move": function(_inst, _thread) {
-    NYI(_inst);
+    var _value = _thread.getRegister (_inst.src);
+    _thread.setRegister(_inst.dest, _value);
   },
 
   "move-result": function(_inst, _thread) {
@@ -180,8 +181,8 @@ var icodeHandlers = {
 
     //TODO handle more than just this method;
     //     will need to call into ClassLibrary to find things
-    //if(methodName === "Ljava/io/Printstream;.println") {
-    if ((method.getName() === "println") && (method.definingClass.isEquals(new Type ("Ljava/io/Printstream;")))) {
+    //if(methodName === "Ljava/io/PrintStream;.println") {
+    if ((method.getName() === "println") && (method.definingClass.isEquals(new Type ("Ljava/io/PrintStream;")))) {
       
       console.log("print " + argValues[1] +
                   " to " + inspect(argValues[0]) + "!");
