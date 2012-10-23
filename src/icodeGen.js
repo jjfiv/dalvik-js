@@ -479,7 +479,6 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
 
   _icode.src = _dcode.get();
-  //console.log("switch(v"+_icode.src+")");
   
   // each code unit is 2 bytes
   // (-6) because it's relative to the beginning of the opCode:
@@ -488,13 +487,9 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   // 4 - offset to data
   var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset;
-  //console.log("relativeOffset = 0x"+hex(relativeOffset));
-  //console.log("currentOffset = 0x"+hex(currentOffset));
   var tableOffset = relativeOffset + currentOffset;
-  //console.log("tableOffset = 0x"+hex(tableOffset));
   _dcode.seek(tableOffset);
   var magicNum = _dcode.get16();//get magic number
-  //console.log("magicNum = 0x"+hex(magicNum));
   assert( magicNum === 0x0100, "Pack switch payload magic number is bad");
   var arraySize = _dcode.get16(); // enteries into array
   var firstKey = _dcode.get32(); //first key and lowset switch value
@@ -504,21 +499,21 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   // Aqcuiring targets 
   for (i=0; i< arraySize; i++) {
     _icode.cases[i] = firstKey + i; //
-    _icode.addrOffsets [i] = _dcode.get32();		 
-
-    //console.log("case " + _icode.cases[i] +": goto " + _icode.addrOffsets[i]);
+    _icode.addrOffsets [i] = _dcode.get32();
   }
   _dcode.seek(currentOffset);// return to previous poition  
-  //console.log("final offset = " + _dcode.offset);
-
-  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
   _icode.src = _dcode.get();
-  //var relativeOffset = _dcode.get32();// relative offset
+  
+  // each code unit is 2 bytes
+  // (-6) because it's relative to the beginning of the opCode:
+  // 1 - opCode name
+  // 1 - src reg
+  // 4 - offset to data
   var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset; // current location
   var tableOffset = relativeOffset + currentOffset; // where to go next
