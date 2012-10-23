@@ -66,7 +66,9 @@ var icodeHandlers = {
   },
 
   "new-instance": function(_inst, _thread) {
-    NYI(_inst);
+    // get the class for the corresponding type from classLibrary
+    var _class = _thread._vm.classLibrary.findClass(_inst.type);
+    _thread.setRegister(_inst.dest, _class.makeNew());
   },
 
   "new-array": function(_inst, _thread) {
