@@ -314,25 +314,32 @@ opArgs[0x1e] = function(_dcode, _icode, _dex) {
 opName[0x1f] = "check-cast";
 opArgs[0x1f] = function(_dcode, _icode, _dex) {
   _icode.op = "check-cast";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
+  _icode.type = _dcode.get16();
 };
 
 opName[0x20] = "instance-of";
 opArgs[0x20] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-of";
-  NOT_IMPLEMENTED(_icode);
+  var x = _dcode.get();
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
+  _icode.type = _dcode.get16();
 };
 
 opName[0x21] = "array-length";
 opArgs[0x21] = function(_dcode, _icode, _dex) {
   _icode.op = "array-length";
-  NOT_IMPLEMENTED(_icode);
+  var x = _dcode.get();
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
 };
 
 opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
+  _icode.type = _dcode.get16();
 };
 
 //////////////////////////////////////// ARRAY COMMANDS ////////////////////////////////////////
