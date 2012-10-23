@@ -15,7 +15,6 @@ var makeAddressConverter = function(_offset) {
     for(_i=0; _i<_offset.length; _i++) {
       // return the first icode address whose offset is greater than or equal to the input bytecode address
       if(_offset[_i] >= _addr) {
-      //if(_offset[_i] === _addr) {
         return _i;
       }
     }
