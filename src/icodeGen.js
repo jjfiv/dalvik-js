@@ -352,7 +352,7 @@ opName[0x1f] = "check-cast";
 opArgs[0x1f] = function(_dcode, _icode, _dex) {
   _icode.op = "check-cast";
   _icode.src = _dcode.get();
-  _icode.type = _dcode.get16();
+  _icode.type = _dex.types[_dcode.get16()];
 };
 
 opName[0x20] = "instance-of";
@@ -361,7 +361,7 @@ opArgs[0x20] = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
   _icode.dest = highNibble(x);
   _icode.src = lowNibble(x);
-  _icode.type = _dcode.get16();
+  _icode.type = _dex.types[_dcode.get16()];
 };
 
 opName[0x21] = "array-length";
