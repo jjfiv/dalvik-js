@@ -49,7 +49,7 @@ var varA4varB4offset16 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
   _icode.varA = lowNibble(x);
   _icode.varB = highNibble(x);
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
 };
 
 var arrayTriplet = function(_dcode, _icode, _dex) {
@@ -376,7 +376,7 @@ opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
   _icode.src = _dcode.get();
-  _icode.type = _dcode.get16();
+  _icode.type = _dex.types[_dcode.get16()];
 };
 
 //////////////////////////////////////// ARRAY COMMANDS ////////////////////////////////////////
@@ -587,7 +587,7 @@ opName[0x38] = "if-eqz";
 opArgs[0x38] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
   _icode.cmp = "eq";
 };
 
@@ -595,7 +595,7 @@ opName[0x39] = "if-nez";
 opArgs[0x39] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
   _icode.cmp = "ne";
 };
 
@@ -604,14 +604,14 @@ opArgs[0x3a] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
   _icode.cmp = "lt";
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
 };
 
 opName[0x3b] = "if-gez";
 opArgs[0x3b] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
   _icode.cmp = "ge";
 };
 
@@ -619,7 +619,7 @@ opName[0x3c] = "if-gtz";
 opArgs[0x3c] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
   _icode.cmp = "gt";
 };
 
@@ -627,7 +627,7 @@ opName[0x3d] = "if-lez";
 opArgs[0x3d] = function(_dcode, _icode, _dex) {
   _icode.op = "if";
   _icode.varA = _dcode.get();
-  _icode.addrOffset = _dcode.get16();
+  _icode.addrOffset = signExtend(_dcode.get16(), 16, 32);
   _icode.cmp = "le";
 };
 
