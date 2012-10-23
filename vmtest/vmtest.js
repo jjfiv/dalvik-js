@@ -47,7 +47,7 @@ var doTest = function(testId, classes, mainClass, expectedOutput) {
 };
 
 var classSet = [];
-var tempMethod = "Ljava/io/Printstream;.println(I)V";
+var tempMethod = "Ljava/io/PrintStream;.println(I)V";
 classSet.push({
   name: "Ltest/PrintFortyFive;",
   directMethods: [
@@ -60,7 +60,7 @@ classSet.push({
         {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
         {op: "move-const", dest: 1, value: 45},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], 
-            method: new Method("println", new Type("Ljava/io/Printstream;"),  
+            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
             [TYPE_INT], TYPE_VOID)},
         {op: "return"}
         ]
@@ -80,9 +80,9 @@ classSet.push({
         {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
         {op: "move-const", dest: 1, value: "Hello World!"},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/Printstream;"),  
+            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
             [TYPE_STRING], TYPE_VOID)},
-            //"Ljava/io/Printstream;.println(Ljava/lang/String;)V"},
+            //"Ljava/io/PrintStream;.println(Ljava/lang/String;)V"},
         {op: "return"}
         ]
     },
@@ -103,9 +103,9 @@ classSet.push({
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
         {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/Printstream;"),
+            method: new Method("println", new Type("Ljava/io/PrintStream;"),
             [TYPE_INT], TYPE_VOID)},
-             //"Ljava/io/Printstream;.println(I)V"},
+             //"Ljava/io/PrintStream;.println(I)V"},
         {op: "return"}
         ]
     },
@@ -126,9 +126,9 @@ classSet.push({
         {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
         {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
         {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/Printstream;"),  
+            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
             [TYPE_LONG], TYPE_VOID)}, 
-            //"Ljava/io/Printstream;.println(J)V"},
+            //"Ljava/io/PrintStream;.println(J)V"},
         {op: "return"}
         ]
     },
