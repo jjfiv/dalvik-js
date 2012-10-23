@@ -1,16 +1,26 @@
 // Class.js
 // dependencies:
-var Class = function (name, accessFlags, parent, interfaces, staticFields,instanceFields,directMethods,virtualMethods) {		
-  this.name = name;
-  this.accessFlag = accessFlags;
-  this.parent = parent;		
-  this.interfaces = interfaces || [];
+var Class = function (_name, _accessFlags, _parent, _interfaces, _staticFields, _instanceFields, _directMethods, _virtualMethods) {		
+  this.name = _name;
+  this.accessFlag = _accessFlags;
+  this.parent = _parent;		
+  this.interfaces = _interfaces || [];
 
-  this.staticFields = staticFields || [];
-  this.instanceFields = instanceFields || [];
+  this.staticFields = _staticFields || [];
+  this.instanceFields = _instanceFields || [];
 
-  this.directMethods = directMethods || []; // directMethods are "static" or class methods
-  this.virtualMethods = virtualMethods || []; // virtualMethods are instance methods
+  this.directMethods = _directMethods || []; // directMethods are "static" or class methods
+  this.virtualMethods = _virtualMethods || []; // virtualMethods are instance methods
+};
+
+var Instance = function(_type, _fields){
+  // type must refer to the class
+  this.type = _type;
+  if (_fields){
+    this.fields = _fields;      
+  } else {
+    //what to do in the event of instantiation without args? Are there default args we should be filling in?  
+  }
 };
 
 Class.prototype.hasMain = function() {
