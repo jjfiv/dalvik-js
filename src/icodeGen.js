@@ -327,32 +327,25 @@ opArgs[0x1e] = function(_dcode, _icode, _dex) {
 opName[0x1f] = "check-cast";
 opArgs[0x1f] = function(_dcode, _icode, _dex) {
   _icode.op = "check-cast";
-  _icode.src = _dcode.get();
-  _icode.type = _dcode.get16();
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x20] = "instance-of";
 opArgs[0x20] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-of";
-  var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
-  _icode.type = _dcode.get16();
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x21] = "array-length";
 opArgs[0x21] = function(_dcode, _icode, _dex) {
   _icode.op = "array-length";
-  var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
-  _icode.src = _dcode.get();
-  _icode.type = _dcode.get16();
+  NOT_IMPLEMENTED(_icode);
 };
 
 //////////////////////////////////////// ARRAY COMMANDS ////////////////////////////////////////
@@ -387,7 +380,7 @@ opArgs[0x26] = function(_dcode, _icode, _dex) {
 opName[0x27] = "throw";
 opArgs[0x27] = function(_dcode, _icode, _dex) {
   _icode.op = "throw";
-  _icode.src = _dcode.get();
+  NOT_IMPLEMENTED(_icode);
 };
 
 //////////////////////////////////////// CONTROL COMMANDS ////////////////////////////////////////
@@ -701,101 +694,85 @@ opArgs[0x51] = function(_dcode, _icode, _dex) {
 opName[0x52] = "iget";
 opArgs[0x52] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_INT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x53] = "iget-wide";
 opArgs[0x53] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_INT;
-  _icode.wide = true;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x54] = "iget-object";
 opArgs[0x54] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_OBJECT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x55] = "iget-boolean";
 opArgs[0x55] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_BOOLEAN;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x56] = "iget-byte";
 opArgs[0x56] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_BYTE;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x57] = "iget-char";
 opArgs[0x57] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_CHAR;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x58] = "iget-short";
 opArgs[0x58] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_SHORT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x59] = "iput";
 opArgs[0x59] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_INT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5a] = "iput-wide";
 opArgs[0x5a] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_INT;
-  _icode.wide = true;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5b] = "iput-object";
 opArgs[0x5b] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_OBJECT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5c] = "iput-boolean";
 opArgs[0x5c] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_BOOLEAN;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5d] = "iput-byte";
 opArgs[0x5d] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_BYTE;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5e] = "iput-char";
 opArgs[0x5e] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_CHAR;
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x5f] = "iput-short";
 opArgs[0x5f] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  val4obj4field16(_dcode, _icode, _dex);
-  _icode.type = TYPE_SHORT;
+  NOT_IMPLEMENTED(_icode);
 };
 
 
@@ -803,100 +780,106 @@ opArgs[0x5f] = function(_dcode, _icode, _dex) {
 opName[0x60] = "sget";
 opArgs[0x60] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_INT;
+  _icode.primtype = TYPE_INT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x61] = "sget-wide";
 opArgs[0x61] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_LONG;
+  _icode.primtype = TYPE_LONG;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x62] = "sget-object";
 opArgs[0x62] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_OBJECT;
+  _icode.primtype = TYPE_OBJECT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x63] = "sget-boolean";
 opArgs[0x63] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_BOOLEAN;
+  _icode.primtype = TYPE_BOOLEAN;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x64] = "sget-byte";
 opArgs[0x64] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_BYTE;
+  _icode.primtype = TYPE_BYTE;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x65] = "sget-char";
 opArgs[0x65] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_CHAR;
+  _icode.primtype = TYPE_CHAR;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x66] = "sget-short";
 opArgs[0x66] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.type = TYPE_SHORT;
+  _icode.primtype = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x67] = "sput";
 opArgs[0x67] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_INT;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x68] = "sput-wide";
 opArgs[0x68] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_INT;
-  _icode.wide = true;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x69] = "sput-object";
 opArgs[0x69] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_OBJECT;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x6a] = "sput-boolean";
 opArgs[0x6a] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_BOOLEAN;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x6b] = "sput-byte";
 opArgs[0x6b] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_BYTE;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x6c] = "sput-char";
 opArgs[0x6c] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_CHAR;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x6d] = "sput-short";
 opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  _icode.type = TYPE_SHORT;
-  dest8field16(_dcode, _icode, _dex);
+  // see static-get;
+  // use src8field16
+  NOT_IMPLEMENTED(_icode);
 };
 
 var arg4method12args = function (_dcode, _icode, _dex) {
@@ -926,26 +909,6 @@ var arg4method12args = function (_dcode, _icode, _dex) {
   // chop to the right number of arguments
   _icode.argumentRegisters = _icode.argumentRegisters.splice(0, argCount);
   console.log("args:" + _icode.argumentRegisters);
-};
-
-var arg8method16args16 = function (_dcode, _icode, _dex) {
-  //---------------------------------------|
-  // Relevant to all invoke-range opCodes: |
-  // --------------------------------------|
-  var _i, firstReg;
-
-  var argCount = _dcode.get();
-  var methodIndex = _dcode.get16();
-  var firstReg = _dcode.get16();
-
-  _icode.method = _dex.methods[methodIndex];
-
-  // Build the array of all needed arguements
-  _icode.argumentRegisters = [];
-  for (_i = 0; _i < argCount + firstReg - 1; _i++) {
-    _icode.argumentRegisters.push(_dcode.get16());
-  }
-
 };
 
 //////////////////////////////////////// HANDLING METHOD TYPES ////////////////////////////////////////
@@ -1852,3 +1815,4 @@ var icodeGen = function(_dex, _dcode) {
 
 
 
+>>>>>>> 38b868c6809d51129a4cb6608b1cef48a6cd05e0
