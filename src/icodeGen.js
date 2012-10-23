@@ -124,6 +124,30 @@ var opArgs = []; // parse functions for each dalvik instruction
 opName[0x00] = "nop";
 opArgs[0x00] = function (_dcode, _icode, _dex) {
   _icode.op = "nop";
+  var _payload = _dcode.get();
+  
+  // just a nop
+  if(_payload === 0) { return; }
+
+  // Sometimes, a NOP is just a NOP
+  // ...and sometimes, it is a data structure that we've already parsed from another command
+
+  // parse data
+  var _size;
+  if(_payload === 0x01) {
+    // packed-switch payload format
+    size = _dcode.get16();
+    _dcode.skip(4 + 4*size);
+  } else if(_payload === 0x02) {
+    // sparse-switch
+    size = _dcode.get16();
+    _dcode.skip(2*4*size);
+  } else if(_payload === 0x03) {
+    // fill-array data
+    var elementWidth = _dcode.get16();
+    var numElements = _dcode.get32();
+    _dcode.skip(elementWidth*numElements);
+  }
 };
 
 //////////////////////////////////////// MOVE COMMANDS ////////////////////////////////////////
@@ -327,25 +351,32 @@ opArgs[0x1e] = function(_dcode, _icode, _dex) {
 opName[0x1f] = "check-cast";
 opArgs[0x1f] = function(_dcode, _icode, _dex) {
   _icode.op = "check-cast";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
+  _icode.type = _dcode.get16();
 };
 
 opName[0x20] = "instance-of";
 opArgs[0x20] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-of";
-  NOT_IMPLEMENTED(_icode);
+  var x = _dcode.get();
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
+  _icode.type = _dcode.get16();
 };
 
 opName[0x21] = "array-length";
 opArgs[0x21] = function(_dcode, _icode, _dex) {
   _icode.op = "array-length";
-  NOT_IMPLEMENTED(_icode);
+  var x = _dcode.get();
+  _icode.dest = highNibble(x);
+  _icode.src = lowNibble(x);
 };
 
 opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
+  _icode.type = _dcode.get16();
 };
 
 //////////////////////////////////////// ARRAY COMMANDS ////////////////////////////////////////
@@ -380,7 +411,7 @@ opArgs[0x26] = function(_dcode, _icode, _dex) {
 opName[0x27] = "throw";
 opArgs[0x27] = function(_dcode, _icode, _dex) {
   _icode.op = "throw";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
 };
 
 //////////////////////////////////////// CONTROL COMMANDS ////////////////////////////////////////
@@ -404,12 +435,19 @@ opArgs[0x2a] = function(_dcode, _icode, _dex) {
 opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
-  var relativeOffset = _dcode.get32();// realtive offset
+
+  _icode.src = _dcode.get();
+  //console.log("switch(v"+_icode.src+")");
+
+  var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset;
-  var tableOffset = relative + currentOffset;
+  //console.log("relativeOffset = 0x"+hex(relativeOffset));
+  //console.log("currentOffset = 0x"+hex(currentOffset));
+  var tableOffset = relativeOffset + currentOffset;
+  //console.log("tableOffset = 0x"+hex(tableOffset));
   _dcode.seek(tableOffset);
   var magicNum = _dcode.get16();//get magic number
+  //console.log("magicNum = 0x"+hex(magicNum));
   assert( magicNum === 0x0100, "Pack switch payload magic number is bad");
   var arraySize = _dcode.get16(); // enteries into array
   var firstKey = _dcode.get32(); //first key and lowset switch value
@@ -420,15 +458,19 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   for (i=0; i< arraySize; i++) {
     _icode.cases[i] = firstKey + i; //
     _icode.addrOffsets [i] = _dcode.get32();		 
-    
+
+    //console.log("case " + _icode.cases[i] +": goto " + _icode.addrOffsets[i]);
   }
   _dcode.seek(currentOffset);// return to previous poition  
+  //console.log("final offset = " + _dcode.offset);
+
+  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
+  _icode.src = _dcode.get();
   var relativeOffset = _dcode.get32();// relative offset
   var currentOffset = _dcode.offset; // current location
   var tableOffset = relative + currentOffset; // where to go next
@@ -694,85 +736,101 @@ opArgs[0x51] = function(_dcode, _icode, _dex) {
 opName[0x52] = "iget";
 opArgs[0x52] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x53] = "iget-wide";
 opArgs[0x53] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x54] = "iget-object";
 opArgs[0x54] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x55] = "iget-boolean";
 opArgs[0x55] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x56] = "iget-byte";
 opArgs[0x56] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x57] = "iget-char";
 opArgs[0x57] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x58] = "iget-short";
 opArgs[0x58] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 opName[0x59] = "iput";
 opArgs[0x59] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x5a] = "iput-wide";
 opArgs[0x5a] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x5b] = "iput-object";
 opArgs[0x5b] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x5c] = "iput-boolean";
 opArgs[0x5c] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x5d] = "iput-byte";
 opArgs[0x5d] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x5e] = "iput-char";
 opArgs[0x5e] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x5f] = "iput-short";
 opArgs[0x5f] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 
@@ -780,107 +838,102 @@ opArgs[0x5f] = function(_dcode, _icode, _dex) {
 opName[0x60] = "sget";
 opArgs[0x60] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_INT;
+  _icode.type = TYPE_INT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x61] = "sget-wide";
 opArgs[0x61] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_LONG;
+  _icode.type = TYPE_LONG;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x62] = "sget-object";
 opArgs[0x62] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_OBJECT;
+  _icode.type = TYPE_OBJECT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x63] = "sget-boolean";
 opArgs[0x63] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BOOLEAN;
+  _icode.type = TYPE_BOOLEAN;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x64] = "sget-byte";
 opArgs[0x64] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BYTE;
+  _icode.type = TYPE_BYTE;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x65] = "sget-char";
 opArgs[0x65] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_CHAR;
+  _icode.type = TYPE_CHAR;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x66] = "sget-short";
 opArgs[0x66] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_SHORT;
+  _icode.type = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x67] = "sput";
 opArgs[0x67] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x68] = "sput-wide";
 opArgs[0x68] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x69] = "sput-object";
 opArgs[0x69] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_OBJECT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6a] = "sput-boolean";
 opArgs[0x6a] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BOOLEAN;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6b] = "sput-byte";
 opArgs[0x6b] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BYTE;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6c] = "sput-char";
 opArgs[0x6c] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_CHAR;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6d] = "sput-short";
 opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_SHORT;
+  dest8field16(_dcode, _icode, _dex);
 };
+
 
 var arg4method12args = function (_dcode, _icode, _dex) {
   var _i, _x, _byte0, _byte1;
@@ -1784,6 +1837,7 @@ var icodeGen = function(_dex, _dcode) {
 
     // get name from table
     _icode.dalvikName = opName[_op];
+    console.log(hex(_icode.offset) +": "+ _icode.dalvikName);
     
     // get parser from table
     var parser = opArgs[_op];
@@ -1793,12 +1847,8 @@ var icodeGen = function(_dex, _dcode) {
       return _icodeput;
     }
     
-    try {
-      // call it
-      parser(_dcode, _icode, _dex);
-    } catch (_notImplemented) {
-      return _icodeput;
-    }
+    // call it
+    parser(_dcode, _icode, _dex);
 
     // this is a hack of sorts; dalvik instructions are pieced together in "code-units" which means that there's always an even number of bytes that should be consumed.
     if(_dcode.offset % 2) {
@@ -1811,3 +1861,7 @@ var icodeGen = function(_dex, _dcode) {
 
   return _icodeput;
 };
+
+
+
+
