@@ -401,23 +401,42 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   var arraySize = _dcode.get16(); // enteries into array
   var firstKey = _dcode.get32(); //first key and lowset switch value
   var i;
-  _icode.cases = []; // cases
-  _icode.addrOffsets = []; // case address
- // Aqcuiring targets 
-   for (i=0; i<= arraySize; i++) {
-   		_code.cases[i] = firstKey + i; //
-   		_code.addrOffsets [i] = _dcode.get32();		 
-   
-   }
+  _icode.cases = []; // cases statements
+  _icode.addrOffsets = []; // case statements jump address
+  // Aqcuiring targets 
+  for (i=0; i< arraySize; i++) {
+    _icode.cases[i] = firstKey + i; //
+    _icode.addrOffsets [i] = _dcode.get32();		 
+    
+  }
   _dcode.seek(currentOffset);// return to previous poition  
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.value = _dcode.get();
-  _icode.addrOffset = _dcode.get32();
-  NOT_IMPLEMENTED(_icode);
+  _icode.source = _dcode.get();
+  var relativeOffset = _dcode.get32();// relative offset
+  var currentOffset = _dcode.offset; // current location
+  var tableOffset = relative + currentOffset; // where to go next
+  _dcode.seek(tableOffset);
+  var magicNum = _dcode.get16();//get magic number
+  assert( magicNum === 0x0200, "Sparse switch payload magic number is bad");
+  var arraySize = _dcode.get16(); // enteries into array
+  var k;
+  _icode.cases = []; // cases statements
+  // Aqcuiring keys and sort from low to high
+  for (k=0; k<arraySize; k++) {
+    _icode.cases[k] = _dcode.get32();
+    //_code.case.sort(function(a,b){return a-b});
+  }
+  var i;
+  _icode.addrOffsets = []; // case statements jump address
+  // Aqcuiring case statement jump targets
+  for (i=0; i<arraySize; i++) {
+    _icode.addrOffsets [i] = _dcode.get32();                
+  }
+  _dcode.seek(currentOffset);// return to previous poition  
 };
 
 
