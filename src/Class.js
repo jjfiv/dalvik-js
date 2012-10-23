@@ -1,16 +1,16 @@
 // Class.js
 // dependencies:
-var Class = function (name, accessFlags, parent) {		
+var Class = function (name, accessFlags, parent, interfaces, staticFields,instanceFields,directMethods,virtualMethods) {		
   this.name = name;
   this.accessFlag = accessFlags;
   this.parent = parent;		
-  this.interfaces = arguments[3] || [];
+  this.interfaces = interfaces || [];
 
-  this.staticFields = arguments[4] || [];
-  this.instanceFields = arguments[5] || [];
+  this.staticFields = staticFields || [];
+  this.instanceFields = instanceFields || [];
 
-  this.directMethods = arguments[6] || []; // directMethods are "static" or class methods
-  this.virtualMethods = arguments[7] || []; // virtualMethods are instance methods
+  this.directMethods = directMethods || []; // directMethods are "static" or class methods
+  this.virtualMethods = virtualMethods || []; // virtualMethods are instance methods
 };
 
 Class.prototype.hasMain = function() {
