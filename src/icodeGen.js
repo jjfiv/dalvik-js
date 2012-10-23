@@ -124,6 +124,30 @@ var opArgs = []; // parse functions for each dalvik instruction
 opName[0x00] = "nop";
 opArgs[0x00] = function (_dcode, _icode, _dex) {
   _icode.op = "nop";
+  var _payload = _dcode.get();
+  
+  // just a nop
+  if(_payload === 0) { return; }
+
+  // Sometimes, a NOP is just a NOP
+  // ...and sometimes, it is a data structure that we've already parsed from another command
+
+  // parse data
+  var _size;
+  if(_payload === 0x01) {
+    // packed-switch payload format
+    size = _dcode.get16();
+    _dcode.skip(4 + 4*size);
+  } else if(_payload === 0x02) {
+    // sparse-switch
+    size = _dcode.get16();
+    _dcode.skip(2*4*size);
+  } else if(_payload === 0x03) {
+    // fill-array data
+    var elementWidth = _dcode.get16();
+    var numElements = _dcode.get32();
+    _dcode.skip(elementWidth*numElements);
+  }
 };
 
 //////////////////////////////////////// MOVE COMMANDS ////////////////////////////////////////
@@ -411,12 +435,19 @@ opArgs[0x2a] = function(_dcode, _icode, _dex) {
 opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
-  var relativeOffset = _dcode.get32();// realtive offset
+
+  _icode.src = _dcode.get();
+  //console.log("switch(v"+_icode.src+")");
+
+  var relativeOffset = (_dcode.get32()*2) -6;// realtive offset
   var currentOffset = _dcode.offset;
-  var tableOffset = relative + currentOffset;
+  //console.log("relativeOffset = 0x"+hex(relativeOffset));
+  //console.log("currentOffset = 0x"+hex(currentOffset));
+  var tableOffset = relativeOffset + currentOffset;
+  //console.log("tableOffset = 0x"+hex(tableOffset));
   _dcode.seek(tableOffset);
   var magicNum = _dcode.get16();//get magic number
+  //console.log("magicNum = 0x"+hex(magicNum));
   assert( magicNum === 0x0100, "Pack switch payload magic number is bad");
   var arraySize = _dcode.get16(); // enteries into array
   var firstKey = _dcode.get32(); //first key and lowset switch value
@@ -427,15 +458,19 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   for (i=0; i< arraySize; i++) {
     _icode.cases[i] = firstKey + i; //
     _icode.addrOffsets [i] = _dcode.get32();		 
-    
+
+    //console.log("case " + _icode.cases[i] +": goto " + _icode.addrOffsets[i]);
   }
   _dcode.seek(currentOffset);// return to previous poition  
+  //console.log("final offset = " + _dcode.offset);
+
+  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
+  _icode.src = _dcode.get();
   var relativeOffset = _dcode.get32();// relative offset
   var currentOffset = _dcode.offset; // current location
   var tableOffset = relative + currentOffset; // where to go next
@@ -898,6 +933,7 @@ opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.type = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
+
 
 var arg4method12args = function (_dcode, _icode, _dex) {
   var _i, _x, _byte0, _byte1;
@@ -1796,6 +1832,7 @@ var icodeGen = function(_dex, _dcode) {
 
     // get name from table
     _icode.dalvikName = opName[_op];
+    console.log(hex(_icode.offset) +": "+ _icode.dalvikName);
     
     // get parser from table
     var parser = opArgs[_op];
@@ -1805,12 +1842,8 @@ var icodeGen = function(_dex, _dcode) {
       return _icodeput;
     }
     
-    try {
-      // call it
-      parser(_dcode, _icode, _dex);
-    } catch (_notImplemented) {
-      return _icodeput;
-    }
+    // call it
+    parser(_dcode, _icode, _dex);
 
     // this is a hack of sorts; dalvik instructions are pieced together in "code-units" which means that there's always an even number of bytes that should be consumed.
     if(_dcode.offset % 2) {
