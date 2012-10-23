@@ -411,10 +411,15 @@ opArgs[0x2a] = function(_dcode, _icode, _dex) {
 opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
+
+  _icode.src = _dcode.get();
+  console.log("switch(v"+_icode.src+")");
+
   var relativeOffset = _dcode.get32();// realtive offset
   var currentOffset = _dcode.offset;
-  var tableOffset = relative + currentOffset;
+  console.log("currentOffset = "+currentOffset);
+  var tableOffset = relativeOffset + currentOffset;
+  console.log("tableOffset = "+tableOffset);
   _dcode.seek(tableOffset);
   var magicNum = _dcode.get16();//get magic number
   assert( magicNum === 0x0100, "Pack switch payload magic number is bad");
@@ -427,15 +432,18 @@ opArgs[0x2b] = function(_dcode, _icode, _dex) {
   for (i=0; i< arraySize; i++) {
     _icode.cases[i] = firstKey + i; //
     _icode.addrOffsets [i] = _dcode.get32();		 
-    
   }
   _dcode.seek(currentOffset);// return to previous poition  
+  console.log("final offset = " + _dcode.offset);
+
+  throw "Hello?";
+  NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x2c] = "sparse-switch";
 opArgs[0x2c] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.source = _dcode.get();
+  _icode.src = _dcode.get();
   var relativeOffset = _dcode.get32();// relative offset
   var currentOffset = _dcode.offset; // current location
   var tableOffset = relative + currentOffset; // where to go next
@@ -1785,6 +1793,8 @@ var icodeGen = function(_dex, _dcode) {
   var _op, _icode;
   var _icodeput = [];
   
+  console.log("icodeGen start size=" + _dcode.size());
+
   while(!_dcode.eof()) {
     _icode = {}; // our new "RISC" icode opcode
     
@@ -1796,6 +1806,8 @@ var icodeGen = function(_dex, _dcode) {
 
     // get name from table
     _icode.dalvikName = opName[_op];
+
+    console.log("icodeGen parse " + opName[_op]);
     
     // get parser from table
     var parser = opArgs[_op];
@@ -1805,12 +1817,8 @@ var icodeGen = function(_dex, _dcode) {
       return _icodeput;
     }
     
-    try {
-      // call it
-      parser(_dcode, _icode, _dex);
-    } catch (_notImplemented) {
-      return _icodeput;
-    }
+    // call it
+    parser(_dcode, _icode, _dex);
 
     // this is a hack of sorts; dalvik instructions are pieced together in "code-units" which means that there's always an even number of bytes that should be consumed.
     if(_dcode.offset % 2) {
