@@ -9,8 +9,8 @@ var NOT_IMPLEMENTED = function(_icode) {
 // These are helper functions for parsing bytecode arguments
 var dest4src4 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
+  _icode.src = highNibble(x);
+  _icode.dest = lowNibble(x);
 };
 
 var dest8src16 = function(_dcode, _icode, _dex) {
@@ -42,13 +42,13 @@ var dest8src8lit8 = function(_dcode, _icode, _dex) {
 var varA4varB4offset16 = function(_dcode, _icode, _dex) {
 //------------------------------------------------------
 // Relevant to all binary control-comparators ops:     |
-// _icode.varA == register with first value (4bit)     |
-// _icode.varB == register with second value (4bit)    |
+// _icode.varA == register with first operand (4bit)   |
+// _icode.varB == register with second operand (4bit)  |
 // _icode.addrOffset == offset to next command (16bit) |
 //------------------------------------------------------
   var x = _dcode.get();
-  _icode.varA = highNibble(x);
-  _icode.varB = lowNibble(x);
+  _icode.varA = lowNibble(x);
+  _icode.varB = highNibble(x);
   _icode.addrOffset = _dcode.get16();
 };
 
@@ -72,8 +72,8 @@ var dest8srcA8srcB8 = function(_dcode, _icode, _dex) {
 // _icode.srcB == register with second value (8bit) |
 //---------------------------------------------------
   _icode.dest = _dcode.get();
-  _icode.srcA = _dcode.get();
   _icode.srcB = _dcode.get();
+  _icode.srcA = _dcode.get();
 };
 
 var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
@@ -81,13 +81,13 @@ var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
 // Relevant to binary ops of type a += b:           |
 // Target register is same as source register       |
 // _icode.dest == target register (4bit)            |
-// _icode.varA == register with first value (4bit)  |
-// _icode.varB == register with second value (4bit) |
+// _icode.srcA == register with first value (4bit)  |
+// _icode.srcB == register with second value (4bit) |
 //---------------------------------------------------
   var x = _dcode.get();
-  _icode.varA = highNibble(x);
-  _icode.varB = lowNibble(x);
-  _icode.dest = _icode.varA;
+  _icode.srcA = highNibble(x);
+  _icode.srcB = lowNibble(x);
+  _icode.dest = _icode.srcB;
 };
 
 var dest4src4lit16 = function(_dcode, _icode, _dex) {
@@ -226,8 +226,8 @@ opName[0x12] = "const/4";
 opArgs[0x12] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.value = signExtend(lowNibble(x), 4, 32);
+  _icode.dest = signExtend(lowNibble(x), 4, 32);
+  _icode.value = highNibble(x);
 };
 
 opName[0x13] = "const/16";
