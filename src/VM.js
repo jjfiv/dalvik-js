@@ -37,7 +37,7 @@ VM.prototype.createThread = function( _directMethod ) {
 VM.prototype.start = function ( _selectedClassAsType ) {
   // the consequent will be removed later; I put this in to resolve merge conflicts
   // without breaking Jennie's code. Responsibility for the following has moved to ClassLibrary.js
-  if (arguments[1]){
+  if (arguments[1]) {
     var _classList = arguments[0], _mainClass = arguments[1];
     var _publicStaticVoidMain = null;
     // TODO this would be rectified by having a class to handle all the defined classes and a method to "find class"

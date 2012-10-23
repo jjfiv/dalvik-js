@@ -9,8 +9,8 @@ var NOT_IMPLEMENTED = function(_icode) {
 // These are helper functions for parsing bytecode arguments
 var dest4src4 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
+  _icode.src = highNibble(x);
+  _icode.dest = lowNibble(x);
 };
 
 var dest8src16 = function(_dcode, _icode, _dex) {
@@ -42,13 +42,13 @@ var dest8src8lit8 = function(_dcode, _icode, _dex) {
 var varA4varB4offset16 = function(_dcode, _icode, _dex) {
 //------------------------------------------------------
 // Relevant to all binary control-comparators ops:     |
-// _icode.varA == register with first value (4bit)     |
-// _icode.varB == register with second value (4bit)    |
+// _icode.varA == register with first operand (4bit)   |
+// _icode.varB == register with second operand (4bit)  |
 // _icode.addrOffset == offset to next command (16bit) |
 //------------------------------------------------------
   var x = _dcode.get();
-  _icode.varA = highNibble(x);
-  _icode.varB = lowNibble(x);
+  _icode.varA = lowNibble(x);
+  _icode.varB = highNibble(x);
   _icode.addrOffset = _dcode.get16();
 };
 
@@ -72,8 +72,8 @@ var dest8srcA8srcB8 = function(_dcode, _icode, _dex) {
 // _icode.srcB == register with second value (8bit) |
 //---------------------------------------------------
   _icode.dest = _dcode.get();
-  _icode.srcA = _dcode.get();
   _icode.srcB = _dcode.get();
+  _icode.srcA = _dcode.get();
 };
 
 var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
@@ -81,13 +81,13 @@ var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
 // Relevant to binary ops of type a += b:           |
 // Target register is same as source register       |
 // _icode.dest == target register (4bit)            |
-// _icode.varA == register with first value (4bit)  |
-// _icode.varB == register with second value (4bit) |
+// _icode.srcA == register with first value (4bit)  |
+// _icode.srcB == register with second value (4bit) |
 //---------------------------------------------------
   var x = _dcode.get();
-  _icode.varA = highNibble(x);
-  _icode.varB = lowNibble(x);
-  _icode.dest = _icode.varA;
+  _icode.srcA = highNibble(x);
+  _icode.srcB = lowNibble(x);
+  _icode.dest = _icode.srcB;
 };
 
 var dest4src4lit16 = function(_dcode, _icode, _dex) {
@@ -101,6 +101,19 @@ var dest4src4lit16 = function(_dcode, _icode, _dex) {
   _icode.dest = highNibble(x);
   _icode.src = lowNibble(x);
   _icode.literal = signExtend(_dcode.get16(), 16, 32);
+};
+
+var val4obj4field16 = function(_dcode, _icode, _dex) {
+//------------------------------------------------
+// Relevant to instance gets/puts:               |
+// _icode.value == value register address (4bit) |
+// _icode.obj == object register address (4bit)  |
+// _icode.field == field register (16bit)        |
+//------------------------------------------------
+  var x = _dcode.get();
+  _icode.value = highNibble(x);
+  _icode.obj = lowNibble(x);
+  _icode.field = _dcode.get16();
 };
 
 // Dalvik VM opcode names
@@ -213,8 +226,8 @@ opName[0x12] = "const/4";
 opArgs[0x12] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.value = signExtend(lowNibble(x), 4, 32);
+  _icode.dest = signExtend(lowNibble(x), 4, 32);
+  _icode.value = highNibble(x);
 };
 
 opName[0x13] = "const/16";
@@ -374,7 +387,7 @@ opArgs[0x26] = function(_dcode, _icode, _dex) {
 opName[0x27] = "throw";
 opArgs[0x27] = function(_dcode, _icode, _dex) {
   _icode.op = "throw";
-  NOT_IMPLEMENTED(_icode);
+  _icode.src = _dcode.get();
 };
 
 //////////////////////////////////////// CONTROL COMMANDS ////////////////////////////////////////
@@ -688,85 +701,101 @@ opArgs[0x51] = function(_dcode, _icode, _dex) {
 opName[0x52] = "iget";
 opArgs[0x52] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x53] = "iget-wide";
 opArgs[0x53] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x54] = "iget-object";
 opArgs[0x54] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x55] = "iget-boolean";
 opArgs[0x55] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x56] = "iget-byte";
 opArgs[0x56] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x57] = "iget-char";
 opArgs[0x57] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x58] = "iget-short";
 opArgs[0x58] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 opName[0x59] = "iput";
 opArgs[0x59] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
 };
 
 opName[0x5a] = "iput-wide";
 opArgs[0x5a] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
 };
 
 opName[0x5b] = "iput-object";
 opArgs[0x5b] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_OBJECT;
 };
 
 opName[0x5c] = "iput-boolean";
 opArgs[0x5c] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BOOLEAN;
 };
 
 opName[0x5d] = "iput-byte";
 opArgs[0x5d] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_BYTE;
 };
 
 opName[0x5e] = "iput-char";
 opArgs[0x5e] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_CHAR;
 };
 
 opName[0x5f] = "iput-short";
 opArgs[0x5f] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-put";
-  NOT_IMPLEMENTED(_icode);
+  val4obj4field16(_dcode, _icode, _dex);
+  _icode.type = TYPE_SHORT;
 };
 
 
@@ -774,106 +803,100 @@ opArgs[0x5f] = function(_dcode, _icode, _dex) {
 opName[0x60] = "sget";
 opArgs[0x60] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_INT;
+  _icode.type = TYPE_INT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x61] = "sget-wide";
 opArgs[0x61] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_LONG;
+  _icode.type = TYPE_LONG;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x62] = "sget-object";
 opArgs[0x62] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_OBJECT;
+  _icode.type = TYPE_OBJECT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x63] = "sget-boolean";
 opArgs[0x63] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BOOLEAN;
+  _icode.type = TYPE_BOOLEAN;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x64] = "sget-byte";
 opArgs[0x64] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_BYTE;
+  _icode.type = TYPE_BYTE;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x65] = "sget-char";
 opArgs[0x65] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_CHAR;
+  _icode.type = TYPE_CHAR;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x66] = "sget-short";
 opArgs[0x66] = function(_dcode, _icode, _dex) {
   _icode.op = "static-get";
-  _icode.primtype = TYPE_SHORT;
+  _icode.type = TYPE_SHORT;
   dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x67] = "sput";
 opArgs[0x67] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x68] = "sput-wide";
 opArgs[0x68] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_INT;
+  _icode.wide = true;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x69] = "sput-object";
 opArgs[0x69] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_OBJECT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6a] = "sput-boolean";
 opArgs[0x6a] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BOOLEAN;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6b] = "sput-byte";
 opArgs[0x6b] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_BYTE;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6c] = "sput-char";
 opArgs[0x6c] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_CHAR;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 opName[0x6d] = "sput-short";
 opArgs[0x6d] = function(_dcode, _icode, _dex) {
   _icode.op = "static-put";
-  // see static-get;
-  // use src8field16
-  NOT_IMPLEMENTED(_icode);
+  _icode.type = TYPE_SHORT;
+  dest8field16(_dcode, _icode, _dex);
 };
 
 var arg4method12args = function (_dcode, _icode, _dex) {
