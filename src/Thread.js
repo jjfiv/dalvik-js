@@ -131,7 +131,7 @@ Thread.prototype.statusString = function() {
 
   var _f = this.currentFrame();
   
-  return "in " + _f.method.name +
+  return "in " + _f.method.toStr() +
          "\n  pc=" + _f.pc +
          "\n  nextInstr=" + _f.method.icode[_f.pc].op +
          "\n  regs: " + inspect(_f.regs);
