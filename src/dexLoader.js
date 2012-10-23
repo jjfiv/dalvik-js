@@ -561,11 +561,13 @@ DEXData.prototype._parseTryCatch = function(_numTries, _offset) {
     // grab addresses and immediately convert them
     // 
     _startAddress = _convertAddress(_fp.get32());
-    _endAddress = _convertAddress(_startAddress + _fp.get16());
+    _endAddress = _startAddress + _convertAddress(_fp.get16());
     _handlerOffset[_i] = _fp.get16();
     
     // since addresses are defined to be not inclusive
-    assert(_startAddress < _endAddress, "Start and End addresses of tryCatch are valid");
+    assert(_startAddress < _endAddress, 
+      "Start and End addresses of tryCatch are valid; Start: " + _startAddress + 
+      "; End: " + _endAddress);
 
     // create with a null _catchBlock for now and fill in later
     _tryRanges[_i] = new TryRange(_startAddress, _endAddress, null);
