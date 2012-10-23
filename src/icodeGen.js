@@ -391,9 +391,25 @@ opArgs[0x2a] = function(_dcode, _icode, _dex) {
 opName[0x2b] = "packed-switch";
 opArgs[0x2b] = function(_dcode, _icode, _dex) {
   _icode.op = "switch";
-  _icode.value = _dcode.get();
-  _icode.addrOffset = _dcode.get32();
-  NOT_IMPLEMENTED(_icode);
+  _icode.source = _dcode.get();
+  var relativeOffset = _dcode.get32();// realtive offset
+  var currentOffset = _dcode.offset;
+  var tableOffset = relative + currentOffset;
+  _dcode.seek(tableOffset);
+  var magicNum = _dcode.get16();//get magic number
+  assert( magicNum === 0x0100, "Pack switch payload magic number is bad");
+  var arraySize = _dcode.get16(); // enteries into array
+  var firstKey = _dcode.get32(); //first key and lowset switch value
+  var i;
+  _icode.cases = []; // cases
+  _icode.addrOffsets = []; // case address
+ // Aqcuiring targets 
+   for (i=0; i<= arraySize; i++) {
+   		_code.cases[i] = firstKey + i; //
+   		_code.addrOffsets [i] = _dcode.get32();		 
+   
+   }
+  _dcode.seek(currentOffset);// return to previous poition  
 };
 
 opName[0x2c] = "sparse-switch";
