@@ -392,13 +392,56 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
   _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+
+  var _i, _x, _byte0;
+
+  //
+  // note that the bytecode spec thinks there is 16 bits of method index
+  // it is wrong.
+  //
+  
+  _byte0 = _dcode.get();
+  _typeIndex = _dcode.get16();
+
+  var arraySize = highNibble(_byte0);
+
+  _icode.type = _dex.types[_typeIndex];
+
+  // the remaining 3 bytes are argCount register arguments
+  _icode.data = [];
+  for(_i=0; _i<2; _i++) {
+    _x = _dcode.get();
+    _icode.data.push(lowNibble(_x));
+    _icode.data.push(highNibble(_x));
+  }
+  _icode.data.push(lowNibble(_byte0));
+  
+  // chop to the right number of arguments
+  _icode.data = _icode.data.splice(0, arraySize);
+  console.log("array data:" + _icode.data);
+
+  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x25] = "filled-new-array/range";
 opArgs[0x25] = function(_dcode, _icode, _dex) {
   _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+  
+  var _i, firstReg;
+
+  var arraySize = _dcode.get();
+  var typeIndex = _dcode.get16();
+  var firstReg = _dcode.get16();
+
+  _icode.type = _dex.types[typeIndex];
+
+  // Build the array of all needed arguements
+  _icode.data = [];
+  for (_i = 0; _i < arraySize; _i++) {
+    _icode.data.push(firstReg + _i);
+  }
+
+  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x26] = "fill-array-data";
