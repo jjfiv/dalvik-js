@@ -224,8 +224,6 @@ var icodeHandlers = {
     // convert given argument registers into the values of their registers
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
 
-    if(kind
-
     //TODO handle more than just this method;
     //     will need to call into ClassLibrary to find things
     //if(methodName === "Ljava/io/PrintStream;.println") {

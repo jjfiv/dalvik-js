@@ -47,12 +47,18 @@ Type.prototype.isEquals = function( other ) {
 };
 
 Type.prototype.toDots = function () {
-  if (this._type === "L") {
-    var str1, str2;
-	str1 = this._typeString.substr(this._arrayDim + 1);
-	// A RegExp is needed to replace more than one instance of a string
-	str2 = str1.replace(/\//g, ".");	
-	return str2;
+  var str1, str2;
+  str1 = this._typeString.substr(this._arrayDim + 1);
+  
+  if (this.isClass()) {
+    // A RegExp is needed to replace more than one instance of a string
+    str2 = str1.replace(/\//g, ".");	
+
+    // it should end with a semicolon, chop it off
+    assert(str2.charAt(str2.length - 1) === ';', "Classes must end with a semicolon");
+    str2 = str2.substring(0, str2.length -1);
+
+    return str2;
   }
   // Returning the typeName as it is after arrays + type letter
   return str1;
