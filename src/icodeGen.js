@@ -265,7 +265,7 @@ opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = _dcode.get32();  
+  _icode.value = _dcode.get() | (_dcode.get() << 8) | (_dcode.get() << 16) | (_dcode.get() << 24) ;  
 };
 
 opName[0x15] = "const/high16";
@@ -302,7 +302,7 @@ opArgs[0x18] = function(_dcode, _icode, _dex) {
   _icode.wide = true;
   var low = _dcode.get32();
   var high = _dcode.get32();
-  _icode.value = gLong.fromBits(low, high);
+  _icode.value = gLong.fromBits(high, low);
 };
 
 opName[0x19] = "const-wide/high16";

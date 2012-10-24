@@ -102,6 +102,16 @@ var icodeHandlers = {
   "cmp": function(_inst, _thread) {
     var _srcA = _thread.getRegister (_inst.srcA);
     var _srcB = _thread.getRegister (_inst.srcB);
+
+    if (_inst.type.isEquals(TYPE_FLOAT)) {
+      _srcA = floatFromInt (_srcA);
+      _srcB = floatFromInt (_srcB);
+    }
+    else if (_inst.type.isEquals(TYPE_DOUBLE)){
+      _srcA = doubleFromgLong (_srcA);
+      _srcB = doubleFromgLong (_srcB);
+    }
+
     if (!(_inst.type.isEquals(TYPE_LONG))) {
       if ((isNaN(_srcA)) || (isNaN(_srcB))) {
         if (_inst.bias === "lt") {
@@ -137,33 +147,33 @@ var icodeHandlers = {
 
   "if": function(_inst, _thread) {
       var ifOp = _inst.cmp;
-      var varA = _thread.getRegister(_inst.varA);
-      var varB = 0;
+      var _varA = _thread.getRegister(_inst.varA);
+      var _varB = 0;
       if(!isUndefined(_inst.varB)) {
-        varB = _thread.getRegister(_inst.varB);
+        _varB = _thread.getRegister(_inst.varB);
       }
       if (ifOp === "eq") {
-          if (varA === varB) {
+          if (_varA === _varB) {
               return _inst.address;
           }
       } else if (ifOp === "ne") {
-          if (varA !== varB) {
+          if (_varA !== _varB) {
               return _inst.address;
           }
       } else if (ifOp === "lt") {
-          if (varA < varB) {
+          if (_varA < _varB) {
               return _inst.address;
           }
       } else if (ifOp === "ge") {
-          if (varA >= varB) {
+          if (_varA >= _varB) {
               return _inst.address;
           }
       } else if (ifOp === "gt") {
-          if (varA > varB) {
+          if (_varA > _varB) {
               return _inst.address;
           }
       } else if (ifOp === "le") {
-          if (varA <= varB) {
+          if (_varA <= _varB) {
               return _inst.address;
           }
       } else {
@@ -232,9 +242,14 @@ var icodeHandlers = {
       console.log("print " + argValues[1] +
                   " to " + inspect(argValues[0]) + "!");
 
-      terminal.println(argValues[1]);
-      console.log("geth");
-      console.log(argValues[1]);
+      if(method.signature._parameterTypes[0].isClass()) {
+        terminal.println(argValues[1].toNumber());
+      } else if (method.signature._parameterTypes[0]._typeString === "D"){
+        terminal.println(doubleFromgLong(argValues[1]));
+      }
+      else {
+        terminal.println (argValues[1]);
+      }
     } else {
       assert(false, "Invoke only works for println");
     }
@@ -257,201 +272,206 @@ var icodeHandlers = {
   },
 
   "add": function(_inst, _thread) {
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    var result;
     if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Adding a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.add(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB));
-	} else {
-	  assert (false, "Unidentified type for addition");
-	}
+      numA = doubleFromgLong (numA);
+      numB = doubleFromgLong (numB);
+      result = numA + numB;
+      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.add(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB));
+    } else if (_inst.type === TYPE_FLOAT) {
+      numA = floatFromInt (numA);
+      numB = floatFromInt (numB);
+      result = numA + numB;
+      result = floatFromDouble (result);
+      _thread.setRegister (_inst.dest, intFromFloat (result));
+    } else {
+      assert (false, "Unidentified type for addition");
+    }
   },
 
   "sub": function(_inst, _thread) {
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    var result;
     if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Substracting a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.subtract(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
-	} else {
-	  assert (false, "Unidentified type for substraction");
-	}
+      numA = doubleFromgLong (numA);
+      numB = doubleFromgLong (numB);
+      result = numA - numB;
+      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.add(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
+    } else if (_inst.type === TYPE_FLOAT) {
+      numA = floatFromInt (numA);
+      numB = floatFromInt (numB);
+      result = numA - numB;
+      result = floatFromDouble (result);
+      _thread.setRegister (_inst.dest, intFromFloat (result));
+    } else {
+      assert (false, "Unidentified type for subtraction");
+    }
   },
   
   "mul": function(_inst, _thread) {
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    var result;
     if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Multiplying a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.multiply(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB));
-	} else {
-	  assert (false, "Unidentified type for multiplication");
-	}
+      numA = doubleFromgLong (numA);
+      numB = doubleFromgLong (numB);
+      result = numA * numB;
+      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.multiply(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB));
+    } else if (_inst.type === TYPE_FLOAT) {
+      numA = floatFromInt (numA);
+      numB = floatFromInt (numB);
+      result = numA * numB;
+      result = floatFromDouble (result);
+      _thread.setRegister (_inst.dest, intFromFloat (result));
+    } else {
+      assert (false, "Unidentified type for multiplication");
+    }
   },
 
   "div": function(_inst, _thread) {
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    var result;
     if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Dividing a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.div(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB));
-	} else {
-	  assert (false, "Unidentified type for division");
-	}
+      numA = doubleFromgLong (numA);
+      numB = doubleFromgLong (numB);
+      result = numA / numB;
+      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.div(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB));
+    } else if (_inst.type === TYPE_FLOAT) {
+      numA = floatFromInt (numA);
+      numB = floatFromInt (numB);
+      result = numA / numB;
+      result = floatFromDouble (result);
+      _thread.setRegister (_inst.dest, intFromFloat (result));
+    } else {
+      assert (false, "Unidentified type for division");
+    }
   },
 
   "rem": function(_inst, _thread) {
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    var result;
     if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Remainder of a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.modulo(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB));
-	} else {
-	  assert (false, "Unidentified type for getting a remainder");
-	}
+      numA = doubleFromgLong (numA);
+      numB = doubleFromgLong (numB);
+      result = numA % numB;
+      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.modulo(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB));
+    } else if (_inst.type === TYPE_FLOAT) {
+      numA = floatFromInt (numA);
+      numB = floatFromInt (numB);
+      result = numA % numB;
+      result = floatFromDouble (result);
+      _thread.setRegister (_inst.dest, intFromFloat (result));
+    } else {
+      assert (false, "Unidentified type for getting a remainder");
+    }
   },
 
   "and": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "'Anding' a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.and(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB));
-	} else {
-	  assert (false, "Unidentified type for an 'And' operation");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.and(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB));
+    } else {
+      assert (false, "Unidentified type for an 'And' operation");
+    }
   },
 
   "or": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "'Oring' a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.or(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA | numB));
-	} else {
-	  assert (false, "Unidentified type for an 'Or' operation");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.or(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA | numB));
+    } else {
+      assert (false, "Unidentified type for an 'Or' operation");
+    }
   },
 
   "xor": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "'Xoring' a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.xor(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA ^ numB));
-	} else {
-	  assert (false, "Unidentified type for a 'Xor' operation");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.xor(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA ^ numB));
+    } else {
+      assert (false, "Unidentified type for a 'Xor' operation");
+    }
   },
 
   "shl": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Shifting Left a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.shiftLeft(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA << numB));
-	} else {
-	  assert (false, "Unidentified type for Shifting Left");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.shiftLeft(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA << numB));
+    } else {
+      assert (false, "Unidentified type for Shifting Left");
+    }
   },
 
   "shr": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Shifting Right a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.shiftRight(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >> numB));
-	} else {
-	  assert (false, "Unidentified type for Shifting Right");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.shiftRight(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >> numB));
+    } else {
+      assert (false, "Unidentified type for Shifting Right");
+    }
   },
 
   "ushr": function(_inst, _thread) {
-    if (_inst.type === TYPE_DOUBLE) {
-	  assert(false, "Unsigned Shifting Right a Double is not high priority");
-      NYI(_inst);
-	} else if (_inst.type === TYPE_LONG) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, numA.shiftRightUnsigned(numB));
-	} else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-	           _inst.type === TYPE_SHORT || _inst.type === TYPE_FLOAT ) {
-	  var numA = _thread.getRegister(_inst.srcA);
-	  var numB = _thread.getRegister(_inst.srcB);
-	  _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >>> numB));
-	} else {
-	  assert (false, "Unidentified type for Unsigned Shifting Right");
-	}
+    var numA = _thread.getRegister(_inst.srcA);
+    var numB = _thread.getRegister(_inst.srcB);
+    if (_inst.type === TYPE_LONG) {
+      _thread.setRegister(_inst.dest, numA.shiftRightUnsigned(numB));
+    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
+        _inst.type === TYPE_SHORT) {
+      _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >>> numB));
+    } else {
+      assert (false, "Unidentified type for Unsigned Shifting Right");
+    }
   },
 
   "add-lit": function(_inst, _thread) {
