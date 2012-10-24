@@ -242,9 +242,7 @@ var icodeHandlers = {
       console.log("print " + argValues[1] +
                   " to " + inspect(argValues[0]) + "!");
 
-      if(method.signature._parameterTypes[0].isClass()) {
-        terminal.println(argValues[1].toNumber());
-      } else if (method.signature._parameterTypes[0]._typeString === "D"){
+      if (method.signature._parameterTypes[0]._typeString === "D"){
         terminal.println(doubleFromgLong(argValues[1]));
       }
       else {
