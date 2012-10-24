@@ -1,0 +1,62 @@
+Processing 'factorial.dex'...
+Opened 'factorial.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lfactorial;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lfactorial;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000130:                                        |[000130] factorial.<init>:()V
+000140: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000146: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lfactorial; 
+
+    #1              : (in Lfactorial;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+000148:                                        |[000148] factorial.main:([Ljava/lang/String;)V
+000158: 1211                                   |0000: const/4 v1, #int 1 // #1
+00015a: 1240                                   |0001: const/4 v0, #int 4 // #4
+00015c: 0102                                   |0002: move v2, v0
+00015e: 0110                                   |0003: move v0, v1
+000160: 3712 0600                              |0004: if-le v2, v1, 000a // +0006
+000164: b220                                   |0006: mul-int/2addr v0, v2
+000166: d802 02ff                              |0007: add-int/lit8 v2, v2, #int -1 // #ff
+00016a: 28fb                                   |0009: goto 0004 // -0005
+00016c: 6201 0000                              |000a: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000170: 6e20 0200 0100                         |000c: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000176: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0001 line=5
+        0x0004 line=7
+        0x0006 line=8
+        0x0007 line=9
+        0x000a line=11
+        0x000f line=12
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 10 (factorial.java)
+

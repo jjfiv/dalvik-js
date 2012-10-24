@@ -1,0 +1,97 @@
+Processing '/home/vjd215/workspace/dalvik-js_broken/seqSwitch.dex'...
+Opened '/home/vjd215/workspace/dalvik-js_broken/seqSwitch.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 12
+annotations_off     : 0 (0x000000)
+class_data_off      : 807 (0x000327)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LSeqSwitch;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LSeqSwitch;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000158:                                        |[000158] SeqSwitch.<init>:()V
+000168: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00016e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LSeqSwitch; 
+
+    #1              : (in LSeqSwitch;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 66 16-bit code units
+000170:                                        |[000170] SeqSwitch.main:([Ljava/lang/String;)V
+000180: 1230                                   |0000: const/4 v0, #int 3 // #3
+000182: 2b00 3300 0000                         |0001: packed-switch v0, 00000034 // +00000033
+000188: 6201 0000                              |0004: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00018c: 1a02 0900                              |0006: const-string v2, "No Color Found" // string@0009
+000190: 6e20 0200 2100                         |0008: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+000196: 0e00                                   |000b: return-void
+000198: 6201 0000                              |000c: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00019c: 1a02 0f00                              |000e: const-string v2, "Yellow" // string@000f
+0001a0: 6e20 0200 2100                         |0010: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+0001a6: 28f8                                   |0013: goto 000b // -0008
+0001a8: 6201 0000                              |0014: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ac: 1a02 0200                              |0016: const-string v2, "Green" // string@0002
+0001b0: 6e20 0200 2100                         |0018: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+0001b6: 28f0                                   |001b: goto 000b // -0010
+0001b8: 6201 0000                              |001c: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001bc: 1a02 0a00                              |001e: const-string v2, "Orange" // string@000a
+0001c0: 6e20 0200 2100                         |0020: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+0001c6: 28e8                                   |0023: goto 000b // -0018
+0001c8: 6201 0000                              |0024: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001cc: 1a02 0100                              |0026: const-string v2, "Brown" // string@0001
+0001d0: 6e20 0200 2100                         |0028: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+0001d6: 28e0                                   |002b: goto 000b // -0020
+0001d8: 6201 0000                              |002c: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001dc: 1a02 0b00                              |002e: const-string v2, "Red" // string@000b
+0001e0: 6e20 0200 2100                         |0030: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+0001e6: 28d8                                   |0033: goto 000b // -0028
+0001e8: 0001 0500 0100 0000 0b00 0000 1300 ... |0034: packed-switch-data (14 units)
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0001 line=13
+        0x0004 line=31
+        0x000b line=35
+        0x000c line=15
+        0x0014 line=18
+        0x001c line=21
+        0x0024 line=24
+        0x002c line=27
+        0x0034 line=13
+      locals        : 
+        0x0001 - 0x0042 reg=0 choiceColor I 
+        0x0000 - 0x0042 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 12 (SeqSwitch.java)
+
