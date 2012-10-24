@@ -32,8 +32,8 @@ var translateAddresses = function(_icode, _offsets) {
 
   var _convertAddress = makeAddressConverter(_offsets);
   var _convertRelativeAddress = function(_relAddr, _index) {
-    console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
-    console.log("abs address: " + (_relAddr + _offsets[_index]));
+    //console.log("convert relative address: " + _relAddr + " from " + _offsets[_index]);
+    //console.log("abs address: " + (_relAddr + _offsets[_index]));
     // convert to absolute address for translation, then back to relative after
     return _convertAddress(_relAddr + _offsets[_index]) - _i;
   };

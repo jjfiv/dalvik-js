@@ -654,7 +654,7 @@ DEXData.prototype._parseCode = function(_m) {
   // translateAddresses to icode-based (indexed) addressing, store in the method for later
   _m.icode = translateAddresses(_icode, _offsets);
 
-  dexDebug(enumerate("_m.icode",_m.icode));
+  //dexDebug(enumerate("_m.icode",_m.icode));
 
   // if there were an odd number of instructions, then there is an
   // extra two bytes of zeroes to preserve 4-byte alignment

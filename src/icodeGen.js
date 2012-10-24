@@ -1899,7 +1899,7 @@ var icodeGen = function(_dex, _dcode) {
 
     // get name from table
     _icode.dalvikName = opName[_op];
-    console.log(hex(_icode.offset) +": "+ _icode.dalvikName);
+    //console.log(hex(_icode.offset) +": "+ _icode.dalvikName);
     
     // get parser from table
     var parser = opArgs[_op];
