@@ -33,42 +33,13 @@ VM.prototype.createThread = function( _directMethod ) {
 };
 
 VM.prototype.start = function ( _selectedClassAsType ) {
-  // the consequent will be removed later; I put this in to resolve merge conflicts
-  // without breaking Jennie's code. Responsibility for the following has moved to ClassLibrary.js
-  if (arguments[1]) {
-    var _classList = arguments[0], _mainClass = arguments[1];
-    var _publicStaticVoidMain = null;
-    // TODO this would be rectified by having a class to handle all the defined classes and a method to "find class"
-    // on class, there should be a method "find method"
-    var _i, _j, _class, _m;
-    for(_i = 0; _i < _classList.length; _i++) {
-      _class = _classList[_i];
+  if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
 
-      if(_class.name === _mainClass) {
-        for(_j = 0; _j < _class.directMethods.length; _j++) {
-          _m = _class.directMethods[_j];
+  // find specified classname
+  var _class = this.classLibrary.findClass(_selectedClassAsType);
 
-          if( _m.name === "main" &&
-              _m.returnType.isEquals(TYPE_VOID) &&
-              _m.params.length === 1 &&
-              TYPE_ARR_STRING.isEquals(_m.params[0])) {
-            _publicStaticVoidMain = _m;
-          }
-        }
-      }
-    }//end for-loop
-    if(_publicStaticVoidMain === null) {
-      terminal.println("main could not be found in " + _mainClass);
-      return false;
-    }
-    this.createThread(_publicStaticVoidMain);
-    return true;
-  } else {
-    // moving forward, this is how starting the VM will be implemented
-    if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
-    var _class = this.classLibrary.findClass(_selectedClassAsType);
-    return this.createThread(_class.getMain()) && true;
-  }
+  // && true casts to boolean sort of
+  return this.createThread(_class.getMain()) && true;
 }; //end start
 
 VM.prototype.clockTick = function() {

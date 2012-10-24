@@ -22,7 +22,6 @@ var Upload = function(_cbk, _vm) {
                                        }
                                      }
                                    }, false);
-  console.log("Hello");
 };
 
 Upload.prototype.onClickLoad = function(clickEvent) {
