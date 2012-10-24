@@ -69,6 +69,7 @@ var icodeHandlers = {
     // get the class for the corresponding type from classLibrary
     var _class = _thread._vm.classLibrary.findClass(_inst.type);
     _thread.setRegister(_inst.dest, _class.makeNew());
+    console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
   },
 
   "new-array": function(_inst, _thread) {
@@ -88,7 +89,14 @@ var icodeHandlers = {
   },
 
   "switch": function(_inst, _thread) {
-    NYI(_inst);
+    var _val = _thread.getRegister(_inst.src);
+    
+    var i;
+    for(i=0; i<_inst.cases.length; i++) {
+      if(_val === _inst.cases[i]) {
+        return _inst.addresses[i];
+      }
+    }
   },
 
   "cmp": function(_inst, _thread) {
@@ -215,6 +223,8 @@ var icodeHandlers = {
 
     // convert given argument registers into the values of their registers
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
+
+    if(kind
 
     //TODO handle more than just this method;
     //     will need to call into ClassLibrary to find things
