@@ -5,9 +5,9 @@ class_idx           : 1
 access_flags        : 1 (0x0001)
 superclass_idx      : 3
 interfaces_off      : 0 (0x000000)
-source_file_idx     : 23
+source_file_idx     : 19
 annotations_off     : 0 (0x000000)
-class_data_off      : 1184 (0x0004a0)
+class_data_off      : 950 (0x0003b6)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
@@ -30,9 +30,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-0001ac:                                        |[0001ac] bitWiseTests.<init>:()V
-0001bc: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
-0001c2: 0e00                                   |0003: return-void
+000178:                                        |[000178] bitWiseTests.<init>:()V
+000188: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+00018e: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=2
@@ -44,109 +44,87 @@ Class #0            -
       type          : '([Ljava/lang/String;)V'
       access        : 0x0009 (PUBLIC STATIC)
       code          -
-      registers     : 7
+      registers     : 6
       ins           : 1
       outs          : 2
-      insns size    : 158 16-bit code units
-0001c4:                                        |[0001c4] bitWiseTests.main:([Ljava/lang/String;)V
-0001d4: 1260                                   |0000: const/4 v0, #int 6 // #6
-0001d6: 1231                                   |0001: const/4 v1, #int 3 // #3
-0001d8: 1202                                   |0002: const/4 v2, #int 0 // #0
-0001da: 9502 0001                              |0003: and-int v2, v0, v1
-0001de: 6203 0000                              |0005: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0001e2: 2204 0500                              |0007: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-0001e6: 1a05 0e00                              |0009: const-string v5, "a & b = " // string@000e
-0001ea: 7020 0400 5400                         |000b: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-0001f0: 6e20 0500 2400                         |000e: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-0001f6: 0c04                                   |0011: move-result-object v4
-0001f8: 6e10 0600 0400                         |0012: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-0001fe: 0c04                                   |0015: move-result-object v4
-000200: 6e20 0200 4300                         |0016: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-000206: 9602 0001                              |0019: or-int v2, v0, v1
-00020a: 6203 0000                              |001b: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-00020e: 2204 0500                              |001d: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-000212: 1a05 1300                              |001f: const-string v5, "a | b = " // string@0013
-000216: 7020 0400 5400                         |0021: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-00021c: 6e20 0500 2400                         |0024: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-000222: 0c04                                   |0027: move-result-object v4
-000224: 6e10 0600 0400                         |0028: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-00022a: 0c04                                   |002b: move-result-object v4
-00022c: 6e20 0200 4300                         |002c: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-000232: 9702 0001                              |002f: xor-int v2, v0, v1
-000236: 6203 0000                              |0031: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-00023a: 2204 0500                              |0033: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-00023e: 1a05 1200                              |0035: const-string v5, "a ^ b = " // string@0012
-000242: 7020 0400 5400                         |0037: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-000248: 6e20 0500 2400                         |003a: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-00024e: 0c04                                   |003d: move-result-object v4
-000250: 6e10 0600 0400                         |003e: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-000256: 0c04                                   |0041: move-result-object v4
-000258: 6e20 0200 4300                         |0042: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-00025e: df02 00ff                              |0045: xor-int/lit8 v2, v0, #int -1 // #ff
-000262: 6203 0000                              |0047: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-000266: 2204 0500                              |0049: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-00026a: 1a05 1e00                              |004b: const-string v5, "~a = " // string@001e
-00026e: 7020 0400 5400                         |004d: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-000274: 6e20 0500 2400                         |0050: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-00027a: 0c04                                   |0053: move-result-object v4
-00027c: 6e10 0600 0400                         |0054: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-000282: 0c04                                   |0057: move-result-object v4
-000284: 6e20 0200 4300                         |0058: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-00028a: e002 0002                              |005b: shl-int/lit8 v2, v0, #int 2 // #02
-00028e: 6203 0000                              |005d: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-000292: 2204 0500                              |005f: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-000296: 1a05 0f00                              |0061: const-string v5, "a << 2 = " // string@000f
-00029a: 7020 0400 5400                         |0063: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-0002a0: 6e20 0500 2400                         |0066: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-0002a6: 0c04                                   |0069: move-result-object v4
-0002a8: 6e10 0600 0400                         |006a: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-0002ae: 0c04                                   |006d: move-result-object v4
-0002b0: 6e20 0200 4300                         |006e: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-0002b6: e102 0002                              |0071: shr-int/lit8 v2, v0, #int 2 // #02
-0002ba: 6203 0000                              |0073: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0002be: 2204 0500                              |0075: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-0002c2: 1a05 1000                              |0077: const-string v5, "a >> 2  = " // string@0010
-0002c6: 7020 0400 5400                         |0079: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-0002cc: 6e20 0500 2400                         |007c: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-0002d2: 0c04                                   |007f: move-result-object v4
-0002d4: 6e10 0600 0400                         |0080: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-0002da: 0c04                                   |0083: move-result-object v4
-0002dc: 6e20 0200 4300                         |0084: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-0002e2: e202 0002                              |0087: ushr-int/lit8 v2, v0, #int 2 // #02
-0002e6: 6203 0000                              |0089: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0002ea: 2204 0500                              |008b: new-instance v4, Ljava/lang/StringBuilder; // type@0005
-0002ee: 1a05 1100                              |008d: const-string v5, "a >>> 2 = " // string@0011
-0002f2: 7020 0400 5400                         |008f: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(Ljava/lang/String;)V // method@0004
-0002f8: 6e20 0500 2400                         |0092: invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0005
-0002fe: 0c04                                   |0095: move-result-object v4
-000300: 6e10 0600 0400                         |0096: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0006
-000306: 0c04                                   |0099: move-result-object v4
-000308: 6e20 0200 4300                         |009a: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
-00030e: 0e00                                   |009d: return-void
+      insns size    : 100 16-bit code units
+000190:                                        |[000190] bitWiseTests.main:([Ljava/lang/String;)V
+0001a0: 1260                                   |0000: const/4 v0, #int 6 // #6
+0001a2: 1231                                   |0001: const/4 v1, #int 3 // #3
+0001a4: 1202                                   |0002: const/4 v2, #int 0 // #0
+0001a6: 9502 0001                              |0003: and-int v2, v0, v1
+0001aa: 6203 0000                              |0005: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ae: 1a04 0c00                              |0007: const-string v4, "a & b = " // string@000c
+0001b2: 6e20 0300 4300                         |0009: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+0001b8: 6203 0000                              |000c: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001bc: 6e20 0200 2300                         |000e: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001c2: 9602 0001                              |0011: or-int v2, v0, v1
+0001c6: 6203 0000                              |0013: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ca: 1a04 1000                              |0015: const-string v4, "a | b = " // string@0010
+0001ce: 6e20 0300 4300                         |0017: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+0001d4: 6203 0000                              |001a: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001d8: 6e20 0200 2300                         |001c: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001de: 9702 0001                              |001f: xor-int v2, v0, v1
+0001e2: 6203 0000                              |0021: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001e6: 1a04 0f00                              |0023: const-string v4, "a ^ b = " // string@000f
+0001ea: 6e20 0300 4300                         |0025: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+0001f0: 6203 0000                              |0028: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001f4: 6e20 0200 2300                         |002a: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001fa: df02 00ff                              |002d: xor-int/lit8 v2, v0, #int -1 // #ff
+0001fe: 6203 0000                              |002f: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000202: 1a04 1900                              |0031: const-string v4, "~a = " // string@0019
+000206: 6e20 0300 4300                         |0033: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+00020c: 6203 0000                              |0036: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000210: 6e20 0200 2300                         |0038: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000216: e002 0002                              |003b: shl-int/lit8 v2, v0, #int 2 // #02
+00021a: 6203 0000                              |003d: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00021e: 6e20 0200 2300                         |003f: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000224: 6203 0000                              |0042: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000228: 6e20 0200 2300                         |0044: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+00022e: e102 0002                              |0047: shr-int/lit8 v2, v0, #int 2 // #02
+000232: 6203 0000                              |0049: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000236: 1a04 0d00                              |004b: const-string v4, "a >> 2  = " // string@000d
+00023a: 6e20 0300 4300                         |004d: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+000240: 6203 0000                              |0050: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000244: 6e20 0200 2300                         |0052: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+00024a: e202 0002                              |0055: ushr-int/lit8 v2, v0, #int 2 // #02
+00024e: 6203 0000                              |0057: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000252: 1a04 0e00                              |0059: const-string v4, "a >>> 2 = " // string@000e
+000256: 6e20 0300 4300                         |005b: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+00025c: 6203 0000                              |005e: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000260: 6e20 0200 2300                         |0060: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000266: 0e00                                   |0063: return-void
       catches       : (none)
       positions     : 
         0x0000 line=11
         0x0003 line=14
         0x0005 line=15
-        0x0019 line=18
-        0x001b line=19
-        0x002f line=22
-        0x0031 line=23
-        0x0045 line=26
-        0x0047 line=27
-        0x005b line=32
-        0x005d line=33
-        0x0071 line=39
-        0x0073 line=40
-        0x0087 line=45
-        0x0089 line=46
-        0x009d line=47
+        0x000c line=16
+        0x0011 line=19
+        0x0013 line=20
+        0x001a line=21
+        0x001f line=24
+        0x0021 line=25
+        0x0028 line=26
+        0x002d line=29
+        0x002f line=30
+        0x0036 line=31
+        0x003b line=36
+        0x003d line=37
+        0x0042 line=38
+        0x0047 line=44
+        0x0049 line=45
+        0x0050 line=46
+        0x0055 line=51
+        0x0057 line=52
+        0x005e line=53
+        0x0063 line=54
       locals        : 
-        0x0001 - 0x009e reg=0 a I 
-        0x0002 - 0x009e reg=1 b I 
-        0x0003 - 0x009e reg=2 c I 
-        0x0000 - 0x009e reg=6 args [Ljava/lang/String; 
+        0x0001 - 0x0064 reg=0 a I 
+        0x0002 - 0x0064 reg=1 b I 
+        0x0003 - 0x0064 reg=2 c I 
+        0x0000 - 0x0064 reg=5 args [Ljava/lang/String; 
 
   Virtual methods   -
-  source_file_idx   : 23 (bitWiseTests.java)
+  source_file_idx   : 19 (bitWiseTests.java)
 
