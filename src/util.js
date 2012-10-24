@@ -361,3 +361,38 @@ assert (isNaN(doubleFromByteStream('7FF1000000000000')), "floatFromByteStream: +
 assert (doubleFromByteStream('FFF0000000000000') === -Infinity, "floatFromByteStream: -Infinity");
 assert (doubleFromByteStream('7FF0000000000000') === Infinity, "floatFromByteStream: +Infinity");
 assert (doubleFromByteStream('FF70000839993499') === -7.022293890254943e+305, "floatFromByteStream: Random neg float");
+
+function floatFromInt (_input) {
+  var buffer = new ArrayBuffer(4);
+  var i32ptr = new Int32Array(buffer);
+  i32ptr.set([_input]);
+  var fptr = new Float32Array(buffer);
+  return fptr[0];
+}
+
+function intFromFloat (_input) {
+  var buffer = new ArrayBuffer(4);
+  var fptr = new Float32Array(buffer);
+  fptr.set([_input]);
+  var i32ptr = new Int32Array(buffer);
+  return i32ptr[0];
+}
+
+function doubleFromgLong (_input) {
+  var buffer = new ArrayBuffer(8);
+  var i32ptr = new Int32Array(buffer);
+  i32ptr.set([_input.high_, _input.low_]);
+  var dptr = new Float64Array(buffer);
+  return dptr[0];
+}
+
+function gLongFromDouble (_input) {
+  var buffer = new ArrayBuffer(8);
+  var dptr = new Float64Array(buffer);
+  dptr.set([_input]);
+  var i32ptr = new Int32Array(buffer);
+  gLongInst = new gLong();
+  gLongInst.high_ = i32ptr[0];
+  gLongInst.low_ = i32ptr[1];
+  return gLongInst;
+}
