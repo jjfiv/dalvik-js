@@ -1,0 +1,81 @@
+Processing '/home/vjd215/workspace/NewArray/bin/newarray.dex'...
+Opened '/home/vjd215/workspace/NewArray/bin/newarray.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 7
+annotations_off     : 0 (0x000000)
+class_data_off      : 731 (0x0002db)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LNewArrayTest;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LNewArrayTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000170:                                        |[000170] NewArrayTest.<init>:()V
+000180: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000186: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LNewArrayTest; 
+
+    #1              : (in LNewArrayTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 6
+      ins           : 1
+      outs          : 2
+      insns size    : 23 16-bit code units
+000188:                                        |[000188] NewArrayTest.main:([Ljava/lang/String;)V
+000198: 1253                                   |0000: const/4 v3, #int 5 // #5
+00019a: 2330 0700                              |0001: new-array v0, v3, [I // type@0007
+00019e: 1303 4d00                              |0003: const/16 v3, #int 77 // #4d
+0001a2: 7120 0400 3000                         |0005: invoke-static {v0, v3}, Ljava/util/Arrays;.fill:([II)V // method@0004
+0001a8: 1201                                   |0008: const/4 v1, #int 0 // #0
+0001aa: 2102                                   |0009: array-length v2, v0
+0001ac: 3421 0300                              |000a: if-lt v1, v2, 000d // +0003
+0001b0: 0e00                                   |000c: return-void
+0001b2: 6203 0000                              |000d: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001b6: 4404 0001                              |000f: aget v4, v0, v1
+0001ba: 6e20 0200 4300                         |0011: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001c0: d801 0101                              |0014: add-int/lit8 v1, v1, #int 1 // #01
+0001c4: 28f4                                   |0016: goto 000a // -000c
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0003 line=10
+        0x0008 line=11
+        0x000c line=15
+        0x000d line=12
+        0x0014 line=11
+      locals        : 
+        0x0003 - 0x0017 reg=0 array [I 
+        0x0009 - 0x0017 reg=1 i I 
+        0x000a - 0x0017 reg=2 n I 
+        0x0000 - 0x0017 reg=5 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 7 (NewArrayTest.java)
+
