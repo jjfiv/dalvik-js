@@ -289,11 +289,8 @@ var icodeHandlers = {
 
   "int-cast": function(_inst, _thread) {
     var val = _thread.getRegister(_inst.src);
-	console.log("src reg: " + _inst.src);
-	console.log("raw val : " + val);
 	var dstType = _inst.destType;
-	console.log("icodeExecude: dstType: " + dstType.getType());
-	var dst = _thread.getRegister(_inst.dest);
+	var dst = _inst.dest;
 	if (dstType.isEquals(TYPE_SHORT)) {
 	  val = val & 0xFFFF;
 	  val = signExtend(val, 16, 32);
@@ -301,7 +298,6 @@ var icodeHandlers = {
 	  val = val & 0xFFFF;
 	  console.log("val after 0x: " + val);
 	  val = String.fromCharCode(val);
-	  console.log("val fromCharCode: " + val);
 	} else if (dstType.isEquals(TYPE_BYTE)) {
 	  val = val & 0xFF;
 	  val = signExtend(val, 8, 32);
@@ -310,7 +306,6 @@ var icodeHandlers = {
 	}
 	
 	_thread.setRegister(dst, val);
-    //NYI(_inst);
   },
 
   "add": function(_inst, _thread) {
