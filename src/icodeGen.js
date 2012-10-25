@@ -391,8 +391,18 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+  _icode.op = "filled-new-array";
+  var x = _dcode.get();
+  _icode.dimensions = highNibble(x);
+  _icode.reg = [];
+  _icode.reg[4] = lowNibble(x);
+  _icode.type = _dex.types[_dcode.get16()];
+  x = _dcode.get();
+  _icode.reg[1] = highNibble(x);
+  _icode.reg[0] = lowNibble(x);
+  x = _dcode.get();
+  _icode.reg[3] = highNibble(x);
+  _icode.reg[2] = lowNibble(x);
 };
 
 opName[0x25] = "filled-new-array/range";
