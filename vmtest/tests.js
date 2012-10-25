@@ -22,4 +22,6 @@ doTest("bitWise.dex", "LbitWiseTests;",
       );
 
 doTest("FillArrayRange.dex", "LFillArrayRange;", "true\n");
+doTest("IntCast.dex", "LIntCast;", "J\n74\n-16657\n");
+doTest("ArgumentDirection.dex", "LArgumentDirection;", "1\n2\n3\n");
 
