@@ -1,0 +1,63 @@
+Processing 'IntCast.dex'...
+Opened 'IntCast.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LIntCast;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LIntCast;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000150:                                        |[000150] IntCast.<init>:()V
+000160: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+000166: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LIntCast; 
+
+    #1              : (in LIntCast;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 25 16-bit code units
+000168:                                        |[000168] IntCast.main:([Ljava/lang/String;)V
+000178: 1400 4a00 adde                         |0000: const v0, #float -6233022566210994176.000000 // #dead004a
+00017e: 6201 0000                              |0003: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000182: 8e02                                   |0005: int-to-char v2, v0
+000184: 6e20 0200 2100                         |0006: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0002
+00018a: 6201 0000                              |0009: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00018e: 8d00                                   |000b: int-to-byte v0, v0
+000190: 6e20 0300 0100                         |000c: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(I)V // method@0003
+000196: 1400 efbe adde                         |000f: const v0, #float -6259853398707798016.000000 // #deadbeef
+00019c: 6201 0000                              |0012: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001a0: 8f00                                   |0014: int-to-short v0, v0
+0001a2: 6e20 0300 0100                         |0015: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(I)V // method@0003
+0001a8: 0e00                                   |0018: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0003 line=4
+        0x0009 line=5
+        0x000f line=7
+        0x0012 line=8
+        0x0018 line=9
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 3 (IntCast.java)
+

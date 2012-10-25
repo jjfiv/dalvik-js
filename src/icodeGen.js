@@ -265,7 +265,7 @@ opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = floatFromInt(_dcode.get32());
+  _icode.value = _dcode.get32();
 };
 
 opName[0x15] = "const/high16";
@@ -391,14 +391,31 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+  _icode.op = "filled-new-array";
+  var x = _dcode.get();
+  _icode.dimensions = highNibble(x);
+  _icode.reg = [];
+  _icode.reg[4] = lowNibble(x);
+  _icode.type = _dex.types[_dcode.get16()];
+  x = _dcode.get();
+  _icode.reg[1] = highNibble(x);
+  _icode.reg[0] = lowNibble(x);
+  x = _dcode.get();
+  _icode.reg[3] = highNibble(x);
+  _icode.reg[2] = lowNibble(x);
 };
 
 opName[0x25] = "filled-new-array/range";
 opArgs[0x25] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+  _icode.op = "filled-new-array/range";
+  _icode.dimensions = _dcode.get();
+  _icode.type = _dex.types[_dcode.get16()];
+  _icode.reg = [];
+  var x = _dcode.get16();
+  var i;
+  for (i = 0; i < _icode.dimensions; i++) {
+    _icode.reg[i] = x++;
+  }
 };
 
 opName[0x26] = "fill-array-data";
