@@ -18,23 +18,11 @@ var icodeHandlers = {
   },
 
   "move-result": function(_inst, _thread) {
-    // make sure this was set by something
-    assert(_thread._result !== null, "Result is empty during move-result");
-    
     _thread.setRegister(_inst.dest, _thread._result);
-    
-    // clear it so our assert works
-    _thread._result = null;
   },
 
   "move-exception": function(_inst, _thread) {
-    // make sure this was set by something
-    assert(_thread._exception !== null, "Result is empty during move-result");
-    
     _thread.setRegister(_inst.dest, _thread._exception);
-    
-    // clear it so our assert works
-    _thread._exception = null;
   },
 
   // handles returning from a method with or without a value
@@ -69,21 +57,19 @@ var icodeHandlers = {
   },
 
   "instance-of": function(_inst, _thread) {
-    
-	var _type = _inst.type;
-	var _obj = _thread.getRegister(_icode.src);
-	var _isInst = false;
-	
-	if (_type.isPrimitive()) {
-	} else if (_type.isPrimitive() === false) {
-	  if (_obj.isEquals(_type)) {
+    var _type = _inst.type;
+    var _obj = _thread.getRegister(_icode.src);
+    var _isInst = false;
+
+    if (!_type.isPrimitive()) {
+      if (_obj.isEquals(_type)) {
         _isInst	= true;
-	  }
-	} else {
-	  assert(false, "Unknown type to compare to");
-	}
-	
-	_thread.setRegister(_inst.dest, _isInst);
+      }
+    } else {
+      assert(false, "Unknown type to compare to");
+    }
+
+    _thread.setRegister(_inst.dest, _isInst);
     //NYI(_inst);
   },
 
@@ -310,7 +296,9 @@ var icodeHandlers = {
             terminal.println (argValues[1]);
           }};
       } else if (_mname==="<init>" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
-        return function(){console.log("Skipping super constructor for now.");};
+        return function(){
+          console.log("Skipping super constructor for now.");
+        };
       } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
         return function(){};
       }
