@@ -7,6 +7,11 @@
     white-space:pre;
     font-family:monospace;
   }
+  pre {
+    background-color: #000;
+    color: #fff;
+    padding: 3pt;
+  }
 </style>
 </head>
 <body>
@@ -21,6 +26,19 @@
   <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td></tr>
 </table>
 
+<h3>Runnable Classes:</h3>
+<table>
+  <tr>
+    <td><select id="runnableClasses" size="6"></select></td>
+    <td>
+      <input type="button" id="runButton" value="Run Class" />
+      <!--<br />
+      command line arguments: <input type="text" id="argv" />-->
+    </td>
+  </tr>
+</table>
+
+<h3>VM Output: <input type="button" id="clearOutputButton" value="Clear" /></h3>
 <!-- I used a pre because I like monospace output. That's it, basically. -->
 <pre id="output"></pre>
 
@@ -32,17 +50,43 @@
 <script src="../src/gLong.js"></script>
 <script src="../src/util.js"></script>
 <script src="../src/bitutil.js"></script>
+<script src="../src/TryRange.js"></script>
 <script src="../src/terminal.js"></script>
-<script src="../src/ClassLibrary.js"></script>
-<script src="../src/icodeExecute.js"></script>
+<script src="../src/leb128.js"></script>
+<script src="../src/ArrayFile.js"></script>
+<script src="../src/icodeGen.js"></script>
 <script src="../src/Class.js"></script>
 <script src="../src/Type.js"></script>
-<script src="../src/Field.js"></script>
-<script src="../src/Method.js"></script>
 <script src="../src/MethodSignature.js"></script>
+<script src="../src/Method.js"></script>
+<script src="../src/Field.js"></script>
+<script src="../src/AddressTranslator.js"></script>
+<script src="../src/dexLoader.js"></script>
+<script src="../src/Upload.js"></script>
+<script src="../src/ClassChooser.js"></script>
+<script src="../src/icodeExecute.js"></script>
 <script src="../src/Thread.js"></script>
+<script src="../src/ClassLibrary.js"></script>
 <script src="../src/VM.js"></script>
+<script>
+// each .dex.js adds to this map
+var files = {};
+// hackery to avoid dependencies on HTML; redefine Upload class instead of including it
+var Upload = function() { };
+
+// hackery to avoid the default VM constructor; redefine it here and restore prototype afterward
+var VMproto = VM.prototype;
+var VM = function() {
+  var _self = this;
+  this._threads = [];
+  this.classLibrary = new ClassLibrary();
+};
+VM.prototype = VMproto;
+
+</script>
+<script src="factorial.dex.js"></script>
 <script src="vmtest.js"></script>
+<script src="tests.js"></script>
 
 
 </html>
