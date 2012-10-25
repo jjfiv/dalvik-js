@@ -34,15 +34,22 @@ var doTest = function(fileName, mainClass, expectedOutput) {
   _clearOutput();
 
   //--- main
-  var myVM = new VM();
-  myVM.defineClasses(classes);
-  myVM.start(new Type(mainClass));
+  var _output;
+  try {
+    var myVM = new VM();
+    myVM.defineClasses(classes);
+    myVM.start(new Type(mainClass));
 
-  while(myVM.hasThreads()) {
-    myVM.clockTick();
+    while(myVM.hasThreads()) {
+      myVM.clockTick();
+    }
+
+    _output = _outField.innerHTML;
+  } catch (exception) {
+    _output = exception;
   }
 
-  var _output = _outField.innerHTML;
+  console.log(_output);
   var tableId = (_output === expectedOutput) ? "passTable" : "failTable";
   _addRow(tableId, fileName, expectedOutput, _output);
 
