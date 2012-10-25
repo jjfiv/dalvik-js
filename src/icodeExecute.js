@@ -18,7 +18,7 @@ var icodeHandlers = {
   },
 
   "move-result": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread._result);
   },
 
   "move-exception": function(_inst, _thread) {
@@ -76,6 +76,16 @@ var icodeHandlers = {
   "new-array": function(_inst, _thread) {
     _thread.setRegister (_inst.dest, new newArray(_inst.dest, _inst.sizeReg, _inst.type));
     console.log("new-array made: " + inspect(_thread.getRegister(_inst.dest)));
+  },
+
+  "filled-new-array": function(_inst, _thread) {
+    _inst.sizes = [];
+    for (var _i = 0; _i < _inst.dimensions; _i++) {
+      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
+    }
+
+    _thread._result = new newDimArray(_inst);
+    console.log("filled-new-array made: " + inspect(_thread.getRegister(_inst.dest)));
   },
 
   "fill-array": function(_inst, _thread) {
