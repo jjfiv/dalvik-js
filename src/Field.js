@@ -23,7 +23,7 @@ Field.prototype.clone = function() {
 // Class.fieldName:typeStr
 //
 Field.prototype.toStr = function() {
-  return this.definingClass + "." + this.name + ":" + this.type.toStr();
+  return this.definingClass.toStr() + "." + this.name + ":" + this.type.toStr();
 };
 
 // parses a string into a Field object
