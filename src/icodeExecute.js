@@ -238,6 +238,7 @@ var icodeHandlers = {
     var kind = _inst.kind;
     var method = _inst.method;
     var argRegs = _inst.argumentRegisters;
+    var _i,_j,_a;
 
     // convert given argument registers into the values of their registers
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
@@ -245,19 +246,34 @@ var icodeHandlers = {
     //TODO handle more than just this method;
     //     will need to call into ClassLibrary to find things
     //if(methodName === "Ljava/io/PrintStream;.println") {
-    if ((method.getName() === "println") && (method.definingClass.isEquals(new Type ("Ljava/io/PrintStream;")))) {
-      
-      console.log("print " + argValues[1] +
-                  " to " + inspect(argValues[0]) + "!");
-
-      if (method.signature._parameterTypes[0]._typeString === "D"){
-        terminal.println(doubleFromgLong(argValues[1]));
+    // HACKERY BE THE NAME - isolating this in a function block
+    var _hacks = function (_mname, _ts) {
+      if (_mname==="println" && _ts.isEquals(new Type("Ljava/io/PrintStream;"))){
+        return function() {
+          console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!");
+          if (method.signature._parameterTypes[0]._typeString === "D"){
+            terminal.println(doubleFromgLong(argValues[1]));
+          } else {
+            terminal.println (argValues[1]);
+          }};
+      } else if (_mname==="<init>" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
+        return function(){console.log("Skipping super constructor for now.");};
+      } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
+        return function(){};
       }
-      else {
-        terminal.println (argValues[1]);
-      }
+    };
+    var _hack = _hacks(method.getName(), method.definingClass);
+    if (_hack){
+      _hack();
     } else {
-      assert(false, "Invoke only works for println");
+      assert(argRegs.length<=method.numRegisters, 
+             'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
+      (_a=[]).length=method.numRegisters;
+      for (_i=0;_i<method.numRegisters;_i++){
+        (_i<argRegs.length) ? _a[_i]=0 : _a[_i]=argValues[_i+argRegs.length];
+      }
+      // open a new frame for the method invoked
+      _thread.pushMethod(method, _a);
     }
   },
 
