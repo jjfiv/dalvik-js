@@ -94,8 +94,9 @@ var icodeHandlers = {
   },
 
   "filled-new-array": function(_inst, _thread) {
+    var _i;
     _inst.sizes = [];
-    for (var _i = 0; _i < _inst.dimensions; _i++) {
+    for (_i = 0; _i < _inst.dimensions; _i++) {
       _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
     }
 
@@ -104,8 +105,10 @@ var icodeHandlers = {
   },
 
   "filled-new-array/range": function(_inst, _thread) {
+    var _i;
+    
     _inst.sizes = [];
-    for (var _i = 0; _i < _inst.dimensions; _i++) {
+    for (_i = 0; _i < _inst.dimensions; _i++) {
       _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
     }
 
@@ -302,13 +305,13 @@ var icodeHandlers = {
 
   "negate": function(_inst, _thread) {
     var _src = _thread.getRegister (_inst.src);
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       _thread.setRegister (_inst.dest, gLongFromDouble (-doubleFromgLong (_src)));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister (_inst.dest, _src.negate());
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       _thread.setRegister (_inst.dest, intFromFloat(-floatFromInt(_src)));
-    } else if (_inst.type === TYPE_INT) {
+    } else if (_inst.type.isEquals(TYPE_INT)) {
       _thread.setRegister (_inst.dest, -_src);
     } else {
       assert(false, "Invalid type for negate");
@@ -317,9 +320,9 @@ var icodeHandlers = {
 
   "not": function(_inst, _thread) {
     var _src = _thread.getRegister (_inst.src);
-    if (_inst.type === TYPE_INT) {
+    if (_inst.type.isEquals(TYPE_INT)) {
       _thread.setRegister (_inst.dest, ~_src);
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister (_inst.dest, _src.not());
     } else {
       assert(false, "Invalid type for not");
@@ -327,7 +330,7 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
-    //NYI(_inst);
+    NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
@@ -355,17 +358,17 @@ var icodeHandlers = {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
     var result;
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       numA = doubleFromgLong (numA);
       numB = doubleFromgLong (numB);
       result = numA + numB;
       _thread.setRegister(_inst.dest, gLongFromDouble (result));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.add(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB));
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       numA = floatFromInt (numA);
       numB = floatFromInt (numB);
       result = numA + numB;
@@ -380,17 +383,17 @@ var icodeHandlers = {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
     var result;
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       numA = doubleFromgLong (numA);
       numB = doubleFromgLong (numB);
       result = numA - numB;
       _thread.setRegister(_inst.dest, gLongFromDouble (result));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.add(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       numA = floatFromInt (numA);
       numB = floatFromInt (numB);
       result = numA - numB;
@@ -405,17 +408,17 @@ var icodeHandlers = {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
     var result;
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       numA = doubleFromgLong (numA);
       numB = doubleFromgLong (numB);
       result = numA * numB;
       _thread.setRegister(_inst.dest, gLongFromDouble (result));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.multiply(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB));
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       numA = floatFromInt (numA);
       numB = floatFromInt (numB);
       result = numA * numB;
@@ -430,17 +433,17 @@ var icodeHandlers = {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
     var result;
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       numA = doubleFromgLong (numA);
       numB = doubleFromgLong (numB);
       result = numA / numB;
       _thread.setRegister(_inst.dest, gLongFromDouble (result));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.div(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB));
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       numA = floatFromInt (numA);
       numB = floatFromInt (numB);
       result = numA / numB;
@@ -455,17 +458,17 @@ var icodeHandlers = {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
     var result;
-    if (_inst.type === TYPE_DOUBLE) {
+    if (_inst.type.isEquals(TYPE_DOUBLE)) {
       numA = doubleFromgLong (numA);
       numB = doubleFromgLong (numB);
       result = numA % numB;
       _thread.setRegister(_inst.dest, gLongFromDouble (result));
-    } else if (_inst.type === TYPE_LONG) {
+    } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.modulo(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB));
-    } else if (_inst.type === TYPE_FLOAT) {
+    } else if (_inst.type.isEquals(TYPE_FLOAT)) {
       numA = floatFromInt (numA);
       numB = floatFromInt (numB);
       result = numA % numB;
@@ -479,10 +482,10 @@ var icodeHandlers = {
   "and": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.and(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB));
     } else {
       assert (false, "Unidentified type for an 'And' operation");
@@ -492,10 +495,10 @@ var icodeHandlers = {
   "or": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.or(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA | numB));
     } else {
       assert (false, "Unidentified type for an 'Or' operation");
@@ -505,10 +508,10 @@ var icodeHandlers = {
   "xor": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.xor(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA ^ numB));
     } else {
       assert (false, "Unidentified type for a 'Xor' operation");
@@ -518,10 +521,10 @@ var icodeHandlers = {
   "shl": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.shiftLeft(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA << numB));
     } else {
       assert (false, "Unidentified type for Shifting Left");
@@ -531,10 +534,10 @@ var icodeHandlers = {
   "shr": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.shiftRight(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >> numB));
     } else {
       assert (false, "Unidentified type for Shifting Right");
@@ -544,10 +547,10 @@ var icodeHandlers = {
   "ushr": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
-    if (_inst.type === TYPE_LONG) {
+    if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.shiftRightUnsigned(numB));
-    } else if (_inst.type === TYPE_BYTE || _inst.type === TYPE_INT ||
-        _inst.type === TYPE_SHORT) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
+        _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA >>> numB));
     } else {
       assert (false, "Unidentified type for Unsigned Shifting Right");
