@@ -274,7 +274,29 @@ var icodeHandlers = {
   },
 
   "int-cast": function(_inst, _thread) {
-    NYI(_inst);
+    var val = _thread.getRegister(_inst.src);
+	console.log("src reg: " + _inst.src);
+	console.log("raw val : " + hex(val));
+	var dstType = _inst.destType;
+	console.log("icodeExecude: dstType: " + dstType.getType());
+	var dst = _thread.getRegister(_inst.dest);
+	if (dstType.isEquals(TYPE_SHORT)) {
+	  val = val & 0xFFFF;
+	  val = signExtend(val, 16, 32);
+	} else if (dstType.isEquals(TYPE_CHAR)) {
+	  val = val & 0xFFFF;
+	  console.log("val after 0x: " + val);
+	  val = String.fromCharCode(val);
+	  console.log("val fromCharCode: " + val);
+	} else if (dstType.isEquals(TYPE_BYTE)) {
+	  val = val & 0xFF;
+	  val = signExtend(val, 8, 32);
+	} else {
+	  assert(false, "Unrecognized target cast from int");
+	}
+	
+	_thread.setRegister(dst, val);
+    //NYI(_inst);
   },
 
   "add": function(_inst, _thread) {
