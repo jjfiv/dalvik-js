@@ -64,7 +64,7 @@ var icodeHandlers = {
 	var _isInst = false;
 	
 	if (_type.isPrimitive()) {
-	} else if (_type.isPrimitive() === false) {
+	} else if (!(_type.isPrimitive())) {
 	  if (_obj.isEquals(_type)) {
         _isInst	= true;
 	  }
