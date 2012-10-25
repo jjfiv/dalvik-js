@@ -5,7 +5,16 @@
 doTest("factorial.dex", "Lfactorial;", "24\n");
 doTest("seqSwitch.dex", "LSeqSwitch;", "Orange\n");
 // complicated output:
-doTest("testSeveralMethods.dex", "LtestSeveralMethods;", "TODO\n");
+doTest("testSeveralMethods.dex", "LtestSeveralMethods;",
+"This is a static and fruitless method with no args.\n"+
+"This is a fruitless instance method with no args.\n"+
+"This is a fruitful static method with no args.\n"+
+"This is a fruitful instance method with no args.\n"+
+"This is an overloaded static fruitless method with one arg.\n"+
+"This is an overloaded fruitless instance method with one arg.\n"+
+"This is an overloaded fruitful static method with one arg.\n"+
+"This is an overloaded fruitful instance method with one arg.\n"+
+"0\n");
 
 // so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 doTest("bitWise.dex", "LbitWiseTests;", 
