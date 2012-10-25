@@ -88,6 +88,16 @@ var icodeHandlers = {
     console.log("filled-new-array made: " + inspect(_thread.getRegister(_inst.dest)));
   },
 
+  "filled-new-array/range": function(_inst, _thread) {
+    _inst.sizes = [];
+    for (var _i = 0; _i < _inst.dimensions; _i++) {
+      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
+    }
+
+    _thread._result = new newDimArray(_inst);
+    console.log("filled-new-array/range made: " + inspect(_thread.getRegister(_inst.dest)));
+  },
+
   "fill-array": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.dest);
     _array._data = _inst.data;
