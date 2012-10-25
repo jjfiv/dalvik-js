@@ -1,0 +1,97 @@
+Processing 'FillArrayRange.dex'...
+Opened 'FillArrayRange.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LFillArrayRange;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LFillArrayRange;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000180:                                        |[000180] FillArrayRange.<init>:()V
+000190: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000196: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LFillArrayRange; 
+
+    #1              : (in LFillArrayRange;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 2
+      insns size    : 71 16-bit code units
+000198:                                        |[000198] FillArrayRange.main:([Ljava/lang/String;)V
+0001a8: 1222                                   |0000: const/4 v2, #int 2 // #2
+0001aa: 1230                                   |0001: const/4 v0, #int 3 // #3
+0001ac: 1206                                   |0002: const/4 v6, #int 0 // #0
+0001ae: 0101                                   |0003: move v1, v0
+0001b0: 0123                                   |0004: move v3, v2
+0001b2: 0124                                   |0005: move v4, v2
+0001b4: 0125                                   |0006: move v5, v2
+0001b6: 2506 0900 0000                         |0007: filled-new-array/range {v0, v1, v2, v3, v4, v5}, [I // type@0009
+0001bc: 0c01                                   |000a: move-result-object v1
+0001be: 6202 0000                              |000b: sget-object v2, Ljava/lang/Integer;.TYPE:Ljava/lang/Class; // field@0000
+0001c2: 7120 0400 1200                         |000d: invoke-static {v2, v1}, Ljava/lang/reflect/Array;.newInstance:(Ljava/lang/Class;[I)Ljava/lang/Object; // method@0004
+0001c8: 0c01                                   |0010: move-result-object v1
+0001ca: 1f01 0b00                              |0011: check-cast v1, [[[[[[I // type@000b
+0001ce: 0163                                   |0013: move v3, v6
+0001d0: 3503 1a00                              |0014: if-ge v3, v0, 002e // +001a
+0001d4: 0162                                   |0016: move v2, v6
+0001d6: 3502 1300                              |0017: if-ge v2, v0, 002a // +0013
+0001da: 4604 0103                              |0019: aget-object v4, v1, v3
+0001de: 4604 0402                              |001b: aget-object v4, v4, v2
+0001e2: 4604 0406                              |001d: aget-object v4, v4, v6
+0001e6: 4604 0406                              |001f: aget-object v4, v4, v6
+0001ea: 4604 0406                              |0021: aget-object v4, v4, v6
+0001ee: 9205 0302                              |0023: mul-int v5, v3, v2
+0001f2: 4b05 0406                              |0025: aput v5, v4, v6
+0001f6: d802 0201                              |0027: add-int/lit8 v2, v2, #int 1 // #01
+0001fa: 28ee                                   |0029: goto 0017 // -0012
+0001fc: d802 0301                              |002a: add-int/lit8 v2, v3, #int 1 // #01
+000200: 0123                                   |002c: move v3, v2
+000202: 28e7                                   |002d: goto 0014 // -0019
+000204: 6202 0100                              |002e: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000208: 4601 0100                              |0030: aget-object v1, v1, v0
+00020c: 4600 0100                              |0032: aget-object v0, v1, v0
+000210: 4600 0006                              |0034: aget-object v0, v0, v6
+000214: 4600 0006                              |0036: aget-object v0, v0, v6
+000218: 4600 0006                              |0038: aget-object v0, v0, v6
+00021c: 4400 0006                              |003a: aget v0, v0, v6
+000220: 1301 0900                              |003c: const/16 v1, #int 9 // #9
+000224: 3310 0700                              |003e: if-ne v0, v1, 0045 // +0007
+000228: 1210                                   |0040: const/4 v0, #int 1 // #1
+00022a: 6e20 0200 0200                         |0041: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000230: 0e00                                   |0044: return-void
+000232: 0160                                   |0045: move v0, v6
+000234: 28fb                                   |0046: goto 0041 // -0005
+      catches       : (none)
+      positions     : 
+        0x0003 line=6
+        0x0014 line=8
+        0x0017 line=9
+        0x0019 line=10
+        0x0027 line=9
+        0x002a line=8
+        0x002e line=14
+        0x0044 line=15
+        0x0046 line=14
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 1 (FillArrayRange.java)
+

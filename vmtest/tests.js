@@ -21,4 +21,5 @@ doTest("bitWise.dex", "LbitWiseTests;",
        "1\n"
       );
 
+doTest("FillArrayRange.dex", "LFillArrayRange;", "true\n");
 

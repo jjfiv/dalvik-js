@@ -29,13 +29,13 @@ var doTest = function(fileName, mainClass, expectedOutput) {
     _outField.innerHTML = "";
   };
 
-  var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
 
   _clearOutput();
 
   //--- main
   var _output;
   try {
+    var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
     var myVM = new VM();
     myVM.defineClasses(classes);
     myVM.start(new Type(mainClass));
