@@ -1478,7 +1478,7 @@ opArgs[0xab] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.type = TYPE_FLOAT;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xac] = "sub-double";

@@ -73,11 +73,13 @@ var icodeHandlers = {
   },
 
   "new-array": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister (_inst.dest, new newArray(_inst.dest, _inst.sizeReg, _inst.type));
+    console.log("new-array made: " + inspect(_thread.getRegister(_inst.dest)));
   },
 
   "fill-array": function(_inst, _thread) {
-    NYI(_inst);
+    var _array = _thread.getRegister (_inst.dest);
+    _array._data = _inst.data;
   },
 
   "throw": function(_inst, _thread) {
@@ -182,11 +184,16 @@ var icodeHandlers = {
   },
 
   "array-get": function(_inst, _thread) {
-    NYI(_inst);
+    var _array = _thread.getRegister (_inst.array);
+    var _index = _thread.getRegister (_inst.index);
+    _thread.setRegister (_inst.value, _array._data[_index]);
   },
 
   "array-put": function(_inst, _thread) {
-    NYI(_inst);
+    var _array = _thread.getRegister (_inst.array);
+    var _index = _thread.getRegister (_inst.index);
+    var _value = _thread.getRegister (_inst.value);
+    _array._data[_index] = _value;
   },
 
   "instance-get": function(_inst, _thread) {
