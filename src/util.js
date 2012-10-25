@@ -44,6 +44,10 @@ var inspect = function(obj) {
 
   text = "";
 
+  if(obj === null) {
+    return '*null*';
+  }
+
   if(isUndefined(obj)) {
     return '*undefined*';
   }
