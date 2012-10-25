@@ -1,0 +1,260 @@
+Processing 'testSeveralMethods.dex'...
+Opened 'testSeveralMethods.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LtestSeveralMethods;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LtestSeveralMethods;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00022c:                                        |[00022c] testSeveralMethods.<init>:()V
+00023c: 7010 0200 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0002
+000242: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LtestSeveralMethods; 
+
+    #1              : (in LtestSeveralMethods;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 48 16-bit code units
+000244:                                        |[000244] testSeveralMethods.main:([Ljava/lang/String;)V
+000254: 2200 0600                              |0000: new-instance v0, LtestSeveralMethods; // type@0006
+000258: 7010 0400 0000                         |0002: invoke-direct {v0}, LtestSeveralMethods;.<init>:()V // method@0004
+00025e: 7100 0b00 0000                         |0005: invoke-static {}, LtestSeveralMethods;.staticMethod1:()V // method@000b
+000264: 6e10 0500 0000                         |0008: invoke-virtual {v0}, LtestSeveralMethods;.instanceMethod1:()V // method@0005
+00026a: 7100 0d00 0000                         |000b: invoke-static {}, LtestSeveralMethods;.staticMethod2:()I // method@000d
+000270: 0a01                                   |000e: move-result v1
+000272: 6e10 0700 0000                         |000f: invoke-virtual {v0}, LtestSeveralMethods;.instanceMethod2:()I // method@0007
+000278: 0a02                                   |0012: move-result v2
+00027a: 7110 0c00 0100                         |0013: invoke-static {v1}, LtestSeveralMethods;.staticMethod1:(I)V // method@000c
+000280: 6e20 0600 2000                         |0016: invoke-virtual {v0, v2}, LtestSeveralMethods;.instanceMethod1:(I)V // method@0006
+000286: b021                                   |0019: add-int/2addr v1, v2
+000288: 7110 0e00 0100                         |001a: invoke-static {v1}, LtestSeveralMethods;.staticMethod2:(I)I // method@000e
+00028e: 0a01                                   |001d: move-result v1
+000290: 6e20 0800 1000                         |001e: invoke-virtual {v0, v1}, LtestSeveralMethods;.instanceMethod2:(I)I // method@0008
+000296: 0a00                                   |0021: move-result v0
+000298: 1231                                   |0022: const/4 v1, #int 3 // #3
+00029a: 3310 0b00                              |0023: if-ne v0, v1, 002e // +000b
+00029e: 1210                                   |0025: const/4 v0, #int 1 // #1
+0002a0: 7110 0100 0000                         |0026: invoke-static {v0}, Ljava/lang/Boolean;.valueOf:(Z)Ljava/lang/Boolean; // method@0001
+0002a6: 0c00                                   |0029: move-result-object v0
+0002a8: 7110 0a00 0000                         |002a: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+0002ae: 0e00                                   |002d: return-void
+0002b0: 1200                                   |002e: const/4 v0, #int 0 // #0
+0002b2: 28f7                                   |002f: goto 0026 // -0009
+      catches       : (none)
+      positions     : 
+        0x0000 line=34
+        0x0005 line=35
+        0x0008 line=36
+        0x000b line=37
+        0x000f line=38
+        0x0013 line=39
+        0x0016 line=40
+        0x0019 line=41
+        0x001e line=42
+        0x0022 line=43
+        0x002d line=44
+        0x002e line=43
+      locals        : 
+
+    #2              : (in LtestSeveralMethods;)
+      name          : 'println'
+      type          : '(Ljava/lang/Object;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 10 16-bit code units
+0002b4:                                        |[0002b4] testSeveralMethods.println:(Ljava/lang/Object;)V
+0002c4: 6200 0000                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0002c8: 6e10 0300 0200                         |0002: invoke-virtual {v2}, Ljava/lang/Object;.toString:()Ljava/lang/String; // method@0003
+0002ce: 0c01                                   |0005: move-result-object v1
+0002d0: 6e20 0000 1000                         |0006: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0000
+0002d6: 0e00                                   |0009: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0009 line=4
+      locals        : 
+
+    #3              : (in LtestSeveralMethods;)
+      name          : 'staticMethod1'
+      type          : '()V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 1
+      insns size    : 6 16-bit code units
+0002d8:                                        |[0002d8] testSeveralMethods.staticMethod1:()V
+0002e8: 1a00 0e00                              |0000: const-string v0, "This is a static and fruitless method with no args." // string@000e
+0002ec: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+0002f2: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0005 line=7
+      locals        : 
+
+    #4              : (in LtestSeveralMethods;)
+      name          : 'staticMethod1'
+      type          : '(I)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 6 16-bit code units
+0002f4:                                        |[0002f4] testSeveralMethods.staticMethod1:(I)V
+000304: 1a00 1200                              |0000: const-string v0, "This is an overloaded static fruitless method with one arg." // string@0012
+000308: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+00030e: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+        0x0005 line=21
+      locals        : 
+
+    #5              : (in LtestSeveralMethods;)
+      name          : 'staticMethod2'
+      type          : '()I'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 1
+      insns size    : 7 16-bit code units
+000310:                                        |[000310] testSeveralMethods.staticMethod2:()I
+000320: 1a00 0c00                              |0000: const-string v0, "This is a fruitful static method with no args." // string@000c
+000324: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+00032a: 1210                                   |0005: const/4 v0, #int 1 // #1
+00032c: 0f00                                   |0006: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=12
+        0x0005 line=13
+      locals        : 
+
+    #6              : (in LtestSeveralMethods;)
+      name          : 'staticMethod2'
+      type          : '(I)I'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 6 16-bit code units
+000330:                                        |[000330] testSeveralMethods.staticMethod2:(I)I
+000340: 1a00 1000                              |0000: const-string v0, "This is an overloaded fruitful static method with one arg." // string@0010
+000344: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+00034a: 0f01                                   |0005: return v1
+      catches       : (none)
+      positions     : 
+        0x0000 line=26
+        0x0005 line=27
+      locals        : 
+
+  Virtual methods   -
+    #0              : (in LtestSeveralMethods;)
+      name          : 'instanceMethod1'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 6 16-bit code units
+00034c:                                        |[00034c] testSeveralMethods.instanceMethod1:()V
+00035c: 1a00 0d00                              |0000: const-string v0, "This is a fruitless instance method with no args." // string@000d
+000360: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+000366: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=10
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LtestSeveralMethods; 
+
+    #1              : (in LtestSeveralMethods;)
+      name          : 'instanceMethod1'
+      type          : '(I)V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 1
+      insns size    : 6 16-bit code units
+000368:                                        |[000368] testSeveralMethods.instanceMethod1:(I)V
+000378: 1a00 1100                              |0000: const-string v0, "This is an overloaded fruitless instance method with one arg." // string@0011
+00037c: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+000382: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=23
+        0x0005 line=24
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LtestSeveralMethods; 
+
+    #2              : (in LtestSeveralMethods;)
+      name          : 'instanceMethod2'
+      type          : '()I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 7 16-bit code units
+000384:                                        |[000384] testSeveralMethods.instanceMethod2:()I
+000394: 1a00 0b00                              |0000: const-string v0, "This is a fruitful instance method with no args." // string@000b
+000398: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+00039e: 1220                                   |0005: const/4 v0, #int 2 // #2
+0003a0: 0f00                                   |0006: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=16
+        0x0005 line=17
+      locals        : 
+        0x0000 - 0x0007 reg=1 this LtestSeveralMethods; 
+
+    #3              : (in LtestSeveralMethods;)
+      name          : 'instanceMethod2'
+      type          : '(I)I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 1
+      insns size    : 6 16-bit code units
+0003a4:                                        |[0003a4] testSeveralMethods.instanceMethod2:(I)I
+0003b4: 1a00 0f00                              |0000: const-string v0, "This is an overloaded fruitful instance method with one arg." // string@000f
+0003b8: 7110 0a00 0000                         |0002: invoke-static {v0}, LtestSeveralMethods;.println:(Ljava/lang/Object;)V // method@000a
+0003be: 0f02                                   |0005: return v2
+      catches       : (none)
+      positions     : 
+        0x0000 line=30
+        0x0005 line=31
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LtestSeveralMethods; 
+
+  source_file_idx   : 31 (testSeveralMethods.java)
+
