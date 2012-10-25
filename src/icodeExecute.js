@@ -321,12 +321,11 @@ var icodeHandlers = {
     } else {
       assert(argRegs.length<=method.numRegisters, 
              'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
-      (_a=[]).length=method.numRegisters;
-      for (_i=0;_i<method.numRegisters;_i++){
-        (_i<argRegs.length) ? _a[_i]=0 : _a[_i]=argValues[_i+argRegs.length];
+      (_a=[]).length=(method.numRegisters-argRegs.length);
+      for (_i=0;_i<(method.numRegisters-argRegs.length);_i++){
+        _a[_i]=0;
       }
-      // open a new frame for the method invoked
-      _thread.pushMethod(method, _a);
+      _thread.pushMethod(method, _a.concat(argValues));
     }
   },
 
