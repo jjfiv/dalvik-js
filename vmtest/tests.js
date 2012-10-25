@@ -1,10 +1,13 @@
 //--- Append tests here
+// so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 
 // doTest(fileName, mainClassName, expectedOutput
 doTest("factorial.dex", "Lfactorial;", "24\n");
 doTest("seqSwitch.dex", "LSeqSwitch;", "Orange\n");
 // complicated output:
 doTest("testSeveralMethods.dex", "LtestSeveralMethods;", "TODO\n");
+
+// so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 doTest("bitWise.dex", "LbitWiseTests;", 
        "a &amp; b = \n2\n" +
        "a | b = \n7\n" + 
