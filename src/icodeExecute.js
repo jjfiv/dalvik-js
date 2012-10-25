@@ -22,15 +22,14 @@ var icodeHandlers = {
   },
 
   "move-exception": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister(_inst.dest, _thread._exception);
   },
 
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
-    var result;
+    var result = null;
     if(_inst.src) {
       result = _thread.getRegister(_inst.src);
-      // TODO, also deal with wide
     }
     _thread.popMethod(result);
   },
@@ -58,21 +57,19 @@ var icodeHandlers = {
   },
 
   "instance-of": function(_inst, _thread) {
-    
-	var _type = _inst.type;
-	var _obj = _thread.getRegister(_icode.src);
-	var _isInst = false;
-	
-	if (_type.isPrimitive()) {
-	} else if (_type.isPrimitive() === false) {
-	  if (_obj.isEquals(_type)) {
+    var _type = _inst.type;
+    var _obj = _thread.getRegister(_icode.src);
+    var _isInst = false;
+
+    if (!_type.isPrimitive()) {
+      if (_obj.isEquals(_type)) {
         _isInst	= true;
-	  }
-	} else {
-	  assert(false, "Unknown type to compare to");
-	}
-	
-	_thread.setRegister(_inst.dest, _isInst);
+      }
+    } else {
+      assert(false, "Unknown type to compare to");
+    }
+
+    _thread.setRegister(_inst.dest, _isInst);
     //NYI(_inst);
   },
 
@@ -299,7 +296,9 @@ var icodeHandlers = {
             terminal.println (argValues[1]);
           }};
       } else if (_mname==="<init>" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
-        return function(){console.log("Skipping super constructor for now.");};
+        return function(){
+          console.log("Skipping super constructor for now.");
+        };
       } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
         return function(){};
       }
@@ -345,7 +344,54 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
-    NYI(_inst);
+    
+	// Not distinguishing between wide and not wide
+	var val = _thread.getRegister(_inst.src);
+	
+	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
+	  val = floatFromInt(val);
+	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
+	  val = doubleFromgLong(val);
+	} else {
+	}
+	
+	if (_inst.srcType.isEquals(TYPE_LONG)) {
+	  console.log("long to smth: " + val);
+	  if (_inst.destType.isEquals(TYPE_INT)) {
+	    val = val.toInt();
+	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = floatFromDouble(val);
+	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	    val = val.toNumber();
+	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
+	  } else {
+	    assert(false, "Unrecognized target type conversion from long"); 
+	  }
+	} else {
+	  console.log("number to smth: " + val);
+	  if (_inst.destType.isEquals(TYPE_INT)) {
+	    val = parseInt(val.toString());
+	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = floatFromDouble(val);
+	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
+	    val = gLong.fromNumber(val);
+	  } else {
+	    assert(false, "Unrecognized target type conversion from int");
+	  }
+	}
+	
+	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
+	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	  val = intFromFloat(val);
+    } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  val = gLong.fromDouble(val);
+	} else {
+	  assert(false, "Unidentified target primitive type");
+	}
+    
+	_thread.setRegister(_inst.dest, val);
+    //NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
