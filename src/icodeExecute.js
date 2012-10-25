@@ -301,11 +301,29 @@ var icodeHandlers = {
   },
 
   "negate": function(_inst, _thread) {
-    NYI(_inst);
+    var _src = _thread.getRegister (_inst.src);
+    if (_inst.type === TYPE_DOUBLE) {
+      _thread.setRegister (_inst.dest, gLongFromDouble (-doubleFromgLong (_src)));
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister (_inst.dest, _src.negate());
+    } else if (_inst.type === TYPE_FLOAT) {
+      _thread.setRegister (_inst.dest, intFromFloat(-floatFromInt(_src)));
+    } else if (_inst.type === TYPE_INT) {
+      _thread.setRegister (_inst.dest, -_src);
+    } else {
+      assert(false, "Invalid type for negate");
+    }
   },
 
   "not": function(_inst, _thread) {
-    NYI(_inst);
+    var _src = _thread.getRegister (_inst.src);
+    if (_inst.type === TYPE_INT) {
+      _thread.setRegister (_inst.dest, ~_src);
+    } else if (_inst.type === TYPE_LONG) {
+      _thread.setRegister (_inst.dest, _src.not());
+    } else {
+      assert(false, "Invalid type for not");
+    }
   },
 
   "primitive-cast": function(_inst, _thread) {
