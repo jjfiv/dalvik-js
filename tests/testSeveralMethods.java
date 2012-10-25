@@ -1,33 +1,31 @@
 class testSeveralMethods {
-    public static void println(Object s){
-        System.out.println(s.toString());
-    }
+
     public static void staticMethod1(){
-        println("This is a static and fruitless method with no args.");
+        System.out.println("This is a static and fruitless method with no args.");
     }
     public void instanceMethod1(){
-        println("This is a fruitless instance method with no args.");
+        System.out.println("This is a fruitless instance method with no args.");
     }
     public static int staticMethod2(){
-        println("This is a fruitful static method with no args.");
+        System.out.println("This is a fruitful static method with no args.");
         return 1;
     }
     public int instanceMethod2(){
-        println("This is a fruitful instance method with no args.");
+        System.out.println("This is a fruitful instance method with no args.");
         return 2;
     }
     public static void staticMethod1(int i){
-        println("This is an overloaded static fruitless method with one arg.");
+        System.out.println("This is an overloaded static fruitless method with one arg.");
     }
     public void instanceMethod1(int i){
-        println("This is an overloaded fruitless instance method with one arg.");
+        System.out.println("This is an overloaded fruitless instance method with one arg.");
     }
     public static int staticMethod2(int i){
-        println("This is an overloaded fruitful static method with one arg.");
+        System.out.println("This is an overloaded fruitful static method with one arg.");
         return i;
     }
     public int instanceMethod2(int i){
-        println("This is an overloaded fruitful instance method with one arg.");
+        System.out.println("This is an overloaded fruitful instance method with one arg.");
         return i;
     }
     public static void main(String[] args){
@@ -40,6 +38,6 @@ class testSeveralMethods {
         dude.instanceMethod1(j);
         int k = staticMethod2(i+j);
         int l = dude.instanceMethod2(k);
-        println(l==3);
+        System.out.println(l==3);
     }
 }
