@@ -330,7 +330,54 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
-    NYI(_inst);
+    
+	// Not distinguishing between wide and not wide
+	var val = _thread.getRegister(_inst.src);
+	
+	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
+	  val = floatFromInt(val);
+	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
+	  val = doubleFromgLong(val);
+	} else {
+	}
+	
+	if (_inst.srcType.isEquals(TYPE_LONG)) {
+	  console.log("long to smth: " + val);
+	  if (_inst.destType.isEquals(TYPE_INT)) {
+	    val = val.toInt();
+	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = floatFromDouble(val);
+	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	    val = val.toNumber();
+	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
+	  } else {
+	    assert(false, "Unrecognized target type conversion from long"); 
+	  }
+	} else {
+	  console.log("number to smth: " + val);
+	  if (_inst.destType.isEquals(TYPE_INT)) {
+	    val = parseInt(val.toString());
+	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = floatFromDouble(val);
+	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
+	    val = gLong.fromNumber(val);
+	  } else {
+	    assert(false, "Unrecognized target type conversion from int");
+	  }
+	}
+	
+	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
+	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	  val = intFromFloat(val);
+    } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  val = gLong.fromDouble(val);
+	} else {
+	  assert(false, "Unidentified target primitive type");
+	}
+    
+	_thread.setRegister(_inst.dest, val);
+    //NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
