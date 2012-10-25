@@ -35,11 +35,11 @@ Thread.prototype.toString = function(){
   return this._stack[0].toString()+"...";
 };
 
-Thread.prototype.pushMethod = function(_m) {
+Thread.prototype.pushMethod = function(_m, _regs) {
   var _frame = new StackFrame(_m);
 
   // TODO load up regs with arguments; I think we need to do this backwards?
-
+  if (_regs) { _frame.regs = _regs; }
   this._stack.push(_frame);
 };
 
