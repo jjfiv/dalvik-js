@@ -407,8 +407,15 @@ opArgs[0x24] = function(_dcode, _icode, _dex) {
 
 opName[0x25] = "filled-new-array/range";
 opArgs[0x25] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-  NOT_IMPLEMENTED(_icode);
+  _icode.op = "filled-new-array/range";
+  _icode.dimensions = _dcode.get();
+  _icode.type = _dex.types[_dcode.get16()];
+  _icode.reg = [];
+  var x = _dcode.get16();
+  var i;
+  for (i = 0; i < _icode.dimensions; i++) {
+    _icode.reg[i] = x++;
+  }
 };
 
 opName[0x26] = "fill-array-data";
