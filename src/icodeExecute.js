@@ -58,7 +58,22 @@ var icodeHandlers = {
   },
 
   "instance-of": function(_inst, _thread) {
-    NYI(_inst);
+    
+	var _type = _inst.type;
+	var _obj = _thread.getRegister(_icode.src);
+	var _isInst = false;
+	
+	if (_type.isPrimitive()) {
+	} else if (_type.isPrimitive() === false) {
+	  if (_obj.isEquals(_type)) {
+        _isInst	= true;
+	  }
+	} else {
+	  assert(false, "Unknown type to compare to");
+	}
+	
+	_thread.setRegister(_inst.dest, _isInst);
+    //NYI(_inst);
   },
 
   "array-length": function(_inst, _thread) {
@@ -294,7 +309,7 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
-    NYI(_inst);
+    //NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
