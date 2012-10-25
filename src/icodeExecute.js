@@ -62,7 +62,8 @@ var icodeHandlers = {
   },
 
   "array-length": function(_inst, _thread) {
-    NYI(_inst);
+    var _array = _thread.getRegister (_inst.dest);
+    _thread.setRegister (_inst.dest, _array._data.length); 
   },
 
   "new-instance": function(_inst, _thread) {
