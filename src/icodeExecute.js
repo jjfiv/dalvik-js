@@ -218,6 +218,8 @@ var icodeHandlers = {
     // set to "null" initially --- TODO actual null?
     _result.primtype = _field.type;
     _result.value = 0;
+	
+	console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
@@ -225,6 +227,8 @@ var icodeHandlers = {
     } else {
       assert(0, 'given field ' + _inst.field + ' could not be found!');
     }
+	
+	console.log(_field);
 
     _thread.setRegister(dest, _result);
   },
@@ -276,7 +280,7 @@ var icodeHandlers = {
   "int-cast": function(_inst, _thread) {
     var val = _thread.getRegister(_inst.src);
 	console.log("src reg: " + _inst.src);
-	console.log("raw val : " + hex(val));
+	console.log("raw val : " + val);
 	var dstType = _inst.destType;
 	console.log("icodeExecude: dstType: " + dstType.getType());
 	var dst = _thread.getRegister(_inst.dest);

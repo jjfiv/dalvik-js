@@ -265,7 +265,7 @@ opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = floatFromInt(_dcode.get32());
+  _icode.value = _dcode.get32();
 };
 
 opName[0x15] = "const/high16";
