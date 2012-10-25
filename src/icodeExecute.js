@@ -18,19 +18,30 @@ var icodeHandlers = {
   },
 
   "move-result": function(_inst, _thread) {
+    // make sure this was set by something
+    assert(_thread._result !== null, "Result is empty during move-result");
+    
     _thread.setRegister(_inst.dest, _thread._result);
+    
+    // clear it so our assert works
+    _thread._result = null;
   },
 
   "move-exception": function(_inst, _thread) {
-    NYI(_inst);
+    // make sure this was set by something
+    assert(_thread._exception !== null, "Result is empty during move-result");
+    
+    _thread.setRegister(_inst.dest, _thread._exception);
+    
+    // clear it so our assert works
+    _thread._exception = null;
   },
 
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
-    var result;
+    var result = null;
     if(_inst.src) {
       result = _thread.getRegister(_inst.src);
-      // TODO, also deal with wide
     }
     _thread.popMethod(result);
   },
