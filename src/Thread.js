@@ -37,7 +37,6 @@ Thread.prototype.toString = function(){
 
 Thread.prototype.pushMethod = function(_m, _regs) {
   var _frame = new StackFrame(_m);
-
   // TODO load up regs with arguments; I think we need to do this backwards?
   if (_regs) { _frame.regs = _regs; }
   this._stack.push(_frame);
