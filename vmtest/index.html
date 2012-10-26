@@ -69,6 +69,7 @@
 <script src="../src/icodeExecute.js"></script>
 <script src="../src/Thread.js"></script>
 <script src="../src/ClassLibrary.js"></script>
+<script src="../corelib/worselib.dex.js"></script> <!-- this defines var JavaLibraryDex -->
 <script src="../src/VM.js"></script>
 <script>
 // each .dex.js adds to this map
@@ -85,6 +86,8 @@ var VM = function() {
 };
 VM.prototype = VMproto;
 
+// include stdlib
+gStdLib = (new DEXData(new ArrayFile(JavaLibraryDex))).classes;
 </script>
 
 <!--

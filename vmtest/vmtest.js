@@ -37,6 +37,8 @@ var doTest = function(fileName, mainClass, expectedOutput) {
   try {
     var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
     var myVM = new VM();
+    
+    myVM.defineClasses(gStdLib);
     myVM.defineClasses(classes);
     myVM.start(new Type(mainClass));
 

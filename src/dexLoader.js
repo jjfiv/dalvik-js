@@ -23,7 +23,7 @@ var DEX_LOADER_DEBUG = true; // refresh-time constant
 var dexDebug = function(s) { };
 if(DEX_LOADER_DEBUG) {
   dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
-  //dexDebug = console.log; // for debugging inline with other output
+  //dexDebug = console.log; // for debugging in Firefox only, gives real line numbers
 }
 
 // file format constants
@@ -108,17 +108,17 @@ DEXData.prototype.parse = function() {
   //var _dataSection = new DEXSection(_fp);
 
   this._parseStrings(_stringSection);
-  dexDebug(this.strings);
+  //dexDebug(this.strings);
   this._parseTypes(_typeSection);
-  dexDebug(this.types);
+  //dexDebug(this.types);
   this._parsePrototypes(_prototypeSection);
-  dexDebug(enumerate("prototype", this.prototypes));
+  //dexDebug(enumerate("prototype", this.prototypes));
   this._parseFields(_fieldSection);
-  dexDebug(this.fields);
+  //dexDebug(this.fields);
   this._parseMethods(_methodSection);
-  dexDebug(this.methods);
+  //dexDebug(this.methods);
   this._parseClasses(_classSection);
-  dexDebug(this.classes);
+  //dexDebug(this.classes);
 };
 
 DEXData.prototype._parseStrings = function(_section) {
