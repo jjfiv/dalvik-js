@@ -16,21 +16,24 @@ var Class = function (_name, _accessFlags, _parent, _interfaces, _staticFields, 
 var Instance = function(_type, _fields){
   // type must refer to the class
   this.type = _type;
-  if (_fields){
+  if (_fields) {
     this.fields = _fields;      
   } else {
-    //what to do in the event of instantiation without args? Are there default args we should be filling in?  
+    assert(false, "what to do in the event of instantiation without args? Are there default args we should be filling in?");
   }
 };
 
 Class.prototype.hasMain = function() {
-  var _foo = this.directMethods.map(function(_method){ return _method.hasMain(); });
+  var _foo = this.directMethods.map(function(_method){ return _method.isMain(); });
+  if(_foo.length === 0) {
+    return false;
+  }
   return _foo.reduce(function(a, b){ return a || b; });
 };
 
 Class.prototype.getMain = function(){
   var _main = this.directMethods.filter(function(_method){ return _method.isMain(); });
-  assert(_main.length==1, 'There should only be one main method per class.');
+  assert(_main.length===1, 'There should only be one main method per class.');
   return _main[0];
 };
 
