@@ -80,7 +80,7 @@ var icodeHandlers = {
 
   "new-instance": function(_inst, _thread) {
     // get the class for the corresponding type from classLibrary
-    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+    var _class = _thread._vm.classLibrary.findClass(_inst.type);
     _thread.setRegister(_inst.dest, _class.makeNew());
     console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
   },
@@ -233,11 +233,11 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    NYI(_inst);
+    _thread.setRegister (_inst.value, _inst.field.value);
   },
 
   "instance-put": function(_inst, _thread) {
-    NYI(_inst);
+    _inst.field.value = _thread.getRegister (_inst.value);
   },
 
   // handles getting a static field from a class
