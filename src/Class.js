@@ -37,3 +37,7 @@ Class.prototype.getMain = function(){
 Class.prototype.makeNew = function(){
   return new Instance(this.name.clone(), this.instanceFields.map(function(_f){ return _f.clone();}));
 };
+
+Class.prototype.getTypeString = function(){
+  return this.name.getTypeString();
+};

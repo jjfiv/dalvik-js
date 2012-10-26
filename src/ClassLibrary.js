@@ -7,7 +7,7 @@ var ClassLibrary = function() {
 };
 
 ClassLibrary.prototype.addClass = function(_class){
-  var _className = _class.name.getName();
+  var _className = _class.getTypeString();
   if (this._classes[_className]){
     throw _className+" already inserted";
   } else {
@@ -22,7 +22,7 @@ ClassLibrary.prototype.defineClasses = function(_classes){
 };
 
 ClassLibrary.prototype.findClass = function (_type){
-  return this._classes[_type.getName()]; 
+  return this._classes[_type.getTypeString()]; 
 };
 
 ClassLibrary.prototype.getClasses = function(){

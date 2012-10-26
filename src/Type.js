@@ -32,8 +32,8 @@ Type.prototype.getName = function() {
   return this._name;
 };
 
-Type.prototype.getType = function() {
-  return this._type;
+Type.prototype.getTypeString = function() {
+  return this._typeString;
 };
 
 Type.prototype.getArrayDim = function() {
@@ -43,7 +43,7 @@ Type.prototype.getArrayDim = function() {
 Type.prototype.isEquals = function( other ) {
     // right now just comparing type strings
     // Do we want to just consider _name and _type?
-    return this.toStr() === other.toStr();
+    return this.getTypeString() === other.getTypeString();
 };
 
 Type.prototype.toDots = function () {
@@ -64,12 +64,8 @@ Type.prototype.toDots = function () {
   return str1;
 };
 
-Type.prototype.toStr = function() {
-  return this._typeString;
-};
-
 Type.prototype.clone = function(){
-  return new Type(this.toStr());
+  return new Type(this.getTypeString());
 };
 
 Type.prototype.isArray = function() {
@@ -163,11 +159,11 @@ var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 // unit tests
 (function() {
   var t = new Type("LBird;");
-  //console.log(t.toStr());
+  //console.log(t.toString());
   //console.log(t.getName());
   assert(t.isArray() === false, "Making sure bird is not an array");
   assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
-  assert(t.getType() === "L", "Making sure the type is a complicated class");
+  assert(t._type === "L", "Making sure the type is a complicated class");
   assert(t.getName() === "Bird", "Making sure type name is Bird");
 
   var jStringType = new Type("Ljava/lang/String;");

@@ -255,23 +255,23 @@ var icodeHandlers = {
     // set to "null" initially --- TODO actual null?
     _result.primtype = _field.type;
     _result.value = 0;
-
+	
     console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
-      _thread.setRegister(dest, _result);
     } else {
-      _thread.setRegister (dest, _field.value);
+      assert(0, 'given field ' + _inst.field.toStr() + ' could not be found!');
     }
-
+	
     console.log(_field);
 
+    _thread.setRegister(dest, _result);
   },
 
   "static-put": function(_inst, _thread) {
-    _inst.field.value = _thread.getRegister (_inst.dest);
+    NYI(_inst);
   },
 
   // handles invoking a method on an object or statically
@@ -315,7 +315,9 @@ var icodeHandlers = {
       for (_i=0;_i<(method.numRegisters-argRegs.length);_i++){
         _a[_i]=0;
       }
-      _thread.pushMethod(method, _a.concat(argValues));
+      _a=_a.concat(argValues);
+      assert(_a.length===method.numRegisters, "New method"+method.getName()+"is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
+      _thread.pushMethod(method,_a);
     }
   },
 
@@ -349,30 +351,22 @@ var icodeHandlers = {
     
 	// Not distinguishing between wide and not wide
 	var val = _thread.getRegister(_inst.src);
-	console.log("raw val: " + val);
 	
 	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
 	  val = floatFromInt(val);
-	  console.log("after floatFromInt: " + val);
 	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
 	  val = doubleFromgLong(val);
-	  console.log("after doubleFromLong: " + val);
 	} else {
 	}
 	
 	if (_inst.srcType.isEquals(TYPE_LONG)) {
 	  console.log("long to smth: " + val);
 	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = val.high_;
-		console.log("after valToInt: " + val);
+	    val = val.toInt();
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	    val = val.toNumber();
-		console.log("after valToNumber: " + val);
 	    val = floatFromDouble(val);
-		console.log("after floatFromDouble: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	    val = val.toNumber();
-		console.log("after valToNumber: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
 	  } else {
 	    assert(false, "Unrecognized target type conversion from long"); 
@@ -381,14 +375,11 @@ var icodeHandlers = {
 	  console.log("number to smth: " + val);
 	  if (_inst.destType.isEquals(TYPE_INT)) {
 	    val = parseInt(val.toString());
-		console.log("after parseInt: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	    val = floatFromDouble(val);
-		console.log("after floatFromDouble: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
 	    val = gLong.fromNumber(val);
-		console.log("after gLongFromNumber: " + val);
 	  } else {
 	    assert(false, "Unrecognized target type conversion from int");
 	  }
@@ -397,10 +388,8 @@ var icodeHandlers = {
 	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
 	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	  val = intFromFloat(val);
-	  console.log("after intFromFloat: " + val);
     } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLongFromDouble(val);
-	  console.log("after gLongFromDouble: " + val);
+	  val = gLong.fromDouble(val);
 	} else {
 	  assert(false, "Unidentified target primitive type");
 	}
@@ -554,7 +543,7 @@ var icodeHandlers = {
       assert (false, "Unidentified type for getting a remainder");
     }
   },
-
+    
   "and": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
@@ -678,8 +667,6 @@ var icodeHandlers = {
   }
 };
 
-
 // sanity check of usage
 //assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
-
 
