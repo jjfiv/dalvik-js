@@ -111,9 +111,9 @@ var val4obj4field16 = function(_dcode, _icode, _dex) {
 // _icode.field == field register (16bit)        |
 //------------------------------------------------
   var x = _dcode.get();
-  _icode.value = highNibble(x);
-  _icode.obj = lowNibble(x);
-  _icode.field = _dcode.get16();
+  _icode.value = lowNibble(x);
+  _icode.obj = highNibble(x);
+  _icode.field = _dcode.get16() - 1; //Fields start from 1, indices start from 0
 };
 
 // Dalvik VM opcode names
@@ -375,7 +375,7 @@ opArgs[0x21] = function(_dcode, _icode, _dex) {
 opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
-  _icode.src = _dcode.get();
+  _icode.dest = _dcode.get();
   _icode.type = _dex.types[_dcode.get16()];
 };
 

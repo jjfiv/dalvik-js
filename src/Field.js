@@ -20,11 +20,11 @@ Field.prototype.clone = function() {
 
 
 //
-// toStr method to build a string of the form
+// toString method to build a string of the form
 // Class.fieldName:typeStr
 //
-Field.prototype.toStr = function() {
-  return this.definingClass.toStr() + "." + this.name + ":" + this.type.toStr();
+Field.prototype.toString = function() {
+  return this.definingClass.toString() + "." + this.name + ":" + this.type.toString();
 };
 
 // parses a string into a Field object

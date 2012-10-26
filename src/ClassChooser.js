@@ -26,10 +26,10 @@ ClassChooser.prototype.clear = function() {
   }
 };
 
-ClassChooser.prototype.addClass = function(type) {
+ClassChooser.prototype.addClass = function(_type) {
   var _option = document.createElement('option');
-  _option.text = type.toDots();
-  _option.value = type.toStr();
+  _option.text = _type.toDots();
+  _option.value = _type.getTypeString();
   this._optList().add(_option);
 };
 
