@@ -58,7 +58,7 @@ Class #0            -
 000228: 1214                                   |0000: const/4 v4, #int 1 // #1
 00022a: 2200 0100                              |0001: new-instance v0, LBird; // type@0001
 00022e: 1a01 0b00                              |0003: const-string v1, "Rexy" // string@000b
-000232: 1302 d507                              |0005: const/16 v2, #int 2005 // #7d5
+000232: 1302 db07                              |0005: const/16 v2, #int 2011 // #7db
 000236: 7040 0000 1024                         |0007: invoke-direct {v0, v1, v4, v2}, LBird;.<init>:(Ljava/lang/String;ZI)V // method@0000
 00023c: 2201 0200                              |000a: new-instance v1, LRaven; // type@0002
 000240: 1a02 0200                              |000c: const-string v2, "Black" // string@0002
@@ -111,7 +111,7 @@ Class #0            -
 0002ac:                                        |[0002ac] Bird.isLegal:()Z
 0002bc: 5220 0200                              |0000: iget v0, v2, LBird;._yOB:I // field@0002
 0002c0: 1301 da07                              |0002: const/16 v1, #int 2010 // #7da
-0002c4: 3710 0400                              |0004: if-le v0, v1, 0008 // +0004
+0002c4: 3510 0400                              |0004: if-ge v0, v1, 0008 // +0004
 0002c8: 1210                                   |0006: const/4 v0, #int 1 // #1
 0002ca: 0f00                                   |0007: return v0
 0002cc: 1200                                   |0008: const/4 v0, #int 0 // #0
@@ -154,5 +154,24 @@ Class #1            -
         0x0000 - 0x0004 reg=0 this LRaven; 
 
   Virtual methods   -
+    #0              : (in LRaven;)
+      name          : 'isLegal'
+      type          : '()Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 5 16-bit code units
+0002e8:                                        |[0002e8] Raven.isLegal:()Z
+0002f8: 6f10 0100 0100                         |0000: invoke-super {v1}, LBird;.isLegal:()Z // method@0001
+0002fe: 0a00                                   |0003: move-result v0
+000300: 0f00                                   |0004: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+      locals        : 
+        0x0000 - 0x0005 reg=1 this LRaven; 
+
   source_file_idx   : 10 (Raven.java)
 
