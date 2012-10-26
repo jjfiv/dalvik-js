@@ -55,7 +55,11 @@ Dalvik-JS
 <script src="icodeExecute.js"></script>
 <script src="Thread.js"></script>
 <script src="ClassLibrary.js"></script>
+<script src="../corelib/worselib.dex.js"></script> <!-- this defines var JavaLibraryDex -->
 <script src="VM.js"></script>
-<script>var myVM = new VM();</script>
+<script>
+var myVM = new VM();
+myVM.defineClasses( (new DEXData(new ArrayFile(JavaLibraryDex))).classes );
+</script>
 </html>
 

@@ -1020,7 +1020,7 @@ var arg5method16args = function (_dcode, _icode, _dex) {
   
   // chop to the right number of arguments
   _icode.argumentRegisters = _icode.argumentRegisters.splice(0, argCount);
-  console.log("args:" + _icode.argumentRegisters);
+  //console.log("args:" + _icode.argumentRegisters);
 };
 
 var arg8method16args16 = function (_dcode, _icode, _dex) {
@@ -1031,7 +1031,7 @@ var arg8method16args16 = function (_dcode, _icode, _dex) {
 
   var argCount = _dcode.get();
   var methodIndex = _dcode.get16();
-  var firstReg = _dcode.get16();
+  firstReg = _dcode.get16();
 
   _icode.method = _dex.methods[methodIndex];
 
