@@ -80,7 +80,7 @@ var icodeHandlers = {
 
   "new-instance": function(_inst, _thread) {
     // get the class for the corresponding type from classLibrary
-    var _class = _thread._vm.classLibrary.findClass(_inst._type.getTypeString());
+    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
     _thread.setRegister(_inst.dest, _class.makeNew());
     console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
   },
