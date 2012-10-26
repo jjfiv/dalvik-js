@@ -233,11 +233,13 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    NYI(_inst);
+    var _instance = _thread.getRegister (_inst.obj);
+    _thread.setRegister (_inst.value, _instance.fields[_inst.field].value);
   },
 
   "instance-put": function(_inst, _thread) {
-    NYI(_inst);
+    var _instance = _thread.getRegister (_inst.obj);
+    _instance.fields[_inst.field].value = _thread.getRegister (_inst.value);
   },
 
   // handles getting a static field from a class

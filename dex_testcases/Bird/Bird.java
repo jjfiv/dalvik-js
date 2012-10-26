@@ -12,7 +12,7 @@ public class Bird {
 	}
 	
 	public boolean isLegal(){
-		if (_yOB > 2010) {
+		if (_yOB < 2010) {
 			return true;
 		} else {
 			return false;
@@ -20,7 +20,7 @@ public class Bird {
 	}
 	
 	public static void main(String[] args) {
-		Bird aBird = new Bird("Rexy", true, 2005);
+		Bird aBird = new Bird("Rexy", true, 2011);
 		Raven aRaven = new Raven("Black", true, 2000);
 
 		System.out.println(aBird._name);
