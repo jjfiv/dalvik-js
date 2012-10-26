@@ -313,7 +313,9 @@ var icodeHandlers = {
       for (_i=0;_i<(method.numRegisters-argRegs.length);_i++){
         _a[_i]=0;
       }
-      _thread.pushMethod(method, _a.concat(argValues));
+      _a=_a.concat(argValues);
+      assert(_a.length===method.numRegisters, "New method"+method.getName()+"is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
+      _thread.pushMethod(method,_a);
     }
   },
 
