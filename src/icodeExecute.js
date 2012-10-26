@@ -253,23 +253,23 @@ var icodeHandlers = {
     // set to "null" initially --- TODO actual null?
     _result.primtype = _field.type;
     _result.value = 0;
-	
-	console.log(_field);
+
+    console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
+      _thread.setRegister(dest, _result);
     } else {
-      assert(0, 'given field ' + _inst.field.toStr() + ' could not be found!');
+      _thread.setRegister (dest, _field.value);
     }
-	
-	console.log(_field);
 
-    _thread.setRegister(dest, _result);
+    console.log(_field);
+
   },
 
   "static-put": function(_inst, _thread) {
-    NYI(_inst);
+    _inst.field.value = _thread.getRegister (_inst.dest);
   },
 
   // handles invoking a method on an object or statically

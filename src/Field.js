@@ -11,6 +11,7 @@ var Field = function(_name, _type, _definingClass) {
 
   // these are defined separately from first three pieces of data
   this.accessFlags = 0;
+  this.value = null;
 };
 
 Field.prototype.clone = function() {
