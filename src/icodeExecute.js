@@ -347,22 +347,30 @@ var icodeHandlers = {
     
 	// Not distinguishing between wide and not wide
 	var val = _thread.getRegister(_inst.src);
+	console.log("raw val: " + val);
 	
 	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
 	  val = floatFromInt(val);
+	  console.log("after floatFromInt: " + val);
 	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
 	  val = doubleFromgLong(val);
+	  console.log("after doubleFromLong: " + val);
 	} else {
 	}
 	
 	if (_inst.srcType.isEquals(TYPE_LONG)) {
 	  console.log("long to smth: " + val);
 	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = val.toInt();
+	    val = val.high_;
+		console.log("after valToInt: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = val.toNumber();
+		console.log("after valToNumber: " + val);
 	    val = floatFromDouble(val);
+		console.log("after floatFromDouble: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	    val = val.toNumber();
+		console.log("after valToNumber: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
 	  } else {
 	    assert(false, "Unrecognized target type conversion from long"); 
@@ -371,11 +379,14 @@ var icodeHandlers = {
 	  console.log("number to smth: " + val);
 	  if (_inst.destType.isEquals(TYPE_INT)) {
 	    val = parseInt(val.toString());
+		console.log("after parseInt: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	    val = floatFromDouble(val);
+		console.log("after floatFromDouble: " + val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
 	    val = gLong.fromNumber(val);
+		console.log("after gLongFromNumber: " + val);
 	  } else {
 	    assert(false, "Unrecognized target type conversion from int");
 	  }
@@ -384,8 +395,10 @@ var icodeHandlers = {
 	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
 	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	  val = intFromFloat(val);
+	  console.log("after intFromFloat: " + val);
     } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLong.fromDouble(val);
+	  val = gLongFromDouble(val);
+	  console.log("after gLongFromDouble: " + val);
 	} else {
 	  assert(false, "Unidentified target primitive type");
 	}
