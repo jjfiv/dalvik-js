@@ -60,8 +60,8 @@ var inspect = function(obj) {
     return text;
   }
   
-  if(isFunction(obj.toStr)) {
-    return obj.toStr();
+  if(isFunction(obj.toString)) {
+    return obj.toString();
   }
 
   if(!isObject(obj)) {
