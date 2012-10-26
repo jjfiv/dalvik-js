@@ -22,6 +22,7 @@ public class Bird {
 	public static void main(String[] args) {
 		Bird aBird = new Bird("Rexy", true, 2011);
 		Raven aRaven = new Raven("Black", true, 2000);
+		Egg anEgg = new Egg("Humpty", false, 2012);
 
 		System.out.println(aBird._name);
 		System.out.println(aBird._canFly);
@@ -29,6 +30,9 @@ public class Bird {
 		System.out.println(aRaven._name);
 		System.out.println(aRaven._canFly);
 		System.out.println(aRaven.isLegal());
+		System.out.println(anEgg._name);
+		System.out.println(anEgg._canFly);
+		System.out.println(anEgg.isLegal());
 	}
 
 }
