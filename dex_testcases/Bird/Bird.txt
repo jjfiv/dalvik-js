@@ -1,0 +1,119 @@
+Processing 'Bird.dex'...
+Opened 'Bird.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LBird;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LBird;)
+      name          : '_canFly'
+      type          : 'Ljava/lang/Boolean;'
+      access        : 0x0001 (PUBLIC)
+    #1              : (in LBird;)
+      name          : '_name'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in LBird;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;Ljava/lang/Boolean;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 1
+      insns size    : 8 16-bit code units
+0001e0:                                        |[0001e0] Bird.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V
+0001f0: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+0001f6: 5b01 0100                              |0003: iput-object v1, v0, LBird;._name:Ljava/lang/String; // field@0001
+0001fa: 5b02 0000                              |0005: iput-object v2, v0, LBird;._canFly:Ljava/lang/Boolean; // field@0000
+0001fe: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=7
+        0x0003 line=8
+        0x0005 line=9
+        0x0007 line=10
+      locals        : 
+        0x0000 - 0x0008 reg=0 this LBird; 
+
+    #1              : (in LBird;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 52 16-bit code units
+000200:                                        |[000200] Bird.main:([Ljava/lang/String;)V
+000210: 1213                                   |0000: const/4 v3, #int 1 // #1
+000212: 2200 0000                              |0001: new-instance v0, LBird; // type@0000
+000216: 1a01 0c00                              |0003: const-string v1, "Rexy" // string@000c
+00021a: 7110 0500 0300                         |0005: invoke-static {v3}, Ljava/lang/Boolean;.valueOf:(Z)Ljava/lang/Boolean; // method@0005
+000220: 0c02                                   |0008: move-result-object v2
+000222: 7030 0000 1002                         |0009: invoke-direct {v0, v1, v2}, LBird;.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V // method@0000
+000228: 2201 0100                              |000c: new-instance v1, LRaven; // type@0001
+00022c: 1a02 0200                              |000e: const-string v2, "Black" // string@0002
+000230: 7110 0500 0300                         |0010: invoke-static {v3}, Ljava/lang/Boolean;.valueOf:(Z)Ljava/lang/Boolean; // method@0005
+000236: 0c03                                   |0013: move-result-object v3
+000238: 7030 0200 2103                         |0014: invoke-direct {v1, v2, v3}, LRaven;.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V // method@0002
+00023e: 6202 0400                              |0017: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+000242: 5403 0100                              |0019: iget-object v3, v0, LBird;._name:Ljava/lang/String; // field@0001
+000246: 6e20 0400 3200                         |001b: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0004
+00024c: 6202 0400                              |001e: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+000250: 5400 0000                              |0020: iget-object v0, v0, LBird;._canFly:Ljava/lang/Boolean; // field@0000
+000254: 6e20 0300 0200                         |0022: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0003
+00025a: 6200 0400                              |0025: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+00025e: 5412 0300                              |0027: iget-object v2, v1, LRaven;._name:Ljava/lang/String; // field@0003
+000262: 6e20 0400 2000                         |0029: invoke-virtual {v0, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0004
+000268: 6200 0400                              |002c: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+00026c: 5411 0200                              |002e: iget-object v1, v1, LRaven;._canFly:Ljava/lang/Boolean; // field@0002
+000270: 6e20 0300 1000                         |0030: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0003
+000276: 0e00                                   |0033: return-void
+      catches       : (none)
+      positions     : 
+        0x0001 line=13
+        0x000c line=14
+        0x0017 line=16
+        0x001e line=17
+        0x0025 line=18
+        0x002c line=19
+        0x0033 line=20
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Bird.java)
+
+Class #1            -
+  Class descriptor  : 'LRaven;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'LBird;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LRaven;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;Ljava/lang/Boolean;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 3
+      insns size    : 4 16-bit code units
+000278:                                        |[000278] Raven.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V
+000288: 7030 0000 1002                         |0000: invoke-direct {v0, v1, v2}, LBird;.<init>:(Ljava/lang/String;Ljava/lang/Boolean;)V // method@0000
+00028e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+        0x0003 line=6
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LRaven; 
+
+  Virtual methods   -
+  source_file_idx   : 11 (Raven.java)
+

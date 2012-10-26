@@ -254,7 +254,7 @@ var icodeHandlers = {
     _result.primtype = _field.type;
     _result.value = 0;
 	
-	console.log(_field);
+    console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
@@ -263,7 +263,7 @@ var icodeHandlers = {
       assert(0, 'given field ' + _inst.field.toStr() + ' could not be found!');
     }
 	
-	console.log(_field);
+    console.log(_field);
 
     _thread.setRegister(dest, _result);
   },
@@ -541,7 +541,7 @@ var icodeHandlers = {
       assert (false, "Unidentified type for getting a remainder");
     }
   },
-
+    
   "and": function(_inst, _thread) {
     var numA = _thread.getRegister(_inst.srcA);
     var numB = _thread.getRegister(_inst.srcB);
@@ -665,8 +665,6 @@ var icodeHandlers = {
   }
 };
 
-
 // sanity check of usage
 //assert(!isUndefined(icodeHandlers['static-get']), "static-get is defined test");
-
 
