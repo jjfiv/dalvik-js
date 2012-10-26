@@ -22,7 +22,7 @@ ClassLibrary.prototype.defineClasses = function(_classes){
 };
 
 ClassLibrary.prototype.findClass = function (_type){
-  return this._classes[_type.getType()]; 
+  return this._classes[_type.getTypeString()]; 
 };
 
 ClassLibrary.prototype.getClasses = function(){
