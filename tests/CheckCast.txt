@@ -1,0 +1,109 @@
+Processing 'CheckCast.dex'...
+Opened 'CheckCast.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LCheckCast;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LCheckCast;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001e4:                                        |[0001e4] CheckCast.<init>:()V
+0001f4: 7010 0800 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0008
+0001fa: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+        0x0003 line=9
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LCheckCast; 
+
+    #1              : (in LCheckCast;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 6
+      ins           : 1
+      outs          : 3
+      insns size    : 74 16-bit code units
+0001fc:                                        |[0001fc] CheckCast.main:([Ljava/lang/String;)V
+00020c: 2202 0300                              |0000: new-instance v2, LCheckCast; // type@0003
+000210: 7010 0400 0200                         |0002: invoke-direct {v2}, LCheckCast;.<init>:()V // method@0004
+000216: 2203 0100                              |0005: new-instance v3, LCheckCast$A; // type@0001
+00021a: 6e10 0900 0200                         |0007: invoke-virtual {v2}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@0009
+000220: 1200                                   |000a: const/4 v0, #int 0 // #0
+000222: 7030 0000 2300                         |000b: invoke-direct {v3, v2, v0}, LCheckCast$A;.<init>:(LCheckCast;LCheckCast$1;)V // method@0000
+000228: 2201 0200                              |000e: new-instance v1, LCheckCast$B; // type@0002
+00022c: 6e10 0900 0200                         |0010: invoke-virtual {v2}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@0009
+000232: 7020 0200 2100                         |0013: invoke-direct {v1, v2}, LCheckCast$B;.<init>:(LCheckCast;)V // method@0002
+000238: 0710                                   |0016: move-object v0, v1
+00023a: 1f00 0200                              |0017: check-cast v0, LCheckCast$B; // type@0002
+00023e: 6204 0000                              |0019: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000242: 6e10 0100 0300                         |001b: invoke-virtual {v3}, LCheckCast$A;.me:()Ljava/lang/String; // method@0001
+000248: 0c03                                   |001e: move-result-object v3
+00024a: 6e20 0700 3400                         |001f: invoke-virtual {v4, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+000250: 6203 0000                              |0022: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000254: 6e10 0100 0100                         |0024: invoke-virtual {v1}, LCheckCast$A;.me:()Ljava/lang/String; // method@0001
+00025a: 0c04                                   |0027: move-result-object v4
+00025c: 6e20 0700 4300                         |0028: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+000262: 6203 0000                              |002b: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000266: 6e10 0300 0000                         |002d: invoke-virtual {v0}, LCheckCast$B;.me:()Ljava/lang/String; // method@0003
+00026c: 0c00                                   |0030: move-result-object v0
+00026e: 6e20 0700 0300                         |0031: invoke-virtual {v3, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+000274: 6203 0000                              |0034: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000278: 0710                                   |0036: move-object v0, v1
+00027a: 1f00 0200                              |0037: check-cast v0, LCheckCast$B; // type@0002
+00027e: 6e20 0600 0200                         |0039: invoke-virtual {v2, v0}, LCheckCast;.testCast:(LCheckCast$B;)Ljava/lang/String; // method@0006
+000284: 0c00                                   |003c: move-result-object v0
+000286: 6e20 0700 0300                         |003d: invoke-virtual {v3, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+00028c: 6200 0000                              |0040: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000290: 6e10 0100 0100                         |0042: invoke-virtual {v1}, LCheckCast$A;.me:()Ljava/lang/String; // method@0001
+000296: 0c01                                   |0045: move-result-object v1
+000298: 6e20 0700 1000                         |0046: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0007
+00029e: 0e00                                   |0049: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+        0x0005 line=21
+        0x000e line=22
+        0x0017 line=23
+        0x0019 line=24
+        0x0022 line=25
+        0x002b line=26
+        0x0034 line=27
+        0x0040 line=28
+        0x0049 line=29
+      locals        : 
+
+  Virtual methods   -
+    #0              : (in LCheckCast;)
+      name          : 'testCast'
+      type          : '(LCheckCast$B;)Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 1
+      insns size    : 5 16-bit code units
+0002a0:                                        |[0002a0] CheckCast.testCast:(LCheckCast$B;)Ljava/lang/String;
+0002b0: 6e10 0300 0200                         |0000: invoke-virtual {v2}, LCheckCast$B;.me:()Ljava/lang/String; // method@0003
+0002b6: 0c00                                   |0003: move-result-object v0
+0002b8: 1100                                   |0004: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=16
+      locals        : 
+        0x0000 - 0x0005 reg=1 this LCheckCast; 
+
+  source_file_idx   : 1 (CheckCast.java)
+
