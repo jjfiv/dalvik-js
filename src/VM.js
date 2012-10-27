@@ -14,7 +14,9 @@ var VM = function() {
                         for (_k in _classes){
                           // just magic to make for in work forever
                           if(_classes.hasOwnProperty(_k)) {
-                            this._classChooser.addClass(_classes[_k].name);
+                            if(_classes[_k].hasMain()) {
+                              this._classChooser.addClass(_classes[_k].name);
+                            }
                           }
                         }
                       }, _self);

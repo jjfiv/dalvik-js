@@ -60,7 +60,7 @@ var inspect = function(obj) {
     return text;
   }
   
-  if(isFunction(obj.toString)) {
+  if(isFunction(obj.toString) && obj.toString !== Object.prototype.toString) {
     return obj.toString();
   }
 

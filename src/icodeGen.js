@@ -113,7 +113,7 @@ var val4obj4field16 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
   _icode.value = lowNibble(x);
   _icode.obj = highNibble(x);
-  _icode.field = _dcode.get16() - 1; //Fields start from 1, indices start from 0
+  _icode.field = _dex.fields[_dcode.get16()];
 };
 
 // Dalvik VM opcode names
