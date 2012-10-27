@@ -7,6 +7,24 @@ var NYI = function(_inst) {
   throw "Not Implemented";
 };
 
+var findSuperMethod = function(_method, _class, _classLib) {
+
+  while (!(TYPE_OBJECT.isEquals(_class.getTypeString())) {
+    var _cIndex = _classLib.indexOf(_class);
+	//var _mName = 
+	var _mIndex = _classLib[_cIndex].directMethods[directMethod.indexOf(_method)];
+	if (_mIndex > -1 ) {
+	  return _mIndex;
+	} else {
+	  //findSuperMethod()
+	}
+  }
+//var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+ //   _thread.setRegister(_inst.dest, _class.makeNew());
+  //  console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+
+}
+
 var icodeHandlers = {
   "nop": function(_inst, _thread) {
     // does nothing
@@ -307,6 +325,11 @@ var icodeHandlers = {
     if (_hack){
       _hack();
     } else {
+	  if (_inst.kind === "super") {
+	    //var _class = = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+	    //method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+		console.log("invoke-super is WIP");
+	  }
       assert(argRegs.length<=method.numRegisters, 
              'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
       (_a=[]).length=(method.numRegisters-argRegs.length);
