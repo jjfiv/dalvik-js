@@ -64,24 +64,6 @@ Type.prototype.toDots = function () {
   return str1;
 };
 
-Type.prototype.isInnerClass = function(_outerClass){
-  // if _outerClass is supplied, return truthy indicator of whether this type 
-  // is an inner class of the supplied class. If _outerClass undefined, just return 
-  // whether this is an inner class
-  // TO DO: HANDLE UNCLEAN TYPE/CLASS DISTINCTIONS
-  // this really ought to be in Class.js, but since we need to construct inner Classes
-  // from their types and outer classes, it's stuck in here for now.
-  var _ts, _regex, _result;
-  if (_outerClass){
-    _ts = _outerClass.getTypeString();
-    _regex = new RegExp(_ts.substring(0, _ts.length-1)+".*\$");
-  } else {
-    _r = new RegExp(".*\$.*");
-  }
-  _result = _r.exec(this.getTypeString());
-  return _result;
-};
-
 Type.prototype.clone = function(){
   return new Type(this.getTypeString());
 };
