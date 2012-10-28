@@ -77,12 +77,16 @@ var icodeHandlers = {
   },
 
   "check-cast": function(_inst, _thread) {
-    NYI(_inst);
+    var _typeA = _thread.getRegister(_inst.src).type;
+    var _typeB = _inst.type;
+    if (!_typeA.isEquals(_typeB)){
+      throw "ClassCastException";
+    }      
   },
 
   "instance-of": function(_inst, _thread) {
     var _type = _inst.type;
-    var _obj = _thread.getRegister(_icode.src);
+    var _obj = _thread.getRegister(_inst.src);
     var _isInst = false;
 
     if (!_type.isPrimitive()) {
