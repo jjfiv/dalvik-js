@@ -2,15 +2,18 @@
 // This is the core of the VM
 // dependencies: Upload.js, Thread.js, ClassLibrary.js
 
+var __currentVM__;
 var VM = function() {
   var _self = this;
   this._threads = [];
-  this.classLibrary = new ClassLibrary();
+  this.classLibrary = new ClassLibrary(); // single ClassLibrary, accessible to all
   this._source = (function(){
     return new Upload(function(_fileName, _fileData){
                         var _dex = new DEXData(new ArrayFile(_fileData));
                         var _k, _classes = _self.classLibrary._classes;
                         _self.defineClasses(_dex.classes);
+                        _self.clear();
+                        this._classChooser.clear();
                         for (_k in _classes){
                           // just magic to make for in work forever
                           if(_classes.hasOwnProperty(_k)) {
@@ -20,7 +23,9 @@ var VM = function() {
                           }
                         }
                       }, _self);
-  }());
+                          
+                  }());
+  __currentVM__=_self;
 };
 
 VM.prototype.defineClasses = function(_data){
@@ -66,4 +71,8 @@ VM.prototype.getThreadState = function() {
 
 VM.prototype.hasThreads = function() {
   return this._threads.length !== 0;
+};
+
+VM.prototype.clear = function(){
+  this._threads = [];
 };

@@ -277,8 +277,6 @@ var icodeHandlers = {
     var kind = _inst.kind;
     var method = _inst.method;
     var argRegs = _inst.argumentRegisters;
-    var _i,_j,_a;
-
     // convert given argument registers into the values of their registers
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
 
@@ -301,20 +299,25 @@ var icodeHandlers = {
         };
       } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
         return function(){};
+      } else if (_mname==="getClass" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
+        return function() {_thread.result=argValues[0].getClass();};
       }
     };
     var _hack = _hacks(method.getName(), method.definingClass);
+    var _i, _a=[], _numRegisters = method.numRegisters+((kind==='virtual') ? 1 : 0);
+
+    // actual execution begins here
+
     if (_hack){
       _hack();
     } else {
-      assert(argRegs.length<=method.numRegisters, 
-             'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
-      (_a=[]).length=(method.numRegisters-argRegs.length);
-      for (_i=0;_i<(method.numRegisters-argRegs.length);_i++){
+      assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
+      // front pad arguments to comply with register alignment stuff
+      for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
         _a[_i]=0;
       }
       _a=_a.concat(argValues);
-      assert(_a.length===method.numRegisters, "New method"+method.getName()+"is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
+      assert(_a.length===_numRegisters, "New method "+method.getName()+" is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
       _thread.pushMethod(method,_a);
     }
   },
