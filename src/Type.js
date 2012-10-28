@@ -82,19 +82,6 @@ Type.prototype.isInnerClass = function(_outerClass){
   return _result;
 };
 
-
-Type.prototype.makeClass = function(_classLibrary){
-  // converts this type into a Class objectType using its outer class, which must be
-  // accessed using the class library
-  // only meant to be used on inner classes
-  // this is currently being used by 
-  var _enclosingClassType, _enclosingClass, _ts;
-  _ts = this.getTypeString();
-  assert(_ts.indexOf("$")>-1, _ts+ " is not an inner class.");
-  _enclosingClassType = _ts.substring(0, _ts.indexOf("$"));
-  
-};
-
 Type.prototype.clone = function(){
   return new Type(this.getTypeString());
 };
