@@ -7,6 +7,30 @@ var NYI = function(_inst) {
   throw "Not Implemented";
 };
 
+var findSuperMethod = function(_method, _class, _classLib) {
+
+  while (!(TYPE_OBJECT.isEquals(_class.getTypeString()))) {
+    var _cIndex = _classLib.indexOf(_class);
+	var _mName = _method.getName();
+	var _mIndex = -1; 
+	var _i;
+	for (_i = 0; i < _classLib[_cIndex].directMethods.length; _i++) {
+	  if (_classLib[_cIndex].directMethods[_i].getName() === _mName) {
+	    _mIndex = _i;
+	  }
+	}
+	if (_mIndex > -1 ) {
+	  return _classLib[_cIndex].directMethods[_mIndex];
+	} else {
+	  findSuperMethod(_method, _class.parent, _classLib);
+	}
+  }
+//var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+ //   _thread.setRegister(_inst.dest, _class.makeNew());
+  //  console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+
+}
+
 var icodeHandlers = {
   "nop": function(_inst, _thread) {
     // does nothing
@@ -243,6 +267,7 @@ var icodeHandlers = {
   // handles getting a static field from a class
   "static-get": function(_inst, _thread) {
     var dest = _inst.dest;
+	//var dest = _thread.getRegister (_inst.dest);
 
     var _field = _inst.field;
     
@@ -260,7 +285,7 @@ var icodeHandlers = {
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
     } else {
-      assert(0, 'given field ' + _inst.field.toStr() + ' could not be found!');
+      assert(0, 'given field ' + _inst.field.toString() + ' could not be found!');
     }
 	
     console.log(_field);
@@ -314,6 +339,11 @@ var icodeHandlers = {
       assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
       // front pad arguments to comply with register alignment stuff
       for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
+	  if (_inst.kind === "super") {
+	    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+		console.log("invoke-super is WIP");
+	  }
         _a[_i]=0;
       }
       _a=_a.concat(argValues);
