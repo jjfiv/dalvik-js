@@ -9,14 +9,20 @@ var NYI = function(_inst) {
 
 var findSuperMethod = function(_method, _class, _classLib) {
 
-  while (!(TYPE_OBJECT.isEquals(_class.getTypeString())) {
+  while (!(TYPE_OBJECT.isEquals(_class.getTypeString()))) {
     var _cIndex = _classLib.indexOf(_class);
-	//var _mName = 
-	var _mIndex = _classLib[_cIndex].directMethods[directMethod.indexOf(_method)];
+	var _mName = _method.getName();
+	var _mIndex = -1; 
+	var _i;
+	for (_i = 0; i < _classLib[_cIndex].directMethods.length; _i++) {
+	  if (_classLib[_cIndex].directMethods[_i].getName() === _mName) {
+	    _mIndex = _i;
+	  }
+	}
 	if (_mIndex > -1 ) {
-	  return _mIndex;
+	  return _classLib[_cIndex].directMethods[_mIndex];
 	} else {
-	  //findSuperMethod()
+	  findSuperMethod(_method, _class.parent, _classLib);
 	}
   }
 //var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
@@ -261,6 +267,7 @@ var icodeHandlers = {
   // handles getting a static field from a class
   "static-get": function(_inst, _thread) {
     var dest = _inst.dest;
+	//var dest = _thread.getRegister (_inst.dest);
 
     var _field = _inst.field;
     
@@ -326,8 +333,8 @@ var icodeHandlers = {
       _hack();
     } else {
 	  if (_inst.kind === "super") {
-	    //var _class = = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
-	    //method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+	    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
 		console.log("invoke-super is WIP");
 	  }
       assert(argRegs.length<=method.numRegisters, 
