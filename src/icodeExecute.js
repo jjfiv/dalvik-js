@@ -285,7 +285,7 @@ var icodeHandlers = {
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
     } else {
-      assert(0, 'given field ' + _inst.field.toStr() + ' could not be found!');
+      assert(0, 'given field ' + _inst.field.toString() + ' could not be found!');
     }
 	
     console.log(_field);
