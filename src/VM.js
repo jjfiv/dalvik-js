@@ -2,7 +2,6 @@
 // This is the core of the VM
 // dependencies: Upload.js, Thread.js, ClassLibrary.js
 
-var __currentVM__;
 var VM = function() {
   var _self = this;
   this._threads = [];
@@ -25,7 +24,6 @@ var VM = function() {
                       }, _self);
                           
                   }());
-  __currentVM__=_self;
 };
 
 VM.prototype.defineClasses = function(_data){

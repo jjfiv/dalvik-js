@@ -23,9 +23,8 @@ var Instance = function(_type, _fields){
   }
 };
 
-Instance.prototype.getClass = function (){
-  var _cl = __currentVM__.classLibrary;
-  return _cl.findClass(this.type);
+Instance.prototype.getClass = function (_classLibrary){
+  return _classLibrary.findClass(this.type);
 };
 
 Class.prototype.hasMain = function() {

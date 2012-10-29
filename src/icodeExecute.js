@@ -325,7 +325,7 @@ var icodeHandlers = {
       } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
         return function(){};
       } else if (_mname==="getClass" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
-        return function() {_thread.result=argValues[0].getClass();};
+        return function() {_thread.result=argValues[0].getClass(_thread._vm.classLibrary);};
       }
     };
     var _hack = _hacks(method.getName(), method.definingClass);
