@@ -8,27 +8,32 @@ var NYI = function(_inst) {
 };
 
 var findSuperMethod = function(_method, _class, _classLib) {
+  console.log(_class);
+  console.log(_method);
+  var _j;
 
-  while (!(TYPE_OBJECT.isEquals(_class.getTypeString()))) {
-    var _cIndex = _classLib.indexOf(_class);
-	var _mName = _method.getName();
+  for (_j = 0; _j < 5; _j++) {
+  //while (!(TYPE_OBJECT.isEquals(_class.name))) {
+    var _i;
+	
 	var _mIndex = -1; 
-	var _i;
-	for (_i = 0; i < _classLib[_cIndex].directMethods.length; _i++) {
-	  if (_classLib[_cIndex].directMethods[_i].getName() === _mName) {
+	var _cName = _class.getTypeString()
+	//var _mName = _method.getName();
+	var _mName = _method.name;
+	
+	//for (_i = 0; _i < _classLib[_cName].directMethods.length; _i++) {
+	for (_i = 0; _i < _class.directMethods.length; _i++) {
+	  //if (_classLib[_cName].directMethods[_i].getName() === _mName) {
+	  if (_class.directMethods[_i].name === _mName) {
 	    _mIndex = _i;
 	  }
 	}
 	if (_mIndex > -1 ) {
-	  return _classLib[_cIndex].directMethods[_mIndex];
+	  return _class.directMethods[_mIndex];
 	} else {
 	  findSuperMethod(_method, _class.parent, _classLib);
 	}
   }
-//var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
- //   _thread.setRegister(_inst.dest, _class.makeNew());
-  //  console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
-
 }
 
 var icodeHandlers = {
