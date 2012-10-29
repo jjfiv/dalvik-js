@@ -9,7 +9,7 @@ var ClassLibrary = function() {
 ClassLibrary.prototype.addClass = function(_class){
   var _className = _class.getTypeString();
   if (this._classes[_className]){
-    throw _className+" already inserted";
+    console.log("WARNING: "+_className+" already inserted into ClassLibrary.");
   } else {
     this._classes[_className] = _class;
     return true;
@@ -22,7 +22,9 @@ ClassLibrary.prototype.defineClasses = function(_classes){
 };
 
 ClassLibrary.prototype.findClass = function (_type){
-  return this._classes[_type.getTypeString()]; 
+  var _class = this._classes[_type.getTypeString()]; 
+  assert(!(isUndefined(_class)), _type.getTypeString()+" not in ClassLibrary.");
+  return _class;
 };
 
 ClassLibrary.prototype.getClasses = function(){

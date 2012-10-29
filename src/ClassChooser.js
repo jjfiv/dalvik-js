@@ -22,7 +22,7 @@ ClassChooser.prototype.selectedIndex = function() {
 ClassChooser.prototype.clear = function() {
   // remove the first item until the list is empty
   while(this._optList().length > 0) {
-    this._optList.remove(0);
+    this._optList().remove(0);
   }
 };
 

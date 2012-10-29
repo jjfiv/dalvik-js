@@ -51,11 +51,7 @@ var icodeHandlers = {
 
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
-    var result = null;
-    if(_inst.src) {
-      result = _thread.getRegister(_inst.src);
-    }
-    _thread.popMethod(result);
+    _thread.popMethod(_thread.getRegister(_inst.value));
   },
 
   // handles loading a constant into a register
@@ -77,24 +73,18 @@ var icodeHandlers = {
   },
 
   "check-cast": function(_inst, _thread) {
-    NYI(_inst);
+    var _typeA = _thread.getRegister(_inst.src).type;
+    var _typeB = _inst.type;
+    if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)){
+      throw "ClassCastException";
+    }      
   },
 
   "instance-of": function(_inst, _thread) {
     var _type = _inst.type;
-    var _obj = _thread.getRegister(_icode.src);
-    var _isInst = false;
-
-    if (!_type.isPrimitive()) {
-      if (_obj.isEquals(_type)) {
-        _isInst	= true;
-      }
-    } else {
-      assert(false, "Unknown type to compare to");
-    }
-
-    _thread.setRegister(_inst.dest, _isInst);
-    //NYI(_inst);
+    var _obj = _thread.getRegister(_inst.src).type;
+    assert(_thread._vm.classLibrary.findClass(_obj), "Class "+_obj.getTypeString()+" not found.");
+    _thread.setRegister(_inst.dest, (!_type.isPrimitive() && (_obj.isEquals(_type))));
   },
 
   "array-length": function(_inst, _thread) {
@@ -302,8 +292,6 @@ var icodeHandlers = {
     var kind = _inst.kind;
     var method = _inst.method;
     var argRegs = _inst.argumentRegisters;
-    var _i,_j,_a;
-
     // convert given argument registers into the values of their registers
     var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
 
@@ -326,25 +314,30 @@ var icodeHandlers = {
         };
       } else if (_mname==="toString" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
         return function(){};
+      } else if (_mname==="getClass" && _ts.isEquals(new Type("Ljava/lang/Object;"))){
+        return function() {_thread.result=argValues[0].getClass(_thread._vm.classLibrary);};
       }
     };
     var _hack = _hacks(method.getName(), method.definingClass);
+    var _i, _a=[], _numRegisters = method.numRegisters+((kind==='virtual') ? 1 : 0);
+
+    // actual execution begins here
+
     if (_hack){
       _hack();
     } else {
+      assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
+      // front pad arguments to comply with register alignment stuff
+      for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
 	  if (_inst.kind === "super") {
 	    var _class = _thread._vm.classLibrary.findClass(method.definingClass);
 	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
 		console.log("invoke-super is WIP");
 	  }
-      assert(argRegs.length<=method.numRegisters, 
-             'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
-      (_a=[]).length=(method.numRegisters-argRegs.length);
-      for (_i=0;_i<(method.numRegisters-argRegs.length);_i++){
         _a[_i]=0;
       }
       _a=_a.concat(argValues);
-      assert(_a.length===method.numRegisters, "New method"+method.getName()+"is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
+      assert(_a.length===_numRegisters, "New method "+method.getName()+" is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
       _thread.pushMethod(method,_a);
     }
   },

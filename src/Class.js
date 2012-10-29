@@ -1,5 +1,5 @@
 // Class.js
-// dependencies:
+// dependencies: ClassLibrary
 var Class = function (_name, _accessFlags, _parent, _interfaces, _staticFields, _instanceFields, _directMethods, _virtualMethods) {		
   this.name = _name;
   this.accessFlag = _accessFlags;
@@ -21,6 +21,10 @@ var Instance = function(_type, _fields){
   } else {
     assert(false, "what to do in the event of instantiation without args? Are there default args we should be filling in?");
   }
+};
+
+Instance.prototype.getClass = function (_classLibrary){
+  return _classLibrary.findClass(this.type);
 };
 
 Class.prototype.hasMain = function() {
