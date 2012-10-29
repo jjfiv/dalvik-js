@@ -9,7 +9,7 @@ var VM = function() {
   this._source = (function(){
     return new Upload(function(_fileName, _fileData){
                         var _dex = new DEXData(new ArrayFile(_fileData));
-                        var _k, _classes = _self.classLibrary._classes;
+                        var _k, _classes = _self.classLibrary.classes;
                         _self.defineClasses(_dex.classes);
                         _self.clear();
                         this._classChooser.clear();
@@ -17,7 +17,7 @@ var VM = function() {
                           // just magic to make for in work forever
                           if(_classes.hasOwnProperty(_k)) {
                             if(_classes[_k].hasMain()) {
-                              this._classChooser.addClass(_classes[_k].name);
+                              this._classChooser.addClass(_classes[_k].type);
                             }
                           }
                         }
@@ -28,7 +28,7 @@ var VM = function() {
 
 VM.prototype.defineClasses = function(_data){
   this.classLibrary.defineClasses(_data);
-  if (DEBUG){ console.log(this.classLibrary._classes.toString()); }
+  if (DEBUG){ console.log(this.classLibrary.classes.toString()); }
 };
 
 VM.prototype.createThread = function( _directMethod ) {

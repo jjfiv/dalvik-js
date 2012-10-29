@@ -26,7 +26,7 @@ Method.prototype.isMain = function() {
 };
 
 Method.prototype.getName = function() {
-  return this.signature.getName();
+  return this.signature.name;
 };
 
 Method.prototype.getReturnType = function() {

@@ -1,8 +1,8 @@
 // Class.js
 // dependencies: ClassLibrary
-var Class = function (_name, _accessFlags, _parent, _interfaces, _staticFields, _instanceFields, _directMethods, _virtualMethods) {		
-  this.name = _name;
-  this.accessFlag = _accessFlags;
+var Class = function (_type, _accessFlags, _parent, _interfaces, _staticFields, _instanceFields, _directMethods, _virtualMethods) {		
+  this.type = _type;
+  this.accessFlags = _accessFlags;
   this.parent = _parent;		
   this.interfaces = _interfaces || [];
 
@@ -42,9 +42,9 @@ Class.prototype.getMain = function(){
 };
 
 Class.prototype.makeNew = function(){
-  return new Instance(this.name.clone(), this.instanceFields.map(function(_f){ return _f.clone();}));
+  return new Instance(this.type.clone(), this.instanceFields.map(function(_f){ return _f.clone();}));
 };
 
 Class.prototype.getTypeString = function(){
-  return this.name.getTypeString();
+  return this.type.getTypeString();
 };
