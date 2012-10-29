@@ -82,19 +82,9 @@ var icodeHandlers = {
 
   "instance-of": function(_inst, _thread) {
     var _type = _inst.type;
-    var _obj = _thread.getRegister(_inst.src);
-    var _isInst = false;
-
-    if (!_type.isPrimitive()) {
-      if (_obj.isEquals(_type)) {
-        _isInst	= true;
-      }
-    } else {
-      assert(false, "Unknown type to compare to");
-    }
-
-    _thread.setRegister(_inst.dest, _isInst);
-    //NYI(_inst);
+    var _obj = _thread.getRegister(_inst.src).type;
+    assert(_thread._vm.classLibrary.findClass(_obj), "Class "+_obj.getTypeString()+" not found.");
+    _thread.setRegister(_inst.dest, (!_type.isPrimitive() && (_obj.isEquals(_type))));
   },
 
   "array-length": function(_inst, _thread) {
