@@ -81,10 +81,11 @@ var icodeHandlers = {
   },
 
   "instance-of": function(_inst, _thread) {
+    var _realSrc = _inst.dest, _realDest = _inst.src; //handling swap issue
     var _type = _inst.type;
-    var _obj = _thread.getRegister(_inst.src).type;
+    var _obj = _thread.getRegister(_realSrc).type;
     assert(_thread._vm.classLibrary.findClass(_obj), "Class "+_obj.getTypeString()+" not found.");
-    _thread.setRegister(_inst.dest, (!_type.isPrimitive() && (_obj.isEquals(_type))));
+    _thread.setRegister(_realDest, (!_type.isPrimitive() && (_obj.isEquals(_type))));
   },
 
   "array-length": function(_inst, _thread) {
@@ -142,14 +143,14 @@ var icodeHandlers = {
 
   "switch": function(_inst, _thread) {
     var _val = _thread.getRegister(_inst.src);    
-    var _i, _retval;
+    var _i, _addressJumpTo;
     for(_i=0; _i<_inst.cases.length; _i++) {
       if(_val === _inst.cases[_i]) {
-        _retval = _inst.addresses[_i];
+        _addressJumpTo = _inst.addresses[_i];
         break;
       }
     }
-    return _retval;
+    return _addressJumpTo;
   },
 
   "cmp": function(_inst, _thread) {
