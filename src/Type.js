@@ -2,29 +2,29 @@
 // This file contains a definitoin of a Type object
 // Dependencies: gLong.js
 
-var Type = function (typeString) {
+var Type = function (_typeString) {
   var dimNum, num;
   // Copying the full type name to a type member
-  this._typeString = typeString;
+  this._typeString = _typeString;
   
   // Counting number of array dimensions
-  this._arrayDim = typeString.lastIndexOf("[") + 1;
+  this._arrayDim = _typeString.lastIndexOf("[") + 1;
   dimNum = this._arrayDim; // Useful for later calcs
   
   // Getting the objectType of the Type, always first letter after last [
-  this._type = typeString.substr(dimNum, 1);
+  this._type = _typeString.substr(dimNum, 1);
   this._wide = false;
   if (this._type === "D" || this._type === "J") {
     this._type = true;
   }
   
   // Extracting pure type name
-  num = typeString.lastIndexOf("/");
+  num = _typeString.lastIndexOf("/");
   // length - num - 2 cause we have a ";" at the end and 0-based array
   if (num > -1) {
-    this._name = typeString.substr(num + 1, typeString.length - num - 2);
+    this._name = _typeString.substr(num + 1, _typeString.length - num - 2);
   } else {    
-    this._name = typeString.substr(dimNum + 1, typeString.length - dimNum - 2);
+    this._name = _typeString.substr(dimNum + 1, _typeString.length - dimNum - 2);
   }
 };
 
