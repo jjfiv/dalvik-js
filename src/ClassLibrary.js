@@ -22,7 +22,9 @@ ClassLibrary.prototype.defineClasses = function(_classes){
 };
 
 ClassLibrary.prototype.findClass = function (_type){
-  return this._classes[_type.getTypeString()]; 
+  var _class = this._classes[_type.getTypeString()]; 
+  assert(!(isUndefined(_class)), _type.getTypeString()+" not in ClassLibrary.");
+  return _class;
 };
 
 ClassLibrary.prototype.getClasses = function(){
