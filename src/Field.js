@@ -24,7 +24,6 @@ Field.prototype.clone = function() {
 // Class.fieldName:typeStr
 //
 Field.prototype.toString = function() {
-  //return this.definingClass.getTypeString() + "." + this.name + ":" + this.type.toString();
   return this.definingClass.getTypeString() + "." + this.name + ":" + this.type.getTypeString();
 };
 

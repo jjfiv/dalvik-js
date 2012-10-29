@@ -333,7 +333,7 @@ var icodeHandlers = {
       _hack();
     } else {
 	  if (_inst.kind === "super") {
-	    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
+	    var _class = _thread._vm.classLibrary.findClass(method.definingClass);
 	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
 		console.log("invoke-super is WIP");
 	  }
