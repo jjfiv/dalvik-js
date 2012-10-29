@@ -141,14 +141,15 @@ var icodeHandlers = {
   },
 
   "switch": function(_inst, _thread) {
-    var _val = _thread.getRegister(_inst.src);
-    
-    var i;
-    for(i=0; i<_inst.cases.length; i++) {
-      if(_val === _inst.cases[i]) {
-        return _inst.addresses[i];
+    var _val = _thread.getRegister(_inst.src);    
+    var _i, _retval;
+    for(_i=0; _i<_inst.cases.length; _i++) {
+      if(_val === _inst.cases[_i]) {
+        _retval = _inst.addresses[_i];
+        break;
       }
     }
+    return _retval;
   },
 
   "cmp": function(_inst, _thread) {
