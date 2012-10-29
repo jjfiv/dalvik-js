@@ -51,11 +51,7 @@ var icodeHandlers = {
 
   // handles returning from a method with or without a value
   "return": function(_inst, _thread) {
-    var result = null;
-    if(_inst.src) {
-      result = _thread.getRegister(_inst.src);
-    }
-    _thread.popMethod(result);
+    _thread.popMethod(_thread.getRegister(_inst.value));
   },
 
   // handles loading a constant into a register
