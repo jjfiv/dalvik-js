@@ -75,6 +75,7 @@ var icodeHandlers = {
   "check-cast": function(_inst, _thread) {
     var _typeA = _thread.getRegister(_inst.src).type;
     var _typeB = _inst.type;
+    assert(!_typeA.isPrimitive(), "check-cast should only be called on references");
     if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)){
       throw "ClassCastException";
     }      
