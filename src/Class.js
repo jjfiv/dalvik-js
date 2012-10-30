@@ -27,6 +27,10 @@ Instance.prototype.getClass = function (_classLibrary){
   return _classLibrary.findClass(this.type);
 };
 
+Instance.prototype.getTypeString = function (){
+  return this.type.getTypeString();
+};
+
 Class.prototype.hasMain = function() {
   var _foo = this.directMethods.map(function(_method){ return _method.isMain(); });
   if(_foo.length === 0) {

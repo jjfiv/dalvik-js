@@ -111,7 +111,13 @@ var index = {
 var isA = function(_thing, _class){
   // _thing is an object whose class we are trying to discern
   // _class is a string naming the target class
-  var _target = VMClasses[_class];
+  var _k, _retval=true, _target = VMClasses[_class];
   assert(!isUndefined(_target), "Unrecognized class: "+_class);
-  return _target.reduce(function(_p1, _p2) { return _thing.hasOwnProperty(_p1) && _thing.hasOwnProperty(_p2); });
+  for (_k in _target){
+    if (_target.hasOwnProperty(_k) && !_thing.hasOwnProperty(_k)){
+      _retval = false;
+      break;
+    }
+  }
+  return _retval;
 };
