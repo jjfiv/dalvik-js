@@ -8,27 +8,33 @@ var NYI = function(_inst) {
 };
 
 var findSuperMethod = function(_method, _class, _classLib) {
+  console.log(_class);
+  console.log(_method);
+  //var _j;
 
-  while (!(TYPE_OBJECT.isEquals(_class.getTypeString()))) {
-    var _cIndex = _classLib.indexOf(_class);
-	var _mName = _method.getName();
+  //for (_j = 0; _j < 5; _j++) {
+  //while (!(TYPE_OBJECT.isEquals(_class.name))) {
+    var _i;
+	
 	var _mIndex = -1; 
-	var _i;
-	for (_i = 0; i < _classLib[_cIndex].directMethods.length; _i++) {
-	  if (_classLib[_cIndex].directMethods[_i].getName() === _mName) {
+	var _cName = _class.getTypeString()
+	//var _mName = _method.getName();
+	var _mName = _method.name;
+	
+	//for (_i = 0; _i < _classLib[_cName].directMethods.length; _i++) {
+	for (_i = 0; _i < _class.directMethods.length; _i++) {
+	  //if (_classLib[_cName].directMethods[_i].getName() === _mName) {
+	  if (_class.directMethods[_i].name === _mName) {
 	    _mIndex = _i;
 	  }
-	}
+	//}
 	if (_mIndex > -1 ) {
-	  return _classLib[_cIndex].directMethods[_mIndex];
+	  return _class.directMethods[_mIndex];
 	} else {
-	  findSuperMethod(_method, _class.parent, _classLib);
+	  //findSuperMethod(_method, _class.parent, _classLib);
+	  return -1;
 	}
   }
-//var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
- //   _thread.setRegister(_inst.dest, _class.makeNew());
-  //  console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
-
 }
 
 var icodeHandlers = {
@@ -333,11 +339,21 @@ var icodeHandlers = {
       assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
       // front pad arguments to comply with register alignment stuff
       for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
-	  if (_inst.kind === "super") {
-	    var _class = _thread._vm.classLibrary.findClass(_inst.type.getTypeString());
-	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
-		console.log("invoke-super is WIP");
-	  }
+	    if (_inst.kind === "super") {
+	      var _class = _thread._vm.classLibrary.findClass(method.definingClass);
+		  var _mIndex = -1;
+		  var _j;
+		  while (!(TYPE_OBJECT.isEquals(_class.type))) {
+		  //while (_mIndex === -1) {
+		  //for (_j = 0; _j < 5; _j++) {
+		    _class = _thread._vm.classLibrary.findClass(_class.parent);
+	        _mIndex = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+		    console.log("_mIndex" + _mIndex);
+			console.log("_class" + _class);
+		  }
+		  method = _mIndex;
+		  console.log("invoke-super is WIP");
+	    }
         _a[_i]=0;
       }
       _a=_a.concat(argValues);
@@ -389,6 +405,7 @@ var icodeHandlers = {
 	  if (_inst.destType.isEquals(TYPE_INT)) {
 	    val = val.toInt();
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = val.toNumber();
 	    val = floatFromDouble(val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	    val = val.toNumber();
@@ -413,14 +430,13 @@ var icodeHandlers = {
 	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
 	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	  val = intFromFloat(val);
-    } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLong.fromDouble(val);
+        } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  val = gLongFromDouble(val);
 	} else {
 	  assert(false, "Unidentified target primitive type");
 	}
     
 	_thread.setRegister(_inst.dest, val);
-    //NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
