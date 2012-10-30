@@ -23,120 +23,41 @@ var _addRow = function(_tableId, _testId, _expected, _actual) {
 // This method creates a VM, runs the test, captures the output, and clears it
 // Creates an entry in the appropriate table when run."V"
 //
-var doTest = function(testId, classes, mainClass, expectedOutput) {
+var doTest = function(fileName, mainClass, expectedOutput) {
   var _outField = document.getElementById('output');
   var _clearOutput = function() {
     _outField.innerHTML = "";
   };
 
+
   _clearOutput();
 
   //--- main
-  var myVM = new VM();
-  myVM.start(classes, mainClass);
+  var _output;
+  try {
+    var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
+    var myVM = new VM();
+    
+    myVM.defineClasses(gStdLib);
+    myVM.defineClasses(classes);
+    myVM.start(new Type(mainClass));
 
-  while(myVM.hasThreads()) {
-    myVM.clockTick();
+    while(myVM.hasThreads()) {
+      myVM.clockTick();
+    }
+
+    _output = _outField.innerHTML;
+  } catch (exception) {
+    _output = exception;
   }
 
-  var _output = _outField.innerHTML;
+  console.log(_output);
   var tableId = (_output === expectedOutput) ? "passTable" : "failTable";
-  _addRow(tableId, testId, expectedOutput, _output);
+  _addRow(tableId, fileName, expectedOutput, _output);
 
   _clearOutput();
 };
 
-var classSet = [];
-var tempMethod = "Ljava/io/PrintStream;.println(I)V";
-classSet.push({
-  name: "Ltest/PrintFortyFive;",
-  directMethods: [
-    {
-      name: "main",
-      returnType: TYPE_VOID,
-      params: [TYPE_ARR_STRING],
-      numRegisters: 2,
-      icode: [
-        {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
-        {op: "move-const", dest: 1, value: 45},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1], 
-            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
-            [TYPE_INT], TYPE_VOID)},
-        {op: "return"}
-        ]
-    }
-  ]
-});
 
-classSet.push({
-  name: "LPrintHello;",
-  directMethods: [
-    {
-      name: "main",
-      returnType: TYPE_VOID,
-      params: [TYPE_ARR_STRING],
-      numRegisters: 2,
-      icode: [
-        {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
-        {op: "move-const", dest: 1, value: "Hello World!"},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
-            [TYPE_STRING], TYPE_VOID)},
-            //"Ljava/io/PrintStream;.println(Ljava/lang/String;)V"},
-        {op: "return"}
-        ]
-    },
-  ]
-});
 
-classSet.push({
-  name: "LAdd0;",
-  directMethods: [
-    {
-      name: "main",
-      returnType: TYPE_VOID,
-      params: [TYPE_ARR_STRING],
-      numRegisters: 3,
-      icode: [
-        {op: "move-const", dest: 1, value: 20},
-        {op: "move-const", dest: 2, value: 22},
-        {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_INT},
-        {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/PrintStream;"),
-            [TYPE_INT], TYPE_VOID)},
-             //"Ljava/io/PrintStream;.println(I)V"},
-        {op: "return"}
-        ]
-    },
-  ]
-});
-
-classSet.push({
-  name: "LAddWide0;",
-  directMethods: [
-    {
-      name: "main",
-      returnType: TYPE_VOID,
-      params: [TYPE_ARR_STRING],
-      numRegisters: 3,
-      icode: [
-        {op: "move-const", dest: 1, value:gLong.fromNumber(42) },
-        {op: "move-const", dest: 2, value:gLong.fromString("10000000000") }, // 10 bil
-        {op: "add", dest:1, srcA:1, srcB: 2, type: TYPE_LONG},
-        {op: "static-get", dest: 0, field: FieldFromString("Ljava/lang/System;.out:Ljava/io/PrintStream;")},
-        {op: "invoke", kind: "virtual", argumentRegisters: [0, 1],
-            method: new Method("println", new Type("Ljava/io/PrintStream;"),  
-            [TYPE_LONG], TYPE_VOID)}, 
-            //"Ljava/io/PrintStream;.println(J)V"},
-        {op: "return"}
-        ]
-    },
-  ]
-});
-
-doTest('println(45)', classSet, "Ltest/PrintFortyFive;", "45\n");
-doTest('println("Hello World!")', classSet, "LPrintHello;", "Hello World!\n");
-doTest('20+22', classSet, "LAdd0;", "42\n");
-doTest('10bil+42', classSet, "LAddWide0;", "10000000042\n");
 

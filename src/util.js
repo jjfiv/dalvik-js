@@ -44,6 +44,10 @@ var inspect = function(obj) {
 
   text = "";
 
+  if(obj === null) {
+    return '*null*';
+  }
+
   if(isUndefined(obj)) {
     return '*undefined*';
   }
@@ -56,8 +60,8 @@ var inspect = function(obj) {
     return text;
   }
   
-  if(isFunction(obj.toStr)) {
-    return obj.toStr();
+  if(isFunction(obj.toString) && obj.toString !== Object.prototype.toString) {
+    return obj.toString();
   }
 
   if(!isObject(obj)) {

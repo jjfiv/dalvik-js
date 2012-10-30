@@ -27,6 +27,7 @@ StackFrame.prototype.toString = function() {
 
 var Thread = function(vm) {
   this._result = null;
+  this._exception = null;
   this._vm = vm;
   this._stack = [];
 };
@@ -35,20 +36,16 @@ Thread.prototype.toString = function(){
   return this._stack[0].toString()+"...";
 };
 
-Thread.prototype.pushMethod = function(_m) {
+Thread.prototype.pushMethod = function(_m, _regs) {
   var _frame = new StackFrame(_m);
-
   // TODO load up regs with arguments; I think we need to do this backwards?
-
+  if (_regs) { _frame.regs = _regs; }
   this._stack.push(_frame);
 };
 
-// param _result is optional
+// param _result is null if no return value
 Thread.prototype.popMethod = function(_result) {
-  if(!isUndefined(_result)) {
-    this.setResult(_result);
-  }
-
+  this._result = _result;
   this._stack.pop();
 };
 
@@ -73,23 +70,10 @@ Thread.prototype.getRegister = function(_idx) {
   return this.currentFrame().regs[_idx];
 }; //ends getRegister
 
-Thread.prototype.getRegisterWide = function(_idx){
-  return [this.currentFrame().regs[_idx], this.currentFrame().regs[_idx+1]];
-}
 
 Thread.prototype.setRegister = function(_idx, _value) {
   this.currentFrame().regs[_idx] = _value;
 }; //ends setRegister
-
-Thread.prototype.setRegisterWide = function(_idx, _value){
-  // TODO: need to implement function to parse out upper 32 and lower 32 bits of 62-bit _value
-  this.currentFrame().regs[_idx]=upperWide(_value);
-  this.currentFrame().regs[_idx+1]=lowerWide(_value);
-}
-
-Thread.prototype.setResult = function(_value) {
-  this.result = _value;
-};
 
 Thread.prototype.throwException = function(_obj) {
   var type = _obj.type; //TODO, have instances designed
@@ -131,7 +115,7 @@ Thread.prototype.statusString = function() {
 
   var _f = this.currentFrame();
   
-  return "in " + _f.method.toStr() +
+  return "in " + _f.method.toString() +
          "\n  pc=" + _f.pc +
          "\n  nextInstr=" + _f.method.icode[_f.pc].op +
          "\n  regs: " + inspect(_f.regs);

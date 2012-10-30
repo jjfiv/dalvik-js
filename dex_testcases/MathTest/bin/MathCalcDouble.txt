@@ -1,0 +1,454 @@
+Processing '/home/vjd215/workspace/MathTest/bin/MathCalcDouble.dex'...
+Opened '/home/vjd215/workspace/MathTest/bin/MathCalcDouble.dex', DEX version '035'
+Class #0 header:
+class_idx           : 4
+access_flags        : 1 (0x0001)
+superclass_idx      : 9
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 17
+annotations_off     : 0 (0x000000)
+class_data_off      : 2414 (0x00096e)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LMathCalcDouble;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMathCalcDouble;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002c4:                                        |[0002c4] MathCalcDouble.<init>:()V
+0002d4: 7010 0d00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000d
+0002da: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMathCalcDouble; 
+
+    #1              : (in LMathCalcDouble;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 15
+      ins           : 1
+      outs          : 3
+      insns size    : 75 16-bit code units
+0002dc:                                        |[0002dc] MathCalcDouble.main:([Ljava/lang/String;)V
+0002ec: 1806 3333 3333 3333 0340               |0000: const-wide v6, #double 2.400000 // #4003333333333333
+0002f6: 1808 9a99 9999 9999 1140               |0005: const-wide v8, #double 4.400000 // #401199999999999a
+000300: 160a 0000                              |000a: const-wide/16 v10, #int 0 // #0
+000304: ab0a 0608                              |000c: add-double v10, v6, v8
+000308: 620c 0000                              |000e: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00030c: 1a0d 1d00                              |0010: const-string v13, "Sum of entered double = " // string@001d
+000310: 6e20 0c00 dc00                         |0012: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000316: 620c 0000                              |0015: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00031a: 6e30 0800 ac0b                         |0017: invoke-virtual {v12, v10, v11}, Ljava/io/PrintStream;.println:(D)V // method@0008
+000320: 1604 0000                              |001a: const-wide/16 v4, #int 0 // #0
+000324: ac04 0806                              |001c: sub-double v4, v8, v6
+000328: 620c 0000                              |001e: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00032c: 1a0d 1900                              |0020: const-string v13, "Subtraction of entered double = " // string@0019
+000330: 6e20 0c00 dc00                         |0022: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000336: 620c 0000                              |0025: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00033a: 6e30 0800 4c05                         |0027: invoke-virtual {v12, v4, v5}, Ljava/io/PrintStream;.println:(D)V // method@0008
+000340: 1602 0000                              |002a: const-wide/16 v2, #int 0 // #0
+000344: ad02 0608                              |002c: mul-double v2, v6, v8
+000348: 620c 0000                              |002e: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00034c: 1a0d 1500                              |0030: const-string v13, "Multiple double = " // string@0015
+000350: 6e20 0c00 dc00                         |0032: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000356: 620c 0000                              |0035: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00035a: 6e30 0800 2c03                         |0037: invoke-virtual {v12, v2, v3}, Ljava/io/PrintStream;.println:(D)V // method@0008
+000360: 1600 0000                              |003a: const-wide/16 v0, #int 0 // #0
+000364: ae00 0806                              |003c: div-double v0, v8, v6
+000368: 620c 0000                              |003e: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00036c: 1a0d 0200                              |0040: const-string v13, "Divide double = " // string@0002
+000370: 6e20 0c00 dc00                         |0042: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000376: 620c 0000                              |0045: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00037a: 6e30 0800 0c01                         |0047: invoke-virtual {v12, v0, v1}, Ljava/io/PrintStream;.println:(D)V // method@0008
+000380: 0e00                                   |004a: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=10
+        0x000a line=11
+        0x000c line=13
+        0x000e line=14
+        0x0015 line=15
+        0x001a line=18
+        0x001c line=19
+        0x001e line=20
+        0x0025 line=21
+        0x002a line=24
+        0x002c line=25
+        0x002e line=26
+        0x0035 line=27
+        0x003a line=30
+        0x003c line=31
+        0x003e line=32
+        0x0045 line=33
+        0x004a line=35
+      locals        : 
+        0x003c - 0x004b reg=0 d D 
+        0x002c - 0x004b reg=2 m D 
+        0x001c - 0x004b reg=4 s D 
+        0x0005 - 0x004b reg=6 x D 
+        0x000a - 0x004b reg=8 y D 
+        0x000c - 0x004b reg=10 z D 
+        0x0000 - 0x004b reg=14 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 17 (MathCalcDouble.java)
+
+Class #1 header:
+class_idx           : 5
+access_flags        : 1 (0x0001)
+superclass_idx      : 9
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 18
+annotations_off     : 0 (0x000000)
+class_data_off      : 2428 (0x00097c)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LMathCalcFloat;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMathCalcFloat;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000384:                                        |[000384] MathCalcFloat.<init>:()V
+000394: 7010 0d00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000d
+00039a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMathCalcFloat; 
+
+    #1              : (in LMathCalcFloat;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 9
+      ins           : 1
+      outs          : 2
+      insns size    : 67 16-bit code units
+00039c:                                        |[00039c] MathCalcFloat.main:([Ljava/lang/String;)V
+0003ac: 1403 9a99 1940                         |0000: const v3, #float 2.400000 // #4019999a
+0003b2: 1404 cdcc 8c40                         |0003: const v4, #float 4.400000 // #408ccccd
+0003b8: 1205                                   |0006: const/4 v5, #int 0 // #0
+0003ba: a605 0304                              |0007: add-float v5, v3, v4
+0003be: 6206 0000                              |0009: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0003c2: 1a07 1e00                              |000b: const-string v7, "Sum of entered float = " // string@001e
+0003c6: 6e20 0c00 7600                         |000d: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+0003cc: 6206 0000                              |0010: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0003d0: 6e20 0900 5600                         |0012: invoke-virtual {v6, v5}, Ljava/io/PrintStream;.println:(F)V // method@0009
+0003d6: 1202                                   |0015: const/4 v2, #int 0 // #0
+0003d8: a702 0403                              |0016: sub-float v2, v4, v3
+0003dc: 6206 0000                              |0018: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0003e0: 1a07 1a00                              |001a: const-string v7, "Subtraction of entered float = " // string@001a
+0003e4: 6e20 0c00 7600                         |001c: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+0003ea: 6206 0000                              |001f: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0003ee: 6e20 0900 2600                         |0021: invoke-virtual {v6, v2}, Ljava/io/PrintStream;.println:(F)V // method@0009
+0003f4: 1201                                   |0024: const/4 v1, #int 0 // #0
+0003f6: a801 0304                              |0025: mul-float v1, v3, v4
+0003fa: 6206 0000                              |0027: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0003fe: 1a07 1600                              |0029: const-string v7, "Multiple float = " // string@0016
+000402: 6e20 0c00 7600                         |002b: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000408: 6206 0000                              |002e: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00040c: 6e20 0900 1600                         |0030: invoke-virtual {v6, v1}, Ljava/io/PrintStream;.println:(F)V // method@0009
+000412: 1200                                   |0033: const/4 v0, #int 0 // #0
+000414: a900 0403                              |0034: div-float v0, v4, v3
+000418: 6206 0000                              |0036: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00041c: 1a07 0300                              |0038: const-string v7, "Divide float = " // string@0003
+000420: 6e20 0c00 7600                         |003a: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000426: 6206 0000                              |003d: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00042a: 6e20 0900 0600                         |003f: invoke-virtual {v6, v0}, Ljava/io/PrintStream;.println:(F)V // method@0009
+000430: 0e00                                   |0042: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0003 line=10
+        0x0006 line=11
+        0x0007 line=13
+        0x0009 line=14
+        0x0010 line=15
+        0x0015 line=18
+        0x0016 line=19
+        0x0018 line=20
+        0x001f line=21
+        0x0024 line=24
+        0x0025 line=25
+        0x0027 line=26
+        0x002e line=27
+        0x0033 line=30
+        0x0034 line=31
+        0x0036 line=32
+        0x003d line=33
+        0x0042 line=35
+      locals        : 
+        0x0034 - 0x0043 reg=0 d F 
+        0x0025 - 0x0043 reg=1 m F 
+        0x0016 - 0x0043 reg=2 s F 
+        0x0003 - 0x0043 reg=3 x F 
+        0x0006 - 0x0043 reg=4 y F 
+        0x0007 - 0x0043 reg=5 z F 
+        0x0000 - 0x0043 reg=8 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 18 (MathCalcFloat.java)
+
+Class #2 header:
+class_idx           : 6
+access_flags        : 1 (0x0001)
+superclass_idx      : 9
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 19
+annotations_off     : 0 (0x000000)
+class_data_off      : 2442 (0x00098a)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #2            -
+  Class descriptor  : 'LMathCalcInt;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMathCalcInt;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000434:                                        |[000434] MathCalcInt.<init>:()V
+000444: 7010 0d00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000d
+00044a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMathCalcInt; 
+
+    #1              : (in LMathCalcInt;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 9
+      ins           : 1
+      outs          : 2
+      insns size    : 63 16-bit code units
+00044c:                                        |[00044c] MathCalcInt.main:([Ljava/lang/String;)V
+00045c: 1223                                   |0000: const/4 v3, #int 2 // #2
+00045e: 1244                                   |0001: const/4 v4, #int 4 // #4
+000460: 1205                                   |0002: const/4 v5, #int 0 // #0
+000462: 9005 0304                              |0003: add-int v5, v3, v4
+000466: 6206 0000                              |0005: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00046a: 1a07 1f00                              |0007: const-string v7, "Sum of entered integers = " // string@001f
+00046e: 6e20 0c00 7600                         |0009: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000474: 6206 0000                              |000c: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000478: 6e20 0a00 5600                         |000e: invoke-virtual {v6, v5}, Ljava/io/PrintStream;.println:(I)V // method@000a
+00047e: 1202                                   |0011: const/4 v2, #int 0 // #0
+000480: 9102 0403                              |0012: sub-int v2, v4, v3
+000484: 6206 0000                              |0014: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000488: 1a07 1b00                              |0016: const-string v7, "Subtraction of entered integers = " // string@001b
+00048c: 6e20 0c00 7600                         |0018: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000492: 6206 0000                              |001b: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000496: 6e20 0a00 2600                         |001d: invoke-virtual {v6, v2}, Ljava/io/PrintStream;.println:(I)V // method@000a
+00049c: 1201                                   |0020: const/4 v1, #int 0 // #0
+00049e: 9201 0304                              |0021: mul-int v1, v3, v4
+0004a2: 6206 0000                              |0023: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0004a6: 1a07 1700                              |0025: const-string v7, "Multiple integers = " // string@0017
+0004aa: 6e20 0c00 7600                         |0027: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+0004b0: 6206 0000                              |002a: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0004b4: 6e20 0a00 1600                         |002c: invoke-virtual {v6, v1}, Ljava/io/PrintStream;.println:(I)V // method@000a
+0004ba: 1200                                   |002f: const/4 v0, #int 0 // #0
+0004bc: 9300 0403                              |0030: div-int v0, v4, v3
+0004c0: 6206 0000                              |0032: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0004c4: 1a07 0400                              |0034: const-string v7, "Divide integers = " // string@0004
+0004c8: 6e20 0c00 7600                         |0036: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+0004ce: 6206 0000                              |0039: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0004d2: 6e20 0a00 0600                         |003b: invoke-virtual {v6, v0}, Ljava/io/PrintStream;.println:(I)V // method@000a
+0004d8: 0e00                                   |003e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0001 line=11
+        0x0002 line=12
+        0x0003 line=14
+        0x0005 line=15
+        0x000c line=16
+        0x0011 line=19
+        0x0012 line=20
+        0x0014 line=21
+        0x001b line=22
+        0x0020 line=25
+        0x0021 line=26
+        0x0023 line=27
+        0x002a line=28
+        0x002f line=31
+        0x0030 line=32
+        0x0032 line=33
+        0x0039 line=34
+        0x003e line=36
+      locals        : 
+        0x0030 - 0x003f reg=0 d I 
+        0x0021 - 0x003f reg=1 m I 
+        0x0012 - 0x003f reg=2 s I 
+        0x0001 - 0x003f reg=3 x I 
+        0x0002 - 0x003f reg=4 y I 
+        0x0003 - 0x003f reg=5 z I 
+        0x0000 - 0x003f reg=8 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 19 (MathCalcInt.java)
+
+Class #3 header:
+class_idx           : 7
+access_flags        : 1 (0x0001)
+superclass_idx      : 9
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 20
+annotations_off     : 0 (0x000000)
+class_data_off      : 2456 (0x000998)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #3            -
+  Class descriptor  : 'LMathCalcLong;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMathCalcLong;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0004dc:                                        |[0004dc] MathCalcLong.<init>:()V
+0004ec: 7010 0d00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000d
+0004f2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMathCalcLong; 
+
+    #1              : (in LMathCalcLong;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 15
+      ins           : 1
+      outs          : 3
+      insns size    : 69 16-bit code units
+0004f4:                                        |[0004f4] MathCalcLong.main:([Ljava/lang/String;)V
+000504: 1608 204e                              |0000: const-wide/16 v8, #int 20000 // #4e20
+000508: 160a a00f                              |0002: const-wide/16 v10, #int 4000 // #fa0
+00050c: 1606 0000                              |0004: const-wide/16 v6, #int 0 // #0
+000510: 9b06 080a                              |0006: add-long v6, v8, v10
+000514: 620c 0000                              |0008: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000518: 1a0d 2000                              |000a: const-string v13, "Sum of entered long = " // string@0020
+00051c: 6e20 0c00 dc00                         |000c: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000522: 620c 0000                              |000f: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000526: 6e30 0b00 6c07                         |0011: invoke-virtual {v12, v6, v7}, Ljava/io/PrintStream;.println:(J)V // method@000b
+00052c: 1604 0000                              |0014: const-wide/16 v4, #int 0 // #0
+000530: 9c04 080a                              |0016: sub-long v4, v8, v10
+000534: 620c 0000                              |0018: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000538: 1a0d 1c00                              |001a: const-string v13, "Subtraction of entered long = " // string@001c
+00053c: 6e20 0c00 dc00                         |001c: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000542: 620c 0000                              |001f: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000546: 6e30 0b00 4c05                         |0021: invoke-virtual {v12, v4, v5}, Ljava/io/PrintStream;.println:(J)V // method@000b
+00054c: 1602 0000                              |0024: const-wide/16 v2, #int 0 // #0
+000550: 9d02 080a                              |0026: mul-long v2, v8, v10
+000554: 620c 0000                              |0028: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000558: 1a0d 1800                              |002a: const-string v13, "Multiple long = " // string@0018
+00055c: 6e20 0c00 dc00                         |002c: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000562: 620c 0000                              |002f: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000566: 6e30 0b00 2c03                         |0031: invoke-virtual {v12, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@000b
+00056c: 1600 0000                              |0034: const-wide/16 v0, #int 0 // #0
+000570: 9e00 080a                              |0036: div-long v0, v8, v10
+000574: 620c 0000                              |0038: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000578: 1a0d 0500                              |003a: const-string v13, "Divide long = " // string@0005
+00057c: 6e20 0c00 dc00                         |003c: invoke-virtual {v12, v13}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000c
+000582: 620c 0000                              |003f: sget-object v12, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000586: 6e30 0b00 0c01                         |0041: invoke-virtual {v12, v0, v1}, Ljava/io/PrintStream;.println:(J)V // method@000b
+00058c: 0e00                                   |0044: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0002 line=10
+        0x0004 line=11
+        0x0006 line=13
+        0x0008 line=14
+        0x000f line=15
+        0x0014 line=18
+        0x0016 line=19
+        0x0018 line=20
+        0x001f line=21
+        0x0024 line=24
+        0x0026 line=25
+        0x0028 line=26
+        0x002f line=27
+        0x0034 line=30
+        0x0036 line=31
+        0x0038 line=32
+        0x003f line=33
+        0x0044 line=35
+      locals        : 
+        0x0036 - 0x0045 reg=0 d J 
+        0x0026 - 0x0045 reg=2 m J 
+        0x0016 - 0x0045 reg=4 s J 
+        0x0006 - 0x0045 reg=6 w J 
+        0x0002 - 0x0045 reg=8 x J 
+        0x0004 - 0x0045 reg=10 y J 
+        0x0000 - 0x0045 reg=14 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 20 (MathCalcLong.java)
+

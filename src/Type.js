@@ -2,29 +2,29 @@
 // This file contains a definitoin of a Type object
 // Dependencies: gLong.js
 
-var Type = function (typeString) {
+var Type = function (_typeString) {
   var dimNum, num;
   // Copying the full type name to a type member
-  this._typeString = typeString;
+  this._typeString = _typeString;
   
   // Counting number of array dimensions
-  this._arrayDim = typeString.lastIndexOf("[") + 1;
+  this._arrayDim = _typeString.lastIndexOf("[") + 1;
   dimNum = this._arrayDim; // Useful for later calcs
   
   // Getting the objectType of the Type, always first letter after last [
-  this._type = typeString.substr(dimNum, 1);
+  this._type = _typeString.substr(dimNum, 1);
   this._wide = false;
   if (this._type === "D" || this._type === "J") {
     this._type = true;
   }
   
   // Extracting pure type name
-  num = typeString.lastIndexOf("/");
+  num = _typeString.lastIndexOf("/");
   // length - num - 2 cause we have a ";" at the end and 0-based array
   if (num > -1) {
-    this._name = typeString.substr(num + 1, typeString.length - num - 2);
+    this._name = _typeString.substr(num + 1, _typeString.length - num - 2);
   } else {    
-    this._name = typeString.substr(dimNum + 1, typeString.length - dimNum - 2);
+    this._name = _typeString.substr(dimNum + 1, _typeString.length - dimNum - 2);
   }
 };
 
@@ -32,8 +32,8 @@ Type.prototype.getName = function() {
   return this._name;
 };
 
-Type.prototype.getType = function() {
-  return this._type;
+Type.prototype.getTypeString = function() {
+  return this._typeString;
 };
 
 Type.prototype.getArrayDim = function() {
@@ -43,7 +43,7 @@ Type.prototype.getArrayDim = function() {
 Type.prototype.isEquals = function( other ) {
     // right now just comparing type strings
     // Do we want to just consider _name and _type?
-    return this.toStr() === other.toStr();
+    return this.getTypeString() === other.getTypeString();
 };
 
 Type.prototype.toDots = function () {
@@ -64,12 +64,8 @@ Type.prototype.toDots = function () {
   return str1;
 };
 
-Type.prototype.toStr = function() {
-  return this._typeString;
-};
-
 Type.prototype.clone = function(){
-  return new Type(this.toStr());
+  return new Type(this.getTypeString());
 };
 
 Type.prototype.isArray = function() {
@@ -163,11 +159,11 @@ var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 // unit tests
 (function() {
   var t = new Type("LBird;");
-  //console.log(t.toStr());
+  //console.log(t.toString());
   //console.log(t.getName());
   assert(t.isArray() === false, "Making sure bird is not an array");
   assert(t.getArrayDim() === 0, "Making sure the array is of 0 dimensions");
-  assert(t.getType() === "L", "Making sure the type is a complicated class");
+  assert(t._type === "L", "Making sure the type is a complicated class");
   assert(t.getName() === "Bird", "Making sure type name is Bird");
 
   var jStringType = new Type("Ljava/lang/String;");

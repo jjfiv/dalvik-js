@@ -1,0 +1,77 @@
+Processing 'ArgumentDirection.dex'...
+Opened 'ArgumentDirection.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LArgumentDirection;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LArgumentDirection;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00014c:                                        |[00014c] ArgumentDirection.<init>:()V
+00015c: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+000162: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LArgumentDirection; 
+
+    #1              : (in LArgumentDirection;)
+      name          : 'argOrder'
+      type          : '(III)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 3
+      outs          : 2
+      insns size    : 16 16-bit code units
+000164:                                        |[000164] ArgumentDirection.argOrder:(III)V
+000174: 6200 0000                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000178: 6e20 0300 1000                         |0002: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(I)V // method@0003
+00017e: 6200 0000                              |0005: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000182: 6e20 0300 2000                         |0007: invoke-virtual {v0, v2}, Ljava/io/PrintStream;.println:(I)V // method@0003
+000188: 6200 0000                              |000a: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00018c: 6e20 0300 3000                         |000c: invoke-virtual {v0, v3}, Ljava/io/PrintStream;.println:(I)V // method@0003
+000192: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0005 line=4
+        0x000a line=5
+        0x000f line=6
+      locals        : 
+
+    #2              : (in LArgumentDirection;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 3
+      insns size    : 7 16-bit code units
+000194:                                        |[000194] ArgumentDirection.main:([Ljava/lang/String;)V
+0001a4: 1210                                   |0000: const/4 v0, #int 1 // #1
+0001a6: 1221                                   |0001: const/4 v1, #int 2 // #2
+0001a8: 1232                                   |0002: const/4 v2, #int 3 // #3
+0001aa: 7130 0100 1002                         |0003: invoke-static {v0, v1, v2}, LArgumentDirection;.argOrder:(III)V // method@0001
+0001b0: 0e00                                   |0006: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0006 line=9
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 1 (ArgumentDirection.java)
+

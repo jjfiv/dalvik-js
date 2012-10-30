@@ -5,25 +5,30 @@
 var VM = function() {
   var _self = this;
   this._threads = [];
-  this.classLibrary = new ClassLibrary();
+  this.classLibrary = new ClassLibrary(); // single ClassLibrary, accessible to all
   this._source = (function(){
     return new Upload(function(_fileName, _fileData){
                         var _dex = new DEXData(new ArrayFile(_fileData));
-                        var _k, _classes = _self.classLibrary._classes;
+                        var _k, _classes = _self.classLibrary.classes;
                         _self.defineClasses(_dex.classes);
+                        _self.clear();
+                        this._classChooser.clear();
                         for (_k in _classes){
                           // just magic to make for in work forever
                           if(_classes.hasOwnProperty(_k)) {
-                            this._classChooser.addClass(_classes[_k].name);
+                            if(_classes[_k].hasMain()) {
+                              this._classChooser.addClass(_classes[_k].type);
+                            }
                           }
                         }
                       }, _self);
-  }());
+                          
+                  }());
 };
 
 VM.prototype.defineClasses = function(_data){
   this.classLibrary.defineClasses(_data);
-  if (DEBUG){ console.log(this.classLibrary._classes.toString()); }
+  if (DEBUG){ console.log(this.classLibrary.classes.toString()); }
 };
 
 VM.prototype.createThread = function( _directMethod ) {
@@ -33,42 +38,13 @@ VM.prototype.createThread = function( _directMethod ) {
 };
 
 VM.prototype.start = function ( _selectedClassAsType ) {
-  // the consequent will be removed later; I put this in to resolve merge conflicts
-  // without breaking Jennie's code. Responsibility for the following has moved to ClassLibrary.js
-  if (arguments[1]) {
-    var _classList = arguments[0], _mainClass = arguments[1];
-    var _publicStaticVoidMain = null;
-    // TODO this would be rectified by having a class to handle all the defined classes and a method to "find class"
-    // on class, there should be a method "find method"
-    var _i, _j, _class, _m;
-    for(_i = 0; _i < _classList.length; _i++) {
-      _class = _classList[_i];
+  if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
 
-      if(_class.name === _mainClass) {
-        for(_j = 0; _j < _class.directMethods.length; _j++) {
-          _m = _class.directMethods[_j];
+  // find specified classname
+  var _class = this.classLibrary.findClass(_selectedClassAsType);
 
-          if( _m.name === "main" &&
-              _m.returnType.isEquals(TYPE_VOID) &&
-              _m.params.length === 1 &&
-              TYPE_ARR_STRING.isEquals(_m.params[0])) {
-            _publicStaticVoidMain = _m;
-          }
-        }
-      }
-    }//end for-loop
-    if(_publicStaticVoidMain === null) {
-      terminal.println("main could not be found in " + _mainClass);
-      return false;
-    }
-    this.createThread(_publicStaticVoidMain);
-    return true;
-  } else {
-    // moving forward, this is how starting the VM will be implemented
-    if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
-    var _class = this.classLibrary.findClass(_selectedClassAsType);
-    return this.createThread(_class.getMain()) && true;
-  }
+  // && true casts to boolean sort of
+  return this.createThread(_class.getMain()) && true;
 }; //end start
 
 VM.prototype.clockTick = function() {
@@ -93,4 +69,8 @@ VM.prototype.getThreadState = function() {
 
 VM.prototype.hasThreads = function() {
   return this._threads.length !== 0;
+};
+
+VM.prototype.clear = function(){
+  this._threads = [];
 };

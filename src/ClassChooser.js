@@ -22,14 +22,14 @@ ClassChooser.prototype.selectedIndex = function() {
 ClassChooser.prototype.clear = function() {
   // remove the first item until the list is empty
   while(this._optList().length > 0) {
-    this._optList.remove(0);
+    this._optList().remove(0);
   }
 };
 
-ClassChooser.prototype.addClass = function(type) {
+ClassChooser.prototype.addClass = function(_type) {
   var _option = document.createElement('option');
-  _option.text = type.toDots();
-  _option.value = type.toStr();
+  _option.text = _type.toDots();
+  _option.value = _type.getTypeString();
   this._optList().add(_option);
 };
 

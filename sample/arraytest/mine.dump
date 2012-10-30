@@ -1,0 +1,64 @@
+Processing 'mine.dex'...
+Opened 'mine.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LtryCatch;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LtryCatch;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000138:                                        |[000138] tryCatch.<init>:()V
+000148: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+00014e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LtryCatch; 
+
+    #1              : (in LtryCatch;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 68 16-bit code units
+000150:                                        |[000150] tryCatch.main:([Ljava/lang/String;)V
+000160: 1233                                   |0000: const/4 v3, #int 3 // #3
+000162: 1800 9a99 d938 f92d c741               |0001: const-wide v0, #double 777777777.700000 // #41c72df938d9999a
+00016c: 1302 0a00                              |0006: const/16 v2, #int 10 // #a
+000170: 2322 0600                              |0008: new-array v2, v2, [D // type@0006
+000174: 2602 0e00 0000                         |000a: fill-array-data v2, 00000018 // +0000000e
+00017a: 4c00 0203                              |000d: aput-wide v0, v2, v3
+00017e: 4500 0203                              |000f: aget-wide v0, v2, v3
+000182: 6202 0000                              |0011: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000186: 6e30 0000 0201                         |0013: invoke-virtual {v2, v0, v1}, Ljava/io/PrintStream;.println:(D)V // method@0000
+00018c: 0e00                                   |0016: return-void
+00018e: 0000                                   |0017: nop // spacer
+000190: 0003 0800 0a00 0000 6666 6628 84d7 ... |0018: array-data (44 units)
+      catches       : (none)
+      positions     : 
+        0x0001 line=3
+        0x0006 line=4
+        0x000d line=9
+        0x000f line=11
+        0x0011 line=12
+        0x0016 line=13
+        0x0017 line=4
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 14 (tryCatch.java)
+

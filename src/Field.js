@@ -11,6 +11,7 @@ var Field = function(_name, _type, _definingClass) {
 
   // these are defined separately from first three pieces of data
   this.accessFlags = 0;
+  this.value = null;
 };
 
 Field.prototype.clone = function() {
@@ -19,11 +20,11 @@ Field.prototype.clone = function() {
 
 
 //
-// toStr method to build a string of the form
+// toString method to build a string of the form
 // Class.fieldName:typeStr
 //
-Field.prototype.toStr = function() {
-  return this.definingClass + "." + this.name + ":" + this.type.toStr();
+Field.prototype.toString = function() {
+  return this.definingClass.getTypeString() + "." + this.name + ":" + this.type.getTypeString();
 };
 
 // parses a string into a Field object

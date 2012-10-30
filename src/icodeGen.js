@@ -111,9 +111,9 @@ var val4obj4field16 = function(_dcode, _icode, _dex) {
 // _icode.field == field register (16bit)        |
 //------------------------------------------------
   var x = _dcode.get();
-  _icode.value = highNibble(x);
-  _icode.obj = lowNibble(x);
-  _icode.field = _dcode.get16();
+  _icode.value = lowNibble(x);
+  _icode.obj = highNibble(x);
+  _icode.field = _dex.fields[_dcode.get16()];
 };
 
 // Dalvik VM opcode names
@@ -265,7 +265,7 @@ opName[0x14] = "const";
 opArgs[0x14] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   _icode.dest = _dcode.get();
-  _icode.value = _dcode.get32();  
+  _icode.value = _dcode.get32();
 };
 
 opName[0x15] = "const/high16";
@@ -375,7 +375,7 @@ opArgs[0x21] = function(_dcode, _icode, _dex) {
 opName[0x22] = "new-instance";
 opArgs[0x22] = function(_dcode, _icode, _dex) {
   _icode.op = "new-instance";
-  _icode.src = _dcode.get();
+  _icode.dest = _dcode.get();
   _icode.type = _dex.types[_dcode.get16()];
 };
 
@@ -391,57 +391,32 @@ opArgs[0x23] = function(_dcode, _icode, _dex) {
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-
-  var _i, _x, _byte0;
-
-  //
-  // note that the bytecode spec thinks there is 16 bits of method index
-  // it is wrong.
-  //
-  
-  _byte0 = _dcode.get();
-  _typeIndex = _dcode.get16();
-
-  var arraySize = highNibble(_byte0);
-
-  _icode.type = _dex.types[_typeIndex];
-
-  // the remaining 3 bytes are argCount register arguments
-  _icode.data = [];
-  for(_i=0; _i<2; _i++) {
-    _x = _dcode.get();
-    _icode.data.push(lowNibble(_x));
-    _icode.data.push(highNibble(_x));
-  }
-  _icode.data.push(lowNibble(_byte0));
-  
-  // chop to the right number of arguments
-  _icode.data = _icode.data.splice(0, arraySize);
-  console.log("array data:" + _icode.data);
-
-  //NOT_IMPLEMENTED(_icode);
+  _icode.op = "filled-new-array";
+  var x = _dcode.get();
+  _icode.dimensions = highNibble(x);
+  _icode.reg = [];
+  _icode.reg[4] = lowNibble(x);
+  _icode.type = _dex.types[_dcode.get16()];
+  x = _dcode.get();
+  _icode.reg[1] = highNibble(x);
+  _icode.reg[0] = lowNibble(x);
+  x = _dcode.get();
+  _icode.reg[3] = highNibble(x);
+  _icode.reg[2] = lowNibble(x);
 };
 
 opName[0x25] = "filled-new-array/range";
 opArgs[0x25] = function(_dcode, _icode, _dex) {
-  _icode.op = "new-array";
-  
-  var _i, firstReg;
 
-  var arraySize = _dcode.get();
-  var typeIndex = _dcode.get16();
-  var firstReg = _dcode.get16();
-
-  _icode.type = _dex.types[typeIndex];
-
-  // Build the array of all needed arguements
-  _icode.data = [];
-  for (_i = 0; _i < arraySize; _i++) {
-    _icode.data.push(firstReg + _i);
+  _icode.op = "filled-new-array/range";
+  _icode.dimensions = _dcode.get();
+  _icode.type = _dex.types[_dcode.get16()];
+  _icode.reg = [];
+  var x = _dcode.get16();
+  var i;
+  for (i = 0; i < _icode.dimensions; i++) {
+    _icode.reg[i] = x++;
   }
-
-  //NOT_IMPLEMENTED(_icode);
 };
 
 opName[0x26] = "fill-array-data";
@@ -1046,7 +1021,7 @@ var arg5method16args = function (_dcode, _icode, _dex) {
   
   // chop to the right number of arguments
   _icode.argumentRegisters = _icode.argumentRegisters.splice(0, argCount);
-  console.log("args:" + _icode.argumentRegisters);
+  //console.log("args:" + _icode.argumentRegisters);
 };
 
 var arg8method16args16 = function (_dcode, _icode, _dex) {
@@ -1057,7 +1032,7 @@ var arg8method16args16 = function (_dcode, _icode, _dex) {
 
   var argCount = _dcode.get();
   var methodIndex = _dcode.get16();
-  var firstReg = _dcode.get16();
+  firstReg = _dcode.get16();
 
   _icode.method = _dex.methods[methodIndex];
 
@@ -1521,7 +1496,7 @@ opArgs[0xab] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
   dest8srcA8srcB8(_dcode, _icode, _dex);
-  _icode.type = TYPE_FLOAT;
+  _icode.type = TYPE_DOUBLE;
 };
 
 opName[0xac] = "sub-double";

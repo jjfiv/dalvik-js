@@ -26,7 +26,7 @@ Method.prototype.isMain = function() {
 };
 
 Method.prototype.getName = function() {
-  return this.signature.getName();
+  return this.signature.name;
 };
 
 Method.prototype.getReturnType = function() {
@@ -39,12 +39,12 @@ Method.prototype.getParameterAmount = function() {
 
 
 //
-// toStr method to build a string of the form
+// toString method to build a string of the form
 // Class.methodSignature
 // Class.name(TA,TB)RT
 //
-Method.prototype.toStr = function() {
-  return this.definingClass.toStr() + "." + this.signature.toStr();
+Method.prototype.toString = function() {
+  return this.definingClass.getTypeString() + "." + this.signature.toString();
 };
 
 Method.prototype.numParameters = function() {

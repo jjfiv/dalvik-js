@@ -1,0 +1,120 @@
+Processing '/home/vjd215/workspace/Recursion/bin/recurse.dex'...
+Opened '/home/vjd215/workspace/Recursion/bin/recurse.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 973 (0x0003cd)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LWideMathWithLoop;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LWideMathWithLoop;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00017c:                                        |[00017c] WideMathWithLoop.<init>:()V
+00018c: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+000192: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LWideMathWithLoop; 
+
+    #1              : (in LWideMathWithLoop;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 9
+      ins           : 1
+      outs          : 2
+      insns size    : 72 16-bit code units
+000194:                                        |[000194] WideMathWithLoop.main:([Ljava/lang/String;)V
+0001a4: 1304 2800                              |0000: const/16 v4, #int 40 // #28
+0001a8: 1205                                   |0002: const/4 v5, #int 0 // #0
+0001aa: 1303 0f00                              |0003: const/16 v3, #int 15 // #f
+0001ae: 1306 1000                              |0005: const/16 v6, #int 16 // #10
+0001b2: 3763 0300                              |0007: if-le v3, v6, 000a // +0003
+0001b6: 0e00                                   |0009: return-void
+0001b8: 9005 0304                              |000a: add-int v5, v3, v4
+0001bc: 6206 0000                              |000c: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001c0: 1a07 0a00                              |000e: const-string v7, "Sum of entered integers = " // string@000a
+0001c4: 6e20 0300 7600                         |0010: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+0001ca: 6206 0000                              |0013: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ce: 6e20 0200 5600                         |0015: invoke-virtual {v6, v5}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001d4: 1202                                   |0018: const/4 v2, #int 0 // #0
+0001d6: 9102 0403                              |0019: sub-int v2, v4, v3
+0001da: 6206 0000                              |001b: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001de: 1a07 0900                              |001d: const-string v7, "Subtraction of entered integers = " // string@0009
+0001e2: 6e20 0300 7600                         |001f: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+0001e8: 6206 0000                              |0022: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ec: 6e20 0200 2600                         |0024: invoke-virtual {v6, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001f2: 1201                                   |0027: const/4 v1, #int 0 // #0
+0001f4: 9201 0304                              |0028: mul-int v1, v3, v4
+0001f8: 6206 0000                              |002a: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001fc: 1a07 0800                              |002c: const-string v7, "Multiple integers = " // string@0008
+000200: 6e20 0300 7600                         |002e: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+000206: 6206 0000                              |0031: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00020a: 6e20 0200 1600                         |0033: invoke-virtual {v6, v1}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000210: 1200                                   |0036: const/4 v0, #int 0 // #0
+000212: 9300 0403                              |0037: div-int v0, v4, v3
+000216: 6206 0000                              |0039: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00021a: 1a07 0100                              |003b: const-string v7, "Divide integers = " // string@0001
+00021e: 6e20 0300 7600                         |003d: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0003
+000224: 6206 0000                              |0040: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000228: 6e20 0200 0600                         |0042: invoke-virtual {v6, v0}, Ljava/io/PrintStream;.println:(I)V // method@0002
+00022e: d803 0301                              |0045: add-int/lit8 v3, v3, #int 1 // #01
+000232: 28be                                   |0047: goto 0005 // -0042
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0003 line=13
+        0x0009 line=38
+        0x000a line=15
+        0x000c line=16
+        0x0013 line=17
+        0x0018 line=20
+        0x0019 line=21
+        0x001b line=22
+        0x0022 line=23
+        0x0027 line=26
+        0x0028 line=27
+        0x002a line=28
+        0x0031 line=29
+        0x0036 line=32
+        0x0037 line=33
+        0x0039 line=34
+        0x0040 line=35
+        0x0045 line=13
+      locals        : 
+        0x0037 - 0x0048 reg=0 d I 
+        0x0028 - 0x0048 reg=1 m I 
+        0x0019 - 0x0048 reg=2 s I 
+        0x0005 - 0x0048 reg=3 x I 
+        0x0002 - 0x0048 reg=4 y I 
+        0x0003 - 0x0048 reg=5 z I 
+        0x0000 - 0x0048 reg=8 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 14 (WideMathWithLoop.java)
+

@@ -15,6 +15,7 @@ var Upload = function(_cbk, _vm) {
   this._loadButton.addEventListener('click', function(evt) { _self.onClickLoad(evt); }, false);
   this._runButton.addEventListener('click', function(evt) { 
                                      var _cc = _self._classChooser;
+                                     _vm.clear();
                                      if (_cc.selectedIndex()!==-1){
                                        _vm.start(_cc.selectedItem());
                                        while(_vm.hasThreads()){
@@ -22,7 +23,6 @@ var Upload = function(_cbk, _vm) {
                                        }
                                      }
                                    }, false);
-  console.log("Hello");
 };
 
 Upload.prototype.onClickLoad = function(clickEvent) {

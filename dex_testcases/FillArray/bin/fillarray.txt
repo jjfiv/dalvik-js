@@ -1,0 +1,97 @@
+Processing '/home/vjd215/workspace/FillArray/bin/fillarray.dex'...
+Opened '/home/vjd215/workspace/FillArray/bin/fillarray.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 3
+annotations_off     : 0 (0x000000)
+class_data_off      : 844 (0x00034c)
+static_fields_size  : 1
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LFillArrayTest;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in LFillArrayTest;)
+      name          : 'arrayData'
+      type          : '[I'
+      access        : 0x000a (PRIVATE STATIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LFillArrayTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000188:                                        |[000188] FillArrayTest.<init>:()V
+000198: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00019e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LFillArrayTest; 
+
+    #1              : (in LFillArrayTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 2
+      insns size    : 41 16-bit code units
+0001a0:                                        |[0001a0] FillArrayTest.main:([Ljava/lang/String;)V
+0001b0: 1276                                   |0000: const/4 v6, #int 7 // #7
+0001b2: 2363 0800                              |0001: new-array v3, v6, [I // type@0008
+0001b6: 6903 0000                              |0003: sput-object v3, LFillArrayTest;.arrayData:[I // field@0000
+0001ba: 1a02 1900                              |0005: const-string v2, "䤠慭⁲慴桥牰景湤⁯映浵晦楮献" // string@0019
+0001be: 1200                                   |0007: const/4 v0, #int 0 // #0
+0001c0: 1201                                   |0008: const/4 v1, #int 0 // #0
+0001c2: 3460 0300                              |0009: if-lt v0, v6, 000c // +0003
+0001c6: 0e00                                   |000b: return-void
+0001c8: d801 0101                              |000c: add-int/lit8 v1, v1, #int 1 // #01
+0001cc: 6203 0000                              |000e: sget-object v3, LFillArrayTest;.arrayData:[I // field@0000
+0001d0: 6e20 0400 1200                         |0010: invoke-virtual {v2, v1}, Ljava/lang/String;.charAt:(I)C // method@0004
+0001d6: 0a04                                   |0013: move-result v4
+0001d8: e004 0410                              |0014: shl-int/lit8 v4, v4, #int 16 // #10
+0001dc: 6e20 0400 1200                         |0016: invoke-virtual {v2, v1}, Ljava/lang/String;.charAt:(I)C // method@0004
+0001e2: 0a05                                   |0019: move-result v5
+0001e4: b654                                   |001a: or-int/2addr v4, v5
+0001e6: 4b04 0300                              |001b: aput v4, v3, v0
+0001ea: 6203 0100                              |001d: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+0001ee: 6204 0000                              |001f: sget-object v4, LFillArrayTest;.arrayData:[I // field@0000
+0001f2: 4404 0400                              |0021: aget v4, v4, v0
+0001f6: 6e20 0200 4300                         |0023: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001fc: d800 0001                              |0026: add-int/lit8 v0, v0, #int 1 // #01
+000200: 28e1                                   |0028: goto 0009 // -001f
+      catches       : (none)
+      positions     : 
+        0x0001 line=9
+        0x0005 line=10
+        0x0007 line=14
+        0x000b line=20
+        0x000c line=15
+        0x000e line=16
+        0x001d line=17
+        0x0026 line=14
+      locals        : 
+        0x0008 - 0x0029 reg=0 i I 
+        0x0009 - 0x0029 reg=1 j I 
+        0x0007 - 0x0029 reg=2 s Ljava/lang/String; 
+        0x0000 - 0x0029 reg=7 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 3 (FillArrayTest.java)
+

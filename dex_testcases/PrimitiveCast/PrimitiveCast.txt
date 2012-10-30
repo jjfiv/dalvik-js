@@ -1,0 +1,187 @@
+Processing 'PrimitiveCast.dex'...
+Opened 'PrimitiveCast.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LPrimitiveCast;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LPrimitiveCast;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000130:                                        |[000130] PrimitiveCast.<init>:()V
+000140: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000146: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LPrimitiveCast; 
+
+    #1              : (in LPrimitiveCast;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 11
+      ins           : 1
+      outs          : 2
+      insns size    : 207 16-bit code units
+000148:                                        |[000148] PrimitiveCast.main:([Ljava/lang/String;)V
+000158: 1211                                   |0000: const/4 v1, #int 1 // #1
+00015a: 1202                                   |0001: const/4 v2, #int 0 // #0
+00015c: 1803 adbe edfe efbe adde               |0002: const-wide v3, #double -11885960025170515221821747330087039414397108263802454995469863757265863460852409792408562820577774499533267406909859406253380625575696301587269943296.000000 // #deadbeeffeedbead
+000166: 6205 0000                              |0007: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00016a: 8430                                   |0009: long-to-int v0, v3
+00016c: 1403 adbe edfe                         |000a: const v3, #float -158008540130504055433303205231732981760.000000 // #feedbead
+000172: 3330 a700                              |000d: if-ne v0, v3, 00b4 // +00a7
+000176: 0110                                   |000f: move v0, v1
+000178: 6e20 0200 0500                         |0010: invoke-virtual {v5, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00017e: 1803 00e4 0b54 0200 0000               |0013: const-wide v3, #double 0.000000 // #00000002540be400
+000188: 6205 0000                              |0018: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00018c: 8530                                   |001a: long-to-float v0, v3
+00018e: 1406 f902 1550                         |001b: const v6, #float 10000000000.000000 // #501502f9
+000194: 2d00 0006                              |001e: cmpl-float v0, v0, v6
+000198: 3900 9700                              |0020: if-nez v0, 00b7 // +0097
+00019c: 0110                                   |0022: move v0, v1
+00019e: 6e20 0200 0500                         |0023: invoke-virtual {v5, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001a4: 6205 0000                              |0026: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001a8: 8633                                   |0028: long-to-double v3, v3
+0001aa: 1806 0000 0020 5fa0 0242               |0029: const-wide v6, #double 10000000000.000000 // #4202a05f20000000
+0001b4: 2f00 0306                              |002e: cmpl-double v0, v3, v6
+0001b8: 3900 8a00                              |0030: if-nez v0, 00ba // +008a
+0001bc: 0110                                   |0032: move v0, v1
+0001be: 6e20 0200 0500                         |0033: invoke-virtual {v5, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001c4: 1303 0004                              |0036: const/16 v3, #int 1024 // #400
+0001c8: 6204 0000                              |0038: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001cc: 8135                                   |003a: int-to-long v5, v3
+0001ce: 1607 0004                              |003b: const-wide/16 v7, #int 1024 // #400
+0001d2: 3100 0507                              |003d: cmp-long v0, v5, v7
+0001d6: 3900 7e00                              |003f: if-nez v0, 00bd // +007e
+0001da: 0110                                   |0041: move v0, v1
+0001dc: 6e20 0200 0400                         |0042: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001e2: 6204 0000                              |0045: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001e6: 8230                                   |0047: int-to-float v0, v3
+0001e8: 1505 8044                              |0048: const/high16 v5, #int 1149239296 // #4480
+0001ec: 2d00 0005                              |004a: cmpl-float v0, v0, v5
+0001f0: 3900 7300                              |004c: if-nez v0, 00bf // +0073
+0001f4: 0110                                   |004e: move v0, v1
+0001f6: 6e20 0200 0400                         |004f: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001fc: 6204 0000                              |0052: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000200: 8335                                   |0054: int-to-double v5, v3
+000202: 1907 9040                              |0055: const-wide/high16 v7, #long 4652218415073722368 // #4090
+000206: 2f00 0507                              |0057: cmpl-double v0, v5, v7
+00020a: 3900 6800                              |0059: if-nez v0, 00c1 // +0068
+00020e: 0110                                   |005b: move v0, v1
+000210: 6e20 0200 0400                         |005c: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000216: 1403 0080 0543                         |005f: const v3, #float 133.500000 // #43058000
+00021c: 6204 0000                              |0062: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000220: 8730                                   |0064: float-to-int v0, v3
+000222: 1305 8500                              |0065: const/16 v5, #int 133 // #85
+000226: 3350 5c00                              |0067: if-ne v0, v5, 00c3 // +005c
+00022a: 0110                                   |0069: move v0, v1
+00022c: 6e20 0200 0400                         |006a: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000232: 6204 0000                              |006d: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000236: 8835                                   |006f: float-to-long v5, v3
+000238: 1607 8500                              |0070: const-wide/16 v7, #int 133 // #85
+00023c: 3100 0507                              |0072: cmp-long v0, v5, v7
+000240: 3900 5100                              |0074: if-nez v0, 00c5 // +0051
+000244: 0110                                   |0076: move v0, v1
+000246: 6e20 0200 0400                         |0077: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00024c: 6204 0000                              |007a: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000250: 8935                                   |007c: float-to-double v5, v3
+000252: 1807 0000 0000 00b0 6040               |007d: const-wide v7, #double 133.500000 // #4060b00000000000
+00025c: 2f00 0507                              |0082: cmpl-double v0, v5, v7
+000260: 3900 4300                              |0084: if-nez v0, 00c7 // +0043
+000264: 0110                                   |0086: move v0, v1
+000266: 6e20 0200 0400                         |0087: invoke-virtual {v4, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00026c: 1803 0000 0000 0060 5940               |008a: const-wide v3, #double 101.500000 // #4059600000000000
+000276: 6205 0000                              |008f: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00027a: 8a30                                   |0091: double-to-int v0, v3
+00027c: 1306 6500                              |0092: const/16 v6, #int 101 // #65
+000280: 3360 3500                              |0094: if-ne v0, v6, 00c9 // +0035
+000284: 0110                                   |0096: move v0, v1
+000286: 6e20 0200 0500                         |0097: invoke-virtual {v5, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00028c: 6205 0000                              |009a: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000290: 8b36                                   |009c: double-to-long v6, v3
+000292: 1608 6500                              |009d: const-wide/16 v8, #int 101 // #65
+000296: 3100 0608                              |009f: cmp-long v0, v6, v8
+00029a: 3900 2a00                              |00a1: if-nez v0, 00cb // +002a
+00029e: 0110                                   |00a3: move v0, v1
+0002a0: 6e20 0200 0500                         |00a4: invoke-virtual {v5, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0002a6: 6200 0000                              |00a7: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0002aa: 8c33                                   |00a9: double-to-float v3, v3
+0002ac: 1504 cb42                              |00aa: const/high16 v4, #int 1120600064 // #42cb
+0002b0: 2d03 0304                              |00ac: cmpl-float v3, v3, v4
+0002b4: 3903 1f00                              |00ae: if-nez v3, 00cd // +001f
+0002b8: 6e20 0200 1000                         |00b0: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0002be: 0e00                                   |00b3: return-void
+0002c0: 0120                                   |00b4: move v0, v2
+0002c2: 2900 5bff                              |00b5: goto/16 0010 // -00a5
+0002c6: 0120                                   |00b7: move v0, v2
+0002c8: 2900 6bff                              |00b8: goto/16 0023 // -0095
+0002cc: 0120                                   |00ba: move v0, v2
+0002ce: 2900 78ff                              |00bb: goto/16 0033 // -0088
+0002d2: 0120                                   |00bd: move v0, v2
+0002d4: 2884                                   |00be: goto 0042 // -007c
+0002d6: 0120                                   |00bf: move v0, v2
+0002d8: 288f                                   |00c0: goto 004f // -0071
+0002da: 0120                                   |00c1: move v0, v2
+0002dc: 289a                                   |00c2: goto 005c // -0066
+0002de: 0120                                   |00c3: move v0, v2
+0002e0: 28a6                                   |00c4: goto 006a // -005a
+0002e2: 0120                                   |00c5: move v0, v2
+0002e4: 28b1                                   |00c6: goto 0077 // -004f
+0002e6: 0120                                   |00c7: move v0, v2
+0002e8: 28bf                                   |00c8: goto 0087 // -0041
+0002ea: 0120                                   |00c9: move v0, v2
+0002ec: 28cd                                   |00ca: goto 0097 // -0033
+0002ee: 0120                                   |00cb: move v0, v2
+0002f0: 28d8                                   |00cc: goto 00a4 // -0028
+0002f2: 0121                                   |00cd: move v1, v2
+0002f4: 28e2                                   |00ce: goto 00b0 // -001e
+      catches       : (none)
+      positions     : 
+        0x0002 line=3
+        0x0007 line=6
+        0x0013 line=8
+        0x0018 line=9
+        0x0026 line=10
+        0x0036 line=12
+        0x0038 line=13
+        0x0045 line=14
+        0x0052 line=15
+        0x005f line=17
+        0x0062 line=18
+        0x006d line=19
+        0x007a line=20
+        0x008a line=22
+        0x008f line=23
+        0x009a line=24
+        0x00a7 line=25
+        0x00b3 line=26
+        0x00b5 line=6
+        0x00b8 line=9
+        0x00bb line=10
+        0x00be line=13
+        0x00c0 line=14
+        0x00c2 line=15
+        0x00c4 line=18
+        0x00c6 line=19
+        0x00c8 line=20
+        0x00ca line=23
+        0x00cc line=24
+        0x00ce line=25
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 5 (PrimitiveCast.java)
+
