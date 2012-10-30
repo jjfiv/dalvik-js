@@ -385,7 +385,7 @@ function intFromFloat (_input) {
 function doubleFromgLong (_input) {
   var buffer = new ArrayBuffer(8);
   var i32ptr = new Int32Array(buffer);
-  i32ptr.set([_input.high_, _input.low_]);
+  i32ptr.set([_input.low_, _input.high_]);
   var dptr = new Float64Array(buffer);
   return dptr[0];
 }
@@ -396,7 +396,7 @@ function gLongFromDouble (_input) {
   dptr.set([_input]);
   var i32ptr = new Int32Array(buffer);
   gLongInst = new gLong();
-  gLongInst.high_ = i32ptr[0];
-  gLongInst.low_ = i32ptr[1];
+  gLongInst.high_ = i32ptr[1];
+  gLongInst.low_ = i32ptr[0];
   return gLongInst;
 }

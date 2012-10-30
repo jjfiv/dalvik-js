@@ -313,8 +313,14 @@ var icodeHandlers = {
       if (_mname==="println" && _ts.isEquals(new Type("Ljava/io/PrintStream;"))){
         return function() {
           console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!");
-          if (method.signature.parameterTypes[0].typeString === "D"){
+          if (method.signature.parameterTypes[0]._typeString === "D"){
             terminal.println(doubleFromgLong(argValues[1]));
+          } else if (method.signature.parameterTypes[0]._typeString === "Z") {
+            if (argValues[1] === 1) {
+              terminal.println ("true");
+            } else {
+              terminal.println ("false");
+            }
           } else {
             terminal.println (argValues[1]);
           }};
