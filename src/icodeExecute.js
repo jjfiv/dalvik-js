@@ -405,6 +405,7 @@ var icodeHandlers = {
 	  if (_inst.destType.isEquals(TYPE_INT)) {
 	    val = val.toInt();
 	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
+	    val = val.toNumber();
 	    val = floatFromDouble(val);
 	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
 	    val = val.toNumber();
@@ -429,14 +430,13 @@ var icodeHandlers = {
 	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
 	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
 	  val = intFromFloat(val);
-    } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLong.fromDouble(val);
+        } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
+	  val = gLongFromDouble(val);
 	} else {
 	  assert(false, "Unidentified target primitive type");
 	}
     
 	_thread.setRegister(_inst.dest, val);
-    //NYI(_inst);
   },
 
   "int-cast": function(_inst, _thread) {
