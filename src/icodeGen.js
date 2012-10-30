@@ -302,7 +302,7 @@ opArgs[0x18] = function(_dcode, _icode, _dex) {
   _icode.wide = true;
   var low = _dcode.get32();
   var high = _dcode.get32();
-  _icode.value = gLong.fromBits(high, low);
+  _icode.value = gLong.fromBits(low, high);
 };
 
 opName[0x19] = "const-wide/high16";
