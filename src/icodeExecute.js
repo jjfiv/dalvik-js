@@ -257,7 +257,30 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    _thread.setRegister (_inst.value, _inst.field.value);
+    //var _obj = _thread.getRegister(_inst.obj);
+    var _obj = _inst.obj;
+    console.log("instance _obj " + _obj);
+    var _val, _i;
+    
+    for (_i in _obj.instanceFields) {
+      console.log("_i " + _i);
+      if (_i._name === _inst.field) {
+        _val = _i.value;
+        break;
+      }
+    }
+
+    if (_val === undefined) {
+      for (_i in _obj.staticFields) {
+        console.log("_i " + _i);
+        if (_i._name === _inst.field) {
+          _val = _i.value;
+          break;
+        }
+      }
+    }
+    //_thread.setRegister (_inst.value, _inst.field.value);
+    _thread.setRegister (_inst.value, _val);
   },
 
   "instance-put": function(_inst, _thread) {
