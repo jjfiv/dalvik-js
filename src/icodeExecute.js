@@ -10,9 +10,9 @@ var NYI = function(_inst) {
 var findSuperMethod = function(_method, _class, _classLib) {
   console.log(_class);
   console.log(_method);
-  var _j;
+  //var _j;
 
-  for (_j = 0; _j < 5; _j++) {
+  //for (_j = 0; _j < 5; _j++) {
   //while (!(TYPE_OBJECT.isEquals(_class.name))) {
     var _i;
 	
@@ -27,11 +27,12 @@ var findSuperMethod = function(_method, _class, _classLib) {
 	  if (_class.directMethods[_i].name === _mName) {
 	    _mIndex = _i;
 	  }
-	}
+	//}
 	if (_mIndex > -1 ) {
 	  return _class.directMethods[_mIndex];
 	} else {
-	  findSuperMethod(_method, _class.parent, _classLib);
+	  //findSuperMethod(_method, _class.parent, _classLib);
+	  return -1;
 	}
   }
 }
@@ -338,11 +339,21 @@ var icodeHandlers = {
       assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
       // front pad arguments to comply with register alignment stuff
       for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
-	  if (_inst.kind === "super") {
-	    var _class = _thread._vm.classLibrary.findClass(method.definingClass);
-	    method = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
-		console.log("invoke-super is WIP");
-	  }
+	    if (_inst.kind === "super") {
+	      var _class = _thread._vm.classLibrary.findClass(method.definingClass);
+		  var _mIndex = -1;
+		  var _j;
+		  while (!(TYPE_OBJECT.isEquals(_class.type))) {
+		  //while (_mIndex === -1) {
+		  //for (_j = 0; _j < 5; _j++) {
+		    _class = _thread._vm.classLibrary.findClass(_class.parent);
+	        _mIndex = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+		    console.log("_mIndex" + _mIndex);
+			console.log("_class" + _class);
+		  }
+		  method = _mIndex;
+		  console.log("invoke-super is WIP");
+	    }
         _a[_i]=0;
       }
       _a=_a.concat(argValues);
