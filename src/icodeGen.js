@@ -813,6 +813,8 @@ opName[0x54] = "iget-object";
 opArgs[0x54] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-get";
   val4obj4field16(_dcode, _icode, _dex);
+  //var _x = _icode.obj;
+  //_icode.obj = _dex.classes[_x];
   _icode.type = TYPE_OBJECT;
 };
 
