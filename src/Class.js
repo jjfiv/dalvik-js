@@ -52,3 +52,14 @@ Class.prototype.makeNew = function(){
 Class.prototype.getTypeString = function(){
   return this.type.getTypeString();
 };
+
+Class.prototype.interfaceOf = function(_interface, _classLibrary){
+  assert(isA(_interface, 'Type'), 'argument '+_interface+' must be of type Type');
+  var _i, _retval=false, _super = (this.parent) ? _classLibrary.findClass(this.parent) : null;
+  for (_i=0;_i<this.interfaces.length;_i++){
+    if (this.interfaces[_i].isEquals(_interface)){
+      _retval=true; break;
+    }
+  }
+  return _retval || (_super && _super.interfaceOf(_interface, _classLibrary));
+};

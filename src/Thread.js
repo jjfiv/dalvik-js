@@ -14,27 +14,41 @@ var StackFrame = function(_m) {
   }
 };
 
-StackFrame.prototype.toString = function() {
-  var _i, _regs=" ";
-  var _pc = this.pc;
-  var _method = this.method.name;
-  var _opcode = this.method.icode[_pc].op;
-  for (_i=0 ; _i<this.regs.length ; _i++){
-    _regs+=this.regs[_i].toString()+" ";
-  }
-  return "{ PC:"+_pc+"\t\tMETHOD:"+_method+"\t\tOPCODE:"+_opcode+"\t\tREGS:["+_regs+"] }";
-};
+// StackFrame.prototype.toString = function() {
+//   var _i, _regs=" ";
+//   var _pc = this.pc;
+//   var _method = this.method.name;
+//   var _opcode = this.method.icode[_pc].op;
+//   for (_i=0 ; _i<this.regs.length ; _i++){
+//     _regs+=this.regs[_i].toString()+" ";
+//   }
+//   return "{ PC:"+_pc+"\t\tMETHOD:"+_method+"\t\tOPCODE:"+_opcode+"\t\tREGS:["+_regs+"] }";
+// };
 
-var Thread = function(vm) {
+var Thread = function(_vm, _state, _threadClass) {
   this._result = null;
   this._exception = null;
-  this._vm = vm;
+  this._vm = _vm;
   this._stack = [];
+  this.state = _state || 'NEW';
+  this.uid = gensym("T");
+  this.threadClass = _threadClass;
 };
 
-Thread.prototype.toString = function(){
-  return this._stack[0].toString()+"...";
+Thread.prototype.spawn = function (_threadClass) {
+  var newThread = new Thread(this._vm, 'NEW', _threadClass);
+  this._vm._threads.push(newThread);
+  newThread._stack.push(this.currentFrame());
+  return newThread;
 };
+
+Thread.prototype.getClassLibrary = function () {
+  return this._vm.classLibrary;
+};
+
+// Thread.prototype.toString = function(){
+//   return this._stack[0].toString()+"...";
+// };
 
 Thread.prototype.pushMethod = function(_m, _regs) {
   var _frame = new StackFrame(_m);
@@ -49,11 +63,6 @@ Thread.prototype.popMethod = function(_result) {
   this._stack.pop();
 };
 
-// a thread is done execution when all its methods return
-// so when the frame stack is empty
-Thread.prototype.isFinished = function() {
-  return this._stack.length === 0;
-};
 
 // grab the current frame object
 Thread.prototype.currentFrame = function() {
@@ -65,6 +74,12 @@ Thread.prototype.currentFrame = function() {
 
   return _s[_len-1];
 }; //ends currentFrame
+
+// a thread is done execution when all its methods return
+// so when the frame stack is empty
+Thread.prototype.isFinished = function() {
+  return this._stack.length === 0 || this.state === 'TERMINATED';
+};
 
 Thread.prototype.getRegister = function(_idx) {
   return this.currentFrame().regs[_idx];
@@ -87,35 +102,40 @@ Thread.prototype.throwException = function(_obj) {
 
 // do the next instruction
 Thread.prototype.doNextInstruction = function() {
-  console.log(this.statusString());
+  if (this.state === 'RUNNABLE'){
+    console.log(this.statusString());
+    var _frame = this.currentFrame();
+    var _inst = _frame.method.icode[_frame.pc];
+    var _handler = icodeHandlers[_inst.op];
 
-  var _frame = this.currentFrame();
-  var _inst = _frame.method.icode[_frame.pc];
-  if (DEBUG){
-      ICODES.putICODE(_inst.op);
+    if(isUndefined(_handler)) {
+      assert(0, "UNSUPPORTED OPCODE! " + _inst.op);
+    }
+
+    console.log('execute ' + _inst.op);
+    var _inc = _handler(_inst, this);
+    _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
+
+    // in the case of multithreading, we might advance the pc beyond the available icodes
+    // in that case, we will need to pop the method
+    if (_frame.pc >= _frame.method.icode.length){
+      this.popMethod();
+    }
+  } else {
+    console.log('Thread '+this.uid+' not executing; currently state is '+this.state);
   }
-
-  // see icode.js
-  var _handler = icodeHandlers[_inst.op];
-
-  if(isUndefined(_handler)) {
-    assert(0, "UNSUPPORTED OPCODE! " + _inst.op);
-  }
-
-  console.log('execute ' + _inst.op);
-  var _inc = _handler(_inst, this);
-  _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
 };
 
 // summarize where we are
 Thread.prototype.statusString = function() {
+
   if(this.isFinished()) {
     return "Thread terminated";
   }
 
   var _f = this.currentFrame();
-  
-  return "in " + _f.method.toString() +
+
+  return "Thread " + this.uid + " in " + _f.method.toString() +
          "\n  pc=" + _f.pc +
          "\n  nextInstr=" + _f.method.icode[_f.pc].op +
          "\n  regs: " + inspect(_f.regs);
