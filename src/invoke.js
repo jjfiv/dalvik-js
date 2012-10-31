@@ -86,10 +86,9 @@ var invoke = function(_inst,_thread){
 			break;
 		  }
 		}
-	  }
-	}
+	  }	
      _a[_i]=0;
-   }
+    }
     _a=_a.concat(argValues);
     assert(_a.length===_numRegisters, "New method "+method.getName()+" is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
     _thread.pushMethod(method,_a);
