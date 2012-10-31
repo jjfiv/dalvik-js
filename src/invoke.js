@@ -12,9 +12,9 @@ var intercept = {
   "Ljava/io/PrintStream;" : { 
     "println" : function(kind, method, argRegs, argValues) {
         console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!");
-        if (method.signature.parameterTypes[0].getTypeString === "D"){
+        if (method.signature.parameterTypes[0].getTypeString() === "D"){
             terminal.println(doubleFromgLong(argValues[1]));
-        } else if (method.signature.parameterTypes[0].getTypeString === "Z") {
+        } else if (method.signature.parameterTypes[0].getTypeString() === "Z") {
             if (argValues[1] === 1) {
                 terminal.println ("true");
             } else {
