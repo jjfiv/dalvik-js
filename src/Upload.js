@@ -19,6 +19,7 @@ var Upload = function(_cbk, _vm) {
                                      if (_cc.selectedIndex()!==-1){
                                        _vm.start(_cc.selectedItem());
                                        while(_vm.hasThreads()){
+                                         assert(_vm.isRunnable(), 'This machine has no RUNNABLE threads.');
                                          _vm.clockTick();
                                        }
                                      }

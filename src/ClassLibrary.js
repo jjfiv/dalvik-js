@@ -3,7 +3,9 @@
 // dependencies:
 
 var ClassLibrary = function() {
-  this.classes = {};
+  this.classes = {
+      "Ljava/lang/Object;" : new Class(new Type("Ljava/lang/Object;"))
+  };
 };
 
 ClassLibrary.prototype.addClass = function(_class){
@@ -25,4 +27,17 @@ ClassLibrary.prototype.findClass = function (_type){
   var _class = this.classes[_type.getTypeString()]; 
   assert(!(isUndefined(_class)), _type.getTypeString()+" not in ClassLibrary.");
   return _class;
+};
+
+ClassLibrary.prototype.findMethodByName = function(_type, _nameString){
+  var _i, _m, _method, _class = this.classes[_type.getTypeString()];
+  var _allMethods = _class.directMethods.concat(_class.virtualMethods);
+  for (_i=0;_i<_allMethods.length;_i++){
+    _m = _allMethods[_i];
+    if (_m.getName()===_nameString){
+      _method = _m; break;
+    }
+  }
+  assert(!(isUndefined(_method)), _type.getTypeString()+" does not have a method named "+_nameString);
+  return _method;
 };

@@ -52,6 +52,10 @@ var inspect = function(obj) {
     return '*undefined*';
   }
 
+  if(isA(obj, 'Thread')){
+    return obj.uid+":"+obj.state;
+  }
+
   if(isArray(obj)) {
     text += '[';
     obj.map(function(item) { text += inspect(item) + ', '; });
@@ -400,3 +404,8 @@ function gLongFromDouble (_input) {
   gLongInst.low_ = i32ptr[0];
   return gLongInst;
 }
+
+var _counter = 0;
+function gensym(_prefix){
+  return (_prefix || "")+(_counter+=1);
+};

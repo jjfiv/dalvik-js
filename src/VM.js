@@ -32,7 +32,7 @@ VM.prototype.defineClasses = function(_data){
 };
 
 VM.prototype.createThread = function( _directMethod ) {
-  var _newThread = new Thread(this);
+  var _newThread = new Thread(this, 'RUNNABLE');
   _newThread.pushMethod(_directMethod);
   this._threads.push(_newThread);
 };
@@ -44,7 +44,7 @@ VM.prototype.start = function ( _selectedClassAsType ) {
   var _class = this.classLibrary.findClass(_selectedClassAsType);
 
   // && true casts to boolean sort of
-  return this.createThread(_class.getMain()) && true;
+  return this.createThread(_class.getMain());
 }; //end start
 
 VM.prototype.clockTick = function() {
@@ -73,4 +73,8 @@ VM.prototype.hasThreads = function() {
 
 VM.prototype.clear = function(){
   this._threads = [];
+};
+
+VM.prototype.isRunnable = function(){
+  return this._threads.reduce(function(_t1, _t2){ return _t1.state==='RUNNABLE' || _t2.state==='RUNNABLE'; });
 };
