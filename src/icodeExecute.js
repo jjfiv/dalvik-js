@@ -229,6 +229,7 @@ var icodeHandlers = {
   "instance-get": function(_inst, _thread) {
     //var _obj = _thread.getRegister(_inst.obj);
     var _obj = _inst.obj;
+	//var _obj = _thread._vm._source._dex _inst.obj
     console.log("instance _obj " + _obj);
     var _val, _i;
     

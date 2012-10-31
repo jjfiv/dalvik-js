@@ -13,14 +13,14 @@ var findSuperMethod = function(_method, _class, _classLib) {
 	var _mName = _method.name;
 	
 	//for (_i = 0; _i < _classLib[_cName].directMethods.length; _i++) {
-	for (_i = 0; _i < _class.directMethods.length; _i++) {
+	for (_i = 0; _i < _class.virtualMethods.length; _i++) {
 	  //if (_classLib[_cName].directMethods[_i].getName() === _mName) {
-	  if (_class.directMethods[_i].name === _mName) {
+	  if (_class.virtualMethods[_i].name === _mName) {
 	    _mIndex = _i;
 	  }
 	//}
 	if (_mIndex > -1 ) {
-	  return _class.directMethods[_mIndex];
+	  return _class.virtualMethods[_mIndex];
 	} else {
 	  //findSuperMethod(_method, _class.parent, _classLib);
 	  return -1;
@@ -78,17 +78,25 @@ var invoke = function(_inst,_thread){
      for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
 	    if (_inst.kind === "super") {
 	      var _class = _thread._vm.classLibrary.findClass(method.definingClass);
+		  console.log(_class);
 		  var _mIndex = -1;
 		  var _j;
-		  while (!(TYPE_OBJECT.isEquals(_class.type))) {
-		  //while (_mIndex === -1) {
-		  //for (_j = 0; _j < 5; _j++) {
-		    _class = _thread._vm.classLibrary.findClass(_class.parent);
-	        _mIndex = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
-		    console.log("_mIndex" + _mIndex);
-			console.log("_class" + _class);
+		  
+		  for (_j in _class.virtualMethods) {
+		    if (_j.name === method.getName()) {
+			  method = _j;
+			  break;
+			}
 		  }
-		  method = _mIndex;
+		  // while (!(TYPE_OBJECT.isEquals(_class.type))) {
+		  // while (_mIndex === -1) {
+		  // for (_j = 0; _j < 5; _j++) {
+		    // _class = _thread._vm.classLibrary.findClass(_class);
+	        // _mIndex = findSuperMethod(method.getName(), _class, _thread._vm.classLibrary);
+		    // console.log("_mIndex" + _mIndex);
+			// console.log("_class" + _class);
+		  // }
+		  // method = _mIndex;
 		  console.log("invoke-super is WIP");
 	    }
         _a[_i]=0;
