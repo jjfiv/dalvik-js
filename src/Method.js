@@ -17,6 +17,9 @@ var Method = function (_name, _definingClass, _paramTypes, _returnType) {
   // permissions of this method
   this.accessFlags = 0;
 
+  // whether this method is defined within a dexFile; it may still be native if defined
+  this.defined = false;
+
   // the interpreter-specific code
   this.icode = [];
 };
