@@ -18,6 +18,10 @@ Field.prototype.clone = function() {
   return new Field(this.name, this.type.clone(), this.definingClass.clone(), this.accessFlags);
 };
 
+Field.prototype.isEquals = function (_otherField) {
+  return this.name === _otherField.name && this.type.isEquals(_otherField.type);
+};
+
 
 //
 // toString method to build a string of the form

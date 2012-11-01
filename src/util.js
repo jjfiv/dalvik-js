@@ -22,6 +22,15 @@ var min = function(a, b) {
 assert(min(7,10) === 7, "min test");
 assert(max(7,10) === 10, "max test");
 
+// used by dex2js.py 2.0
+var binaryStringToArray = function(strdata) {
+  var i;
+  var results = [];
+  for(i=0; i<strdata.length; i++) {
+    results.push(strdata.charCodeAt(i));
+  }
+  return results;
+};
 
 var isUndefined = function(_obj) {
   return typeof(_obj) === 'undefined';

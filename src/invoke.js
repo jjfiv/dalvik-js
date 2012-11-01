@@ -57,7 +57,7 @@ var threadHandler = function(_thread, _kind, _method, _args){
       // fill the fields with args or something to initialize?
       var _run = _thread.getClassLibrary().findMethodByName(_newThread.threadClass, 'run');
       _newThread.pushMethod(_run);
-    },
+    },                                                         
     "start" : function () { 
       var _newThread = _args[0]; 
       assert(isA(_newThread, 'Thread'), 'The 0th register of instance methods on Threads ought to be a reference to the thread itself.');

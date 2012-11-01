@@ -89,12 +89,11 @@ var icodeHandlers = {
     // get the class for the corresponding type from classLibrary
     var _class = _thread._vm.classLibrary.findClass(_inst.type);
     if (isRunnable(_inst.type, _thread.getClassLibrary())){
-//      _thread._result = _thread.spawn();
       var _newThread = _thread.spawn(_inst.type);
       _thread.setRegister(_inst.dest, _newThread);
       console.log("new Thread made with id "+_newThread.uid);
     } else {
-      _thread.setRegister(_inst.dest, _class.makeNew());
+      _thread.setRegister(_inst.dest, _class.makeNew(_thread.getClassLibrary()));
       console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
     }
   },
@@ -269,25 +268,9 @@ var icodeHandlers = {
   },
 
   "instance-put": function(_inst, _thread) {
-    var _obj = _thread.getRegister(_inst.obj);
-    //var _obj = _inst.obj;
-    //var _obj = _thread._vm._source._dex _inst.obj
-    console.log("instance _obj put ");
-    console.log(_obj);
-    var _val, _i;
-    
-    //for (_i in _obj.instanceFields) {
-    for (_i = 0; _i < _obj.fields.length; _i++) {
-      console.log("_i " + _obj.fields[_i]);
-      if (_obj.fields[_i]._name === _inst.field) {      
-        _obj.fields[_i].value = _inst.value;
-        _i = _obj.fields.length;
-      }
-    }
-
-    //_thread.setRegister (_inst.value, _inst.field.value);
-    //_thread.setRegister (_inst.value, _val);
-    //_inst.field.value = _thread.getRegister (_inst.value);
+    var _instance = _thread.getRegister(_inst.obj);
+    var _val = _thread.getRegister(_inst.value);
+    _instance.getField(_inst.field).value = _val; 
   },
 
   // handles getting a static field from a class

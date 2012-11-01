@@ -76,5 +76,10 @@ VM.prototype.clear = function(){
 };
 
 VM.prototype.isRunnable = function(){
-  return this._threads.reduce(function(_t1, _t2){ return _t1.state==='RUNNABLE' || _t2.state==='RUNNABLE'; });
+  for (_i = 0; _i < this._threads.length; _i++) {
+    if (this._threads[_i].state === 'RUNNABLE') {
+      return true;
+    }
+  }
+  return false;
 };

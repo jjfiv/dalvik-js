@@ -80,7 +80,7 @@ DEXData.prototype.parse = function() {
   //--- check magic number
   for(_i=0; _i<DEX_FILE_MAGIC.length; _i++) {
     var x = _fp.get();
-    //dexDebug(hex(x));
+    dexDebug(hex(x) + " vs exp: " + hex(DEX_FILE_MAGIC[_i]));
     if(DEX_FILE_MAGIC[_i] !== x) {
       dexDebug("Error, DEX_FILE_MAGIC incorrect!\n");
       return;
@@ -261,7 +261,9 @@ DEXData.prototype._parseClassMethods = function(_count) {
 
     _m.accessFlags = _accessFlags;
 
-    if(_codeOffset !== 0) {
+    _m.defined = _codeOffset !== 0;
+
+    if(_m.defined) {
       //console.log("Native Method: " + _m.name + " in " + _m.definingClass);
 
       //--- save file offset, and jump to _codeOffset
