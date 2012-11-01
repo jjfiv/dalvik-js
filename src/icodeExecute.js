@@ -144,9 +144,9 @@ var icodeHandlers = {
     var _i, _addressJumpTo;
     for(_i=0; _i<_inst.cases.length; _i++) {
       if(_val === _inst.cases[_i]) {
-        _addressJumpTo = _inst.addresses[_i];
-        break;
-      }
+        _addressJumpTo = _inst.addresses[_i];  
+        break;      
+      }      
     }
     return _addressJumpTo;
   },
@@ -247,10 +247,8 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    //var _obj = _thread.getRegister(_inst.obj);
-    var _instance = _thread.getRegister(_inst.obj);
-    var _val = _instance.getField(_inst.field).value;
-    _thread.setRegister(_inst.value, _val);
+    var _obj = _thread.getRegister(_inst.obj);
+    _thread.setRegister (_inst.value,_obj.getField(_inst.field).value);
   },
 
   "instance-put": function(_inst, _thread) {
