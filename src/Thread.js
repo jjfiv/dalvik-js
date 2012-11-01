@@ -38,7 +38,6 @@ var Thread = function(_vm, _state, _threadClass) {
 Thread.prototype.spawn = function (_threadClass) {
   var newThread = new Thread(this._vm, 'NEW', _threadClass);
   this._vm._threads.push(newThread);
-  newThread._stack.push(this.currentFrame());
   return newThread;
 };
 
@@ -118,9 +117,9 @@ Thread.prototype.doNextInstruction = function() {
 
     // in the case of multithreading, we might advance the pc beyond the available icodes
     // in that case, we will need to pop the method
-    //if (_frame.pc >= _frame.method.icode.length){
-    //  this.popMethod();
-    //}
+    if (_frame.pc >= _frame.method.icode.length){
+      this.popMethod();
+    }
   } else {
     console.log('Thread '+this.uid+' not executing; currently state is '+this.state);
   }

@@ -60,6 +60,31 @@ var threadHandler = function(_inst, _thread){
   _threadOps[_inst.method.getName()]();
 };
 
+var invokeSuper = function(_argRegs, _argValues, _kind, _method){
+  var _a = [];
+  var _superMethod = _thread.getClassLibrary().findMethodByName(_method.definingClass, _method.getName());
+  for ( _i = 0 ; _i < (_argRegs.length - _method.numParameters()) ; _i++ ){
+    _a[_i]=0;
+  }
+  _thread.pushMethod(_method,_a.concat(_argValues));
+};
+
+var invokeVirtual = function(_argRegs, _argValues, _kind, _method){
+  var _i, _a = [];
+  for (_i=0;_i<(_argRegs.length-_method.numParameters());_i++){
+    _a[_i]=0;
+  }
+  _thread.pushMethod(_method,_a.concat(_argValues));
+};
+
+var invokeDirect = function(_argRegs, _argValues, _kind, _method, _thread){
+  var _i, _a = [];
+  for (_i=0;_i<(argRegs.length-method.numParameters());_i++){
+    _a[_i]=0;
+  }
+ _thread.pushMethod(method,_a.concat(_argValues));
+};
+
 var invoke = function(_inst,_thread){
   var kind = _inst.kind;
   var method = _inst.method;
@@ -67,30 +92,19 @@ var invoke = function(_inst,_thread){
   // convert given argument registers into the values of their registers
   var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
   var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-  var _i, _a=[], _numRegisters = method.numRegisters+((kind==='virtual') ? 1 : 0);
+  assert(method.isNative() || argRegs.length<=_numRegisters
+         ,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
   if (_javaIntercept){
     _javaIntercept(kind, method, argRegs, argValues);
-  } else if (isRunnable(_inst.method.definingClass, _thread.getClassLibrary())){
+  } else if (isRunnable(method.definingClass, _thread.getClassLibrary())){
     threadHandler(_inst, _thread);
   } else {
-    assert(argRegs.length<=_numRegisters,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
-    // front pad arguments to comply with register alignment stuff
-    for (_i=0;_i<(_numRegisters-argRegs.length);_i++){
-      if (_inst.kind === "super") {
-	    var _class = _thread._vm.classLibrary.findClass(method.definingClass);
-		var _j;
-		  
-		for (_j in _class.virtualMethods) {
-		  if (_j.name === method.getName()) {
-		    method = _j;
-			break;
-		  }
-		}
-	  }	
-     _a[_i]=0;
+      if (kind==='virtual'){
+        invokeVirtual(argRegs, argValues, kind, method, _thread);
+      } else if (kind==='direct'){
+        invokeDirect(argRegs, argValues, kind, method, _thread);
+      } else if (kind==='super'){
+        invokeSuper(argRegs, argValues, kind, method, _thread);
+      }
     }
-    _a=_a.concat(argValues);
-    assert(_a.length===_numRegisters, "New method "+method.getName()+" is not being passed the correct number of registers("+_a.length+", when it should be "+argRegs.length+").");
-    _thread.pushMethod(method,_a);
-  }
 };
