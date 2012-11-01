@@ -27,13 +27,15 @@ var intercept = {
   },
   "Ljava/lang/Object;" : { 
       "<init>" : function() {
-          console.log("Skipping super constructor for now.");
+          // commented out because it looks like an error
+          //console.log("Skipping super constructor for now.");
       },
       "toString" : function(){
       },
       "getClass" : function() {
-          var _thread = arguments[0];
-          _thread.result=argValues[0].getClass(_thread.getClassLibrary);
+          // doesn't work
+          //var _thread = arguments[0];
+          //_thread.result=argValues[0].getClass(_thread.getClassLibrary);
       }
   }
 };
@@ -60,30 +62,34 @@ var threadHandler = function(_inst, _thread){
   _threadOps[_inst.method.getName()]();
 };
 
-var invokeSuper = function(_argRegs, _argValues, _kind, _method){
+var invokeSuper = function(_argValues, _method, _thread){
   var _a = [];
   var _superMethod = _thread.getClassLibrary().findMethodByName(_method.definingClass, _method.getName());
-  for ( _i = 0 ; _i < (_argRegs.length - _method.numParameters()) ; _i++ ){
+  for ( _i = 0 ; _i < (_argValues.length - _method.numParameters()) ; _i++ ){
     _a[_i]=0;
   }
   _thread.pushMethod(_method,_a.concat(_argValues));
 };
 
-var invokeVirtual = function(_argRegs, _argValues, _kind, _method){
+var invokeVirtual = function(_argValues, _method, _thread){
   var _i, _a = [];
-  for (_i=0;_i<(_argRegs.length-_method.numParameters());_i++){
+  for (_i=0;_i<(_argValues.length-_method.numParameters());_i++){
     _a[_i]=0;
   }
   _thread.pushMethod(_method,_a.concat(_argValues));
 };
 
-var invokeDirect = function(_argRegs, _argValues, _kind, _method, _thread){
+var invokeDirect = function(_argValues, _method, _thread){
   var _i, _a = [];
   for (_i=0;_i<(argRegs.length-method.numParameters());_i++){
     _a[_i]=0;
   }
  _thread.pushMethod(method,_a.concat(_argValues));
 };
+
+var invokeInterface = function(_argValues, _method, _thread){
+
+}
 
 var invoke = function(_inst,_thread){
   var kind = _inst.kind;
@@ -100,11 +106,15 @@ var invoke = function(_inst,_thread){
     threadHandler(_inst, _thread);
   } else {
       if (kind==='virtual'){
-        invokeVirtual(argRegs, argValues, kind, method, _thread);
+        invokeVirtual(argValues, method, _thread);
       } else if (kind==='direct'){
-        invokeDirect(argRegs, argValues, kind, method, _thread);
+        invokeDirect(argValues, method, _thread);
       } else if (kind==='super'){
-        invokeSuper(argRegs, argValues, kind, method, _thread);
+        invokeSuper(argValues, method, _thread);
+      } else if (kind==='interface'){
+        invokeInterface(argValues, method, _thread);
+      } else {
+        assert(false, "Unknown invoke kind=\""+kind+"\"");
       }
     }
 };
