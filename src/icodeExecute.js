@@ -41,11 +41,25 @@ var icodeHandlers = {
   },
 
   "monitor-enter": function(_inst, _thread) {
-    NYI(_inst);
+    var _container = _thread.getRegister(_inst.src);
+    if (isUndefined(_container.type)) {
+      // This is a type object from const-class
+      _container = _thread._vm.classLibrary.findClass(_container);
+    }
+    if (_container.monitorLockTaken === false) {
+      _container.monitorLockTaken = true;
+    } else {
+      return 0;
+    }
   },
 
   "monitor-exit": function(_inst, _thread) {
-    NYI(_inst);
+    var _container = _thread.getRegister(_inst.src);
+    if (isUndefined(_container.type)) {
+      // This is a type object from const-class
+      _container = _thread._vm.classLibrary.findClass(_container);
+    }
+    _container.monitorLockTaken = false;
   },
 
   "check-cast": function(_inst, _thread) {
