@@ -89,7 +89,7 @@ var VM = function() {
 VM.prototype = VMproto;
 
 // include stdlib
-gStdLib = (new DEXData(new ArrayFile(JavaLibraryDex))).classes;
+gStdLib = (new DEXData(new ArrayFile(JavaLibraryDex), true)).classes;
 </script>
 
 <!--

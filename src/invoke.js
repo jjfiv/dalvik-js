@@ -10,33 +10,36 @@ var NYI = function(_inst) {
 
 var intercept = {
   "Ljava/io/PrintStream;" : { 
-    "println" : function(kind, method, argRegs, argValues) {
-        console.log("print " + argValues[1] + " to " + inspect(argValues[0]) + "!");
-        if (method.signature.parameterTypes[0].getTypeString() === "D"){
-            terminal.println(doubleFromgLong(argValues[1]));
-        } else if (method.signature.parameterTypes[0].getTypeString() === "Z") {
-            if (argValues[1] === 1) {
-                terminal.println ("true");
-            } else {
-                terminal.println ("false");
-            }
+    "println" : function(kind, method, args) {
+      var _type = method.signature.parameterTypes[0].getTypeString();
+      var _value = args[1];
+      console.log("println " + _value + " to " + inspect(args[0]) + "!");
+
+      if (_type === "D"){
+        terminal.println(doubleFromgLong(_value));
+      } else if (_type === "Z") {
+        if (_value !== 0) {
+          terminal.println ("true");
         } else {
-            terminal.println (argValues[1]);
+          terminal.println ("false");
         }
+      } else {
+        terminal.println (_value);
+      }
     }
   },
   "Ljava/lang/Object;" : { 
-      "<init>" : function(kind, method, argRegs) {
+      "<init>" : function(kind, method, args) {
           // commented out because it looks like an error
           console.log("Skipping super constructor for now.");
-          return argRegs[0];
+          return args[0];
       },
-      "toString" : function(){
+      "toString" : function(kind, method, args){
       },
-      "getClass" : function() {
+      "getClass" : function(kind, method, args) {
           // doesn't work
           //var _thread = arguments[0];
-          //_thread.result=argValues[0].getClass(_thread.getClassLibrary);
+          //_thread.result=args[0].getClass(_thread.getClassLibrary);
       }
   }
 };
@@ -46,21 +49,23 @@ var isRunnable = function (_type, _classLibrary){
   return _class.interfaceOf(new Type('Ljava/lang/Runnable;'), _classLibrary);
 };
 
-var threadHandler = function(_inst, _thread){
+var threadHandler = function(_thread, _kind, _method, _args){
+  
   var _threadOps = {
     "<init>" : function () { 
-      var _newThread = _thread.getRegister(0);
+      var _newThread = _args[0];
       // fill the fields with args or something to initialize?
       var _run = _thread.getClassLibrary().findMethodByName(_newThread.threadClass, 'run');
       _newThread.pushMethod(_run);
     },
     "start" : function () { 
-      var _newThread = _thread.getRegister(0); 
+      var _newThread = _args[0]; 
       assert(isA(_newThread, 'Thread'), 'The 0th register of instance methods on Threads ought to be a reference to the thread itself.');
       _newThread.state = 'RUNNABLE';
     }
   };  
-  _threadOps[_inst.method.getName()]();
+
+  _threadOps[_method.getName()]();
 };
 
 /*
@@ -92,9 +97,8 @@ var makeRegistersForMethod = function(_method, _kind, _argValues) {
 var invoke = function(_inst,_thread){
   var kind = _inst.kind;
   var method = _inst.method;
-  var argRegs = _inst.argumentRegisters;
   // convert given argument registers into the values of their registers
-  var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
+  var argValues = _inst.argumentRegisters.map(function (_id) { return _thread.getRegister(_id); });
 
   // if this is an invoke-super; it means that we call the current method's parent instead
   // resolve it before our _javaIntercept
@@ -112,18 +116,17 @@ var invoke = function(_inst,_thread){
   
   // if we have a native "javascript" handler for this method
   if (_javaIntercept){
-    _thread._result = _javaIntercept(kind, method, argRegs, argValues);
+    _thread._result = _javaIntercept(kind, method, argValues);
     return;
   }
-  /* 
+  
   // if this is a runnable, catch certain special calls
   if (isRunnable(method.definingClass, _thread.getClassLibrary())){
     // TODO only catch some?
     //      should we integrate this with _javaIntercept?
-    _thread._result = threadHandler(_inst, _thread);
+    _thread._result = threadHandler(_thread, kind, method, argValues);
     return;
   }
-  */
   
 
   // make sure we haven't

@@ -61,7 +61,7 @@ Dalvik-JS
 <script src="VM.js"></script>
 <script>
 var myVM = new VM();
-myVM.defineClasses( (new DEXData(new ArrayFile(JavaLibraryDex))).classes );
+myVM.defineClasses( (new DEXData(new ArrayFile(JavaLibraryDex), true)).classes );
 </script>
 </html>
 

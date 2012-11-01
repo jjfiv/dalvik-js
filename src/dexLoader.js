@@ -39,8 +39,9 @@ var DEXSection = function(_fp) {
 };
 
 //--- A private class defining the overall data present in a DEX file
-var DEXData = function(file) {
+var DEXData = function(file, quiet) {
   var _i;
+
 
   this._file = file;
 
@@ -51,8 +52,18 @@ var DEXData = function(file) {
   this.methods = []; // array of Method
   this.classes = []; // array of Class
 
+
+  // shut up the dexDebug function if quiet == true
+  var prevDebug = dexDebug;
+  if(quiet) {
+    dexDebug = function() {};
+  }
+
   //--- parse the file
   this.parse();
+
+  // restore dexDebug function
+  dexDebug = prevDebug;
 
   dexDebug("Done Parsing!");
   //console.log(this.classes); // uncommenting this on core.dex crashes firefox :)

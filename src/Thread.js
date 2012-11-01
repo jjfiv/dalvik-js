@@ -77,7 +77,7 @@ Thread.prototype.currentFrame = function() {
 // a thread is done execution when all its methods return
 // so when the frame stack is empty
 Thread.prototype.isFinished = function() {
-  return this._stack.length === 0 || this.state === 'TERMINATED';
+  return this.state !== 'NEW' && (this._stack.length === 0 || this.state === 'TERMINATED');
 };
 
 Thread.prototype.getRegister = function(_idx) {
@@ -101,9 +101,9 @@ Thread.prototype.throwException = function(_obj) {
 
 // do the next instruction
 Thread.prototype.doNextInstruction = function() {
+  //console.log(this.statusString());
+  this.showStack();
   if (this.state === 'RUNNABLE'){
-    console.log(this.statusString());
-    this.showStack();
     var _frame = this.currentFrame();
     var _inst = _frame.method.icode[_frame.pc];
     var _handler = icodeHandlers[_inst.op];
@@ -126,7 +126,7 @@ Thread.prototype.showStack = function() {
 
   // convert it to information, and reverse it so it's top first going to bottom
   var stackInfo = this._stack.map(function (_f) {
-    return _f.method.toString();
+    return _f.method.toString() + " pc: " + _f.pc;
   }).reverse();
 
   var i;
