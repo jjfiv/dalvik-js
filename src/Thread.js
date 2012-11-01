@@ -103,6 +103,7 @@ Thread.prototype.throwException = function(_obj) {
 Thread.prototype.doNextInstruction = function() {
   if (this.state === 'RUNNABLE'){
     console.log(this.statusString());
+    this.showStack();
     var _frame = this.currentFrame();
     var _inst = _frame.method.icode[_frame.pc];
     var _handler = icodeHandlers[_inst.op];
@@ -115,15 +116,24 @@ Thread.prototype.doNextInstruction = function() {
     var _inc = _handler(_inst, this);
     _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
 
-    // in the case of multithreading, we might advance the pc beyond the available icodes
-    // in that case, we will need to pop the method
-    if (_frame.pc >= _frame.method.icode.length){
-      this.popMethod();
-    }
   } else {
     console.log('Thread '+this.uid+' not executing; currently state is '+this.state);
   }
 };
+
+Thread.prototype.showStack = function() {
+  console.log('Thread ' + this.uid);
+
+  // convert it to information, and reverse it so it's top first going to bottom
+  var stackInfo = this._stack.map(function (_f) {
+    return _f.method.toString();
+  }).reverse();
+
+  var i;
+  for(i=0; i<stackInfo.length; i++) {
+    console.log("  "+stackInfo[i]);
+  }
+}
 
 // summarize where we are
 Thread.prototype.statusString = function() {

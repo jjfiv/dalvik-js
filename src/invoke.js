@@ -26,9 +26,10 @@ var intercept = {
     }
   },
   "Ljava/lang/Object;" : { 
-      "<init>" : function() {
+      "<init>" : function(kind, method, argRegs) {
           // commented out because it looks like an error
-          //console.log("Skipping super constructor for now.");
+          console.log("Skipping super constructor for now.");
+          return argRegs[0];
       },
       "toString" : function(){
       },
@@ -101,22 +102,28 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethodByName(method.definingClass, method.getName());
   }
 
+  console.log('invoke');
+  console.log(method);
+  console.log(method.getName());
+  console.log(method.definingClass.getTypeString());
+
   // find an override if there is one
   var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
   
   // if we have a native "javascript" handler for this method
   if (_javaIntercept){
-    _thread.result = _javaIntercept(kind, method, argRegs, argValues);
+    _thread._result = _javaIntercept(kind, method, argRegs, argValues);
     return;
   }
-  
+  /* 
   // if this is a runnable, catch certain special calls
   if (isRunnable(method.definingClass, _thread.getClassLibrary())){
     // TODO only catch some?
     //      should we integrate this with _javaIntercept?
-    _thread.result = threadHandler(_inst, _thread);
+    _thread._result = threadHandler(_inst, _thread);
     return;
   }
+  */
   
 
   // make sure we haven't
