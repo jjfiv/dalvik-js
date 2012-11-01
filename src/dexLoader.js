@@ -249,14 +249,9 @@ DEXData.prototype._parseClassMethods = function(_count) {
     _methods[_i] = _m;
 
     _m.accessFlags = _accessFlags;
-    _m.isNative = _codeOffset === 0;
 
-    if(_codeOffset === 0) {
+    if(_codeOffset !== 0) {
       //console.log("Native Method: " + _m.name + " in " + _m.definingClass);
-      _codeOffset = 0;
-
-    } else {
-      //assert(_codeOffset !== 0, "Code should always exist!");
 
       //--- save file offset, and jump to _codeOffset
       var _here = _fp.offset;
