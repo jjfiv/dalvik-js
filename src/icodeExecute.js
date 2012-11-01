@@ -248,23 +248,7 @@ var icodeHandlers = {
 
   "instance-get": function(_inst, _thread) {
     var _obj = _thread.getRegister(_inst.obj);
-    //var _obj = _inst.obj;
-	  //var _obj = _thread._vm._source._dex _inst.obj
-    console.log("instance _obj get ")
-    console.log (_obj);
-    var _val, _i;
-    
-    //for (_i in _obj.instanceFields) {
-    for (_i = 0; _i < _obj.fields.length; _i++) {
-      console.log("_i " + _obj.fields[_i]);
-      if (_obj.fields[_i]._name === _inst.field) {
-        _val = _obj.fields[_i].value;
-        _i = _obj.fields.length;
-      }
-      //break;
-    }
-
-    _thread.setRegister (_inst.value, _val);
+    _thread.setRegister (_inst.value,_obj.getField(_inst.field).value);
   },
 
   "instance-put": function(_inst, _thread) {
