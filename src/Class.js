@@ -25,12 +25,19 @@ var Instance = function(_type, _fields){
   this.monitorLockTaken = false;
 };
 
+
 Instance.prototype.getClass = function (_classLibrary){
   return _classLibrary.findClass(this.type);
 };
 
 Instance.prototype.getTypeString = function (){
   return this.type.getTypeString();
+};
+
+Instance.prototype.getField = function (_field) {
+  var _retVal =  this.fields.filter(function (_f) { return _f.isEquals(_field); });
+  assert(_retVal.length===1, _retVal.length+" fields named "+_field.name+" found for "+_field.definingClass.getTypeString());
+  return _retVal[0];
 };
 
 Class.prototype.hasMain = function() {
@@ -47,8 +54,18 @@ Class.prototype.getMain = function(){
   return _main[0];
 };
 
-Class.prototype.makeNew = function(){
-  return new Instance(this.type.clone(), this.instanceFields.map(function(_f){ return _f.clone();}));
+Class.prototype.getAncestorFields = function(_classLibrary){
+  var _ancestorFields = arguments[1] || this.instanceFields;
+  if (this.parent) {
+    var _parent = _classLibrary.findClass(this.parent);
+    return _parent.getAncestorFields(_classLibrary, _ancestorFields.concat(_parent.instanceFields.map(function(_f){ return _f.clone(); })));
+  } else {
+    return _ancestorFields;
+  }
+};
+
+Class.prototype.makeNew = function(_classLibrary){
+  return new Instance(this.type.clone(), this.getAncestorFields(_classLibrary));
 };
 
 Class.prototype.getTypeString = function(){
