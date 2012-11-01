@@ -11,6 +11,7 @@ var Class = function (_type, _accessFlags, _parent, _interfaces, _staticFields, 
 
   this.directMethods = _directMethods || []; // directMethods are "static" or class methods
   this.virtualMethods = _virtualMethods || []; // virtualMethods are instance methods
+  this.monitorLockTaken = false;
 };
 
 var Instance = function(_type, _fields){
@@ -21,6 +22,7 @@ var Instance = function(_type, _fields){
   } else {
     assert(false, "what to do in the event of instantiation without args? Are there default args we should be filling in?");
   }
+  this.monitorLockTaken = false;
 };
 
 Instance.prototype.getClass = function (_classLibrary){
