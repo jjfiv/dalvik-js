@@ -37,6 +37,11 @@ Method.prototype.getParameterAmount = function() {
   return this.signature.getReturnType();
 };
 
+Method.prototype.isNative = function() {
+  return this.icode.length === 0;
+  //TODO check access flags for synthetic
+};
+
 
 //
 // toString method to build a string of the form
