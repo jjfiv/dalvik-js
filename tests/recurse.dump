@@ -1,0 +1,112 @@
+Processing 'recurse.dex'...
+Opened 'recurse.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lmine;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in Lmine;)
+      name          : 'a'
+      type          : 'I'
+      access        : 0x0000 ()
+  Direct methods    -
+    #0              : (in Lmine;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000188:                                        |[000188] mine.<init>:()V
+000198: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+00019e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lmine; 
+
+  Virtual methods   -
+  source_file_idx   : 17 (recurse.java)
+
+Class #1            -
+  Class descriptor  : 'Lrecurse;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lrecurse;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001a0:                                        |[0001a0] recurse.<init>:()V
+0001b0: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+0001b6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=4
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lrecurse; 
+
+    #1              : (in Lrecurse;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 11 16-bit code units
+0001b8:                                        |[0001b8] recurse.main:([Ljava/lang/String;)V
+0001c8: 1240                                   |0000: const/4 v0, #int 4 // #4
+0001ca: 7110 0500 0000                         |0001: invoke-static {v0}, Lrecurse;.rec:(I)I // method@0005
+0001d0: 0a00                                   |0004: move-result v0
+0001d2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001d6: 6e20 0000 0100                         |0007: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(I)V // method@0000
+0001dc: 0e00                                   |000a: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0005 line=8
+        0x000a line=9
+      locals        : 
+
+    #2              : (in Lrecurse;)
+      name          : 'rec'
+      type          : '(I)I'
+      access        : 0x0008 (STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 12 16-bit code units
+0001e0:                                        |[0001e0] recurse.rec:(I)I
+0001f0: 3d01 0a00                              |0000: if-lez v1, 000a // +000a
+0001f4: d800 01ff                              |0002: add-int/lit8 v0, v1, #int -1 // #ff
+0001f8: 7110 0500 0000                         |0004: invoke-static {v0}, Lrecurse;.rec:(I)I // method@0005
+0001fe: 0a00                                   |0007: move-result v0
+000200: b210                                   |0008: mul-int/2addr v0, v1
+000202: 0f00                                   |0009: return v0
+000204: 1210                                   |000a: const/4 v0, #int 1 // #1
+000206: 28fe                                   |000b: goto 0009 // -0002
+      catches       : (none)
+      positions     : 
+        0x0000 line=11
+        0x0002 line=12
+        0x0009 line=14
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 17 (recurse.java)
+

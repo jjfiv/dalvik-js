@@ -3,6 +3,7 @@
 
 // doTest(fileName, mainClassName, expectedOutput
 doTest("factorial.dex", "Lfactorial;", "24\n");
+doTest("recurse.dex", "Lrecurse;", "24\n");
 doTest("seqSwitch.dex", "LSeqSwitch;", "Orange\n");
 // complicated output:
 doTest("testSeveralMethods.dex", "LtestSeveralMethods;",
