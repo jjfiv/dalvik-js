@@ -12,6 +12,10 @@ Generating an Android core.dex
 
 4. Grab output file ``mv out/target/common/obj/JAVA_LIBRARIES/core_intermediates/noproguard.classes.dex core.dex``
 
+5. Grab noproguard.classes.jar, extract, and reform using selections from java.lang and java.io (If you don't feel like trimming it down, just grab all of them.) I deleted at least java.lang.annotations and java.lang.ref...
+
+6. Re-jar, Re-dex, and Dump to text for sanity.
+
 
 Notes
 =====
