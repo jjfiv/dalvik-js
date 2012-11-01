@@ -53,5 +53,5 @@ Method.prototype.toString = function() {
 };
 
 Method.prototype.numParameters = function() {
-  return this.paramTypes.length;
+  return this.signature.parameterTypes.length;
 };

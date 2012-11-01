@@ -72,16 +72,17 @@ var threadHandler = function(_inst, _thread){
  *  the registers are loaded in order, aligned right
  *  target.registers = [ nothing, nothing, 1, 2, 3 ]
  */
-var makeRegistersForMethod = function(_method, _argValues) {
+var makeRegistersForMethod = function(_method, _kind, _argValues) {
   
   // do some sort of sanity check on the number of registers
-  var maxCount = _method.numParameters();
+  var maxCount = _method.numRegisters;
   var actCount = _argValues.length;
-  assert(actCount <= maxCount, 'Total number of registers ('+maxCount+') should at least accomodate arguments ('+actCount+'). Failure on '+method.getName());
+  
+  assert(actCount <= maxCount, 'Total number of registers ('+maxCount+') should at least accomodate arguments ('+actCount+'). Failure on invoke-'+_kind+" "+_method.toString());
 
   // build the array appropriately
   var _i, _a = [];
-  for (_i=0;_i<(argRegs.length-method.numParameters());_i++){
+  for (_i=0;_i<(maxCount - actCount);_i++){
     _a[_i]=0;
   }
   return _a.concat(_argValues);
@@ -122,7 +123,7 @@ var invoke = function(_inst,_thread){
   assert(!method.isNative(), "Native method ("+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
   // create the register set for the new method
-  var newRegisters = makeRegistersForMethod(method, argValues);
+  var newRegisters = makeRegistersForMethod(method, kind, argValues);
   
   // push the method onto the VM
   _thread.pushMethod(method, newRegisters);
