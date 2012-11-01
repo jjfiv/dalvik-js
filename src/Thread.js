@@ -118,9 +118,9 @@ Thread.prototype.doNextInstruction = function() {
 
     // in the case of multithreading, we might advance the pc beyond the available icodes
     // in that case, we will need to pop the method
-    if (_frame.pc >= _frame.method.icode.length){
-      this.popMethod();
-    }
+    //if (_frame.pc >= _frame.method.icode.length){
+    //  this.popMethod();
+    //}
   } else {
     console.log('Thread '+this.uid+' not executing; currently state is '+this.state);
   }
