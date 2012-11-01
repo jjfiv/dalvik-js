@@ -21,6 +21,9 @@ var Method = function (_name, _definingClass, _paramTypes, _returnType) {
   // this will be false if it is just referenced
   this.defined = false;
 
+  // make default try information that won't match anything
+  this.tryInfo = new TryRange(-1, -1);
+
   // the interpreter-specific code
   this.icode = [];
 };
