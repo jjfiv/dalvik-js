@@ -145,9 +145,9 @@ var icodeHandlers = {
     var _i, _addressJumpTo;
     for(_i=0; _i<_inst.cases.length; _i++) {
       if(_val === _inst.cases[_i]) {
-        _addressJumpTo = _inst.addresses[_i];
-        break;
-      }
+        _addressJumpTo = _inst.addresses[_i];  
+        break;      
+      }      
     }
     return _addressJumpTo;
   },
@@ -248,35 +248,46 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    //var _obj = _thread.getRegister(_inst.obj);
-    var _obj = _inst.obj;
-	//var _obj = _thread._vm._source._dex _inst.obj
-    console.log("instance _obj " + _obj);
+    var _obj = _thread.getRegister(_inst.obj);
+    //var _obj = _inst.obj;
+	  //var _obj = _thread._vm._source._dex _inst.obj
+    console.log("instance _obj get ")
+    console.log (_obj);
     var _val, _i;
     
-    for (_i in _obj.instanceFields) {
-      console.log("_i " + _i);
-      if (_i._name === _inst.field) {
-        _val = _i.value;
-        break;
+    //for (_i in _obj.instanceFields) {
+    for (_i = 0; _i < _obj.fields.length; _i++) {
+      console.log("_i " + _obj.fields[_i]);
+      if (_obj.fields[_i]._name === _inst.field) {
+        _val = _obj.fields[_i].value;
+        _i = _obj.fields.length;
       }
+      //break;
     }
 
-    if (_val === undefined) {
-      for (_i in _obj.staticFields) {
-        console.log("_i " + _i);
-        if (_i._name === _inst.field) {
-          _val = _i.value;
-          break;
-        }
-      }
-    }
-    //_thread.setRegister (_inst.value, _inst.field.value);
     _thread.setRegister (_inst.value, _val);
   },
 
   "instance-put": function(_inst, _thread) {
-    _inst.field.value = _thread.getRegister (_inst.value);
+    var _obj = _thread.getRegister(_inst.obj);
+    //var _obj = _inst.obj;
+    //var _obj = _thread._vm._source._dex _inst.obj
+    console.log("instance _obj put ");
+    console.log(_obj);
+    var _val, _i;
+    
+    //for (_i in _obj.instanceFields) {
+    for (_i = 0; _i < _obj.fields.length; _i++) {
+      console.log("_i " + _obj.fields[_i]);
+      if (_obj.fields[_i]._name === _inst.field) {      
+        _obj.fields[_i].value = _inst.value;
+        _i = _obj.fields.length;
+      }
+    }
+
+    //_thread.setRegister (_inst.value, _inst.field.value);
+    //_thread.setRegister (_inst.value, _val);
+    //_inst.field.value = _thread.getRegister (_inst.value);
   },
 
   // handles getting a static field from a class
