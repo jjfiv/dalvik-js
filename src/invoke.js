@@ -62,34 +62,30 @@ var threadHandler = function(_inst, _thread){
   _threadOps[_inst.method.getName()]();
 };
 
-var invokeSuper = function(_argValues, _method, _thread){
-  var _a = [];
-  var _superMethod = _thread.getClassLibrary().findMethodByName(_method.definingClass, _method.getName());
-  for ( _i = 0 ; _i < (_argValues.length - _method.numParameters()) ; _i++ ){
-    _a[_i]=0;
-  }
-  _thread.pushMethod(_method,_a.concat(_argValues));
-};
+/*
+ * makeRegistersForMethod
+ *
+ *  Dalvik calling convention
+ *  if there are five registers on the target method
+ *  and there are three registers [1,2,3] with the call
+ *
+ *  the registers are loaded in order, aligned right
+ *  target.registers = [ nothing, nothing, 1, 2, 3 ]
+ */
+var makeRegistersForMethod = function(_method, _argValues) {
+  
+  // do some sort of sanity check on the number of registers
+  var maxCount = _method.numParameters();
+  var actCount = _argValues.length;
+  assert(actCount <= maxCount, 'Total number of registers ('+maxCount+') should at least accomodate arguments ('+actCount+'). Failure on '+method.getName());
 
-var invokeVirtual = function(_argValues, _method, _thread){
-  var _i, _a = [];
-  for (_i=0;_i<(_argValues.length-_method.numParameters());_i++){
-    _a[_i]=0;
-  }
-  _thread.pushMethod(_method,_a.concat(_argValues));
-};
-
-var invokeDirect = function(_argValues, _method, _thread){
+  // build the array appropriately
   var _i, _a = [];
   for (_i=0;_i<(argRegs.length-method.numParameters());_i++){
     _a[_i]=0;
   }
- _thread.pushMethod(method,_a.concat(_argValues));
+  return _a.concat(_argValues);
 };
-
-var invokeInterface = function(_argValues, _method, _thread){
-
-}
 
 var invoke = function(_inst,_thread){
   var kind = _inst.kind;
@@ -97,24 +93,37 @@ var invoke = function(_inst,_thread){
   var argRegs = _inst.argumentRegisters;
   // convert given argument registers into the values of their registers
   var argValues = argRegs.map(function (_id) { return _thread.getRegister(_id); });
+
+  // if this is an invoke-super; it means that we call the current method's parent instead
+  // resolve it before our _javaIntercept
+  if(kind === 'super') {
+    method = _thread.getClassLibrary().findMethodByName(method.definingClass, method.getName());
+  }
+
+  // find an override if there is one
   var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-  assert(method.isNative() || argRegs.length<=_numRegisters
-         ,'Total number of registers ('+method.numRegisters+') should at least accomodate arguments ('+argRegs.length+'). Failure on '+method.getName());
+  
+  // if we have a native "javascript" handler for this method
   if (_javaIntercept){
-    _javaIntercept(kind, method, argRegs, argValues);
-  } else if (isRunnable(method.definingClass, _thread.getClassLibrary())){
-    threadHandler(_inst, _thread);
-  } else {
-      if (kind==='virtual'){
-        invokeVirtual(argValues, method, _thread);
-      } else if (kind==='direct'){
-        invokeDirect(argValues, method, _thread);
-      } else if (kind==='super'){
-        invokeSuper(argValues, method, _thread);
-      } else if (kind==='interface'){
-        invokeInterface(argValues, method, _thread);
-      } else {
-        assert(false, "Unknown invoke kind=\""+kind+"\"");
-      }
-    }
+    _thread.result = _javaIntercept(kind, method, argRegs, argValues);
+    return;
+  }
+  
+  // if this is a runnable, catch certain special calls
+  if (isRunnable(method.definingClass, _thread.getClassLibrary())){
+    // TODO only catch some?
+    //      should we integrate this with _javaIntercept?
+    _thread.result = threadHandler(_inst, _thread);
+    return;
+  }
+  
+
+  // make sure we haven't
+  assert(!method.isNative(), "Native method ("+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
+  
+  // create the register set for the new method
+  var newRegisters = makeRegistersForMethod(method, argValues);
+  
+  // push the method onto the VM
+  _thread.pushMethod(method, newRegisters);
 };
