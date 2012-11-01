@@ -14,7 +14,7 @@ doTest("testSeveralMethods.dex", "LtestSeveralMethods;",
 "This is an overloaded fruitless instance method with one arg.\n"+
 "This is an overloaded fruitful static method with one arg.\n"+
 "This is an overloaded fruitful instance method with one arg.\n"+
-"0\n");
+"true\n");
 
 // so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 doTest("bitWise.dex", "LbitWiseTests;", 
