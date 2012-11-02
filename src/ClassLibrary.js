@@ -37,6 +37,6 @@ ClassLibrary.prototype.findMethod = function(_type, _methodSignature){
       _m = _allMethods[_i]; break;
     }
   }
-  assert(!(isUndefined(_method)), _type.getTypeString()+" does not have a method named "+_nameString);
+  assert(!(isUndefined(_m)), _type.getTypeString()+" does not have a method named "+_methodSignature.name);
   return _m;
 };
