@@ -144,9 +144,9 @@ var icodeHandlers = {
     var _i, _addressJumpTo;
     for(_i=0; _i<_inst.cases.length; _i++) {
       if(_val === _inst.cases[_i]) {
-        _addressJumpTo = _inst.addresses[_i];
-        break;
-      }
+        _addressJumpTo = _inst.addresses[_i];  
+        break;      
+      }      
     }
     return _addressJumpTo;
   },
