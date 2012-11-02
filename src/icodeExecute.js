@@ -269,7 +269,7 @@ var icodeHandlers = {
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
-      _thread.setRegister(dest, _result);
+      _thread.setRegister(_dest, _result);
     } else {        
       _val = _class.getField(_field);
       _thread.setRegister (_dest, _val);
