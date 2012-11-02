@@ -45,25 +45,28 @@ var intercept = {
     },
   },
   "Ljava/lang/Object;" : { 
-      "<init>" : function(kind, method, args) {
-          // commented out because it looks like an error
-          console.log("Skipping super constructor for now.");
-          return args[0];
-      },
-      "toString" : function(kind, method, args){
-      },
-      "getClass" : function(kind, method, args) {
-          // doesn't work
-          //var _thread = arguments[0];
-          //_thread.result=args[0].getClass(_thread.getClassLibrary);
-      }
+    "<init>" : function(kind, method, args) {
+      // commented out because it looks like an error
+      console.log("Skipping super constructor for now.");
+      return args[0];
+    },
+    "toString" : function(kind, method, args){
+    },
+    "getClass" : function(kind, method, args) {
+      //return args[0].getClass(_thread.getClassLibrary());
+    }
+  },
+  "Ljava/lang/Class;" : {
+    "isPrimitive" : function(kind, method, args){
+      return args[0].type.isPrimitive();
+    }
   },
   "Ljava/lang/Throwable;" : { 
-      "<init>" : function(kind, method, args) {
-          // commented out because it looks like an error
-          console.log("Creating a banana for throwing");
-          return args[1];
-      }
+    "<init>" : function(kind, method, args) {
+      // commented out because it looks like an error
+      console.log("Creating a banana for throwing");
+      return args[1];
+    }
   }
 };
 
@@ -157,7 +160,7 @@ var invoke = function(_inst,_thread){
     method = myVM.classLibrary.findMethod (_inst.method.definingClass, _inst.method.signature);
   }
 
-  assert(!method.isNative(), "Native method ("+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
+  assert(!method.isNative(), "Native method ("+method.definingClass.getTypeString()+"."+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
   // create the register set for the new method
   var newRegisters = makeRegistersForMethod(method, kind, argValues);
