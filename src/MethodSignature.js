@@ -18,8 +18,8 @@ MethodSignature.prototype.isMain = function(){
 
 MethodSignature.prototype.isEquals = function (other) {
   return this.name === other.name &&
-         this.returnType === other.returnType &&
-         this.parameterTypes === other.parameterTypes &&
+         this.returnType.isEquals (other.returnType) &&
+         this.parameterTypes.toString() === other.parameterTypes.toString() &&
          this.parameterAmount === other.parameterAmount;
 };
 

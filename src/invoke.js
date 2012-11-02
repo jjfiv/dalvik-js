@@ -130,6 +130,10 @@ var invoke = function(_inst,_thread){
   
 
   // make sure we haven't
+  if (!method.defined) {
+    method = myVM.classLibrary.findMethod (_inst.method.definingClass, _inst.method.signature);
+  }
+
   assert(!method.isNative(), "Native method ("+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
   // create the register set for the new method
