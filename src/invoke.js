@@ -55,7 +55,7 @@ var threadHandler = function(_thread, _kind, _method, _args){
     "<init>" : function () { 
       var _newThread = _args[0];
       // fill the fields with args or something to initialize?
-      var _run = _thread.getClassLibrary().findMethodByName(_newThread.threadClass, 'run');
+      var _run = _thread.getClassLibrary().findMethod(_newThread.threadClass, new MethodSignature('run', TYPE_VOID));
       _newThread.pushMethod(_run);
     },                                                         
     "start" : function () { 
@@ -103,7 +103,7 @@ var invoke = function(_inst,_thread){
   // if this is an invoke-super; it means that we call the current method's parent instead
   // resolve it before our _javaIntercept
   if(kind === 'super') {
-    method = _thread.getClassLibrary().findMethodByName(method.definingClass, method.getName());
+    method = _thread.getClassLibrary().findMethod(method.definingClass, method.signature);
   }
 
   console.log('invoke');

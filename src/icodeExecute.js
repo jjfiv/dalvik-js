@@ -247,8 +247,9 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    var _obj = _thread.getRegister(_inst.obj);
-    _thread.setRegister (_inst.value,_obj.getField(_inst.field).value);
+    var _instance = _thread.getRegister(_inst.obj);
+    var _val = _instance.getField(_inst.field).value;
+    _thread.setRegister(_inst.value, _val);
   },
 
   "instance-put": function(_inst, _thread) {

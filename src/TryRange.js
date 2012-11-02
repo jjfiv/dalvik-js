@@ -25,7 +25,7 @@ var CatchBlock = function(_types, _addr, _catchAll) {
 CatchBlock.prototype.findAddressForType = function(_thrownType) {
   var _i;
   for(_i=0; _i<this._types.length; _i++) {
-    if(_thrownType.equals(this._types[_i])) {
+    if(_thrownType.isEquals(this._types[_i])) {
       return this._addr[_i];
     }
   }

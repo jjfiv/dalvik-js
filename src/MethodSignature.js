@@ -16,7 +16,7 @@ MethodSignature.prototype.isMain = function(){
          this.parameterTypes.length === 1;
 };
 
-MethodSignature.prototype.equals = function (other) {
+MethodSignature.prototype.isEquals = function (other) {
   return this.name === other.name &&
          this.returnType === other.returnType &&
          this.parameterTypes === other.parameterTypes &&
