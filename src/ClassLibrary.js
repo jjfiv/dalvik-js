@@ -32,10 +32,17 @@ ClassLibrary.prototype.findClass = function (_type){
 ClassLibrary.prototype.findMethod = function(_type, _methodSignature){
   var _i, _m, _class = this.classes[_type.getTypeString()];
   var _allMethods = _class.directMethods.concat(_class.virtualMethods);
-  for (_i=0;_i<_allMethods.length;_i++){
-    if (_allMethods[_i].signature.isEquals(_methodSignature)){
-      _m = _allMethods[_i]; break;
+  while (isUndefined(_m)) {
+    for (_i=0;_i<_allMethods.length;_i++){
+      if (_allMethods[_i].signature.isEquals(_methodSignature)){
+        _m = _allMethods[_i]; break;
+      }
     }
+    if (isUndefined(_class.parent)) {
+      break;
+    }
+    _class = this.classes[_class.parent.getTypeString()];
+    _allMethods = _class.directMethods.concat(_class.virtualMethods);
   }
   assert(!(isUndefined(_m)), _type.getTypeString()+" does not have a method named "+_methodSignature.name);
   return _m;
