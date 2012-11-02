@@ -248,8 +248,9 @@ var icodeHandlers = {
   },
 
   "instance-get": function(_inst, _thread) {
-    var _obj = _thread.getRegister(_inst.obj);
-    _thread.setRegister (_inst.value,_obj.getField(_inst.field).value);
+    var _instance = _thread.getRegister(_inst.obj);
+    var _val = _instance.getField(_inst.field).value;
+    _thread.setRegister(_inst.value, _val);
   },
 
   "instance-put": function(_inst, _thread) {
@@ -260,35 +261,23 @@ var icodeHandlers = {
 
   // handles getting a static field from a class
   "static-get": function(_inst, _thread) {
-    var dest = _inst.dest;
-	//var dest = _thread.getRegister (_inst.dest);
-
-    var _field = _inst.field;
-    
-    var _result = {};
-    
-    console.log(_field);
-    // assume we're going to find something of the correct type
-    // set to "null" initially --- TODO actual null?
+    var _val, _dest = _inst.dest,  _field = _inst.field, _result = {};
+    var _class = _thread.getClassLibrary().findClass(_field.definingClass);
     _result.primtype = _field.type;
     _result.value = 0;
-	
-    console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
-    } else {
-      assert(0, 'given field ' + _inst.field.toString() + ' could not be found!');
+      _thread.setRegister(dest, _result);
+    } else {        
+      _val = _class.getField(_field);
+      _thread.setRegister (_dest, _val);
     }
-	
-    console.log(_field);
-
-    _thread.setRegister(dest, _result);
   },
 
   "static-put": function(_inst, _thread) {
-    NYI(_inst);
+      _inst.field.value = _thread.getRegister (_inst.dest);
   },
 
   // handles invoking a method on an object or statically

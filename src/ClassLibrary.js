@@ -29,15 +29,14 @@ ClassLibrary.prototype.findClass = function (_type){
   return _class;
 };
 
-ClassLibrary.prototype.findMethodByName = function(_type, _nameString){
-  var _i, _m, _method, _class = this.classes[_type.getTypeString()];
+ClassLibrary.prototype.findMethod = function(_type, _methodSignature){
+  var _i, _m, _class = this.classes[_type.getTypeString()];
   var _allMethods = _class.directMethods.concat(_class.virtualMethods);
   for (_i=0;_i<_allMethods.length;_i++){
-    _m = _allMethods[_i];
-    if (_m.getName()===_nameString){
-      _method = _m; break;
+    if (_allMethods[_i].signature.isEquals(_methodSignature)){
+      _m = _allMethods[_i]; break;
     }
   }
-  assert(!(isUndefined(_method)), _type.getTypeString()+" does not have a method named "+_nameString);
-  return _method;
+  assert(!(isUndefined(_m)), _type.getTypeString()+" does not have a method named "+_methodSignature.name);
+  return _m;
 };
