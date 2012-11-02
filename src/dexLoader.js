@@ -673,7 +673,7 @@ DEXData.prototype._parseCode = function(_m) {
 
   // grab try / catch and handler information
   //  returns an array of TryRange objects
-  var _tryCatch = this._parseTryCatch(_numTries, _offsets);
+  _m.tryInfo = this._parseTryCatch(_numTries, _offsets);
   enumerate('try-catch', _tryCatch);
 
   return;

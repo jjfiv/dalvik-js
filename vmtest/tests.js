@@ -43,3 +43,5 @@ doTest("PrimitiveCast.dex",
        "true\ntrue\ntrue\n"
       );
 
+doTest("Bird.dex", "LBird;", "Rexy\ntrue\nfalse\nBlack\ntrue\ntrue\nHumpty\nfalse\nfalse\n");
+

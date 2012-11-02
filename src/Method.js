@@ -18,7 +18,11 @@ var Method = function (_name, _definingClass, _paramTypes, _returnType) {
   this.accessFlags = 0;
 
   // whether this method is defined within a dexFile; it may still be native if defined
+  // this will be false if it is just referenced
   this.defined = false;
+
+  // make default try information that won't match anything
+  this.tryInfo = new TryRange(-1, -1);
 
   // the interpreter-specific code
   this.icode = [];
