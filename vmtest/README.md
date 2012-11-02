@@ -24,6 +24,12 @@ Then, we create a test by opening ``tests.js`` and creating an appropriate call 
 
     doTest("factorial.dex", "Lfactorial;", "24\n");
 
+Creating output: If you have the .java file, you can create output in the following way, using out2.js.py
+
+    java -cp ../tests factorial | python out2js.py
+
+For me, this returns the appropriate string ("24\n"), which can then be copied into a ``doTest`` call.
+
 Now reload the ``vmtest/index.html``
 
 Fin.

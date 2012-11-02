@@ -6,7 +6,7 @@ var MethodSignature = function(_name, _returnType, _parameterTypes) {
   this.name = _name;
   this.returnType = _returnType;
   this.parameterTypes = _parameterTypes || [];
-  this.parameterAmount = _parameterTypes.length;
+  this.parameterAmount = this.parameterTypes.length;
 };
 
 MethodSignature.prototype.isMain = function(){

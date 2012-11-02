@@ -44,6 +44,13 @@ var intercept = {
     "isPrimitive" : function(kind, method, args){
       return args[0].type.isPrimitive();
     }
+  },
+  "Ljava/lang/Throwable;" : { 
+    "<init>" : function(kind, method, args) {
+      // commented out because it looks like an error
+      console.log("Creating a banana for throwing");
+      return args[1];
+    }
   }
 };
 

@@ -132,7 +132,8 @@ var icodeHandlers = {
   },
 
   "throw": function(_inst, _thread) {
-    NYI(_inst);
+    throw (_thread.getRegister(_inst.src));
+    //NYI(_inst);
   },
 
   "goto": function(_inst, _thread) {
@@ -268,7 +269,7 @@ var icodeHandlers = {
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
       _result.value = "System.out";
-      _thread.setRegister(dest, _result);
+      _thread.setRegister(_dest, _result);
     } else {        
       _val = _class.getField(_field);
       _thread.setRegister (_dest, _val);

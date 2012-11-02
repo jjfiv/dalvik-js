@@ -1,0 +1,260 @@
+Processing 'Banana.dex'...
+Opened 'Banana.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LBanana;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Throwable;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LBanana;)
+      name          : 'str'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0000 ()
+  Direct methods    -
+    #0              : (in LBanana;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 8 16-bit code units
+000284:                                        |[000284] Banana.<init>:()V
+000294: 7010 0400 0100                         |0000: invoke-direct {v1}, Ljava/lang/Throwable;.<init>:()V // method@0004
+00029a: 1a00 0100                              |0003: const-string v0, "Banana" // string@0001
+00029e: 5b10 0000                              |0005: iput-object v0, v1, LBanana;.str:Ljava/lang/String; // field@0000
+0002a2: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=6
+        0x0003 line=4
+        0x0007 line=7
+      locals        : 
+        0x0000 - 0x0008 reg=1 this LBanana; 
+
+  Virtual methods   -
+  source_file_idx   : 2 (Banana.java)
+
+Class #1            -
+  Class descriptor  : 'LtryingAndCatching;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LtryingAndCatching;)
+      name          : 'arrName'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+    #1              : (in LtryingAndCatching;)
+      name          : 'full'
+      type          : 'Z'
+      access        : 0x0002 (PRIVATE)
+    #2              : (in LtryingAndCatching;)
+      name          : 'ind'
+      type          : 'I'
+      access        : 0x0002 (PRIVATE)
+    #3              : (in LtryingAndCatching;)
+      name          : 'myArr'
+      type          : '[I'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in LtryingAndCatching;)
+      name          : '<init>'
+      type          : '(ILjava/lang/String;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 5
+      ins           : 3
+      outs          : 1
+      insns size    : 21 16-bit code units
+0002a4:                                        |[0002a4] tryingAndCatching.<init>:(ILjava/lang/String;)V
+0002b4: 1201                                   |0000: const/4 v1, #int 0 // #0
+0002b6: 7010 0300 0200                         |0001: invoke-direct {v2}, Ljava/lang/Object;.<init>:()V // method@0003
+0002bc: 5921 0400                              |0004: iput v1, v2, LtryingAndCatching;.ind:I // field@0004
+0002c0: 2330 0b00                              |0006: new-array v0, v3, [I // type@000b
+0002c4: 5b20 0500                              |0008: iput-object v0, v2, LtryingAndCatching;.myArr:[I // field@0005
+0002c8: 5b24 0200                              |000a: iput-object v4, v2, LtryingAndCatching;.arrName:Ljava/lang/String; // field@0002
+0002cc: 3d03 0500                              |000c: if-lez v3, 0011 // +0005
+0002d0: 5c21 0300                              |000e: iput-boolean v1, v2, LtryingAndCatching;.full:Z // field@0003
+0002d4: 0e00                                   |0010: return-void
+0002d6: 1210                                   |0011: const/4 v0, #int 1 // #1
+0002d8: 5c20 0300                              |0012: iput-boolean v0, v2, LtryingAndCatching;.full:Z // field@0003
+0002dc: 28fc                                   |0014: goto 0010 // -0004
+      catches       : (none)
+      positions     : 
+        0x0001 line=8
+        0x0004 line=4
+        0x0006 line=9
+        0x000a line=10
+        0x000c line=11
+        0x000e line=12
+        0x0010 line=16
+        0x0011 line=14
+      locals        : 
+        0x0000 - 0x0015 reg=2 this LtryingAndCatching; 
+        0x0000 - 0x0015 reg=3 size I 
+        0x0000 - 0x0015 reg=4 name Ljava/lang/String; 
+
+    #1              : (in LtryingAndCatching;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 6
+      ins           : 1
+      outs          : 3
+      insns size    : 68 16-bit code units
+0002e0:                                        |[0002e0] tryingAndCatching.main:([Ljava/lang/String;)V
+0002f0: 1204                                   |0000: const/4 v4, #int 0 // #0
+0002f2: 2201 0800                              |0001: new-instance v1, LtryingAndCatching; // type@0008
+0002f6: 1a03 1400                              |0003: const-string v3, "Yarr" // string@0014
+0002fa: 7030 0500 4103                         |0005: invoke-direct {v1, v4, v3}, LtryingAndCatching;.<init>:(ILjava/lang/String;)V // method@0005
+000300: 2202 0800                              |0008: new-instance v2, LtryingAndCatching; // type@0008
+000304: 1233                                   |000a: const/4 v3, #int 3 // #3
+000306: 1a04 1500                              |000b: const-string v4, "Yarr!!" // string@0015
+00030a: 7030 0500 3204                         |000d: invoke-direct {v2, v3, v4}, LtryingAndCatching;.<init>:(ILjava/lang/String;)V // method@0005
+000310: 1243                                   |0010: const/4 v3, #int 4 // #4
+000312: 6e20 0600 3100                         |0011: invoke-virtual {v1, v3}, LtryingAndCatching;.addToArr:(I)V // method@0006
+000318: 6203 0100                              |0014: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00031c: 1a04 0f00                              |0016: const-string v4, "Trying to get here" // string@000f
+000320: 6e20 0200 4300                         |0018: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+000326: 1203                                   |001b: const/4 v3, #int 0 // #0
+000328: 6e20 0600 3200                         |001c: invoke-virtual {v2, v3}, LtryingAndCatching;.addToArr:(I)V // method@0006
+00032e: 1213                                   |001f: const/4 v3, #int 1 // #1
+000330: 6e20 0600 3200                         |0020: invoke-virtual {v2, v3}, LtryingAndCatching;.addToArr:(I)V // method@0006
+000336: 6203 0100                              |0023: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00033a: 6e10 0900 0100                         |0025: invoke-virtual {v1}, LtryingAndCatching;.toString:()Ljava/lang/String; // method@0009
+000340: 0c04                                   |0028: move-result-object v4
+000342: 6e20 0200 4300                         |0029: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+000348: 6203 0100                              |002c: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00034c: 6e10 0900 0200                         |002e: invoke-virtual {v2}, LtryingAndCatching;.toString:()Ljava/lang/String; // method@0009
+000352: 0c04                                   |0031: move-result-object v4
+000354: 6e20 0200 4300                         |0032: invoke-virtual {v3, v4}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+00035a: 0e00                                   |0035: return-void
+00035c: 0d00                                   |0036: move-exception v0
+00035e: 6203 0100                              |0037: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000362: 6e20 0100 0300                         |0039: invoke-virtual {v3, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0001
+000368: 28df                                   |003c: goto 001b // -0021
+00036a: 0d00                                   |003d: move-exception v0
+00036c: 6203 0100                              |003e: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000370: 6e20 0100 0300                         |0040: invoke-virtual {v3, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0001
+000376: 28e0                                   |0043: goto 0023 // -0020
+      catches       : 2
+        0x0011 - 0x001b
+          LBanana; -> 0x0036
+        0x001c - 0x0023
+          LBanana; -> 0x003d
+      positions     : 
+        0x0001 line=45
+        0x0008 line=46
+        0x0010 line=48
+        0x0014 line=49
+        0x001b line=55
+        0x001f line=56
+        0x0023 line=64
+        0x002c line=65
+        0x0035 line=66
+        0x0036 line=50
+        0x0037 line=51
+        0x003d line=59
+        0x003e line=60
+      locals        : 
+        0x0037 - 0x003d reg=0 e LBanana; 
+        0x003e - 0x0044 reg=0 e LBanana; 
+        0x0008 - 0x0044 reg=1 tac1 LtryingAndCatching; 
+        0x0010 - 0x0044 reg=2 tac2 LtryingAndCatching; 
+        0x0000 - 0x0044 reg=5 args [Ljava/lang/String; 
+
+  Virtual methods   -
+    #0              : (in LtryingAndCatching;)
+      name          : 'addToArr'
+      type          : '(I)V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 1
+      insns size    : 25 16-bit code units
+000390:                                        |[000390] tryingAndCatching.addToArr:(I)V
+0003a0: 6e10 0700 0200                         |0000: invoke-virtual {v2}, LtryingAndCatching;.isFull:()Z // method@0007
+0003a6: 0a00                                   |0003: move-result v0
+0003a8: 3900 0f00                              |0004: if-nez v0, 0013 // +000f
+0003ac: 5420 0500                              |0006: iget-object v0, v2, LtryingAndCatching;.myArr:[I // field@0005
+0003b0: 5221 0400                              |0008: iget v1, v2, LtryingAndCatching;.ind:I // field@0004
+0003b4: 4b03 0001                              |000a: aput v3, v0, v1
+0003b8: 5220 0400                              |000c: iget v0, v2, LtryingAndCatching;.ind:I // field@0004
+0003bc: d800 0001                              |000e: add-int/lit8 v0, v0, #int 1 // #01
+0003c0: 5920 0400                              |0010: iput v0, v2, LtryingAndCatching;.ind:I // field@0004
+0003c4: 0e00                                   |0012: return-void
+0003c6: 2200 0100                              |0013: new-instance v0, LBanana; // type@0001
+0003ca: 7010 0000 0000                         |0015: invoke-direct {v0}, LBanana;.<init>:()V // method@0000
+0003d0: 2700                                   |0018: throw v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=26
+        0x0006 line=27
+        0x000c line=28
+        0x0012 line=32
+        0x0013 line=30
+      locals        : 
+        0x0000 - 0x0019 reg=2 this LtryingAndCatching; 
+        0x0000 - 0x0019 reg=3 val I 
+
+    #1              : (in LtryingAndCatching;)
+      name          : 'isFull'
+      type          : '()Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 0
+      insns size    : 17 16-bit code units
+0003d4:                                        |[0003d4] tryingAndCatching.isFull:()Z
+0003e4: 5220 0400                              |0000: iget v0, v2, LtryingAndCatching;.ind:I // field@0004
+0003e8: 5421 0500                              |0002: iget-object v1, v2, LtryingAndCatching;.myArr:[I // field@0005
+0003ec: 2111                                   |0004: array-length v1, v1
+0003ee: 3310 0900                              |0005: if-ne v0, v1, 000e // +0009
+0003f2: 5520 0300                              |0007: iget-boolean v0, v2, LtryingAndCatching;.full:Z // field@0003
+0003f6: 3900 0500                              |0009: if-nez v0, 000e // +0005
+0003fa: 1210                                   |000b: const/4 v0, #int 1 // #1
+0003fc: 5c20 0300                              |000c: iput-boolean v0, v2, LtryingAndCatching;.full:Z // field@0003
+000400: 5520 0300                              |000e: iget-boolean v0, v2, LtryingAndCatching;.full:Z // field@0003
+000404: 0f00                                   |0010: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=19
+        0x000b line=20
+        0x000e line=22
+      locals        : 
+        0x0000 - 0x0011 reg=2 this LtryingAndCatching; 
+
+    #2              : (in LtryingAndCatching;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 12 16-bit code units
+000408:                                        |[000408] tryingAndCatching.toString:()Ljava/lang/String;
+000418: 6e10 0700 0100                         |0000: invoke-virtual {v1}, LtryingAndCatching;.isFull:()Z // method@0007
+00041e: 0a00                                   |0003: move-result v0
+000420: 3800 0500                              |0004: if-eqz v0, 0009 // +0005
+000424: 1a00 0400                              |0006: const-string v0, "I'm so full!!" // string@0004
+000428: 1100                                   |0008: return-object v0
+00042a: 1a00 0e00                              |0009: const-string v0, "Stil got room in me" // string@000e
+00042e: 28fd                                   |000b: goto 0008 // -0003
+      catches       : (none)
+      positions     : 
+        0x0000 line=35
+        0x0006 line=36
+        0x0008 line=38
+      locals        : 
+        0x0000 - 0x000c reg=1 this LtryingAndCatching; 
+
+  source_file_idx   : 43 (tryingAndCatching.java)
+
