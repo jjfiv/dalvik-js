@@ -41,6 +41,13 @@ var intercept = {
           //var _thread = arguments[0];
           //_thread.result=args[0].getClass(_thread.getClassLibrary);
       }
+  },
+  "Ljava/lang/Throwable;" : { 
+      "<init>" : function(kind, method, args) {
+          // commented out because it looks like an error
+          console.log("Creating a banana for throwing");
+          return args[1];
+      }
   }
 };
 

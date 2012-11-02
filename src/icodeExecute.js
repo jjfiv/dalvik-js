@@ -132,7 +132,8 @@ var icodeHandlers = {
   },
 
   "throw": function(_inst, _thread) {
-    NYI(_inst);
+    throw (_thread.getRegister(_inst.src));
+    //NYI(_inst);
   },
 
   "goto": function(_inst, _thread) {
