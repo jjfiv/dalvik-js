@@ -40,6 +40,12 @@ Instance.prototype.getField = function (_field) {
   return _retVal[0];
 };
 
+Class.prototype.getField = function(_field){
+  var _retVal = this.staticFields.filter(function (_f) { return _f.isEquals(_field); });
+  assert(_retVal.length===1, _retVal.length+" static fields named "+_field.name+" found for "+_field.definingClass.getTypeString());
+  return _retVal[0];
+};
+
 Class.prototype.hasMain = function() {
   var _foo = this.directMethods.map(function(_method){ return _method.isMain(); });
   if(_foo.length === 0) {
