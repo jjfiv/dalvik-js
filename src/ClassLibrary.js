@@ -38,7 +38,7 @@ ClassLibrary.prototype.findMethod = function(_type, _methodSignature){
         _m = _allMethods[_i]; break;
       }
     }
-    if (isUndefined(_class.parent)) {
+    if ((!isUndefined(_m)) || isUndefined(_class.parent)) {
       break;
     }
     _class = this.classes[_class.parent.getTypeString()];
