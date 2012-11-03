@@ -461,7 +461,7 @@ var repeat = function(thing, n){
 var makeHyperArray = function (_dimensionArray, _type, _defaultVal){
   var _i, _thisDim = _dimensionArray[0];
   if (_thisDim){
-    var _restDim = _dimensionArray.slice(1), _subType = new Type(repeat('[', _dimensionArray.length)+_type._type);
+    var _restDim = _dimensionArray.slice(1), _subType = new Type(_type.getTypeString().slice(1));
     var _arr =  new Array(_thisDim);
     for (_i=0;_i<_thisDim;_i++){
       _arr[_i] = makeHyperArray(_restDim, _subType, _defaultVal);

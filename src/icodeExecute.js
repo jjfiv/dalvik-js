@@ -80,8 +80,8 @@ var icodeHandlers = {
   },
 
   "array-length": function(_inst, _thread) {
-    var _array = _thread.getRegister (_inst.dest);
-    _thread.setRegister (_inst.dest, _array._data.length); 
+    var _array = _thread.getRegister (_inst.src);
+    _thread.setRegister (_inst.dest, _array.length); 
   },
 
   "new-instance": function(_inst, _thread) {
@@ -106,11 +106,7 @@ var icodeHandlers = {
 
   "filled-new-array": function(_inst, _thread) {
     var _dimensionArray = _inst.reg.map(function (_regIdx) { return _thread.getRegister(_regIdx); });
-    var _i, _a = makeHyperArray(_dimensionArray, _inst.type);
-    _a.sizes = [];
-    for (_i = 0; _i < _inst.dimensions; _i++) {
-      _a.sizes[_i] = _thread.getRegister(_inst.reg[_i]);
-    }
+    var _a = makeHyperArray(_dimensionArray, new Type(repeat('[',_dimensionArray.length)+_inst.type._type));
     _thread._result = _a;
   },
 
