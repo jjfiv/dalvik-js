@@ -21,10 +21,10 @@ Class #0            -
       ins           : 2
       outs          : 1
       insns size    : 6 16-bit code units
-0001c8:                                        |[0001c8] ThreadInstanceTest.CowSay.<init>:(Ljava/lang/String;)V
-0001d8: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@0006
-0001de: 5b01 0000                              |0003: iput-object v1, v0, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
-0001e2: 0e00                                   |0005: return-void
+0001d4:                                        |[0001d4] ThreadInstanceTest.CowSay.<init>:(Ljava/lang/String;)V
+0001e4: 7010 0700 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@0007
+0001ea: 5b01 0000                              |0003: iput-object v1, v0, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
+0001ee: 0e00                                   |0005: return-void
       catches       : (none)
       positions     : 
         0x0000 line=5
@@ -43,11 +43,11 @@ Class #0            -
       ins           : 1
       outs          : 2
       insns size    : 8 16-bit code units
-0001e4:                                        |[0001e4] ThreadInstanceTest.CowSay.run:()V
-0001f4: 6200 0100                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
-0001f8: 5421 0000                              |0002: iget-object v1, v2, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
-0001fc: 6e20 0400 1000                         |0004: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0004
-000202: 0e00                                   |0007: return-void
+0001f0:                                        |[0001f0] ThreadInstanceTest.CowSay.run:()V
+000200: 6200 0100                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000204: 5421 0000                              |0002: iget-object v1, v2, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
+000208: 6e20 0500 1000                         |0004: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0005
+00020e: 0e00                                   |0007: return-void
       catches       : (none)
       positions     : 
         0x0000 line=10
@@ -74,9 +74,9 @@ Class #1            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-000204:                                        |[000204] ThreadInstanceTest.<init>:()V
-000214: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-00021a: 0e00                                   |0003: return-void
+000210:                                        |[000210] ThreadInstanceTest.<init>:()V
+000220: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000226: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=1
@@ -93,16 +93,16 @@ Class #1            -
       ins           : 1
       outs          : 2
       insns size    : 21 16-bit code units
-00021c:                                        |[00021c] ThreadInstanceTest.main:([Ljava/lang/String;)V
-00022c: 2200 0000                              |0000: new-instance v0, LThreadInstanceTest$CowSay; // type@0000
-000230: 1a01 1400                              |0002: const-string v1, "moo!" // string@0014
-000234: 7020 0000 1000                         |0004: invoke-direct {v0, v1}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
-00023a: 2201 0000                              |0007: new-instance v1, LThreadInstanceTest$CowSay; // type@0000
-00023e: 1a02 1200                              |0009: const-string v2, "meow!" // string@0012
-000242: 7020 0000 2100                         |000b: invoke-direct {v1, v2}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
-000248: 6e10 0100 0000                         |000e: invoke-virtual {v0}, LThreadInstanceTest$CowSay;.run:()V // method@0001
-00024e: 6e10 0100 0100                         |0011: invoke-virtual {v1}, LThreadInstanceTest$CowSay;.run:()V // method@0001
-000254: 0e00                                   |0014: return-void
+000228:                                        |[000228] ThreadInstanceTest.main:([Ljava/lang/String;)V
+000238: 2200 0000                              |0000: new-instance v0, LThreadInstanceTest$CowSay; // type@0000
+00023c: 1a01 1400                              |0002: const-string v1, "moo!" // string@0014
+000240: 7020 0000 1000                         |0004: invoke-direct {v0, v1}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
+000246: 2201 0000                              |0007: new-instance v1, LThreadInstanceTest$CowSay; // type@0000
+00024a: 1a02 1200                              |0009: const-string v2, "meow!" // string@0012
+00024e: 7020 0000 2100                         |000b: invoke-direct {v1, v2}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
+000254: 6e10 0200 0000                         |000e: invoke-virtual {v0}, LThreadInstanceTest$CowSay;.start:()V // method@0002
+00025a: 6e10 0200 0100                         |0011: invoke-virtual {v1}, LThreadInstanceTest$CowSay;.start:()V // method@0002
+000260: 0e00                                   |0014: return-void
       catches       : (none)
       positions     : 
         0x0000 line=15

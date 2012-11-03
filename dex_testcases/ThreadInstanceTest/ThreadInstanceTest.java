@@ -14,8 +14,8 @@ class ThreadInstanceTest {
   public static void main(String[] args) {
     CowSay cow1 = new CowSay("moo!");
     CowSay cow2 = new CowSay("meow!");
-    cow1.run();
-    cow2.run();
+    cow1.start();
+    cow2.start();
   }
 }
 

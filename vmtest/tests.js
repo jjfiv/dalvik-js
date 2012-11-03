@@ -54,6 +54,9 @@ doTest("Monitors.dex", "LMonitors;", "a1\na2\nb1\nb2\n");
 
 doTest("InterfaceTest.dex", "LInterfaceTest;", "Class A implements user-defined InterfaceA.\n" );
 
+// note - may depend on scheduling algorithm
+doTest("ThreadInstanceTest.dex", "LThreadInstanceTest;", "moo!\nmeow!\n");
+
 doTest("Add_double.dex", "LAdd_double;", "5.84\n");
 doTest("Add_double_2addr.dex", "LAdd_double_2addr;", "6.84\n");
 doTest("Add_float_2addr.dex", "LAdd_float_2addr;", "6.84\n");

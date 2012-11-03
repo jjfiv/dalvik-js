@@ -261,8 +261,6 @@ var icodeHandlers = {
   "instance-get": function(_inst, _thread) {
     var _instance = _thread.getRegister(_inst.obj);
     var _val = _instance.getField(_inst.field).value;
-    console.log("instance-get");
-    console.log(_inst.field);
     _thread.setRegister(_inst.value, _val);
   },
 
