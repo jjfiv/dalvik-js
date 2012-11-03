@@ -376,7 +376,6 @@ var icodeHandlers = {
     } else if (dstType.isEquals(TYPE_CHAR)) {
       val = val & 0xFFFF;
       console.log("val after 0x: " + val);
-      val = String.fromCharCode(val);
     } else if (dstType.isEquals(TYPE_BYTE)) {
       val = val & 0xFF;
       val = signExtend(val, 8, 32);

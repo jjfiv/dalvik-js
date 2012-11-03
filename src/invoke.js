@@ -33,6 +33,8 @@ var printValueOfType = function(_type, _value) {
       terminal.print (_result);
     } else {*/
     terminal.print (_value);
+  } else if (_type === "C") {
+    terminal.print (String.fromCharCode(_value));
   } else {
     terminal.print (_value);
   }
