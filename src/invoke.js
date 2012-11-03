@@ -23,6 +23,12 @@ var intercept = {
         } else {
           terminal.println ("false");
         }
+      } else if (_type === "Ljava/lang/String;") {
+        var _result = _value.fields[3].value._data.null;
+        for (var _i = 1; _i < _value.fields[0].value; _i++) {
+          _result = _result + _value.fields[3].value._data[_i];
+        }
+        terminal.println (_result);
       } else {
         terminal.println (_value);
       }
@@ -50,6 +56,11 @@ var intercept = {
       // commented out because it looks like an error
       console.log("Creating a banana for throwing");
       return args[1];
+    }
+  },
+  "Ljava/lang/System;" : { 
+    "arraycopy" : function(kind, method, args){
+      args[2]._data = args[0]._data;
     }
   }
 };
@@ -122,12 +133,14 @@ var invoke = function(_inst,_thread){
   console.log(method.definingClass.getTypeString());
 
   // find an override if there is one
-  var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-  
-  // if we have a native "javascript" handler for this method
-  if (_javaIntercept){
-    _thread._result = _javaIntercept(kind, method, argValues);
-    return;
+  if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 
+      method.definingClass.getTypeString() !== "Ljava/lang/AbstractStringBuilder;") {
+    var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
+    // if we have a native "javascript" handler for this method
+    if (_javaIntercept){
+      _thread._result = _javaIntercept(kind, method, argValues);
+      return;
+    }
   }
   
   // if this is a runnable, catch certain special calls
