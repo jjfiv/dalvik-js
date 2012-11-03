@@ -93,6 +93,8 @@ var icodeHandlers = {
       _thread.setRegister(_inst.dest, _newThread);
       console.log("new Thread made with id "+_newThread.uid);
     } else {
+	  console.log ("Trying to make a new instance");
+	  console.log(_class);
       _thread.setRegister(_inst.dest, _class.makeNew(_thread.getClassLibrary()));
       console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
     }
@@ -132,7 +134,21 @@ var icodeHandlers = {
   },
 
   "throw": function(_inst, _thread) {
-    throw (_thread.getRegister(_inst.src));
+    console.log("Trying to throw a JS exception");    
+	var _obj = _thread.getRegister(_inst.src);
+	console.log(_obj);
+    _thread.exception = _obj.getTypeString();
+	var ty = _thread.currentFrame().method.tryInfo.length;
+	while (ty === 0)  {
+	  var offset;
+		console.log("I needs to be popped");
+		console.log(_thread.currentFrame().method);
+		_thread.popMethod(null);
+		ty = _thread.currentFrame().method.tryInfo.length;
+	}
+	console.log ("PC diff");
+	console.log(_thread.currentFrame().method.tryInfo._catchBlock - _thread.currentFrame().pc);
+	//return _thread.currentFrame().method.tryInfo._catchBlock - _thread.currentFrame().pc;
     //NYI(_inst);
   },
 

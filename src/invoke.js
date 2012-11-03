@@ -48,8 +48,15 @@ var intercept = {
   "Ljava/lang/Throwable;" : { 
     "<init>" : function(kind, method, args) {
       // commented out because it looks like an error
+      console.log("Creating an object for throwing");
+      return args[0];
+    }
+  },
+  "LBanana;" : { 
+    "<init>" : function(kind, method, args) {
+      // commented out because it looks like an error
       console.log("Creating a banana for throwing");
-      return args[1];
+	  return;
     }
   }
 };
