@@ -11,6 +11,6 @@ public class FillArrayRange {
       }
     }
     
-    System.out.println(test[3][3][0][0][0][0] == 9);
+    System.out.println(test[2][1][0][0][0][0] == 2);
   }
 };
