@@ -50,6 +50,7 @@ VM.prototype.start = function ( _selectedClassAsType ) {
 VM.prototype.clockTick = function() {
   //--- clock tick; round-robin scheduler
   //    for now, do one instruction per thread
+  assert(this.isRunnable(), 'This machine has no RUNNABLE threads.');
   var _i, _thread;
   for(_i=0; _i<this._threads.length; _i++) {
     _thread = this._threads[_i];
