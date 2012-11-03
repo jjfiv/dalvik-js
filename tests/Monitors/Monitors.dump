@@ -1,0 +1,194 @@
+Processing 'Monitors.dex'...
+Opened 'Monitors.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LMonitors;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMonitors;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001f8:                                        |[0001f8] Monitors.<init>:()V
+000208: 7010 0a00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000a
+00020e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMonitors; 
+
+    #1              : (in LMonitors;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 1
+      insns size    : 17 16-bit code units
+000210:                                        |[000210] Monitors.main:([Ljava/lang/String;)V
+000220: 2200 0100                              |0000: new-instance v0, LThreadA; // type@0001
+000224: 7010 0300 0000                         |0002: invoke-direct {v0}, LThreadA;.<init>:()V // method@0003
+00022a: 2201 0200                              |0005: new-instance v1, LThreadB; // type@0002
+00022e: 7010 0600 0100                         |0007: invoke-direct {v1}, LThreadB;.<init>:()V // method@0006
+000234: 6e10 0500 0000                         |000a: invoke-virtual {v0}, LThreadA;.start:()V // method@0005
+00023a: 6e10 0800 0100                         |000d: invoke-virtual {v1}, LThreadB;.start:()V // method@0008
+000240: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0005 line=4
+        0x000a line=5
+        0x000d line=6
+        0x0010 line=7
+      locals        : 
+
+    #2              : (in LMonitors;)
+      name          : 'printThings'
+      type          : '(Ljava/lang/String;Ljava/lang/String;)V'
+      access        : 0x20008 (STATIC DECLARED_SYNCHRONIZED)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 2
+      insns size    : 18 16-bit code units
+000244:                                        |[000244] Monitors.printThings:(Ljava/lang/String;Ljava/lang/String;)V
+000254: 1c01 0000                              |0000: const-class v1, LMonitors; // type@0000
+000258: 1d01                                   |0002: monitor-enter v1
+00025a: 6200 0000                              |0003: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00025e: 6e20 0900 2000                         |0005: invoke-virtual {v0, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0009
+000264: 6200 0000                              |0008: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000268: 6e20 0900 3000                         |000a: invoke-virtual {v0, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0009
+00026e: 1e01                                   |000d: monitor-exit v1
+000270: 0e00                                   |000e: return-void
+000272: 0d00                                   |000f: move-exception v0
+000274: 1e01                                   |0010: monitor-exit v1
+000276: 2700                                   |0011: throw v0
+      catches       : 1
+        0x0003 - 0x000d
+          <any> -> 0x000f
+      positions     : 
+        0x0000 line=9
+        0x0008 line=10
+        0x000d line=11
+        0x000f line=9
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 9 (Monitors.java)
+
+Class #1            -
+  Class descriptor  : 'LThreadA;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadA;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000284:                                        |[000284] ThreadA.<init>:()V
+000294: 7010 0b00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@000b
+00029a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadA; 
+
+  Virtual methods   -
+    #0              : (in LThreadA;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 13 16-bit code units
+00029c:                                        |[00029c] ThreadA.run:()V
+0002ac: 2200 0000                              |0000: new-instance v0, LMonitors; // type@0000
+0002b0: 7010 0000 0000                         |0002: invoke-direct {v0}, LMonitors;.<init>:()V // method@0000
+0002b6: 1a00 1000                              |0005: const-string v0, "a1" // string@0010
+0002ba: 1a01 1100                              |0007: const-string v1, "a2" // string@0011
+0002be: 7120 0200 1000                         |0009: invoke-static {v0, v1}, LMonitors;.printThings:(Ljava/lang/String;Ljava/lang/String;)V // method@0002
+0002c4: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0005 line=4
+        0x000c line=5
+      locals        : 
+        0x0000 - 0x000d reg=2 this LThreadA; 
+
+  source_file_idx   : 10 (ThreadA.java)
+
+Class #2            -
+  Class descriptor  : 'LThreadB;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadB;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002c8:                                        |[0002c8] ThreadB.<init>:()V
+0002d8: 7010 0b00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@000b
+0002de: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadB; 
+
+  Virtual methods   -
+    #0              : (in LThreadB;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 13 16-bit code units
+0002e0:                                        |[0002e0] ThreadB.run:()V
+0002f0: 2200 0000                              |0000: new-instance v0, LMonitors; // type@0000
+0002f4: 7010 0000 0000                         |0002: invoke-direct {v0}, LMonitors;.<init>:()V // method@0000
+0002fa: 1a00 1200                              |0005: const-string v0, "b1" // string@0012
+0002fe: 1a01 1300                              |0007: const-string v1, "b2" // string@0013
+000302: 7120 0200 1000                         |0009: invoke-static {v0, v1}, LMonitors;.printThings:(Ljava/lang/String;Ljava/lang/String;)V // method@0002
+000308: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0005 line=4
+        0x000c line=5
+      locals        : 
+        0x0000 - 0x000d reg=2 this LThreadB; 
+
+  source_file_idx   : 11 (ThreadB.java)
+
