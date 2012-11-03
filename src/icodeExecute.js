@@ -238,13 +238,8 @@ var icodeHandlers = {
     console.log(_index);
     console.log(_array[_index]);
     assert(_array, "Array is not undefined");
-    assert(_array, "Array is not undefined");
     assert(_index < _array.length, "array-get index is out of bounds");
-	if (_inst.type.isEquals(TYPE_CHAR)) {
-	  _thread.setRegister (_inst.value, String.fromCharCode(_array[_index]));
-	} else {
-	  _thread.setRegister (_inst.value, _array[_index]);
-	}
+    _thread.setRegister (_inst.value, _array[_index]);
     assert(_array, "Array is not undefined");
   },
 
