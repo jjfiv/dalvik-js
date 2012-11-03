@@ -1,0 +1,95 @@
+Processing 'ArrayTest.dex'...
+Opened 'ArrayTest.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LArrayTest;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LArrayTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000164:                                        |[000164] ArrayTest.<init>:()V
+000174: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+00017a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LArrayTest; 
+
+    #1              : (in LArrayTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 7
+      ins           : 1
+      outs          : 2
+      insns size    : 72 16-bit code units
+00017c:                                        |[00017c] ArrayTest.main:([Ljava/lang/String;)V
+00018c: 1241                                   |0000: const/4 v1, #int 4 // #4
+00018e: 1225                                   |0001: const/4 v5, #int 2 // #2
+000190: 1214                                   |0002: const/4 v4, #int 1 // #1
+000192: 1202                                   |0003: const/4 v2, #int 0 // #0
+000194: 1233                                   |0004: const/4 v3, #int 3 // #3
+000196: 2310 0700                              |0005: new-array v0, v1, [I // type@0007
+00019a: 4b03 0002                              |0007: aput v3, v0, v2
+00019e: 4b01 0004                              |0009: aput v1, v0, v4
+0001a2: 1251                                   |000b: const/4 v1, #int 5 // #5
+0001a4: 4b01 0005                              |000c: aput v1, v0, v5
+0001a8: 1261                                   |000e: const/4 v1, #int 6 // #6
+0001aa: 4b01 0003                              |000f: aput v1, v0, v3
+0001ae: 6201 0000                              |0011: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001b2: 4402 0002                              |0013: aget v2, v0, v2
+0001b6: 6e20 0200 2100                         |0015: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(I)V // method@0002
+0001bc: 6201 0000                              |0018: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001c0: 1a02 0000                              |001a: const-string v2, "," // string@0000
+0001c4: 6e20 0300 2100                         |001c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(Ljava/lang/String;)V // method@0003
+0001ca: 6201 0000                              |001f: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ce: 4402 0004                              |0021: aget v2, v0, v4
+0001d2: 6e20 0200 2100                         |0023: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(I)V // method@0002
+0001d8: 6201 0000                              |0026: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001dc: 1a02 0000                              |0028: const-string v2, "," // string@0000
+0001e0: 6e20 0300 2100                         |002a: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(Ljava/lang/String;)V // method@0003
+0001e6: 6201 0000                              |002d: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ea: 4402 0005                              |002f: aget v2, v0, v5
+0001ee: 6e20 0200 2100                         |0031: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(I)V // method@0002
+0001f4: 6201 0000                              |0034: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001f8: 1a02 0000                              |0036: const-string v2, "," // string@0000
+0001fc: 6e20 0300 2100                         |0038: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.print:(Ljava/lang/String;)V // method@0003
+000202: 6201 0000                              |003b: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000206: 4400 0003                              |003d: aget v0, v0, v3
+00020a: 6e20 0200 0100                         |003f: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.print:(I)V // method@0002
+000210: 6200 0000                              |0042: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000214: 6e10 0400 0000                         |0044: invoke-virtual {v0}, Ljava/io/PrintStream;.println:()V // method@0004
+00021a: 0e00                                   |0047: return-void
+      catches       : (none)
+      positions     : 
+        0x0005 line=3
+        0x0007 line=4
+        0x0009 line=5
+        0x000b line=6
+        0x000e line=7
+        0x0011 line=9
+        0x0018 line=10
+        0x001f line=11
+        0x0026 line=12
+        0x002d line=13
+        0x0034 line=14
+        0x003b line=15
+        0x0042 line=16
+        0x0047 line=17
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 2 (ArrayTest.java)
+
