@@ -98,14 +98,17 @@ var icodeHandlers = {
   },
 
   "new-array": function(_inst, _thread) {
-    var _a = [];
+    // only ever called for 1-d arrays
+    var _a = new Array(_thread.getRegister(_inst.dim));
     _a.type = _inst.type;
     _thread.setRegister(_inst.dest, _a);
   },
 
   "filled-new-array": function(_inst, _thread) {
-    var _i, _a = [];
-    for (_i = 0; _i < (_a.sizes=[]).length=_inst.dimensions; _i++) {
+    var _dimensionArray = _inst.reg.map(function (_regIdx) { return _thread.getRegister(_regIdx); });
+    var _i, _a = makeHyperArray(_dimensionArray, _inst.type);
+    _a.sizes = [];
+    for (_i = 0; _i < _inst.dimensions; _i++) {
       _a.sizes[_i] = _thread.getRegister(_inst.reg[_i]);
     }
     _thread._result = _a;
@@ -222,14 +225,14 @@ var icodeHandlers = {
   "array-get": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
-    _thread.setRegister (_inst.value, _array._data[_index]);
+    _thread.setRegister (_inst.value, _array[_index]);
   },
 
   "array-put": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
     var _value = _thread.getRegister (_inst.value);
-    _array._data[_index] = _value;
+    _array[_index] = _value;
   },
 
   "instance-get": function(_inst, _thread) {
