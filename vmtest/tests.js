@@ -47,3 +47,4 @@ doTest("Bird.dex", "LBird;", "Rexy\ntrue\nfalse\nBlack\ntrue\ntrue\nHumpty\nfals
 
 doTest("ArrayTest.dex", "LArrayTest;", "3,4,5,6\n");
 
+doTest("string.dex", "Lstring;", "23Hi12Bye\n");
