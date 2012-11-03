@@ -1,0 +1,68 @@
+Processing 'string.dex'...
+Opened 'string.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'Lstring;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lstring;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00019c:                                        |[00019c] string.<init>:()V
+0001ac: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+0001b2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lstring; 
+
+    #1              : (in Lstring;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 39 16-bit code units
+0001b4:                                        |[0001b4] string.main:([Ljava/lang/String;)V
+0001c4: 1300 0c00                              |0000: const/16 v0, #int 12 // #c
+0001c8: 1301 1700                              |0002: const/16 v1, #int 23 // #17
+0001cc: 6202 0000                              |0004: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001d0: 2203 0400                              |0006: new-instance v3, Ljava/lang/StringBuilder; // type@0004
+0001d4: 7010 0200 0300                         |0008: invoke-direct {v3}, Ljava/lang/StringBuilder;.<init>:()V // method@0002
+0001da: 6e20 0300 1300                         |000b: invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0003
+0001e0: 0c01                                   |000e: move-result-object v1
+0001e2: 1a03 0200                              |000f: const-string v3, "Hi" // string@0002
+0001e6: 6e20 0400 3100                         |0011: invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0004
+0001ec: 0c01                                   |0014: move-result-object v1
+0001ee: 6e20 0300 0100                         |0015: invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0003
+0001f4: 0c00                                   |0018: move-result-object v0
+0001f6: 1a01 0100                              |0019: const-string v1, "Bye" // string@0001
+0001fa: 6e20 0400 1000                         |001b: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@0004
+000200: 0c00                                   |001e: move-result-object v0
+000202: 6e10 0500 0000                         |001f: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@0005
+000208: 0c00                                   |0022: move-result-object v0
+00020a: 6e20 0000 0200                         |0023: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0000
+000210: 0e00                                   |0026: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+        0x0002 line=4
+        0x0004 line=5
+        0x0026 line=6
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 20 (string.java)
+
