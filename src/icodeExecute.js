@@ -140,17 +140,30 @@ var icodeHandlers = {
   "cmp": function(_inst, _thread) {
     var _srcA = _thread.getRegister (_inst.srcA);
     var _srcB = _thread.getRegister (_inst.srcB);
-
-    if (_inst.type.isEquals(TYPE_FLOAT)) {
+    var _type = _inst.type;
+    
+    if (_type.isEquals(TYPE_FLOAT)) {
       _srcA = floatFromInt (_srcA);
       _srcB = floatFromInt (_srcB);
-    }
-    else if (_inst.type.isEquals(TYPE_DOUBLE)){
+    } else if (_type.isEquals(TYPE_DOUBLE)){
       _srcA = doubleFromgLong (_srcA);
       _srcB = doubleFromgLong (_srcB);
     }
 
-    if (!(_inst.type.isEquals(TYPE_LONG))) {
+    // handle long
+    if(_type.isEquals(TYPE_LONG)) {
+      if (_srcB.lessThan(_srcA)) {
+        _thread.setRegister (_inst.dest, -1);
+      } else if (_srcB.greaterThan(_srcA)) {
+        _thread.setRegister (_inst.dest, 1);
+      } else {
+        _thread.setRegister (_inst.dest, 0);
+      }
+      return;
+    }
+
+    // handle NaN
+    if(_type.isEquals(TYPE_DOUBLE) || _type.isEquals(TYPE_FLOAT)) {
       if ((isNaN(_srcA)) || (isNaN(_srcB))) {
         if (_inst.bias === "lt") {
           _thread.setRegister (_inst.dest, -1);
@@ -160,26 +173,15 @@ var icodeHandlers = {
         }
         return;
       }
-      if (_srcB < _srcA) {
-        _thread.setRegister (_inst.dest, -1);
-      }
-      else if (_srcB > _srcA) {
-        _thread.setRegister (_inst.dest, 1);
-      }
-      else {
-        _thread.setRegister (_inst.dest, 0);
-      }
     }
-    else {
-      if (_srcB.lessThan(_srcA)) {
-        _thread.setRegister (_inst.dest, -1);
-      }
-      else if (_srcB.greaterThan(_srcA)) {
-        _thread.setRegister (_inst.dest, 1);
-      }
-      else {
-        _thread.setRegister (_inst.dest, 0);
-      }
+
+    //handle int, float, and double
+    if (_srcB < _srcA) {
+      _thread.setRegister (_inst.dest, -1);
+    } else if (_srcB > _srcA) {
+      _thread.setRegister (_inst.dest, 1);
+    } else {
+      _thread.setRegister (_inst.dest, 0);
     }
   },
 
@@ -297,75 +299,68 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
+    var srcType = _inst.srcType;
+    var destType = _inst.destType;
+    // Not distinguishing between wide and not wide
+    var val = _thread.getRegister(_inst.src);
+
+    if (srcType.isEquals(TYPE_FLOAT)) {
+      val = floatFromInt(val);
+    } else if (srcType.isEquals(TYPE_DOUBLE)) {
+      val = doubleFromgLong(val);
+    }
     
-	// Not distinguishing between wide and not wide
-	var val = _thread.getRegister(_inst.src);
-	
-	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
-	  val = floatFromInt(val);
-	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
-	  val = doubleFromgLong(val);
-	} else {
-	}
-	
-	if (_inst.srcType.isEquals(TYPE_LONG)) {
-	  console.log("long to smth: " + val);
-	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = val.toInt();
-	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	    val = val.toNumber();
-	    val = floatFromDouble(val);
-	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	    val = val.toNumber();
-	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
-	  } else {
-	    assert(false, "Unrecognized target type conversion from long"); 
-	  }
-	} else {
-	  console.log("number to smth: " + val);
-	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = parseInt(val.toString());
-	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	    val = floatFromDouble(val);
-	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
-	    val = gLong.fromNumber(val);
-	  } else {
-	    assert(false, "Unrecognized target type conversion from int");
-	  }
-	}
-	
-	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
-	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	  val = intFromFloat(val);
-        } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLongFromDouble(val);
-	} else {
-	  assert(false, "Unidentified target primitive type");
-	}
-    
-	_thread.setRegister(_inst.dest, val);
+    if (srcType.isEquals(TYPE_LONG)) {
+      console.log("long to smth: " + val);
+      if (destType.isEquals(TYPE_INT)) {
+        val = val.toInt();
+      } else if (destType.isEquals(TYPE_FLOAT)) {
+        val = val.toNumber();
+        val = floatFromDouble(val);
+      } else if (destType.isEquals(TYPE_DOUBLE)) {
+        val = val.toNumber();
+      } else {
+        assert(false, "Unrecognized target type conversion from long"); 
+      }
+    } else {
+      console.log("number to smth: " + val);
+      if (destType.isEquals(TYPE_INT)) {
+        val = parseInt(val.toString(), 10);
+      } else if (destType.isEquals(TYPE_FLOAT)) {
+        val = floatFromDouble(val);
+      } else if (destType.isEquals(TYPE_LONG)) {
+        val = gLong.fromNumber(val);
+      }
+    }
+
+    if (destType.isEquals(TYPE_FLOAT)) {
+      val = intFromFloat(val);
+    } else if (destType.isEquals(TYPE_DOUBLE)) {
+      val = gLongFromDouble(val);
+    }
+
+    _thread.setRegister(_inst.dest, val);
   },
 
   "int-cast": function(_inst, _thread) {
     var val = _thread.getRegister(_inst.src);
-	var dstType = _inst.destType;
-	var dst = _inst.dest;
-	if (dstType.isEquals(TYPE_SHORT)) {
-	  val = val & 0xFFFF;
-	  val = signExtend(val, 16, 32);
-	} else if (dstType.isEquals(TYPE_CHAR)) {
-	  val = val & 0xFFFF;
-	  console.log("val after 0x: " + val);
-	  val = String.fromCharCode(val);
-	} else if (dstType.isEquals(TYPE_BYTE)) {
-	  val = val & 0xFF;
-	  val = signExtend(val, 8, 32);
-	} else {
-	  assert(false, "Unrecognized target cast from int");
-	}
-	
-	_thread.setRegister(dst, val);
+    var dstType = _inst.destType;
+    var dst = _inst.dest;
+    if (dstType.isEquals(TYPE_SHORT)) {
+      val = val & 0xFFFF;
+      val = signExtend(val, 16, 32);
+    } else if (dstType.isEquals(TYPE_CHAR)) {
+      val = val & 0xFFFF;
+      console.log("val after 0x: " + val);
+      val = String.fromCharCode(val);
+    } else if (dstType.isEquals(TYPE_BYTE)) {
+      val = val & 0xFF;
+      val = signExtend(val, 8, 32);
+    } else {
+      assert(false, "Unrecognized target cast from int");
+    }
+
+    _thread.setRegister(dst, val);
   },
 
   "add": function(_inst, _thread) {
