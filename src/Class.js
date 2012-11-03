@@ -34,11 +34,15 @@ Class.prototype.getMain = function(){
   return _main[0];
 };
 
-Class.prototype.getAncestorFields = function(_classLibrary){
-  var _ancestorFields = arguments[1] || this.instanceFields;
+Class.prototype.getAncestorFields = function(_classLibrary, _optFields){
+  var copyFields = function(fields) {
+    return fields.map(function(_f) { return _f.clone(); });
+  };
+
+  var _ancestorFields = _optFields || copyFields(this.instanceFields);
   if (this.parent) {
     var _parent = _classLibrary.findClass(this.parent);
-    return _parent.getAncestorFields(_classLibrary, _ancestorFields.concat(_parent.instanceFields.map(function(_f){ return _f.clone(); })));
+    return _parent.getAncestorFields(_classLibrary, _ancestorFields.concat( copyFields(_parent.instanceFields)));
   } else {
     return _ancestorFields;
   }

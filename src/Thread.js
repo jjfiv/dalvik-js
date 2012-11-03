@@ -82,7 +82,7 @@ Thread.prototype.throwException = function(exceptionObj) {
   this._exception = exceptionObj;
   if (listOfCatches[0]){
     newPC = listOfCatches[0].findAddressForType(frame.pc, type); // type: int
-    assert(newPC!=-1, 'Die H\&#228;rder.');
+    assert(newPC!==-1, 'Die H&#228;rder.');
     frame.pc = newPC;
   } else {
     this.popMethod();
@@ -91,8 +91,8 @@ Thread.prototype.throwException = function(exceptionObj) {
 }; 
 
 Thread.prototype.doNextInstruction = function() {
-  this.showStack();
   if (this.state === 'RUNNABLE'){
+    this.showStack();
     var _frame = this.currentFrame();
     var _inst = _frame.method.icode[_frame.pc];
     var _handler = icodeHandlers[_inst.op];
