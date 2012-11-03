@@ -1,0 +1,75 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Aget_object.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Aget_object.dex', DEX version '035'
+Class #0 header:
+class_idx           : 0
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 630 (0x000276)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LAget_object;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LAget_object;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000140:                                        |[000140] Aget_object.<init>:()V
+000150: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000156: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LAget_object; 
+
+    #1              : (in LAget_object;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 21 16-bit code units
+000158:                                        |[000158] Aget_object.main:([Ljava/lang/String;)V
+000168: 1203                                   |0000: const/4 v3, #int 0 // #0
+00016a: 1221                                   |0001: const/4 v1, #int 2 // #2
+00016c: 2310 0600                              |0002: new-array v0, v1, [Ljava/lang/String; // type@0006
+000170: 1a01 0a00                              |0004: const-string v1, "a" // string@000a
+000174: 4d01 0003                              |0006: aput-object v1, v0, v3
+000178: 1211                                   |0008: const/4 v1, #int 1 // #1
+00017a: 1a02 0d00                              |0009: const-string v2, "b" // string@000d
+00017e: 4d02 0001                              |000b: aput-object v2, v0, v1
+000182: 6201 0000                              |000d: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000186: 4602 0003                              |000f: aget-object v2, v0, v3
+00018a: 6e20 0200 2100                         |0011: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+000190: 0e00                                   |0014: return-void
+      catches       : (none)
+      positions     : 
+        0x0001 line=9
+        0x000d line=11
+        0x0014 line=14
+      locals        : 
+        0x000d - 0x0015 reg=0 arr [Ljava/lang/String; 
+        0x0000 - 0x0015 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Aget_object.java)
+
