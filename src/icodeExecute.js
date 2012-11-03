@@ -119,8 +119,12 @@ var icodeHandlers = {
   },
 
   "throw": function(_inst, _thread) {
-    throw (_thread.getRegister(_inst.src));
-    //NYI(_inst);
+    // get the exception object from the register at src
+    // redirect control at the thread level by using Thread.throwException to find the 
+    // appropriate stack frame holding our catch (i.e. first match).
+    var _exceptionObject = _thread.getRegister(_inst.src);
+    _thread.throwException(_exceptionObject);
+    return 0;
   },
 
   "goto": function(_inst, _thread) {
