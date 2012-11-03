@@ -22,6 +22,16 @@ var printValueOfType = function(_type, _value) {
     } else {
       terminal.print ("false");
     }
+  } else if (_type === "Ljava/lang/String;") {
+    /* JF ignore this for now
+    if(isUndefined(_value.fields)) {
+      var _result = _value.fields[3].value._data.null;
+      for (var _i = 1; _i < _value.fields[0].value; _i++) {
+        _result = _result + _value.fields[3].value._data[_i];
+      }
+      terminal.print (_result);
+    } else {*/
+    terminal.print (_value);
   } else {
     terminal.print (_value);
   }
@@ -30,36 +40,27 @@ var printValueOfType = function(_type, _value) {
 var intercept = {
   "Ljava/io/PrintStream;" : { 
     "println" : function(kind, method, args) {
-      var _type = method.signature.parameterTypes[0].getTypeString();
-      var _value = args[1];
-      console.log("println " + _value + " to " + inspect(args[0]) + "!");
-      if (_type === "D"){
-        terminal.println(doubleFromgLong(_value));
-      } else if (_type === "Z") {
-        if (_value !== 0) {
-          terminal.println ("true");
-        } else {
-          terminal.println ("false");
-        }
-      } else if (_type === "Ljava/lang/String;") {
-        var _result = _value.fields[3].value._data.null;
-        for (var _i = 1; _i < _value.fields[0].value; _i++) {
-          _result = _result + _value.fields[3].value._data[_i];
-        }
-        terminal.println (_result);
-      } else {
-        terminal.println (_value);
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("println " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
       }
-    }
-      printValueOfType(_type, _value);
+
       //add a newline
       terminal.println('');
     },
     "print" : function(kind, method, args) {
-      var _type = method.signature.parameterTypes[0].getTypeString();
-      var _value = args[1];
-      console.log("print " + _value + " to " + inspect(args[0]) + "!");
-      printValueOfType(_type, _value);
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("print " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
+      }
     },
   },
   "Ljava/lang/Object;" : { 
