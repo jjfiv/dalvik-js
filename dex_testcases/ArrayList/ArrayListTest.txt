@@ -1,0 +1,72 @@
+Processing 'ArrayListTest.dex'...
+Opened 'ArrayListTest.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LArrayListTest;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LArrayListTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001c0:                                        |[0001c0] ArrayListTest.<init>:()V
+0001d0: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001d6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LArrayListTest; 
+
+    #1              : (in LArrayListTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 43 16-bit code units
+0001d8:                                        |[0001d8] ArrayListTest.main:([Ljava/lang/String;)V
+0001e8: 2200 0500                              |0000: new-instance v0, Ljava/util/ArrayList; // type@0005
+0001ec: 7010 0400 0000                         |0002: invoke-direct {v0}, Ljava/util/ArrayList;.<init>:()V // method@0004
+0001f2: 1a01 0100                              |0005: const-string v1, "Apple" // string@0001
+0001f6: 6e20 0500 1000                         |0007: invoke-virtual {v0, v1}, Ljava/util/ArrayList;.add:(Ljava/lang/Object;)Z // method@0005
+0001fc: 1a01 0c00                              |000a: const-string v1, "Orange" // string@000c
+000200: 6e20 0500 1000                         |000c: invoke-virtual {v0, v1}, Ljava/util/ArrayList;.add:(Ljava/lang/Object;)Z // method@0005
+000206: 1a01 0300                              |000f: const-string v1, "Banana" // string@0003
+00020a: 6e20 0500 1000                         |0011: invoke-virtual {v0, v1}, Ljava/util/ArrayList;.add:(Ljava/lang/Object;)Z // method@0005
+000210: 6e10 0600 0000                         |0014: invoke-virtual {v0}, Ljava/util/ArrayList;.iterator:()Ljava/util/Iterator; // method@0006
+000216: 0c01                                   |0017: move-result-object v1
+000218: 7210 0700 0100                         |0018: invoke-interface {v1}, Ljava/util/Iterator;.hasNext:()Z // method@0007
+00021e: 0a00                                   |001b: move-result v0
+000220: 3800 0e00                              |001c: if-eqz v0, 002a // +000e
+000224: 7210 0800 0100                         |001e: invoke-interface {v1}, Ljava/util/Iterator;.next:()Ljava/lang/Object; // method@0008
+00022a: 0c00                                   |0021: move-result-object v0
+00022c: 1f00 0300                              |0022: check-cast v0, Ljava/lang/String; // type@0003
+000230: 6202 0000                              |0024: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000234: 6e20 0200 0200                         |0026: invoke-virtual {v2, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0002
+00023a: 28ef                                   |0029: goto 0018 // -0011
+00023c: 0e00                                   |002a: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+        0x0005 line=6
+        0x000a line=7
+        0x000f line=8
+        0x0014 line=10
+        0x0024 line=11
+        0x002a line=13
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 2 (ArrayListTest.java)
+
