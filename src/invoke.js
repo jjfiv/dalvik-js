@@ -8,25 +8,41 @@ var NYI = function(_inst) {
   throw "Not Implemented";
 };
 
+//
+// Turn values into strings for print
+//
+var printValueOfType = function(_type, _value) {
+  if (_type === "D"){
+    terminal.print(doubleFromgLong(_value));
+  } else if (_type === "F") {
+    terminal.print(floatFromInt(_value));
+  } else if (_type === "Z") {
+    if (_value !== 0) {
+      terminal.print ("true");
+    } else {
+      terminal.print ("false");
+    }
+  } else {
+    terminal.print (_value);
+  }
+};
+
 var intercept = {
   "Ljava/io/PrintStream;" : { 
     "println" : function(kind, method, args) {
       var _type = method.signature.parameterTypes[0].getTypeString();
       var _value = args[1];
       console.log("println " + _value + " to " + inspect(args[0]) + "!");
-
-      if (_type === "D"){
-        terminal.println(doubleFromgLong(_value));
-      } else if (_type === "Z") {
-        if (_value !== 0) {
-          terminal.println ("true");
-        } else {
-          terminal.println ("false");
-        }
-      } else {
-        terminal.println (_value);
-      }
-    }
+      printValueOfType(_type, _value);
+      //add a newline
+      terminal.println('');
+    },
+    "print" : function(kind, method, args) {
+      var _type = method.signature.parameterTypes[0].getTypeString();
+      var _value = args[1];
+      console.log("print " + _value + " to " + inspect(args[0]) + "!");
+      printValueOfType(_type, _value);
+    },
   },
   "Ljava/lang/Object;" : { 
     "<init>" : function(kind, method, args) {
