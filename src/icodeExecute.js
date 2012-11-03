@@ -43,6 +43,8 @@ var icodeHandlers = {
   "monitor-enter": function(_inst, _thread) {
     var _container = _thread.getRegister(_inst.src);
     if (isUndefined(_container.type)) {
+      console.log(inspect(_container));
+      assert(isA(_container, 'Type'), 'monitor-enter on a class/type object');
       // This is a type object from const-class
       _container = _thread._vm.classLibrary.findClass(_container);
     }
@@ -90,13 +92,14 @@ var icodeHandlers = {
   "new-instance": function(_inst, _thread) {
     // get the class for the corresponding type from classLibrary
     var _class = _thread._vm.classLibrary.findClass(_inst.type);
+    var _instance = _class.makeNew(_thread.getClassLibrary());
+    
+    _thread.setRegister(_inst.dest, _instance);
+    console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+    
     if (isRunnable(_inst.type, _thread.getClassLibrary())){
-      var _newThread = _thread.spawn(_inst.type);
-      _thread.setRegister(_inst.dest, _newThread);
-      console.log("new Thread made with id "+_newThread.uid);
-    } else {
-      _thread.setRegister(_inst.dest, _class.makeNew(_thread.getClassLibrary()));
-      console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+      _instance.thread = _thread.spawn(_inst.type);
+      console.log("new Thread made with id "+_instance.thread.uid);
     }
   },
 
@@ -258,6 +261,8 @@ var icodeHandlers = {
   "instance-get": function(_inst, _thread) {
     var _instance = _thread.getRegister(_inst.obj);
     var _val = _instance.getField(_inst.field).value;
+    console.log("instance-get");
+    console.log(_inst.field);
     _thread.setRegister(_inst.value, _val);
   },
 
@@ -276,14 +281,10 @@ var icodeHandlers = {
 
     console.log(_field);
 
-    // replace this with calls to ClassLibrary, and fallback to native
-    if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
-      _result.value = "System.out";
-      _thread.setRegister(_dest, _result);
-    } else {        
-      _val = _class.getField(_field);
-      _thread.setRegister (_dest, _val);
-    }
+    _val = _class.getField(_field);
+    console.log(_val);
+
+    _thread.setRegister (_dest, _val);
   },
 
   "static-put": function(_inst, _thread) {

@@ -117,7 +117,9 @@ Thread.prototype.showStack = function() {
 
   // convert it to information, and reverse it so it's top first going to bottom
   var stackInfo = this._stack.map(function (_f) {
-    return _f.method.toString() + " pc: " + _f.pc;
+    return _f.method.toString()
+    + " pc: " + _f.pc + 
+      " regs: " + _f.regs;
   }).reverse();
 
   var i;
