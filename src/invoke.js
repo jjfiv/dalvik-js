@@ -40,6 +40,11 @@ var printValueOfType = function(_type, _value) {
   }
 };
 
+var isRunnable = function (_type, _classLibrary){
+  var _class = _classLibrary.findClass(_type);
+  return _class.interfaceOf(new Type('Ljava/lang/Runnable;'), _classLibrary);
+};
+
 var intercept = {
   "Ljava/io/PrintStream;" : { 
     "println" : function(thread, method, args) {
@@ -165,7 +170,7 @@ var invoke = function(_inst,_thread){
   }
 
   // make sure we have the best version of this method
-  if (!method.defined) {
+  if (!method.defined && !method.definingClass.isEquals(TYPE_OBJECT) ) {
     method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
   }
 
