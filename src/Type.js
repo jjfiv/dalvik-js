@@ -41,9 +41,10 @@ Type.prototype.getArrayDim = function() {
 };
 
 Type.prototype.isEquals = function( other ) {
-    // right now just comparing type strings
-    // Do we want to just consider _name and _type?
-    return this.getTypeString() === other.getTypeString();
+  // right now just comparing type strings
+  // Do we want to just consider _name and _type?
+  // return this.getTypeString() === other.getTypeString();
+  return this._type === other._type;  
 };
 
 Type.prototype.toDots = function () {
@@ -86,7 +87,7 @@ Type.prototype.isWide = function () {
 
 Type.prototype.isPrimitive = function () {
   var primitives = ["V", "Z", "B", "S", "C", "I", "J", "F", "D"];
-  return primitives.indexOf(this._type) !== -1;
+  return !this.isArray() && (primitives.indexOf(this._type) !== -1);
 };
 
 Type.prototype.getArrayBase = function() {
