@@ -37,11 +37,11 @@ CatchBlock.prototype.findAddressForType = function(_thrownType) {
   return -1;
 };
 
-CatchBlock.prototype.toStr = function() {
+CatchBlock.prototype.toString = function() {
   var _i;
   var s = "";
   for (_i=0; _i<this._types.length; _i++) {
-    s += "catch("+this._types[_i].toStr()+") { goto " + this._addr[_i] + "} ";
+    s += "catch("+this._types[_i].toString()+") { goto " + this._addr[_i] + "} ";
   }
   return s;
 };
@@ -74,8 +74,8 @@ TryRange.prototype.findAddressForType = function(_pc, _thrownType) {
   return this._catchBlock.findAddressForType(_thrownType);
 };
 
-TryRange.prototype.toStr = function() {
-  return "try ["+ this._startAddr + "," + this._endAddr  + "] :" + this._catchBlock.toStr();
+TryRange.prototype.toString = function() {
+  return "try ["+ this._startAddr + "," + this._endAddr  + "] :" + this._catchBlock.toString();
 };
 
 

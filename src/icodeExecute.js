@@ -65,8 +65,10 @@ var icodeHandlers = {
   "check-cast": function(_inst, _thread) {
     var _typeA = _thread.getRegister(_inst.src).type;
     var _typeB = _inst.type;
-    assert(!_typeA.isPrimitive(), "check-cast should only be called on references");
-    if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)){
+    console.log(_thread.getRegister(_inst.src));
+    console.log(_typeA);
+    console.log(_typeB);
+    if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)) {
       throw "ClassCastException";
     }      
   },
@@ -81,8 +83,8 @@ var icodeHandlers = {
   },
 
   "array-length": function(_inst, _thread) {
-    var _array = _thread.getRegister (_inst.dest);
-    _thread.setRegister (_inst.dest, _array._data.length); 
+    var _array = _thread.getRegister (_inst.src);
+    _thread.setRegister (_inst.dest, _array.length); 
   },
 
   "new-instance": function(_inst, _thread) {
@@ -101,55 +103,30 @@ var icodeHandlers = {
   },
 
   "new-array": function(_inst, _thread) {
-    _thread.setRegister (_inst.dest, new newArray(_inst.dest, _inst.sizeReg, _inst.type));
-    console.log("new-array made: " + inspect(_thread.getRegister(_inst.dest)));
+    // only ever called for 1-d arrays
+    var _a = new Array(_thread.getRegister(_inst.dim));
+    _a.type = _inst.type;
+    _thread.setRegister(_inst.dest, _a);
   },
 
   "filled-new-array": function(_inst, _thread) {
-    var _i;
-    _inst.sizes = [];
-    for (_i = 0; _i < _inst.dimensions; _i++) {
-      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
-    }
-
-    _thread._result = new newDimArray(_inst);
-    console.log("filled-new-array made: " + inspect(_thread.getRegister(_inst.dest)));
-  },
-
-  "filled-new-array/range": function(_inst, _thread) {
-    var _i;
-    
-    _inst.sizes = [];
-    for (_i = 0; _i < _inst.dimensions; _i++) {
-      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
-    }
-
-    _thread._result = new newDimArray(_inst);
-    console.log("filled-new-array/range made: " + inspect(_thread.getRegister(_inst.dest)));
+    var _dimensionArray = _inst.reg.map(function (_regIdx) { return _thread.getRegister(_regIdx); });
+    var _a = makeHyperArray(_dimensionArray, new Type(repeat('[',_dimensionArray.length)+_inst.type._type, null));
+    _thread._result = _a;
   },
 
   "fill-array": function(_inst, _thread) {
-    var _array = _thread.getRegister (_inst.dest);
+    var _array = _thread.getRegister(_inst.dest);
     _array._data = _inst.data;
   },
 
   "throw": function(_inst, _thread) {
-    console.log("Trying to throw a JS exception");    
-	var _obj = _thread.getRegister(_inst.src);
-	console.log(_obj);
-    _thread.exception = _obj.getTypeString();
-	var ty = _thread.currentFrame().method.tryInfo.length;
-	while (ty === 0)  {
-	  var offset;
-		console.log("I needs to be popped");
-		console.log(_thread.currentFrame().method);
-		_thread.popMethod(null);
-		ty = _thread.currentFrame().method.tryInfo.length;
-	}
-	console.log ("PC diff");
-	console.log(_thread.currentFrame().method.tryInfo._catchBlock - _thread.currentFrame().pc);
-	//return _thread.currentFrame().method.tryInfo._catchBlock - _thread.currentFrame().pc;
-    //NYI(_inst);
+    // get the exception object from the register at src
+    // redirect control at the thread level by using Thread.throwException to find the 
+    // appropriate stack frame holding our catch (i.e. first match).
+    var _exceptionObject = _thread.getRegister(_inst.src);
+    _thread.throwException(_exceptionObject);
+    return 0;
   },
 
   "goto": function(_inst, _thread) {
@@ -171,17 +148,30 @@ var icodeHandlers = {
   "cmp": function(_inst, _thread) {
     var _srcA = _thread.getRegister (_inst.srcA);
     var _srcB = _thread.getRegister (_inst.srcB);
-
-    if (_inst.type.isEquals(TYPE_FLOAT)) {
+    var _type = _inst.type;
+    
+    if (_type.isEquals(TYPE_FLOAT)) {
       _srcA = floatFromInt (_srcA);
       _srcB = floatFromInt (_srcB);
-    }
-    else if (_inst.type.isEquals(TYPE_DOUBLE)){
+    } else if (_type.isEquals(TYPE_DOUBLE)){
       _srcA = doubleFromgLong (_srcA);
       _srcB = doubleFromgLong (_srcB);
     }
 
-    if (!(_inst.type.isEquals(TYPE_LONG))) {
+    // handle long
+    if(_type.isEquals(TYPE_LONG)) {
+      if (_srcB.lessThan(_srcA)) {
+        _thread.setRegister (_inst.dest, -1);
+      } else if (_srcB.greaterThan(_srcA)) {
+        _thread.setRegister (_inst.dest, 1);
+      } else {
+        _thread.setRegister (_inst.dest, 0);
+      }
+      return;
+    }
+
+    // handle NaN
+    if(_type.isEquals(TYPE_DOUBLE) || _type.isEquals(TYPE_FLOAT)) {
       if ((isNaN(_srcA)) || (isNaN(_srcB))) {
         if (_inst.bias === "lt") {
           _thread.setRegister (_inst.dest, -1);
@@ -191,26 +181,15 @@ var icodeHandlers = {
         }
         return;
       }
-      if (_srcB < _srcA) {
-        _thread.setRegister (_inst.dest, -1);
-      }
-      else if (_srcB > _srcA) {
-        _thread.setRegister (_inst.dest, 1);
-      }
-      else {
-        _thread.setRegister (_inst.dest, 0);
-      }
     }
-    else {
-      if (_srcB.lessThan(_srcA)) {
-        _thread.setRegister (_inst.dest, -1);
-      }
-      else if (_srcB.greaterThan(_srcA)) {
-        _thread.setRegister (_inst.dest, 1);
-      }
-      else {
-        _thread.setRegister (_inst.dest, 0);
-      }
+
+    //handle int, float, and double
+    if (_srcB < _srcA) {
+      _thread.setRegister (_inst.dest, -1);
+    } else if (_srcB > _srcA) {
+      _thread.setRegister (_inst.dest, 1);
+    } else {
+      _thread.setRegister (_inst.dest, 0);
     }
   },
 
@@ -253,14 +232,29 @@ var icodeHandlers = {
   "array-get": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
-    _thread.setRegister (_inst.value, _array._data[_index]);
+    console.log("array-get");
+    console.log(_array);
+    console.log(_index);
+    console.log(_array[_index]);
+    assert(_array, "Array is not undefined");
+    assert(_array, "Array is not undefined");
+    assert(_index < _array.length, "array-get index is out of bounds");
+    _thread.setRegister (_inst.value, _array[_index]);
+    assert(_array, "Array is not undefined");
   },
 
   "array-put": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
     var _value = _thread.getRegister (_inst.value);
-    _array._data[_index] = _value;
+    console.log("array-put");
+    console.log(_array[_index]);
+    console.log(_array);
+    console.log(_index);
+    console.log(_value);
+    assert(_array, "Array is not undefined");
+    _array[_index] = _value;
+    assert(_array, "Array is not undefined");
   },
 
   "instance-get": function(_inst, _thread) {
@@ -281,6 +275,8 @@ var icodeHandlers = {
     var _class = _thread.getClassLibrary().findClass(_field.definingClass);
     _result.primtype = _field.type;
     _result.value = 0;
+
+    console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
@@ -328,75 +324,68 @@ var icodeHandlers = {
   },
 
   "primitive-cast": function(_inst, _thread) {
+    var srcType = _inst.srcType;
+    var destType = _inst.destType;
+    // Not distinguishing between wide and not wide
+    var val = _thread.getRegister(_inst.src);
+
+    if (srcType.isEquals(TYPE_FLOAT)) {
+      val = floatFromInt(val);
+    } else if (srcType.isEquals(TYPE_DOUBLE)) {
+      val = doubleFromgLong(val);
+    }
     
-	// Not distinguishing between wide and not wide
-	var val = _thread.getRegister(_inst.src);
-	
-	if (_inst.srcType.isEquals(TYPE_FLOAT)) {
-	  val = floatFromInt(val);
-	} else if ( _inst.srcType.isEquals(TYPE_DOUBLE)) {
-	  val = doubleFromgLong(val);
-	} else {
-	}
-	
-	if (_inst.srcType.isEquals(TYPE_LONG)) {
-	  console.log("long to smth: " + val);
-	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = val.toInt();
-	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	    val = val.toNumber();
-	    val = floatFromDouble(val);
-	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	    val = val.toNumber();
-	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
-	  } else {
-	    assert(false, "Unrecognized target type conversion from long"); 
-	  }
-	} else {
-	  console.log("number to smth: " + val);
-	  if (_inst.destType.isEquals(TYPE_INT)) {
-	    val = parseInt(val.toString());
-	  } else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	    val = floatFromDouble(val);
-	  } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  } else if (_inst.destType.isEquals(TYPE_LONG)) {
-	    val = gLong.fromNumber(val);
-	  } else {
-	    assert(false, "Unrecognized target type conversion from int");
-	  }
-	}
-	
-	if (_inst.destType.isEquals(TYPE_INT) || _inst.destType.isEquals(TYPE_LONG)) {
-	} else if (_inst.destType.isEquals(TYPE_FLOAT)) {
-	  val = intFromFloat(val);
-        } else if (_inst.destType.isEquals(TYPE_DOUBLE)) {
-	  val = gLongFromDouble(val);
-	} else {
-	  assert(false, "Unidentified target primitive type");
-	}
-    
-	_thread.setRegister(_inst.dest, val);
+    if (srcType.isEquals(TYPE_LONG)) {
+      console.log("long to smth: " + val);
+      if (destType.isEquals(TYPE_INT)) {
+        val = val.toInt();
+      } else if (destType.isEquals(TYPE_FLOAT)) {
+        val = val.toNumber();
+        val = floatFromDouble(val);
+      } else if (destType.isEquals(TYPE_DOUBLE)) {
+        val = val.toNumber();
+      } else {
+        assert(false, "Unrecognized target type conversion from long"); 
+      }
+    } else {
+      console.log("number to smth: " + val);
+      if (destType.isEquals(TYPE_INT)) {
+        val = parseInt(val.toString(), 10);
+      } else if (destType.isEquals(TYPE_FLOAT)) {
+        val = floatFromDouble(val);
+      } else if (destType.isEquals(TYPE_LONG)) {
+        val = gLong.fromNumber(val);
+      }
+    }
+
+    if (destType.isEquals(TYPE_FLOAT)) {
+      val = intFromFloat(val);
+    } else if (destType.isEquals(TYPE_DOUBLE)) {
+      val = gLongFromDouble(val);
+    }
+
+    _thread.setRegister(_inst.dest, val);
   },
 
   "int-cast": function(_inst, _thread) {
     var val = _thread.getRegister(_inst.src);
-	var dstType = _inst.destType;
-	var dst = _inst.dest;
-	if (dstType.isEquals(TYPE_SHORT)) {
-	  val = val & 0xFFFF;
-	  val = signExtend(val, 16, 32);
-	} else if (dstType.isEquals(TYPE_CHAR)) {
-	  val = val & 0xFFFF;
-	  console.log("val after 0x: " + val);
-	  val = String.fromCharCode(val);
-	} else if (dstType.isEquals(TYPE_BYTE)) {
-	  val = val & 0xFF;
-	  val = signExtend(val, 8, 32);
-	} else {
-	  assert(false, "Unrecognized target cast from int");
-	}
-	
-	_thread.setRegister(dst, val);
+    var dstType = _inst.destType;
+    var dst = _inst.dest;
+    if (dstType.isEquals(TYPE_SHORT)) {
+      val = val & 0xFFFF;
+      val = signExtend(val, 16, 32);
+    } else if (dstType.isEquals(TYPE_CHAR)) {
+      val = val & 0xFFFF;
+      console.log("val after 0x: " + val);
+      val = String.fromCharCode(val);
+    } else if (dstType.isEquals(TYPE_BYTE)) {
+      val = val & 0xFF;
+      val = signExtend(val, 8, 32);
+    } else {
+      assert(false, "Unrecognized target cast from int");
+    }
+
+    _thread.setRegister(dst, val);
   },
 
   "add": function(_inst, _thread) {

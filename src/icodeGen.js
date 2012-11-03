@@ -382,48 +382,49 @@ opArgs[0x22] = function(_dcode, _icode, _dex) {
 //////////////////////////////////////// ARRAY COMMANDS ////////////////////////////////////////
 opName[0x23] = "new-array";
 opArgs[0x23] = function(_dcode, _icode, _dex) {
+  var _x = _dcode.get();
+  var _typeIndex = _dcode.get16();
   _icode.op = "new-array";
-  var x = _dcode.get();
-  _icode.dest = lowNibble(x);
-  _icode.sizeReg = highNibble(x);
-  _icode.type = _dex.types[_dcode.get16()];
+  _icode.dest = lowNibble(_x);
+  _icode.dim = highNibble(_x); 
+  _icode.type = _dex.types[_typeIndex];
 };
 
 opName[0x24] = "filled-new-array";
 opArgs[0x24] = function(_dcode, _icode, _dex) {
+  var  _x = _dcode.get();
+  var _reg = [], _dim = highNibble(_x);
+  var _typeIndex = _dcode.get16();
   _icode.op = "filled-new-array";
-  var x = _dcode.get();
-  _icode.dimensions = highNibble(x);
-  _icode.reg = [];
-  _icode.reg[4] = lowNibble(x);
-  _icode.type = _dex.types[_dcode.get16()];
-  x = _dcode.get();
-  _icode.reg[1] = highNibble(x);
-  _icode.reg[0] = lowNibble(x);
-  x = _dcode.get();
-  _icode.reg[3] = highNibble(x);
-  _icode.reg[2] = lowNibble(x);
+  _icode.type = _dex.types[_typeIndex];
+  // up to 5 registers to describe how big the array dimensions will be.
+  _reg[4] = lowNibble(_x);
+  _x = _dcode.get();
+  _reg[1] = highNibble(_x);
+  _reg[0] = lowNibble(_x);
+  _x = _dcode.get();
+  _reg[3] = highNibble(_x);
+  _reg[2] = lowNibble(_x);
+  _icode.reg = _reg.slice(0,_dim);
 };
 
 opName[0x25] = "filled-new-array/range";
 opArgs[0x25] = function(_dcode, _icode, _dex) {
-
-  _icode.op = "filled-new-array/range";
-  _icode.dimensions = _dcode.get();
-  _icode.type = _dex.types[_dcode.get16()];
+  var _i, _dim = _dcode.get();
+  var _typeIndex = _dcode.get16();
+  var _x = _dcode.get16();
+  _icode.op = "filled-new-array";
+  _icode.type = _dex.types[_typeIndex];
   _icode.reg = [];
-  var x = _dcode.get16();
-  var i;
-  for (i = 0; i < _icode.dimensions; i++) {
-    _icode.reg[i] = x++;
+  for (_i = 0; _i < _dim; _i++) {
+    _icode.reg[_i] = _x+_i;
   }
 };
 
 opName[0x26] = "fill-array-data";
 opArgs[0x26] = function(_dcode, _icode, _dex) {
-  _icode.op = "fill-array";
-  _icode.dest = _dcode.get();
-  
+  var i, _data=[];
+  var _dest = _dcode.get();
   // each code unit is 2 bytes
   // (-6) because it's relative to the beginning of the opCode:
   // 1 - opCode name
@@ -433,35 +434,35 @@ opArgs[0x26] = function(_dcode, _icode, _dex) {
   var currentOffset = _dcode.offset;
   var tableOffset = relativeOffset + currentOffset;
   _dcode.seek(tableOffset);
-
   var magicNum = _dcode.get16();//get magic number
   assert( magicNum === 0x0300, "fill-array-data payload magic number is bad");
   var elementWidth = _dcode.get16(); // width of array element
   var numElements = _dcode.get32(); //size of array
-  var i;
-  _icode.data = []; // data
   
   // Acquiring data 
   for (i=0; i< numElements; i++) {
     switch (elementWidth) {
       case 1:
-        _icode.data[i] = _dcode.get();
+        _data[i] = _dcode.get();
         break;
       case 2:
-        _icode.data[i] = _dcode.get16();
+        _data[i] = _dcode.get16();
         break;
       case 4:
-        _icode.data[i] = _dcode.get32();
+        _data[i] = _dcode.get32();
         break;
       case 8:
-        _icode.data[i] = gLong.fromBits(_dcode.get32(), _dcode.get32());
+        _data[i] = gLong.fromBits(_dcode.get32(), _dcode.get32());
         break;
       default:
         assert(false, "Unidentified data size in array");
     }
-  }
-
+  }    
   _dcode.seek(currentOffset);// return to previous position  
+
+  _icode.op = "fill-array";
+  _icode.dest = _dest;
+  _icode.data = _data;
 };
 
 

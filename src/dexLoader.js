@@ -80,7 +80,7 @@ DEXData.prototype.parse = function() {
   //--- check magic number
   for(_i=0; _i<DEX_FILE_MAGIC.length; _i++) {
     var x = _fp.get();
-    dexDebug(hex(x) + " vs exp: " + hex(DEX_FILE_MAGIC[_i]));
+    //dexDebug(hex(x) + " vs exp: " + hex(DEX_FILE_MAGIC[_i]));
     if(DEX_FILE_MAGIC[_i] !== x) {
       dexDebug("Error, DEX_FILE_MAGIC incorrect!\n");
       return;
@@ -594,13 +594,17 @@ DEXData.prototype._parseTryCatch = function(_numTries, _offset) {
     _catchAll = undefined;
 
     // jump to this handler & parse
-    _fp.seek(_startOffset + _handlerOffset);
+    _fp.seek(_startOffset + _handlerOffset[_i]);
 
     // parse "encoded_catch_handler"
     // if numCatchTypes is negative, it has a catch all
     _numCatchTypes = _fp.getSleb128();
     _catchAllExists = (_numCatchTypes < 0);
     _numCatchTypes = abs(_numCatchTypes);
+
+    //console.log("parse catch blocks");
+    //console.log(_catchAllExists);
+    //console.log(_numCatchTypes);
 
     for(_j=0; _j<_numCatchTypes; _j++) {
       _types[_j] = this.types[_fp.getUleb128()];
@@ -674,7 +678,8 @@ DEXData.prototype._parseCode = function(_m) {
   // grab try / catch and handler information
   //  returns an array of TryRange objects
   _m.tryInfo = this._parseTryCatch(_numTries, _offsets);
-  enumerate('try-catch', _m._tryInfo);
+  dexDebug(_m.tryInfo);
+  //enumerate('try-catch', _m.tryInfo);
 
   return;
 };

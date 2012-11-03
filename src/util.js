@@ -414,7 +414,63 @@ function gLongFromDouble (_input) {
   return gLongInst;
 }
 
-var _counter = 0;
-function gensym(_prefix){
-  return (_prefix || "")+(_counter+=1);
+var gensym = function () {
+  var _counter = -1;
+  return function gensym(_prefix){
+      return (_prefix || "")+(_counter+=1);
+  };
+}();
+
+// This function adopted from Stack Overflow, formerly in Array.js
+// For questions on its function, ask Gupta.
+
+// var genArray = function (args) {
+//   var arr, len, i;
+//   if(!isArray(args)) {
+//     arr = new Array (args);
+//   }
+//   else if(args.length > 0) {
+//     len = [].slice.call(args, 0, 1)[0];
+//     arr = new Array(len);
+//     for(i = 0; i < len; i++) {
+//       arr[i] = genArray([].slice.call(args, 1));
+//     }
+//   } else {
+//     return null; //or whatever you want to initialize values to.
+//   }
+//   return arr;
+// };
+
+
+var repeat = function(thing, n){
+  if (n === 1){
+    return thing;
+  } else if (typeof thing === 'string'){
+    return thing+repeat(thing, n-1);
+  } else if (isArray(thing)){
+    return thing.concat(repeat(thing, n-1));
+  } else {
+    throw "cannot concat"+thing;
+  }
 };
+
+// array of array dimensions
+// create an n-dimensional array where each dimension is filled out and built
+// each subfield must have a type field appropriate to its type
+
+var makeHyperArray = function (_dimensionArray, _type, _defaultVal){
+  var _i, _thisDim = _dimensionArray[0];
+  if (_thisDim){
+    var _restDim = _dimensionArray.slice(1), _subType = new Type(_type.getTypeString().slice(1));
+    var _arr =  [];
+    for (_i=0;_i<_thisDim;_i++){
+      _arr[_i] = makeHyperArray(_restDim, _subType, _defaultVal);
+    }
+    _arr = _arr.splice(0);
+    _arr.type = _type;
+    return _arr;
+  } else {
+    return _defaultVal;
+  }
+};
+

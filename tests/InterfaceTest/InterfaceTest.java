@@ -1,6 +1,6 @@
 class InterfaceTest {
     public static void main(String[] args){
-        A a = new A();
+        InterfaceA a = (InterfaceA) new A();
         a.testInterface();
     }
 }

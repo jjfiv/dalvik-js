@@ -89,13 +89,31 @@ Thread.prototype.setRegister = function(_idx, _value) {
   this.currentFrame().regs[_idx] = _value;
 }; //ends setRegister
 
-Thread.prototype.throwException = function(_obj) {
-  var type = _obj.type; //TODO, have instances designed
+Thread.prototype.throwException = function(exceptionObj) {
 
-  // find current method
-  // find list of catches
-  // find first match
-  // frame.pc = firstMatch.pc
+  if (this._stack.length === 0){
+    throw "Uncaught Java Exception.";
+  }
+ 
+  var newPC;
+  var type = exceptionObj.type;
+  var frame = this.currentFrame();
+  // get list of catches from current method
+  var listOfCatches = frame.method.tryInfo.filter(function(_tr) {
+                                                      return -1 !== _tr.findAddressForType(frame.pc, type);
+                                                  });
+  assert(listOfCatches.length<=1, "There oughtn't be more than one catch block that covers this thing.");
+  this._exception = exceptionObj;
+  // find first match and set this frame's pc to the matched pc
+  if (listOfCatches[0]){
+    newPC = listOfCatches[0].findAddressForType(frame.pc, type); // type: int
+    assert(newPC!=-1, 'Die H\&#228;rder.');
+    frame.pc = newPC;
+  } else {
+    // pop the current frame, and recurse.
+    this.popMethod();
+    this.throwException(exceptionObj);
+  }
   // assert(nextInstruction == "move-exception")
 }; //ends throwException
 

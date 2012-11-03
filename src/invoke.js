@@ -8,45 +8,85 @@ var NYI = function(_inst) {
   throw "Not Implemented";
 };
 
+//
+// Turn values into strings for print
+//
+var printValueOfType = function(_type, _value) {
+  if (_type === "D"){
+    terminal.print(doubleFromgLong(_value));
+  } else if (_type === "F") {
+    terminal.print(floatFromInt(_value));
+  } else if (_type === "Z") {
+    if (_value !== 0) {
+      terminal.print ("true");
+    } else {
+      terminal.print ("false");
+    }
+  } else if (_type === "Ljava/lang/String;") {
+    /* JF ignore this for now
+    if(isUndefined(_value.fields)) {
+      var _result = _value.fields[3].value._data.null;
+      for (var _i = 1; _i < _value.fields[0].value; _i++) {
+        _result = _result + _value.fields[3].value._data[_i];
+      }
+      terminal.print (_result);
+    } else {*/
+    terminal.print (_value);
+  } else {
+    terminal.print (_value);
+  }
+};
+
 var intercept = {
   "Ljava/io/PrintStream;" : { 
-    "println" : function(kind, method, args) {
-      var _type = method.signature.parameterTypes[0].getTypeString();
-      var _value = args[1];
-      console.log("println " + _value + " to " + inspect(args[0]) + "!");
+    "println" : function(method, args) {
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("println " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
+      }
 
-      if (_type === "D"){
-        terminal.println(doubleFromgLong(_value));
-      } else if (_type === "Z") {
-        if (_value !== 0) {
-          terminal.println ("true");
-        } else {
-          terminal.println ("false");
-        }
-      } else {
-        terminal.println (_value);
+      //add a newline
+      terminal.println('');
+    },
+    "print" : function(method, args) {
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("print " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
       }
     }
   },
+  "Ljava/lang/reflect/Array;" : { 
+    "newInstance" : function(method, args) {
+      return args[1];
+    }
+  },
   "Ljava/lang/Object;" : { 
-    "<init>" : function(kind, method, args) {
+    "<init>" : function(method, args) {
       // commented out because it looks like an error
       console.log("Skipping super constructor for now.");
       return args[0];
     },
-    "toString" : function(kind, method, args){
+    "toString" : function(method, args){
     },
-    "getClass" : function(kind, method, args) {
+    "getClass" : function(method, args) {
       //return args[0].getClass(_thread.getClassLibrary());
     }
   },
   "Ljava/lang/Class;" : {
-    "isPrimitive" : function(kind, method, args){
+    "isPrimitive" : function(method, args){
       return args[0].type.isPrimitive();
     }
   },
   "Ljava/lang/Throwable;" : { 
-    "<init>" : function(kind, method, args) {
+    "<init>" : function(method, args) {
       // commented out because it looks like an error
       console.log("Creating an object for throwing");
       return args[0];
@@ -57,6 +97,11 @@ var intercept = {
       // commented out because it looks like an error
       console.log("Creating a banana for throwing");
 	  return;
+    }
+  },
+  "Ljava/lang/System;" : { 
+    "arraycopy" : function(method, args){
+      args[2]._data = args[0]._data;
     }
   }
 };
@@ -73,7 +118,7 @@ var threadHandler = function(_thread, _kind, _method, _args){
       var _newThread = _args[0];
       // fill the fields with args or something to initialize?
       var _run = _thread.getClassLibrary().findMethod(_newThread.threadClass, new MethodSignature('run', TYPE_VOID));
-      _newThread.pushMethod(_run);
+      _newThread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
     },                                                         
     "start" : function () { 
       var _newThread = _args[0]; 
@@ -123,18 +168,28 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod(method.definingClass, method.signature);
   }
 
+  if(kind === 'interface'){
+    // method is currently set to the interface's abstract method; replace with the 
+    // instance's method. instance is sitting in the 0th arg, as usual.
+    method = _thread.getClassLibrary().findMethod(argValues[0].type, method.signature);
+  }
+
   console.log('invoke');
+  console.log(_inst);
+  console.log(argValues);
   console.log(method);
   console.log(method.getName());
   console.log(method.definingClass.getTypeString());
 
   // find an override if there is one
-  var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-  
-  // if we have a native "javascript" handler for this method
-  if (_javaIntercept){
-    _thread._result = _javaIntercept(kind, method, argValues);
-    return;
+  if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 
+      method.definingClass.getTypeString() !== "Ljava/lang/AbstractStringBuilder;") {
+    var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
+    // if we have a native "javascript" handler for this method
+    if (_javaIntercept){
+      _thread._result = _javaIntercept(method, argValues);
+      return;
+    }
   }
   
   // if this is a runnable, catch certain special calls
@@ -145,11 +200,11 @@ var invoke = function(_inst,_thread){
     return;
   }
   
-
-  // make sure we haven't
+  // make sure we have the best version of this method
   if (!method.defined) {
-    method = myVM.classLibrary.findMethod (_inst.method.definingClass, _inst.method.signature);
+    method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
   }
+
 
   assert(!method.isNative(), "Native method ("+method.definingClass.getTypeString()+"."+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   

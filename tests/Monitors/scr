@@ -1,0 +1,4 @@
+javac Monitors.java ThreadA.java ThreadB.java
+dx --dex --output Monitors.dex Monitors.class ThreadA.class ThreadB.class
+dexdump -d Monitors.dex > Monitors.dump
+

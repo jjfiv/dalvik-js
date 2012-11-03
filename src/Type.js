@@ -13,10 +13,6 @@ var Type = function (_typeString) {
   
   // Getting the objectType of the Type, always first letter after last [
   this._type = _typeString.substr(dimNum, 1);
-  this._wide = false;
-  if (this._type === "D" || this._type === "J") {
-    this._type = true;
-  }
   
   // Extracting pure type name
   num = _typeString.lastIndexOf("/");
@@ -40,10 +36,16 @@ Type.prototype.getArrayDim = function() {
   return this._arrayDim;
 };
 
+Type.prototype.toString = function() {
+  //return "Type("+this._type+")";
+  return "Type("+this._typeString+")";
+};
+
 Type.prototype.isEquals = function( other ) {
-    // right now just comparing type strings
-    // Do we want to just consider _name and _type?
-    return this.getTypeString() === other.getTypeString();
+  // right now just comparing type strings
+  // Do we want to just consider _name and _type?
+  return this.getTypeString() === other.getTypeString();
+  //return this._type === other._type;  
 };
 
 Type.prototype.toDots = function () {
@@ -80,13 +82,9 @@ Type.prototype.isVoid = function () {
   return this._typeString === 'V';
 };
 
-Type.prototype.isWide = function () {
-  return this._wide;
-};
-
 Type.prototype.isPrimitive = function () {
   var primitives = ["V", "Z", "B", "S", "C", "I", "J", "F", "D"];
-  return primitives.indexOf(this._type) !== -1;
+  return !this.isArray() && (primitives.indexOf(this._type) !== -1);
 };
 
 Type.prototype.getArrayBase = function() {

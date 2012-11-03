@@ -1,0 +1,75 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/And_long.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/And_long.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 612 (0x000264)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LAnd_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LAnd_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000144:                                        |[000144] And_long.<init>:()V
+000154: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LAnd_long; 
+
+    #1              : (in LAnd_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 3
+      insns size    : 16 16-bit code units
+00015c:                                        |[00015c] And_long.main:([Ljava/lang/String;)V
+00016c: 1700 b168 de3a                         |0000: const-wide/32 v0, #float 0.001697 // #3ade68b1
+000172: 1702 15cd 5b07                         |0003: const-wide/32 v2, #float 0.000000 // #075bcd15
+000178: 1604 0000                              |0006: const-wide/16 v4, #int 0 // #0
+00017c: a004 0002                              |0008: and-long v4, v0, v2
+000180: 6206 0000                              |000a: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000184: 6e30 0200 4605                         |000c: invoke-virtual {v6, v4, v5}, Ljava/io/PrintStream;.println:(J)V // method@0002
+00018a: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0003 line=11
+        0x0006 line=12
+        0x0008 line=14
+        0x000a line=16
+        0x000f line=18
+      locals        : 
+        0x0003 - 0x0010 reg=0 a J 
+        0x0006 - 0x0010 reg=2 b J 
+        0x0008 - 0x0010 reg=4 c J 
+        0x0000 - 0x0010 reg=7 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (And_long.java)
+
