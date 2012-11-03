@@ -4,6 +4,7 @@
 // doTest(fileName, mainClassName, expectedOutput
 
 doTest("factorial.dex", "Lfactorial;", "24\n");
+doTest("recurse.dex", "Lrecurse;", "24\n");
 doTest("seqSwitch.dex", "LSeqSwitch;", "Orange\n");
 // complicated output:
 doTest("testSeveralMethods.dex", "LtestSeveralMethods;",
@@ -15,7 +16,7 @@ doTest("testSeveralMethods.dex", "LtestSeveralMethods;",
 "This is an overloaded fruitless instance method with one arg.\n"+
 "This is an overloaded fruitful static method with one arg.\n"+
 "This is an overloaded fruitful instance method with one arg.\n"+
-"0\n");
+"true\n");
 
 // so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 doTest("bitWise.dex", "LbitWiseTests;", 
@@ -43,6 +44,7 @@ doTest("PrimitiveCast.dex",
        "true\ntrue\ntrue\n"
       );
 
+doTest("Bird.dex", "LBird;", "Rexy\ntrue\nfalse\nBlack\ntrue\ntrue\nHumpty\nfalse\nfalse\n");
 
 doTest("ArrayTest.dex", "LArrayTest;", "3,4,5,6\n");
 
@@ -51,6 +53,11 @@ doTest("string.dex", "Lstring;", "23Hi12Bye\n");
 doTest("Monitors.dex", "LMonitors;", "a1\na2\nb1\nb2\n");
 
 doTest("InterfaceTest.dex", "LInterfaceTest;", "Class A implements user-defined InterfaceA.\n" );
+
+// note - may depend on scheduling algorithm
+doTest("ThreadInstanceTest.dex", "LThreadInstanceTest;", "moo!\nmeow!\n");
+
+doTest("tryCatch.dex", "LtryCatch;", "No way!\n\n");
 
 doTest("Add_double.dex", "LAdd_double;", "5.84\n");
 doTest("Add_double_2addr.dex", "LAdd_double_2addr;", "6.84\n");

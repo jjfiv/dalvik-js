@@ -12,6 +12,7 @@ var NYI = function(_inst) {
 // Turn values into strings for print
 //
 var printValueOfType = function(_type, _value) {
+  assert(_value !== null, "println invoked on javascript null?");
   if (_type === "D"){
     terminal.print(doubleFromgLong(_value));
   } else if (_type === "F") {
@@ -32,27 +33,36 @@ var printValueOfType = function(_type, _value) {
       terminal.print (_result);
     } else {*/
     terminal.print (_value);
+  } else if (_type === "C") {
+    terminal.print (String.fromCharCode(_value));
   } else {
     terminal.print (_value);
   }
 };
 
+var isRunnable = function (_type, _classLibrary){
+  var _class = _classLibrary.findClass(_type);
+  return _class.interfaceOf(new Type('Ljava/lang/Runnable;'), _classLibrary);
+};
+
 var intercept = {
   "Ljava/io/PrintStream;" : { 
-    "println" : function(method, args) {
+    "println" : function(thread, method, args) {
       var paramTypes = method.signature.parameterTypes;
+
       
       if(paramTypes.length === 1) {
         var _type = paramTypes[0].getTypeString();
         var _value = args[1];
         console.log("println " + _value + " to " + inspect(args[0]) + "!");
+        console.log(args);
         printValueOfType(_type, _value);
       }
 
       //add a newline
       terminal.println('');
     },
-    "print" : function(method, args) {
+    "print" : function(thread, method, args) {
       var paramTypes = method.signature.parameterTypes;
       
       if(paramTypes.length === 1) {
@@ -64,29 +74,45 @@ var intercept = {
     }
   },
   "Ljava/lang/reflect/Array;" : { 
-    "newInstance" : function(method, args) {
+    "newInstance" : function(thread, method, args) {
       return args[1];
     }
   },
+  "Ljava/lang/Thread;" : {
+    "<init>" : function(thread, method, args) {
+      var _newThread = args[0];
+      var _run = thread.getClassLibrary().findMethod(_newThread.thread.threadClass, new MethodSignature('run', TYPE_VOID));
+      _newThread.thread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
+
+      return _newThread;
+    },
+    "start" : function (thread, method, args) { 
+      var _newThread = args[0]; 
+      assert(isA(_newThread.thread, 'Thread'), 'The 0th register of instance methods on Threads ought to be a reference to the thread itself.');
+      _newThread.thread.state = 'RUNNABLE';
+
+      return _newThread;
+    }
+  },
   "Ljava/lang/Object;" : { 
-    "<init>" : function(method, args) {
+    "<init>" : function(thread, method, args) {
       // commented out because it looks like an error
-      console.log("Skipping super constructor for now.");
+      //console.log("Skipping super constructor for now.");
       return args[0];
     },
-    "toString" : function(method, args){
+    "toString" : function(thread, method, args){
     },
-    "getClass" : function(method, args) {
+    "getClass" : function(thread, method, args) {
       //return args[0].getClass(_thread.getClassLibrary());
     }
   },
   "Ljava/lang/Class;" : {
-    "isPrimitive" : function(method, args){
+    "isPrimitive" : function(thread, method, args){
       return args[0].type.isPrimitive();
     }
   },
   "Ljava/lang/Throwable;" : { 
-    "<init>" : function(method, args) {
+    "<init>" : function(thread, method, args) {
       // commented out because it looks like an error
       console.log("Creating an object for throwing");
       return args[0];
@@ -100,34 +126,10 @@ var intercept = {
     }
   },
   "Ljava/lang/System;" : { 
-    "arraycopy" : function(method, args){
+    "arraycopy" : function(thread, method, args){
       args[2]._data = args[0]._data;
     }
   }
-};
-
-var isRunnable = function (_type, _classLibrary){
-  var _class = _classLibrary.findClass(_type);
-  return _class.interfaceOf(new Type('Ljava/lang/Runnable;'), _classLibrary);
-};
-
-var threadHandler = function(_thread, _kind, _method, _args){
-  
-  var _threadOps = {
-    "<init>" : function () { 
-      var _newThread = _args[0];
-      // fill the fields with args or something to initialize?
-      var _run = _thread.getClassLibrary().findMethod(_newThread.threadClass, new MethodSignature('run', TYPE_VOID));
-      _newThread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
-    },                                                         
-    "start" : function () { 
-      var _newThread = _args[0]; 
-      assert(isA(_newThread, 'Thread'), 'The 0th register of instance methods on Threads ought to be a reference to the thread itself.');
-      _newThread.state = 'RUNNABLE';
-    }
-  };  
-
-  _threadOps[_method.getName()]();
 };
 
 /*
@@ -153,7 +155,7 @@ var makeRegistersForMethod = function(_method, _kind, _argValues) {
   for (_i=0;_i<(maxCount - actCount);_i++){
     _a[_i]=0;
   }
-  return _a.concat(_argValues);
+  return _a.concat(_argValues).slice(0);
 };
 
 var invoke = function(_inst,_thread){
@@ -174,12 +176,17 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod(argValues[0].type, method.signature);
   }
 
-  console.log('invoke');
-  console.log(_inst);
-  console.log(argValues);
-  console.log(method);
-  console.log(method.getName());
-  console.log(method.definingClass.getTypeString());
+  // make sure we have the best version of this method
+  if (!method.defined && !method.definingClass.isEquals(TYPE_OBJECT) ) {
+    method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
+  }
+
+  //console.log('invoke');
+  //console.log(_inst);
+  //console.log(argValues);
+  //console.log(method);
+  //console.log(method.getName());
+  //console.log(method.definingClass.getTypeString());
 
   // find an override if there is one
   if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 
@@ -187,25 +194,11 @@ var invoke = function(_inst,_thread){
     var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
     // if we have a native "javascript" handler for this method
     if (_javaIntercept){
-      _thread._result = _javaIntercept(method, argValues);
+      _thread._result = _javaIntercept(_thread, method, argValues);
       return;
     }
   }
   
-  // if this is a runnable, catch certain special calls
-  if (isRunnable(method.definingClass, _thread.getClassLibrary())){
-    // TODO only catch some?
-    //      should we integrate this with _javaIntercept?
-    _thread._result = threadHandler(_thread, kind, method, argValues);
-    return;
-  }
-  
-  // make sure we have the best version of this method
-  if (!method.defined) {
-    method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
-  }
-
-
   assert(!method.isNative(), "Native method ("+method.definingClass.getTypeString()+"."+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
   // create the register set for the new method

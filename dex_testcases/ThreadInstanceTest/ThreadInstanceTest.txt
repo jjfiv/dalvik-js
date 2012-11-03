@@ -1,0 +1,117 @@
+Processing 'ThreadInstanceTest.dex'...
+Opened 'ThreadInstanceTest.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LThreadInstanceTest$CowSay;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LThreadInstanceTest$CowSay;)
+      name          : 'message'
+      type          : 'Ljava/lang/String;'
+      access        : 0x0002 (PRIVATE)
+  Direct methods    -
+    #0              : (in LThreadInstanceTest$CowSay;)
+      name          : '<init>'
+      type          : '(Ljava/lang/String;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 2
+      outs          : 1
+      insns size    : 6 16-bit code units
+0001d4:                                        |[0001d4] ThreadInstanceTest.CowSay.<init>:(Ljava/lang/String;)V
+0001e4: 7010 0700 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@0007
+0001ea: 5b01 0000                              |0003: iput-object v1, v0, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
+0001ee: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+        0x0003 line=6
+        0x0005 line=7
+      locals        : 
+        0x0000 - 0x0006 reg=0 this LThreadInstanceTest$CowSay; 
+
+  Virtual methods   -
+    #0              : (in LThreadInstanceTest$CowSay;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 8 16-bit code units
+0001f0:                                        |[0001f0] ThreadInstanceTest.CowSay.run:()V
+000200: 6200 0100                              |0000: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000204: 5421 0000                              |0002: iget-object v1, v2, LThreadInstanceTest$CowSay;.message:Ljava/lang/String; // field@0000
+000208: 6e20 0500 1000                         |0004: invoke-virtual {v0, v1}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0005
+00020e: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0007 line=11
+      locals        : 
+        0x0000 - 0x0008 reg=2 this LThreadInstanceTest$CowSay; 
+
+  source_file_idx   : 12 (ThreadInstanceTest.java)
+
+Class #1            -
+  Class descriptor  : 'LThreadInstanceTest;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadInstanceTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000210:                                        |[000210] ThreadInstanceTest.<init>:()V
+000220: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000226: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+        0x0003 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadInstanceTest; 
+
+    #1              : (in LThreadInstanceTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 21 16-bit code units
+000228:                                        |[000228] ThreadInstanceTest.main:([Ljava/lang/String;)V
+000238: 2200 0000                              |0000: new-instance v0, LThreadInstanceTest$CowSay; // type@0000
+00023c: 1a01 1400                              |0002: const-string v1, "moo!" // string@0014
+000240: 7020 0000 1000                         |0004: invoke-direct {v0, v1}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
+000246: 2201 0000                              |0007: new-instance v1, LThreadInstanceTest$CowSay; // type@0000
+00024a: 1a02 1200                              |0009: const-string v2, "meow!" // string@0012
+00024e: 7020 0000 2100                         |000b: invoke-direct {v1, v2}, LThreadInstanceTest$CowSay;.<init>:(Ljava/lang/String;)V // method@0000
+000254: 6e10 0200 0000                         |000e: invoke-virtual {v0}, LThreadInstanceTest$CowSay;.start:()V // method@0002
+00025a: 6e10 0200 0100                         |0011: invoke-virtual {v1}, LThreadInstanceTest$CowSay;.start:()V // method@0002
+000260: 0e00                                   |0014: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=15
+        0x0007 line=16
+        0x000e line=17
+        0x0011 line=18
+        0x0014 line=19
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 12 (ThreadInstanceTest.java)
+

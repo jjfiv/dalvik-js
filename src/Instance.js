@@ -27,3 +27,7 @@ Instance.prototype.getField = function (_field) {
   return _retVal[0];
 };
 
+Instance.prototype.toString = function() {
+  return "Instance of " + this.getTypeString();
+};
+

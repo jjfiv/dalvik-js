@@ -19,12 +19,12 @@
 
 <h2>Tests Failed:</h2>
 <table id="failTable" width="95%" border="1">
-  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td></tr>
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td><td>Dalvik Codes Called</td></tr>
 </table>
 
 <h2>Tests Passed:</h2>
 <table id="passTable" width="95%" border="1">
-  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td></tr>
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td><td>Dalvik Codes Called</td></tr>
 </table>
 
 <h3>Runnable Classes:</h3>
@@ -59,7 +59,6 @@
 <script src="../src/icodeGen.js"></script>
 <script src="../src/Class.js"></script>
 <script src="../src/Instance.js"></script>
-<script src="../src/Array.js"></script>
 <script src="../src/Type.js"></script>
 <script src="../src/MethodSignature.js"></script>
 <script src="../src/Method.js"></script>
@@ -110,6 +109,8 @@ gStdLib = (new DEXData(new ArrayFile(JavaLibraryDex), true)).classes;
 <script src="string.dex.js"></script>
 <script src="Monitors.dex.js"></script>
 <script src="InterfaceTest.dex.js"></script>
+<script src="ThreadInstanceTest.dex.js"></script>
+<script src="tryCatch.dex.js"></script>
 <script src="Add_double.dex.js"></script>
 <script src="Add_double_2addr.dex.js"></script>
 <script src="Add_float_2addr.dex.js"></script>

@@ -421,27 +421,6 @@ var gensym = function () {
   };
 }();
 
-// This function adopted from Stack Overflow, formerly in Array.js
-// For questions on its function, ask Gupta.
-
-// var genArray = function (args) {
-//   var arr, len, i;
-//   if(!isArray(args)) {
-//     arr = new Array (args);
-//   }
-//   else if(args.length > 0) {
-//     len = [].slice.call(args, 0, 1)[0];
-//     arr = new Array(len);
-//     for(i = 0; i < len; i++) {
-//       arr[i] = genArray([].slice.call(args, 1));
-//     }
-//   } else {
-//     return null; //or whatever you want to initialize values to.
-//   }
-//   return arr;
-// };
-
-
 var repeat = function(thing, n){
   if (n === 1){
     return thing;
@@ -474,3 +453,21 @@ var makeHyperArray = function (_dimensionArray, _type, _defaultVal){
   }
 };
 
+var parseNumByType = function(num, type){
+  if (type.isEquals(TYPE_LONG) || type.isEquals(TYPE_BYTE) || type.isEquals(TYPE_INT) || type.isEquals(TYPE_SHORT)){
+    return num;
+  } else if (type.isEquals(TYPE_DOUBLE)){
+    return doubleFromgLong(num);
+  } else if (type.isEquals(TYPE_FLOAT)){
+    return floatFromInt(num);
+  } else {
+    throw "Unrecognized type";
+  }
+};
+
+var handleDivideByZero = function (divisor, _thread){
+  var exceptionClass = _thread.getClassLibrary().findClass(new Type("Ljava/lang/ArithmeticException;"));
+  if (divisor === 0){
+    _thread.throwException(exceptionClass.makeNew(_thread.getClassLibrary()));
+  }
+};

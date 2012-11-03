@@ -43,6 +43,8 @@ var icodeHandlers = {
   "monitor-enter": function(_inst, _thread) {
     var _container = _thread.getRegister(_inst.src);
     if (isUndefined(_container.type)) {
+      console.log(inspect(_container));
+      assert(isA(_container, 'Type'), 'monitor-enter on a class/type object');
       // This is a type object from const-class
       _container = _thread._vm.classLibrary.findClass(_container);
     }
@@ -90,15 +92,14 @@ var icodeHandlers = {
   "new-instance": function(_inst, _thread) {
     // get the class for the corresponding type from classLibrary
     var _class = _thread._vm.classLibrary.findClass(_inst.type);
+    var _instance = _class.makeNew(_thread.getClassLibrary());
+    
+    _thread.setRegister(_inst.dest, _instance);
+    console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+    
     if (isRunnable(_inst.type, _thread.getClassLibrary())){
-      var _newThread = _thread.spawn(_inst.type);
-      _thread.setRegister(_inst.dest, _newThread);
-      console.log("new Thread made with id "+_newThread.uid);
-    } else {
-	  console.log ("Trying to make a new instance");
-	  console.log(_class);
-      _thread.setRegister(_inst.dest, _class.makeNew(_thread.getClassLibrary()));
-      console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+      _instance.thread = _thread.spawn(_inst.type);
+      console.log("new Thread made with id "+_instance.thread.uid);
     }
   },
 
@@ -282,14 +283,10 @@ var icodeHandlers = {
 
     console.log(_field);
 
-    // replace this with calls to ClassLibrary, and fallback to native
-    if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
-      _result.value = "System.out";
-      _thread.setRegister(_dest, _result);
-    } else {        
-      _val = _class.getField(_field);
-      _thread.setRegister (_dest, _val);
-    }
+    _val = _class.getField(_field);
+    console.log(_val);
+
+    _thread.setRegister (_dest, _val);
   },
 
   "static-put": function(_inst, _thread) {
@@ -381,7 +378,6 @@ var icodeHandlers = {
     } else if (dstType.isEquals(TYPE_CHAR)) {
       val = val & 0xFFFF;
       console.log("val after 0x: " + val);
-      val = String.fromCharCode(val);
     } else if (dstType.isEquals(TYPE_BYTE)) {
       val = val & 0xFF;
       val = signExtend(val, 8, 32);
@@ -393,125 +389,82 @@ var icodeHandlers = {
   },
 
   "add": function(_inst, _thread) {
-    var numA = _thread.getRegister(_inst.srcA);
-    var numB = _thread.getRegister(_inst.srcB);
-    var result;
+    var numA = parseNumByType(_thread.getRegister(_inst.srcA), _inst.type);
+    var numB = parseNumByType(_thread.getRegister(_inst.srcB), _inst.type);
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
-      numA = doubleFromgLong (numA);
-      numB = doubleFromgLong (numB);
-      result = numA + numB;
-      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+      _thread.setRegister(_inst.dest, gLongFromDouble (numA + numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.add(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA + numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
-      numA = floatFromInt (numA);
-      numB = floatFromInt (numB);
-      result = numA + numB;
-      result = floatFromDouble (result);
-      _thread.setRegister (_inst.dest, intFromFloat (result));
+      _thread.setRegister (_inst.dest, intFromFloat (floatFromDouble (numA + numB)));
     } else {
       assert (false, "Unidentified type for addition");
     }
   },
 
   "sub": function(_inst, _thread) {
-    var numA = _thread.getRegister(_inst.srcA);
-    var numB = _thread.getRegister(_inst.srcB);
-    var result;
+    var numA = parseNumByType(_thread.getRegister(_inst.srcA), _inst.type);
+    var numB = parseNumByType(_thread.getRegister(_inst.srcB), _inst.type);
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
-      numA = doubleFromgLong (numA);
-      numB = doubleFromgLong (numB);
-      result = numA - numB;
-      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+      _thread.setRegister(_inst.dest, gLongFromDouble (numA - numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.add(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
-      numA = floatFromInt (numA);
-      numB = floatFromInt (numB);
-      result = numA - numB;
-      result = floatFromDouble (result);
-      _thread.setRegister (_inst.dest, intFromFloat (result));
+      _thread.setRegister (_inst.dest, intFromFloat (floatFromDouble (numA - numB)));
     } else {
       assert (false, "Unidentified type for subtraction");
     }
   },
   
   "mul": function(_inst, _thread) {
-    var numA = _thread.getRegister(_inst.srcA);
-    var numB = _thread.getRegister(_inst.srcB);
-    var result;
+    var numA = parseNumByType(_thread.getRegister(_inst.srcA), _inst.type);
+    var numB = parseNumByType(_thread.getRegister(_inst.srcB), _inst.type);
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
-      numA = doubleFromgLong (numA);
-      numB = doubleFromgLong (numB);
-      result = numA * numB;
-      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+      _thread.setRegister(_inst.dest, gLongFromDouble (numA * numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.multiply(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA * numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
-      numA = floatFromInt (numA);
-      numB = floatFromInt (numB);
-      result = numA * numB;
-      result = floatFromDouble (result);
-      _thread.setRegister (_inst.dest, intFromFloat (result));
+      _thread.setRegister (_inst.dest, intFromFloat (floatFromDouble (numA * numB)));
     } else {
       assert (false, "Unidentified type for multiplication");
     }
   },
 
   "div": function(_inst, _thread) {
-    var numA = _thread.getRegister(_inst.srcA);
-    var numB = _thread.getRegister(_inst.srcB);
-    var result;
+    var numA = parseNumByType(_thread.getRegister(_inst.srcA), _inst.type);
+    var numB = parseNumByType(_thread.getRegister(_inst.srcB), _inst.type);
+    handleDivideByZero(numB, _thread);
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
-      numA = doubleFromgLong (numA);
-      numB = doubleFromgLong (numB);
-      result = numA / numB;
-      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+      _thread.setRegister(_inst.dest, gLongFromDouble (numA / numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.div(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA / numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
-      numA = floatFromInt (numA);
-      numB = floatFromInt (numB);
-      result = numA / numB;
-      result = floatFromDouble (result);
-      _thread.setRegister (_inst.dest, intFromFloat (result));
+      _thread.setRegister (_inst.dest, intFromFloat ( floatFromDouble ( numA / numB)));
     } else {
-      assert (false, "Unidentified type for division");
+      throw "Unidentified type for division";
     }
   },
 
   "rem": function(_inst, _thread) {
-    var numA = _thread.getRegister(_inst.srcA);
-    var numB = _thread.getRegister(_inst.srcB);
-    var result;
+    var numA = parseNumByType(_thread.getRegister(_inst.srcA), _inst.type);
+    var numB = parseNumByType(_thread.getRegister(_inst.srcB), _inst.type);
+    handleDivideByZero(numB, _thread);
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
-      numA = doubleFromgLong (numA);
-      numB = doubleFromgLong (numB);
-      result = numA % numB;
-      _thread.setRegister(_inst.dest, gLongFromDouble (result));
+      _thread.setRegister(_inst.dest, gLongFromDouble (numA % numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.modulo(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA % numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
-      numA = floatFromInt (numA);
-      numB = floatFromInt (numB);
-      result = numA % numB;
-      result = floatFromDouble (result);
-      _thread.setRegister (_inst.dest, intFromFloat (result));
+      _thread.setRegister (_inst.dest, intFromFloat (floatFromDouble (numA % numB)));
     } else {
       assert (false, "Unidentified type for getting a remainder");
     }
@@ -522,8 +475,7 @@ var icodeHandlers = {
     var numB = _thread.getRegister(_inst.srcB);
     if (_inst.type.isEquals(TYPE_LONG)) {
       _thread.setRegister(_inst.dest, numA.and(numB));
-    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) ||
-        _inst.type.isEquals(TYPE_SHORT)) {
+    } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA & numB));
     } else {
       assert (false, "Unidentified type for an 'And' operation");
@@ -608,10 +560,12 @@ var icodeHandlers = {
   },
 
   "div-lit": function(_inst, _thread) {
+    handleDivideByZero(_inst.literal, _thread);
     _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) / _inst.literal);
   },
 
   "rem-lit": function(_inst, _thread) {
+    handleDivideByZero(_inst.literal, _thread);
     _thread.setRegister(_inst.dest, _thread.getRegister(_inst.src) % _inst.literal);
   },
 
