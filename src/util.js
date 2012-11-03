@@ -414,7 +414,28 @@ function gLongFromDouble (_input) {
   return gLongInst;
 }
 
-var _counter = 0;
-function gensym(_prefix){
-  return (_prefix || "")+(_counter+=1);
+var gensym = function () {
+    var _counter = -1;
+    return function gensym(_prefix){
+        return (_prefix || "")+(_counter+=1);
+    };
+}();
+
+// This function adopted from Stack Overflow, formerly in Array.js
+// For questions on its function, ask Gupta.
+var genArray = function (args) {
+  var arr, len, i;
+  if(!isArray(args)) {
+    arr = new Array (args);
+  }
+  else if(args.length > 0) {
+    len = [].slice.call(args, 0, 1)[0];
+    arr = new Array(len);
+    for(i = 0; i < len; i++) {
+      arr[i] = genArray([].slice.call(args, 1));
+    }
+  } else {
+    return null; //or whatever you want to initialize values to.
+  }
+  return arr;
 };

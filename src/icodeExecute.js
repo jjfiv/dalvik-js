@@ -65,8 +65,7 @@ var icodeHandlers = {
   "check-cast": function(_inst, _thread) {
     var _typeA = _thread.getRegister(_inst.src).type;
     var _typeB = _inst.type;
-    assert(!_typeA.isPrimitive(), "check-cast should only be called on references");
-    if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)){
+    if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)) {
       throw "ClassCastException";
     }      
   },
@@ -99,35 +98,21 @@ var icodeHandlers = {
   },
 
   "new-array": function(_inst, _thread) {
-    _thread.setRegister (_inst.dest, new newArray(_inst.dest, _inst.sizeReg, _inst.type));
-    console.log("new-array made: " + inspect(_thread.getRegister(_inst.dest)));
+    var _a = [];
+    _a.type = _inst.type;
+    _thread.setRegister(_inst.dest, _a);
   },
 
   "filled-new-array": function(_inst, _thread) {
-    var _i;
-    _inst.sizes = [];
-    for (_i = 0; _i < _inst.dimensions; _i++) {
-      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
+    var _i, _a = [];
+    for (_i = 0; _i < (_a.sizes=[]).length=_inst.dimensions; _i++) {
+      _a.sizes[_i] = _thread.getRegister(_inst.reg[_i]);
     }
-
-    _thread._result = new newDimArray(_inst);
-    console.log("filled-new-array made: " + inspect(_thread.getRegister(_inst.dest)));
-  },
-
-  "filled-new-array/range": function(_inst, _thread) {
-    var _i;
-    
-    _inst.sizes = [];
-    for (_i = 0; _i < _inst.dimensions; _i++) {
-      _inst.sizes[_i] = _thread.getRegister (_inst.reg[_i]);
-    }
-
-    _thread._result = new newDimArray(_inst);
-    console.log("filled-new-array/range made: " + inspect(_thread.getRegister(_inst.dest)));
+    _thread._result = _a;
   },
 
   "fill-array": function(_inst, _thread) {
-    var _array = _thread.getRegister (_inst.dest);
+    var _array = _thread.getRegister(_inst.dest);
     _array._data = _inst.data;
   },
 
