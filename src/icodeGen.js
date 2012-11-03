@@ -368,8 +368,8 @@ opName[0x21] = "array-length";
 opArgs[0x21] = function(_dcode, _icode, _dex) {
   _icode.op = "array-length";
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
+  _icode.src = highNibble(x);
+  _icode.dest = lowNibble(x);
 };
 
 opName[0x22] = "new-instance";
