@@ -106,7 +106,7 @@ var threadHandler = function(_thread, _kind, _method, _args){
       var _newThread = _args[0];
       // fill the fields with args or something to initialize?
       var _run = _thread.getClassLibrary().findMethod(_newThread.threadClass, new MethodSignature('run', TYPE_VOID));
-      _newThread.pushMethod(_run);
+      _newThread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
     },                                                         
     "start" : function () { 
       var _newThread = _args[0]; 
