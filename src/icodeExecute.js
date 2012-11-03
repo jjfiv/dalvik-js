@@ -65,6 +65,9 @@ var icodeHandlers = {
   "check-cast": function(_inst, _thread) {
     var _typeA = _thread.getRegister(_inst.src).type;
     var _typeB = _inst.type;
+    console.log(_thread.getRegister(_inst.src));
+    console.log(_typeA);
+    console.log(_typeB);
     if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)) {
       throw "ClassCastException";
     }      
@@ -106,7 +109,7 @@ var icodeHandlers = {
 
   "filled-new-array": function(_inst, _thread) {
     var _dimensionArray = _inst.reg.map(function (_regIdx) { return _thread.getRegister(_regIdx); });
-    var _a = makeHyperArray(_dimensionArray, new Type(repeat('[',_dimensionArray.length)+_inst.type._type));
+    var _a = makeHyperArray(_dimensionArray, new Type(repeat('[',_dimensionArray.length)+_inst.type._type, null));
     _thread._result = _a;
   },
 
@@ -223,14 +226,29 @@ var icodeHandlers = {
   "array-get": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
+    console.log("array-get");
+    console.log(_array);
+    console.log(_index);
+    console.log(_array[_index]);
+    assert(_array, "Array is not undefined");
+    assert(_array, "Array is not undefined");
+    assert(_index < _array.length, "array-get index is out of bounds");
     _thread.setRegister (_inst.value, _array[_index]);
+    assert(_array, "Array is not undefined");
   },
 
   "array-put": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
     var _value = _thread.getRegister (_inst.value);
+    console.log("array-put");
+    console.log(_array[_index]);
+    console.log(_array);
+    console.log(_index);
+    console.log(_value);
+    assert(_array, "Array is not undefined");
     _array[_index] = _value;
+    assert(_array, "Array is not undefined");
   },
 
   "instance-get": function(_inst, _thread) {
@@ -251,6 +269,8 @@ var icodeHandlers = {
     var _class = _thread.getClassLibrary().findClass(_field.definingClass);
     _result.primtype = _field.type;
     _result.value = 0;
+
+    console.log(_field);
 
     // replace this with calls to ClassLibrary, and fallback to native
     if(_field.definingClass._typeString === "Ljava/lang/System;" && _field.name === "out") {
