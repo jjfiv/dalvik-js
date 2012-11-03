@@ -63,6 +63,11 @@ var intercept = {
       }
     },
   },
+  "Ljava/lang/reflect/Array;" : { 
+    "newInstance" : function(kind, method, args) {
+      return args[1];
+    }
+  },
   "Ljava/lang/Object;" : { 
     "<init>" : function(kind, method, args) {
       // commented out because it looks like an error
@@ -156,7 +161,14 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod(method.definingClass, method.signature);
   }
 
+  // make sure we have the best version of this method
+  if (!method.defined) {
+    method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
+  }
+
   console.log('invoke');
+  console.log(_inst);
+  console.log(argValues);
   console.log(method);
   console.log(method.getName());
   console.log(method.definingClass.getTypeString());
@@ -180,11 +192,6 @@ var invoke = function(_inst,_thread){
     return;
   }
   
-
-  // make sure we haven't
-  if (!method.defined) {
-    method = myVM.classLibrary.findMethod (_inst.method.definingClass, _inst.method.signature);
-  }
 
   assert(!method.isNative(), "Native method ("+method.definingClass.getTypeString()+"."+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
