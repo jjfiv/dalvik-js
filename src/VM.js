@@ -5,11 +5,14 @@
 var VM = function() {
   var _self = this;
   this._threads = [];
+  this.icodeUsage = {}; // keys are files we've run; vals are sets of dalvik names
+  this.currentFile = null;
   this.classLibrary = new ClassLibrary(); // single ClassLibrary, accessible to all
   this._source = (function(){
     return new Upload(function(_fileName, _fileData){
                         var _dex = new DEXData(new ArrayFile(_fileData));
                         var _k, _classes = _self.classLibrary.classes;
+                        _self.currentFile = _fileName;
                         _self.defineClasses(_dex.classes);
                         _self.clear();
                         this._classChooser.clear();
@@ -24,6 +27,10 @@ var VM = function() {
                       }, _self);
                           
                   }());
+};
+
+VM.prototype.logIcode = function(_dalvikName){
+  (this.icodeUsage[this.currentFile] || (this.icodeUsage[this.currentFile]={}))[_dalvikName] = _dalvikName;
 };
 
 VM.prototype.defineClasses = function(_data){

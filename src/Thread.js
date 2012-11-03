@@ -14,17 +14,6 @@ var StackFrame = function(_m) {
   }
 };
 
-// StackFrame.prototype.toString = function() {
-//   var _i, _regs=" ";
-//   var _pc = this.pc;
-//   var _method = this.method.name;
-//   var _opcode = this.method.icode[_pc].op;
-//   for (_i=0 ; _i<this.regs.length ; _i++){
-//     _regs+=this.regs[_i].toString()+" ";
-//   }
-//   return "{ PC:"+_pc+"\t\tMETHOD:"+_method+"\t\tOPCODE:"+_opcode+"\t\tREGS:["+_regs+"] }";
-// };
-
 var Thread = function(_vm, _state, _threadClass) {
   this._result = null;
   this._exception = null;
@@ -45,25 +34,17 @@ Thread.prototype.getClassLibrary = function () {
   return this._vm.classLibrary;
 };
 
-// Thread.prototype.toString = function(){
-//   return this._stack[0].toString()+"...";
-// };
-
 Thread.prototype.pushMethod = function(_m, _regs) {
   var _frame = new StackFrame(_m);
-  // TODO load up regs with arguments; I think we need to do this backwards?
   if (_regs) { _frame.regs = _regs; }
   this._stack.push(_frame);
 };
 
-// param _result is null if no return value
 Thread.prototype.popMethod = function(_result) {
   this._result = _result;
   this._stack.pop();
 };
 
-
-// grab the current frame object
 Thread.prototype.currentFrame = function() {
   var _s = this._stack;
   var _len = _s.length;
@@ -72,7 +53,7 @@ Thread.prototype.currentFrame = function() {
   assert(_len !== 0, "Looking for non-existent stack frame!");
 
   return _s[_len-1];
-}; //ends currentFrame
+}; 
 
 // a thread is done execution when all its methods return
 // so when the frame stack is empty
@@ -82,44 +63,34 @@ Thread.prototype.isFinished = function() {
 
 Thread.prototype.getRegister = function(_idx) {
   return this.currentFrame().regs[_idx];
-}; //ends getRegister
+}; 
 
 
 Thread.prototype.setRegister = function(_idx, _value) {
   this.currentFrame().regs[_idx] = _value;
-}; //ends setRegister
+}; 
 
 Thread.prototype.throwException = function(exceptionObj) {
-
   if (this._stack.length === 0){
     throw "Uncaught Java Exception.";
   }
- 
   var newPC;
   var type = exceptionObj.type;
   var frame = this.currentFrame();
-  // get list of catches from current method
-  var listOfCatches = frame.method.tryInfo.filter(function(_tr) {
-                                                      return -1 !== _tr.findAddressForType(frame.pc, type);
-                                                  });
+  var listOfCatches = frame.method.tryInfo.filter(function(_tr) { return -1 !== _tr.findAddressForType(frame.pc, type); });
   assert(listOfCatches.length<=1, "There oughtn't be more than one catch block that covers this thing.");
   this._exception = exceptionObj;
-  // find first match and set this frame's pc to the matched pc
   if (listOfCatches[0]){
     newPC = listOfCatches[0].findAddressForType(frame.pc, type); // type: int
     assert(newPC!=-1, 'Die H\&#228;rder.');
     frame.pc = newPC;
   } else {
-    // pop the current frame, and recurse.
     this.popMethod();
     this.throwException(exceptionObj);
   }
-  // assert(nextInstruction == "move-exception")
-}; //ends throwException
+}; 
 
-// do the next instruction
 Thread.prototype.doNextInstruction = function() {
-  //console.log(this.statusString());
   this.showStack();
   if (this.state === 'RUNNABLE'){
     var _frame = this.currentFrame();
@@ -129,6 +100,8 @@ Thread.prototype.doNextInstruction = function() {
     if(isUndefined(_handler)) {
       assert(0, "UNSUPPORTED OPCODE! " + _inst.op);
     }
+
+    this._vm.logIcode(_inst.dalvikName);
 
     console.log('execute ' + _inst.op);
     var _inc = _handler(_inst, this);
@@ -151,9 +124,8 @@ Thread.prototype.showStack = function() {
   for(i=0; i<stackInfo.length; i++) {
     console.log("  "+stackInfo[i]);
   }
-}
+};
 
-// summarize where we are
 Thread.prototype.statusString = function() {
 
   if(this.isFinished()) {
@@ -166,7 +138,4 @@ Thread.prototype.statusString = function() {
          "\n  pc=" + _f.pc +
          "\n  nextInstr=" + _f.method.icode[_f.pc].op +
          "\n  regs: " + inspect(_f.regs);
-}; //ends statusString
-
-
-
+}; 

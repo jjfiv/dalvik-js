@@ -4,7 +4,7 @@
 // given entry to the given table defined by HTML, hard to find
 // an example that doesn't depend on jQuery
 //
-var _addRow = function(_tableId, _testId, _expected, _actual) {
+var _addRow = function(_tableId, _testId, _expected, _actual, _dcodes) {
   var _table = document.getElementById(_tableId);
   var _numRows = _table.rows.length;
   var _row = _table.insertRow(_numRows);
@@ -17,6 +17,9 @@ var _addRow = function(_tableId, _testId, _expected, _actual) {
   
   var _actcell = _row.insertCell(2);
   _actcell.innerHTML = _actual;
+
+  var _dcodecell = _row.insertCell(3);
+  _dcodecell.innerHTML = _dcodes;
 };
 
 //
@@ -33,11 +36,13 @@ var doTest = function(fileName, mainClass, expectedOutput) {
   _clearOutput();
 
   //--- main
-  var _output;
+  var _output, _dcodes="";
   try {
     var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
     var myVM = new VM();
-    
+    myVM.currentFile = fileName;
+    myVM.icodeUsage = {};
+
     myVM.defineClasses(gStdLib);
     myVM.defineClasses(classes);
     myVM.start(new Type(mainClass));
@@ -47,13 +52,20 @@ var doTest = function(fileName, mainClass, expectedOutput) {
     }
 
     _output = _outField.innerHTML;
+    var set = myVM.icodeUsage[fileName];
+    for (code in set){
+      if (set.hasOwnProperty(code)){
+        _dcodes+=","+code;
+      }
+    }
+    _dcodes = _dcodes.slice(1);
   } catch (exception) {
     _output = exception;
   }
 
   console.log(_output);
   var tableId = (_output === expectedOutput) ? "passTable" : "failTable";
-  _addRow(tableId, fileName, expectedOutput, _output);
+  _addRow(tableId, fileName, expectedOutput, _output, _dcodes);
 
   _clearOutput();
 };
