@@ -39,7 +39,7 @@ var printValueOfType = function(_type, _value) {
 
 var intercept = {
   "Ljava/io/PrintStream;" : { 
-    "println" : function(kind, method, args) {
+    "println" : function(method, args) {
       var paramTypes = method.signature.parameterTypes;
       
       if(paramTypes.length === 1) {
@@ -52,7 +52,7 @@ var intercept = {
       //add a newline
       terminal.println('');
     },
-    "print" : function(kind, method, args) {
+    "print" : function(method, args) {
       var paramTypes = method.signature.parameterTypes;
       
       if(paramTypes.length === 1) {
@@ -61,39 +61,39 @@ var intercept = {
         console.log("print " + _value + " to " + inspect(args[0]) + "!");
         printValueOfType(_type, _value);
       }
-    },
+    }
   },
   "Ljava/lang/reflect/Array;" : { 
-    "newInstance" : function(kind, method, args) {
+    "newInstance" : function(method, args) {
       return args[1];
     }
   },
   "Ljava/lang/Object;" : { 
-    "<init>" : function(kind, method, args) {
+    "<init>" : function(method, args) {
       // commented out because it looks like an error
       console.log("Skipping super constructor for now.");
       return args[0];
     },
-    "toString" : function(kind, method, args){
+    "toString" : function(method, args){
     },
-    "getClass" : function(kind, method, args) {
+    "getClass" : function(method, args) {
       //return args[0].getClass(_thread.getClassLibrary());
     }
   },
   "Ljava/lang/Class;" : {
-    "isPrimitive" : function(kind, method, args){
+    "isPrimitive" : function(method, args){
       return args[0].type.isPrimitive();
     }
   },
   "Ljava/lang/Throwable;" : { 
-    "<init>" : function(kind, method, args) {
+    "<init>" : function(method, args) {
       // commented out because it looks like an error
       console.log("Creating a banana for throwing");
       return args[1];
     }
   },
   "Ljava/lang/System;" : { 
-    "arraycopy" : function(kind, method, args){
+    "arraycopy" : function(method, args){
       args[2]._data = args[0]._data;
     }
   }
@@ -161,6 +161,12 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod(method.definingClass, method.signature);
   }
 
+  if(kind === 'interface'){
+    // method is currently set to the interface's abstract method; replace with the 
+    // instance's method. instance is sitting in the 0th arg, as usual.
+    method = _thread.getClassLibrary().findMethod(argValues[0].type, method.signature);
+  }
+
   console.log('invoke');
   console.log(_inst);
   console.log(argValues);
@@ -174,7 +180,7 @@ var invoke = function(_inst,_thread){
     var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
     // if we have a native "javascript" handler for this method
     if (_javaIntercept){
-      _thread._result = _javaIntercept(kind, method, argValues);
+      _thread._result = _javaIntercept(method, argValues);
       return;
     }
   }
