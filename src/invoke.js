@@ -22,6 +22,16 @@ var printValueOfType = function(_type, _value) {
     } else {
       terminal.print ("false");
     }
+  } else if (_type === "Ljava/lang/String;") {
+    /* JF ignore this for now
+    if(isUndefined(_value.fields)) {
+      var _result = _value.fields[3].value._data.null;
+      for (var _i = 1; _i < _value.fields[0].value; _i++) {
+        _result = _result + _value.fields[3].value._data[_i];
+      }
+      terminal.print (_result);
+    } else {*/
+    terminal.print (_value);
   } else {
     terminal.print (_value);
   }
@@ -30,18 +40,27 @@ var printValueOfType = function(_type, _value) {
 var intercept = {
   "Ljava/io/PrintStream;" : { 
     "println" : function(kind, method, args) {
-      var _type = method.signature.parameterTypes[0].getTypeString();
-      var _value = args[1];
-      console.log("println " + _value + " to " + inspect(args[0]) + "!");
-      printValueOfType(_type, _value);
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("println " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
+      }
+
       //add a newline
       terminal.println('');
     },
     "print" : function(kind, method, args) {
-      var _type = method.signature.parameterTypes[0].getTypeString();
-      var _value = args[1];
-      console.log("print " + _value + " to " + inspect(args[0]) + "!");
-      printValueOfType(_type, _value);
+      var paramTypes = method.signature.parameterTypes;
+      
+      if(paramTypes.length === 1) {
+        var _type = paramTypes[0].getTypeString();
+        var _value = args[1];
+        console.log("print " + _value + " to " + inspect(args[0]) + "!");
+        printValueOfType(_type, _value);
+      }
     },
   },
   "Ljava/lang/Object;" : { 
@@ -67,6 +86,11 @@ var intercept = {
       console.log("Creating a banana for throwing");
       return args[1];
     }
+  },
+  "Ljava/lang/System;" : { 
+    "arraycopy" : function(kind, method, args){
+      args[2]._data = args[0]._data;
+    }
   }
 };
 
@@ -82,7 +106,7 @@ var threadHandler = function(_thread, _kind, _method, _args){
       var _newThread = _args[0];
       // fill the fields with args or something to initialize?
       var _run = _thread.getClassLibrary().findMethod(_newThread.threadClass, new MethodSignature('run', TYPE_VOID));
-      _newThread.pushMethod(_run);
+      _newThread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
     },                                                         
     "start" : function () { 
       var _newThread = _args[0]; 
@@ -138,12 +162,14 @@ var invoke = function(_inst,_thread){
   console.log(method.definingClass.getTypeString());
 
   // find an override if there is one
-  var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-  
-  // if we have a native "javascript" handler for this method
-  if (_javaIntercept){
-    _thread._result = _javaIntercept(kind, method, argValues);
-    return;
+  if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 
+      method.definingClass.getTypeString() !== "Ljava/lang/AbstractStringBuilder;") {
+    var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
+    // if we have a native "javascript" handler for this method
+    if (_javaIntercept){
+      _thread._result = _javaIntercept(kind, method, argValues);
+      return;
+    }
   }
   
   // if this is a runnable, catch certain special calls

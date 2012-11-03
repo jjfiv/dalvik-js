@@ -69,7 +69,6 @@ var VMClasses = {
     _typeString : 'string',
     _arrayDim : 'int',
     _type : 'string',
-    _wide : 'boolean',
     _name : 'string'
   }
 };
