@@ -50,3 +50,5 @@ doTest("ArrayTest.dex", "LArrayTest;", "3,4,5,6\n");
 doTest("string.dex", "Lstring;", "23Hi12Bye\n");
 
 doTest("Monitors.dex", "LMonitors;", "a1\na2\nb1\nb2\n");
+
+doTest("InterfaceTest.dex", "LInterfaceTest;", "Class A implements user-defined InterfaceA.\n" );
