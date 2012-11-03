@@ -453,3 +453,21 @@ var makeHyperArray = function (_dimensionArray, _type, _defaultVal){
   }
 };
 
+var parseNumByType = function(num, type){
+  if (type.isEquals(TYPE_LONG) || type.isEquals(TYPE_BYTE) || type.isEquals(TYPE_INT) || type.isEquals(TYPE_SHORT)){
+    return num;
+  } else if (type.isEquals(TYPE_DOUBLE)){
+    return doubleFromgLong(num);
+  } else if (type.isEquals(TYPE_FLOAT)){
+    return floatFromInt(num);
+  } else {
+    throw "Unrecognized type";
+  }
+};
+
+var handleDivideByZero = function (divisor, _thread){
+  var exceptionClass = _thread.getClassLibrary().findClass(new Type("Ljava/lang/ArithmeticException;"));
+  if (divisor === 0){
+    _thread.throwException(exceptionClass.makeNew(_thread.getClassLibrary()));
+  }
+};
