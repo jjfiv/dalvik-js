@@ -421,27 +421,6 @@ var gensym = function () {
   };
 }();
 
-// This function adopted from Stack Overflow, formerly in Array.js
-// For questions on its function, ask Gupta.
-
-// var genArray = function (args) {
-//   var arr, len, i;
-//   if(!isArray(args)) {
-//     arr = new Array (args);
-//   }
-//   else if(args.length > 0) {
-//     len = [].slice.call(args, 0, 1)[0];
-//     arr = new Array(len);
-//     for(i = 0; i < len; i++) {
-//       arr[i] = genArray([].slice.call(args, 1));
-//     }
-//   } else {
-//     return null; //or whatever you want to initialize values to.
-//   }
-//   return arr;
-// };
-
-
 var repeat = function(thing, n){
   if (n === 1){
     return thing;
