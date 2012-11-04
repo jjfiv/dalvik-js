@@ -1,3 +1,24 @@
+// Global var to hold all opcodes for the final summary
+
+var opCodes = new function(){
+  // first create a hash of opcode names and their numbers
+  var ops={}, i;
+  for (i=0;i<opName.length;i++){
+    ops[opName[i]]={ opcode : '0x'+i.toString(16), //display string in hex, to facilitate searching the spec
+                     files : []
+                   };
+  }
+  this.ops = ops;
+  this.addOps = function(icodeUsage, currentFile){
+    var codesAtThisFile = icodeUsage[currentFile];
+    for (code in codesAtThisFile){
+      if (codesAtThisFile.hasOwnProperty(code)){
+        ops[code].files.push(currentFile);
+      }
+    }
+  };
+}();
+
 
 //
 // This method is mostly taken from various sites, just adds the
@@ -52,15 +73,16 @@ var doTest = function(fileName, mainClass, expectedOutput) {
     }
 
     _output = _outField.innerHTML;
-    var set = myVM.icodeUsage[fileName];
-    for (code in set){
-      if (set.hasOwnProperty(code)){
+    opCodes.addOps(myVM.icodeUsage, fileName);
+    var codeSet = myVM.icodeUsage[fileName];
+    for (code in codeSet){
+      if (codeSet.hasOwnProperty(code)){
         _dcodes+=","+code;
       }
     }
     _dcodes = _dcodes.slice(1);
   } catch (exception) {
-    _output = exception;
+   _output = exception;
   }
 
   console.log(_output);
