@@ -1,0 +1,160 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Return_wide.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Return_wide.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 0 (0x0000)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 884 (0x000374)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LGetter_returnWide;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LGetter_returnWide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001b0:                                        |[0001b0] Getter_returnWide.<init>:()V
+0001c0: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+0001c6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_returnWide; 
+
+    #1              : (in LGetter_returnWide;)
+      name          : 'returnT'
+      type          : '()J'
+      access        : 0x000a (PRIVATE STATIC)
+      code          -
+      registers     : 5
+      ins           : 0
+      outs          : 0
+      insns size    : 12 16-bit code units
+0001c8:                                        |[0001c8] Getter_returnWide.returnT:()J
+0001d8: 1400 d5dc 3200                         |0000: const v0, #float 0.000000 // #0032dcd5
+0001de: 1401 1cd1 4300                         |0003: const v1, #float 0.000000 // #0043d11c
+0001e4: 1202                                   |0006: const/4 v2, #int 0 // #0
+0001e6: 9002 0001                              |0007: add-int v2, v0, v1
+0001ea: 1603 0100                              |0009: const-wide/16 v3, #int 1 // #1
+0001ee: 1003                                   |000b: return-wide v3
+      catches       : (none)
+      positions     : 
+        0x0000 line=25
+        0x0003 line=26
+        0x0006 line=27
+        0x0007 line=28
+        0x0009 line=29
+      locals        : 
+        0x0003 - 0x000c reg=0 a I 
+        0x0006 - 0x000c reg=1 b I 
+        0x0007 - 0x000c reg=2 c I 
+
+  Virtual methods   -
+    #0              : (in LGetter_returnWide;)
+      name          : 'returnV'
+      type          : '()I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 6 16-bit code units
+0001f0:                                        |[0001f0] Getter_returnWide.returnV:()I
+000200: 7100 0100 0000                         |0000: invoke-static {}, LGetter_returnWide;.returnT:()J // method@0001
+000206: 1300 a05b                              |0003: const/16 v0, #int 23456 // #5ba0
+00020a: 0f00                                   |0005: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+        0x0003 line=21
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LGetter_returnWide; 
+
+  source_file_idx   : 8 (Return_wide.java)
+
+Class #1 header:
+class_idx           : 3
+access_flags        : 1 (0x0001)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 902 (0x000386)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LReturn_wide;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LReturn_wide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00020c:                                        |[00020c] Return_wide.<init>:()V
+00021c: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000222: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LReturn_wide; 
+
+    #1              : (in LReturn_wide;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000224:                                        |[000224] Return_wide.main:([Ljava/lang/String;)V
+000234: 2200 0200                              |0000: new-instance v0, LGetter_returnWide; // type@0002
+000238: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_returnWide;.<init>:()V // method@0000
+00023e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000242: 6e10 0200 0000                         |0007: invoke-virtual {v0}, LGetter_returnWide;.returnV:()I // method@0002
+000248: 0a02                                   |000a: move-result v2
+00024a: 6e20 0500 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0005
+000250: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_returnWide; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 8 (Return_wide.java)
+

@@ -1,0 +1,73 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Rem_long.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Rem_long.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 6
+annotations_off     : 0 (0x000000)
+class_data_off      : 615 (0x000267)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LRem_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LRem_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000144:                                        |[000144] Rem_long.<init>:()V
+000154: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LRem_long; 
+
+    #1              : (in LRem_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 3
+      insns size    : 18 16-bit code units
+00015c:                                        |[00015c] Rem_long.main:([Ljava/lang/String;)V
+00016c: 1800 00e4 0b54 0200 0000               |0000: const-wide v0, #double 0.000000 // #00000002540be400
+000176: 1802 0028 6bee 0000 0000               |0005: const-wide v2, #double 0.000000 // #00000000ee6b2800
+000180: 9f04 0002                              |000a: rem-long v4, v0, v2
+000184: 6206 0000                              |000c: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000188: 6e30 0200 4605                         |000e: invoke-virtual {v6, v4, v5}, Ljava/io/PrintStream;.println:(J)V // method@0002
+00018e: 0e00                                   |0011: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=11
+        0x0005 line=12
+        0x000a line=13
+        0x000c line=15
+        0x0011 line=17
+      locals        : 
+        0x0005 - 0x0012 reg=0 x J 
+        0x000a - 0x0012 reg=2 y J 
+        0x000c - 0x0012 reg=4 z J 
+        0x0000 - 0x0012 reg=7 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 6 (Rem_long.java)
+

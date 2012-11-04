@@ -1,0 +1,159 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Return_void.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Return_void.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 7
+annotations_off     : 0 (0x000000)
+class_data_off      : 849 (0x000351)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LGetter_returnVoid;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LGetter_returnVoid;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00019c:                                        |[00019c] Getter_returnVoid.<init>:()V
+0001ac: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+0001b2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_returnVoid; 
+
+    #1              : (in LGetter_returnVoid;)
+      name          : 'returnT'
+      type          : '()V'
+      access        : 0x000a (PRIVATE STATIC)
+      code          -
+      registers     : 3
+      ins           : 0
+      outs          : 0
+      insns size    : 6 16-bit code units
+0001b4:                                        |[0001b4] Getter_returnVoid.returnT:()V
+0001c4: 1230                                   |0000: const/4 v0, #int 3 // #3
+0001c6: 1241                                   |0001: const/4 v1, #int 4 // #4
+0001c8: 1202                                   |0002: const/4 v2, #int 0 // #0
+0001ca: 9002 0001                              |0003: add-int v2, v0, v1
+0001ce: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=26
+        0x0001 line=27
+        0x0002 line=28
+        0x0003 line=29
+        0x0005 line=30
+      locals        : 
+        0x0001 - 0x0006 reg=0 a I 
+        0x0002 - 0x0006 reg=1 b I 
+        0x0003 - 0x0006 reg=2 c I 
+
+  Virtual methods   -
+    #0              : (in LGetter_returnVoid;)
+      name          : 'returnV'
+      type          : '()I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 6 16-bit code units
+0001d0:                                        |[0001d0] Getter_returnVoid.returnV:()I
+0001e0: 7100 0100 0000                         |0000: invoke-static {}, LGetter_returnVoid;.returnT:()V // method@0001
+0001e6: 1300 a05b                              |0003: const/16 v0, #int 23456 // #5ba0
+0001ea: 0f00                                   |0005: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+        0x0003 line=22
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LGetter_returnVoid; 
+
+  source_file_idx   : 7 (Return_void.java)
+
+Class #1 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 7
+annotations_off     : 0 (0x000000)
+class_data_off      : 867 (0x000363)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LReturn_void;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LReturn_void;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001ec:                                        |[0001ec] Return_void.<init>:()V
+0001fc: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000202: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LReturn_void; 
+
+    #1              : (in LReturn_void;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000204:                                        |[000204] Return_void.main:([Ljava/lang/String;)V
+000214: 2200 0100                              |0000: new-instance v0, LGetter_returnVoid; // type@0001
+000218: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_returnVoid;.<init>:()V // method@0000
+00021e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000222: 6e10 0200 0000                         |0007: invoke-virtual {v0}, LGetter_returnVoid;.returnV:()I // method@0002
+000228: 0a02                                   |000a: move-result v2
+00022a: 6e20 0500 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0005
+000230: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000e line=14
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_returnVoid; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 7 (Return_void.java)
+
