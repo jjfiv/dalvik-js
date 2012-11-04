@@ -2,7 +2,7 @@
 // so it turns out we need to HTML escape our expected output: &gt; &lt; &amp;
 
 // doTest(fileName, mainClassName, expectedOutput
-
+/*
 doTest("factorial.dex", "Lfactorial;", "24\n");
 doTest("recurse.dex", "Lrecurse;", "24\n");
 doTest("seqSwitch.dex", "LSeqSwitch;", "Orange\n");
@@ -58,6 +58,7 @@ doTest("InterfaceTest.dex", "LInterfaceTest;", "Class A implements user-defined 
 doTest("ThreadInstanceTest.dex", "LThreadInstanceTest;", "moo!\nmeow!\n");
 
 doTest("tryCatch.dex", "LtryCatch;", "No way!\n\n");
+*/
 
 doTest("Add_double.dex", "LAdd_double;", "5.84\n");
 doTest("Add_double_2addr.dex", "LAdd_double_2addr;", "6.84\n");
@@ -107,8 +108,8 @@ doTest("Const_wide_high16.dex", "LConst_wide_high16;", "1311673391471656960\n");
 doTest("Const_wide.dex", "LConst_wide;", "1.2345678901232324e+51\n");
 doTest("Div_double_2addr.dex", "LDiv_double_2addr;", "1.8598726114649682\n");
 doTest("Div_double.dex", "LDiv_double;", "0.8598726114649682\n");
-doTest("Div_float_2addr.dex", "LDiv_float_2addr;", "1.859872579574585\n");
-doTest("Div_float.dex", "LDiv_float;", "0.859872579574585\n");
+doTest("Div_float_2addr.dex", "LDiv_float_2addr;", "1.8598726\n");
+doTest("Div_float.dex", "LDiv_float;", "0.8598726\n");
 doTest("Div_int_2addr.dex", "LDiv_int_2addr;", "3\n");
 doTest("Div_int.dex", "LDiv_int;", "2\n");
 doTest("Div_int_lit16.dex", "LDiv_int_lit16;", "2\n");
@@ -125,3 +126,30 @@ doTest("Float_to_int.dex", "LFloat_to_int;", "2\n");
 doTest("Float_to_long.dex", "LFloat_to_long;", "2\n");
 doTest("Goto_16.dex", "LGoto_16;", "0\n");
 doTest("Goto_32.dex", "LGoto_32;", "0\n");
+doTest("If_eq.dex", "LIf_eq;", "true\n");
+doTest("If_ge.dex", "Lif_ge;", "true\n");
+doTest("If_gt.dex", "Lif_gt;", "true\n");
+doTest("If_le.dex", "Lif_le;", "true\n");
+doTest("If_lt.dex", "Lif_lt;", "true\n");
+doTest("If_ne.dex", "Lif_ne;", "true\n");
+doTest("Iget_boolean.dex", "Liget_boolean;", "true\n");
+doTest("Iget_byte.dex", "Liget_byte;", "77\n");
+doTest("Iget_char.dex", "Liget_char;", "A\n");
+doTest("Iget_long.dex", "Liget_long;", "1234567890\n");
+doTest("Iget_object.dex", "Liget_object;", "null\n");
+doTest("Iget_short.dex", "Liget_short;", "3200\n");
+doTest("Iget_wide.dex", "Liget_wide;", "12345679890123\n");
+doTest("Iget.dex", "Liget;", "5\n");
+doTest("Instance_of.dex", "Linstance_of;", "true\n");
+doTest("Int_to_byte", "Lint_to_byte;", "1\n");
+doTest("Int_to_char", "Lint_to_char;", "A\n");
+doTest("Int_to_double", "Lint_to_double;", "1.0\n");
+doTest("Int_to_long", "Lint_to_long;", "123456\n");
+doTest("Int_to_short", "Lint_to_short;", "1\n");
+doTest("Iput_boolean", "Liput_boolean;", "true\n");
+doTest("Iput_byte", "Liput_byte;", "77\n");
+doTest("Iput_char", "Liput_char;", "A\n");
+doTest("Iput_object", "Liput_object;", "null\n");
+doTest("Iput_short", "Liput_short;", "77\n");
+doTest("Iput_wide", "Liput_wide;", "778899112233\n");
+doTest("Iput", "Liput;", "2\n");
