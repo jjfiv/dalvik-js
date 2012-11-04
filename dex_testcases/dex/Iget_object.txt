@@ -1,0 +1,70 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Iget_object.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Iget_object.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 12
+annotations_off     : 0 (0x000000)
+class_data_off      : 646 (0x000286)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'Liget_object;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_object;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00015c:                                        |[00015c] iget_object.<init>:()V
+00016c: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+000172: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_object; 
+
+    #1              : (in Liget_object;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000174:                                        |[000174] iget_object.main:([Ljava/lang/String;)V
+000184: 2200 0000                              |0000: new-instance v0, LGetter_iobject; // type@0000
+000188: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_iobject;.<init>:()V // method@0000
+00018e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000192: 6e10 0100 0000                         |0007: invoke-virtual {v0}, LGetter_iobject;.i_get:()Ljava/lang/Object; // method@0001
+000198: 0c02                                   |000a: move-result-object v2
+00019a: 6e20 0400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0004
+0001a0: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_iobject; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 12 (iget_object.java)
+

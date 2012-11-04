@@ -1,0 +1,277 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Monitor_exit.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Monitor_exit.dex', DEX version '035'
+Class #0 header:
+class_idx           : 0
+access_flags        : 0 (0x0000)
+superclass_idx      : 5
+interfaces_off      : 968 (0x0003c8)
+source_file_idx     : 13
+annotations_off     : 0 (0x000000)
+class_data_off      : 1557 (0x000615)
+static_fields_size  : 0
+instance_fields_size: 2
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LMExitRunnable;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'Ljava/lang/Runnable;'
+  Static fields     -
+  Instance fields   -
+    #0              : (in LMExitRunnable;)
+      name          : 'o'
+      type          : 'Ljava/lang/Object;'
+      access        : 0x0002 (PRIVATE)
+    #1              : (in LMExitRunnable;)
+      name          : 't1'
+      type          : 'Lmonitor_exit;'
+      access        : 0x0002 (PRIVATE)
+  Direct methods    -
+    #0              : (in LMExitRunnable;)
+      name          : '<init>'
+      type          : '(Lmonitor_exit;Ljava/lang/Object;)V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 1
+      insns size    : 8 16-bit code units
+00026c:                                        |[00026c] MExitRunnable.<init>:(Lmonitor_exit;Ljava/lang/Object;)V
+00027c: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000282: 5b01 0100                              |0003: iput-object v1, v0, LMExitRunnable;.t1:Lmonitor_exit; // field@0001
+000286: 5b02 0000                              |0005: iput-object v2, v0, LMExitRunnable;.o:Ljava/lang/Object; // field@0000
+00028a: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=37
+        0x0003 line=38
+        0x0005 line=39
+        0x0007 line=40
+      locals        : 
+        0x0000 - 0x0008 reg=0 this LMExitRunnable; 
+        0x0000 - 0x0008 reg=1 t1 Lmonitor_exit; 
+        0x0000 - 0x0008 reg=2 o Ljava/lang/Object; 
+
+  Virtual methods   -
+    #0              : (in LMExitRunnable;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+00028c:                                        |[00028c] MExitRunnable.run:()V
+00029c: 5431 0100                              |0000: iget-object v1, v3, LMExitRunnable;.t1:Lmonitor_exit; // field@0001
+0002a0: 5432 0000                              |0002: iget-object v2, v3, LMExitRunnable;.o:Ljava/lang/Object; // field@0000
+0002a4: 6e20 0b00 2100                         |0004: invoke-virtual {v1, v2}, Lmonitor_exit;.run:(Ljava/lang/Object;)V // method@000b
+0002aa: 0e00                                   |0007: return-void
+0002ac: 0d00                                   |0008: move-exception v0
+0002ae: 5431 0100                              |0009: iget-object v1, v3, LMExitRunnable;.t1:Lmonitor_exit; // field@0001
+0002b2: 1212                                   |000b: const/4 v2, #int 1 // #1
+0002b4: 5c12 0300                              |000c: iput-boolean v2, v1, Lmonitor_exit;.result:Z // field@0003
+0002b8: 28f9                                   |000e: goto 0007 // -0007
+      catches       : 1
+        0x0000 - 0x0007
+          Ljava/lang/IllegalMonitorStateException; -> 0x0008
+      positions     : 
+        0x0000 line=44
+        0x0007 line=49
+        0x0008 line=45
+        0x0009 line=47
+      locals        : 
+        0x0009 - 0x000f reg=0 imse Ljava/lang/IllegalMonitorStateException; 
+        0x0000 - 0x000f reg=3 this LMExitRunnable; 
+
+  source_file_idx   : 13 (Monitor_exit.java)
+
+Class #1 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 13
+annotations_off     : 0 (0x000000)
+class_data_off      : 1575 (0x000627)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LMonitor_exit;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMonitor_exit;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002c8:                                        |[0002c8] Monitor_exit.<init>:()V
+0002d8: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+0002de: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMonitor_exit; 
+
+    #1              : (in LMonitor_exit;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 8
+      ins           : 1
+      outs          : 3
+      insns size    : 59 16-bit code units
+0002e0:                                        |[0002e0] Monitor_exit.main:([Ljava/lang/String;)V
+0002f0: 2203 0a00                              |0000: new-instance v3, Lmonitor_exit; // type@000a
+0002f4: 7010 0a00 0300                         |0002: invoke-direct {v3}, Lmonitor_exit;.<init>:()V // method@000a
+0002fa: 2201 0500                              |0005: new-instance v1, Ljava/lang/Object; // type@0005
+0002fe: 7010 0600 0100                         |0007: invoke-direct {v1}, Ljava/lang/Object;.<init>:()V // method@0006
+000304: 2202 0000                              |000a: new-instance v2, LMExitRunnable; // type@0000
+000308: 7030 0000 3201                         |000c: invoke-direct {v2, v3, v1}, LMExitRunnable;.<init>:(Lmonitor_exit;Ljava/lang/Object;)V // method@0000
+00030e: 1d01                                   |000f: monitor-enter v1
+000310: 2204 0900                              |0010: new-instance v4, Ljava/lang/Thread; // type@0009
+000314: 7020 0700 2400                         |0012: invoke-direct {v4, v2}, Ljava/lang/Thread;.<init>:(Ljava/lang/Runnable;)V // method@0007
+00031a: 6e10 0900 0400                         |0015: invoke-virtual {v4}, Ljava/lang/Thread;.start:()V // method@0009
+000320: 6e10 0800 0400                         |0018: invoke-virtual {v4}, Ljava/lang/Thread;.join:()V // method@0008
+000326: 1e01                                   |001b: monitor-exit v1
+000328: 5535 0300                              |001c: iget-boolean v5, v3, Lmonitor_exit;.result:Z // field@0003
+00032c: 3905 0900                              |001e: if-nez v5, 0027 // +0009
+000330: 6205 0200                              |0020: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0002
+000334: 1a06 1600                              |0022: const-string v6, "expected IllegalMonitorStateException" // string@0016
+000338: 6e20 0400 6500                         |0024: invoke-virtual {v5, v6}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0004
+00033e: 6205 0200                              |0027: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0002
+000342: 5536 0300                              |0029: iget-boolean v6, v3, Lmonitor_exit;.result:Z // field@0003
+000346: 6e20 0500 6500                         |002b: invoke-virtual {v5, v6}, Ljava/io/PrintStream;.println:(Z)V // method@0005
+00034c: 0e00                                   |002e: return-void
+00034e: 0d00                                   |002f: move-exception v0
+000350: 6205 0200                              |0030: sget-object v5, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0002
+000354: 1a06 0100                              |0032: const-string v6, "Interrupted" // string@0001
+000358: 6e20 0400 6500                         |0034: invoke-virtual {v5, v6}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0004
+00035e: 28e4                                   |0037: goto 001b // -001c
+000360: 0d05                                   |0038: move-exception v5
+000362: 1e01                                   |0039: monitor-exit v1
+000364: 2705                                   |003a: throw v5
+      catches       : 4
+        0x0010 - 0x0018
+          <any> -> 0x0038
+        0x0018 - 0x001b
+          Ljava/lang/InterruptedException; -> 0x002f
+          <any> -> 0x0038
+        0x001b - 0x001c
+          <any> -> 0x0038
+        0x0030 - 0x003a
+          <any> -> 0x0038
+      positions     : 
+        0x0000 line=9
+        0x0005 line=10
+        0x000a line=11
+        0x000f line=12
+        0x0010 line=13
+        0x0015 line=14
+        0x0018 line=17
+        0x001b line=12
+        0x001c line=24
+        0x0020 line=25
+        0x0027 line=27
+        0x002e line=29
+        0x002f line=19
+        0x0030 line=20
+        0x0038 line=12
+      locals        : 
+        0x0030 - 0x0038 reg=0 e Ljava/lang/InterruptedException; 
+        0x0015 - 0x0038 reg=4 th Ljava/lang/Thread; 
+        0x000a - 0x003b reg=1 o Ljava/lang/Object; 
+        0x000f - 0x003b reg=2 r Ljava/lang/Runnable; 
+        0x0005 - 0x003b reg=3 t1 Lmonitor_exit; 
+        0x0000 - 0x003b reg=7 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 13 (Monitor_exit.java)
+
+Class #2 header:
+class_idx           : 10
+access_flags        : 0 (0x0000)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 13
+annotations_off     : 0 (0x000000)
+class_data_off      : 1589 (0x000635)
+static_fields_size  : 0
+instance_fields_size: 1
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #2            -
+  Class descriptor  : 'Lmonitor_exit;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in Lmonitor_exit;)
+      name          : 'result'
+      type          : 'Z'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in Lmonitor_exit;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 7 16-bit code units
+000390:                                        |[000390] monitor_exit.<init>:()V
+0003a0: 7010 0600 0100                         |0000: invoke-direct {v1}, Ljava/lang/Object;.<init>:()V // method@0006
+0003a6: 1200                                   |0003: const/4 v0, #int 0 // #0
+0003a8: 5c10 0300                              |0004: iput-boolean v0, v1, Lmonitor_exit;.result:Z // field@0003
+0003ac: 0e00                                   |0006: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=52
+        0x0003 line=54
+        0x0006 line=52
+      locals        : 
+        0x0000 - 0x0007 reg=1 this Lmonitor_exit; 
+
+  Virtual methods   -
+    #0              : (in Lmonitor_exit;)
+      name          : 'run'
+      type          : '(Ljava/lang/Object;)V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 2
+      outs          : 0
+      insns size    : 3 16-bit code units
+0003b0:                                        |[0003b0] monitor_exit.run:(Ljava/lang/Object;)V
+0003c0: 1d01                                   |0000: monitor-enter v1
+0003c2: 1e01                                   |0001: monitor-exit v1
+0003c4: 0e00                                   |0002: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=57
+        0x0002 line=59
+      locals        : 
+        0x0000 - 0x0003 reg=0 this Lmonitor_exit; 
+        0x0000 - 0x0003 reg=1 o Ljava/lang/Object; 
+
+  source_file_idx   : 13 (Monitor_exit.java)
+

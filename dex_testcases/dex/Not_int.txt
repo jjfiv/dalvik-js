@@ -1,0 +1,132 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Not_int.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Not_int.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 733 (0x0002dd)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LNInt;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LNInt;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000188:                                        |[000188] NInt.<init>:()V
+000198: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+00019e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LNInt; 
+
+  Virtual methods   -
+    #0              : (in LNInt;)
+      name          : 'nop'
+      type          : '(I)I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+0001a0:                                        |[0001a0] NInt.nop:(I)I
+0001b0: 7b20                                   |0000: neg-int v0, v2
+0001b2: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0002 reg=1 this LNInt; 
+        0x0000 - 0x0002 reg=2 i I 
+
+  source_file_idx   : 8 (Not_int.java)
+
+Class #1 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 747 (0x0002eb)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LNot_int;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LNot_int;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001b4:                                        |[0001b4] Not_int.<init>:()V
+0001c4: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001ca: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LNot_int; 
+
+    #1              : (in LNot_int;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+0001cc:                                        |[0001cc] Not_int.main:([Ljava/lang/String;)V
+0001dc: 2200 0100                              |0000: new-instance v0, LNInt; // type@0001
+0001e0: 7010 0000 0000                         |0002: invoke-direct {v0}, LNInt;.<init>:()V // method@0000
+0001e6: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ea: 1252                                   |0007: const/4 v2, #int 5 // #5
+0001ec: 6e20 0100 2000                         |0008: invoke-virtual {v0, v2}, LNInt;.nop:(I)I // method@0001
+0001f2: 0a02                                   |000b: move-result v2
+0001f4: 6e20 0400 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0004
+0001fa: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000f line=14
+      locals        : 
+        0x0005 - 0x0010 reg=0 i LNInt; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 8 (Not_int.java)
+

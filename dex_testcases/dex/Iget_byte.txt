@@ -1,0 +1,70 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Iget_byte.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Iget_byte.dex', DEX version '035'
+Class #0 header:
+class_idx           : 3
+access_flags        : 1 (0x0001)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 663 (0x000297)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'Liget_byte;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_byte;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00016c:                                        |[00016c] iget_byte.<init>:()V
+00017c: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+000182: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_byte; 
+
+    #1              : (in Liget_byte;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000184:                                        |[000184] iget_byte.main:([Ljava/lang/String;)V
+000194: 2200 0200                              |0000: new-instance v0, LGetter_ibyte; // type@0002
+000198: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_ibyte;.<init>:()V // method@0000
+00019e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001a2: 6e10 0100 0000                         |0007: invoke-virtual {v0}, LGetter_ibyte;.i_get:()B // method@0001
+0001a8: 0a02                                   |000a: move-result v2
+0001aa: 6e20 0400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0004
+0001b0: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ibyte; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 14 (iget_byte.java)
+

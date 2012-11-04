@@ -1,0 +1,78 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Or_long_2addr.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Or_long_2addr.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 6
+annotations_off     : 0 (0x000000)
+class_data_off      : 631 (0x000277)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LOr_long_2addr;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LOr_long_2addr;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000144:                                        |[000144] Or_long_2addr.<init>:()V
+000154: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LOr_long_2addr; 
+
+    #1              : (in LOr_long_2addr;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 9
+      ins           : 1
+      outs          : 3
+      insns size    : 20 16-bit code units
+00015c:                                        |[00015c] Or_long_2addr.main:([Ljava/lang/String;)V
+00016c: 1800 811a 99be 1c00 0000               |0000: const-wide v0, #double 0.000000 // #0000001cbe991a81
+000176: 1602 0200                              |0005: const-wide/16 v2, #int 2 // #2
+00017a: 1604 0000                              |0007: const-wide/16 v4, #int 0 // #0
+00017e: a104 0002                              |0009: or-long v4, v0, v2
+000182: 1606 0100                              |000b: const-wide/16 v6, #int 1 // #1
+000186: bb64                                   |000d: add-long/2addr v4, v6
+000188: 6206 0000                              |000e: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00018c: 6e30 0200 4605                         |0010: invoke-virtual {v6, v4, v5}, Ljava/io/PrintStream;.println:(J)V // method@0002
+000192: 0e00                                   |0013: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=10
+        0x0007 line=11
+        0x0009 line=13
+        0x000b line=14
+        0x000e line=16
+        0x0013 line=18
+      locals        : 
+        0x0005 - 0x0014 reg=0 a J 
+        0x0007 - 0x0014 reg=2 b J 
+        0x0009 - 0x0014 reg=4 c J 
+        0x0000 - 0x0014 reg=8 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 6 (Or_long_2addr.java)
+

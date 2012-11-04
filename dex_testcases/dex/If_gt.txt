@@ -1,0 +1,77 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/If_gt.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/If_gt.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 610 (0x000262)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'Lif_gt;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_gt;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] if_gt.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_gt; 
+
+    #1              : (in Lif_gt;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000160:                                        |[000160] if_gt.main:([Ljava/lang/String;)V
+000170: 1300 1500                              |0000: const/16 v0, #int 21 // #15
+000174: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000178: 3710 0a00                              |0004: if-le v0, v1, 000e // +000a
+00017c: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000180: 3710 0700                              |0008: if-le v0, v1, 000f // +0007
+000184: 1212                                   |000a: const/4 v2, #int 1 // #1
+000186: 6e20 0200 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00018c: 0e00                                   |000e: return-void
+00018e: 1202                                   |000f: const/4 v2, #int 0 // #0
+000190: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0004 line=13
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=15
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 14 (if_gt.java)
+

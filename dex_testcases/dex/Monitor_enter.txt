@@ -1,0 +1,274 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Monitor_enter.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Monitor_enter.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 0 (0x0000)
+superclass_idx      : 6
+interfaces_off      : 972 (0x0003cc)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 1503 (0x0005df)
+static_fields_size  : 0
+instance_fields_size: 1
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LMERunnable;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'Ljava/lang/Runnable;'
+  Static fields     -
+  Instance fields   -
+    #0              : (in LMERunnable;)
+      name          : 't1'
+      type          : 'Lmonitor_enter;'
+      access        : 0x0002 (PRIVATE)
+  Direct methods    -
+    #0              : (in LMERunnable;)
+      name          : '<init>'
+      type          : '(Lmonitor_enter;)V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 2
+      outs          : 1
+      insns size    : 6 16-bit code units
+000270:                                        |[000270] MERunnable.<init>:(Lmonitor_enter;)V
+000280: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+000286: 5b01 0000                              |0003: iput-object v1, v0, LMERunnable;.t1:Lmonitor_enter; // field@0000
+00028a: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=51
+        0x0003 line=52
+        0x0005 line=53
+      locals        : 
+        0x0000 - 0x0006 reg=0 this LMERunnable; 
+        0x0000 - 0x0006 reg=1 t1 Lmonitor_enter; 
+
+  Virtual methods   -
+    #0              : (in LMERunnable;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 6 16-bit code units
+00028c:                                        |[00028c] MERunnable.run:()V
+00029c: 5410 0000                              |0000: iget-object v0, v1, LMERunnable;.t1:Lmonitor_enter; // field@0000
+0002a0: 6e10 0c00 0000                         |0002: invoke-virtual {v0}, Lmonitor_enter;.run:()V // method@000c
+0002a6: 0e00                                   |0005: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=57
+        0x0005 line=59
+      locals        : 
+        0x0000 - 0x0006 reg=1 this LMERunnable; 
+
+  source_file_idx   : 14 (Monitor_enter.java)
+
+Class #1 header:
+class_idx           : 3
+access_flags        : 1 (0x0001)
+superclass_idx      : 6
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 1519 (0x0005ef)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LMonitor_enter;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMonitor_enter;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002a8:                                        |[0002a8] Monitor_enter.<init>:()V
+0002b8: 7010 0600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0006
+0002be: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMonitor_enter; 
+
+    #1              : (in LMonitor_enter;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 9
+      ins           : 1
+      outs          : 2
+      insns size    : 54 16-bit code units
+0002c0:                                        |[0002c0] Monitor_enter.main:([Ljava/lang/String;)V
+0002d0: 2203 0b00                              |0000: new-instance v3, Lmonitor_enter; // type@000b
+0002d4: 7010 0b00 0300                         |0002: invoke-direct {v3}, Lmonitor_enter;.<init>:()V // method@000b
+0002da: 2201 0200                              |0005: new-instance v1, LMERunnable; // type@0002
+0002de: 7020 0000 3100                         |0007: invoke-direct {v1, v3}, LMERunnable;.<init>:(Lmonitor_enter;)V // method@0000
+0002e4: 2202 0200                              |000a: new-instance v2, LMERunnable; // type@0002
+0002e8: 7020 0000 3200                         |000c: invoke-direct {v2, v3}, LMERunnable;.<init>:(Lmonitor_enter;)V // method@0000
+0002ee: 2204 0a00                              |000f: new-instance v4, Ljava/lang/Thread; // type@000a
+0002f2: 7020 0700 1400                         |0011: invoke-direct {v4, v1}, Ljava/lang/Thread;.<init>:(Ljava/lang/Runnable;)V // method@0007
+0002f8: 2205 0a00                              |0014: new-instance v5, Ljava/lang/Thread; // type@000a
+0002fc: 7020 0700 2500                         |0016: invoke-direct {v5, v2}, Ljava/lang/Thread;.<init>:(Ljava/lang/Runnable;)V // method@0007
+000302: 6e10 0a00 0400                         |0019: invoke-virtual {v4}, Ljava/lang/Thread;.start:()V // method@000a
+000308: 6e10 0a00 0500                         |001c: invoke-virtual {v5}, Ljava/lang/Thread;.start:()V // method@000a
+00030e: 6e10 0800 0400                         |001f: invoke-virtual {v4}, Ljava/lang/Thread;.join:()V // method@0008
+000314: 6e10 0800 0500                         |0022: invoke-virtual {v5}, Ljava/lang/Thread;.join:()V // method@0008
+00031a: 6206 0100                              |0025: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00031e: 5237 0200                              |0027: iget v7, v3, Lmonitor_enter;.counter:I // field@0002
+000322: 6e20 0400 7600                         |0029: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(I)V // method@0004
+000328: 0e00                                   |002c: return-void
+00032a: 0d00                                   |002d: move-exception v0
+00032c: 6206 0100                              |002e: sget-object v6, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000330: 1a07 0200                              |0030: const-string v7, "Interrupted" // string@0002
+000334: 6e20 0500 7600                         |0032: invoke-virtual {v6, v7}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0005
+00033a: 28f0                                   |0035: goto 0025 // -0010
+      catches       : 1
+        0x001f - 0x0025
+          Ljava/lang/InterruptedException; -> 0x002d
+      positions     : 
+        0x0000 line=10
+        0x0005 line=11
+        0x000a line=12
+        0x000f line=13
+        0x0014 line=14
+        0x0019 line=15
+        0x001c line=16
+        0x001f line=19
+        0x0022 line=20
+        0x0025 line=26
+        0x002c line=27
+        0x002d line=21
+        0x002e line=22
+      locals        : 
+        0x002e - 0x0036 reg=0 e Ljava/lang/InterruptedException; 
+        0x000a - 0x0036 reg=1 r1 Ljava/lang/Runnable; 
+        0x000f - 0x0036 reg=2 r2 Ljava/lang/Runnable; 
+        0x0005 - 0x0036 reg=3 t1 Lmonitor_enter; 
+        0x0014 - 0x0036 reg=4 tr1 Ljava/lang/Thread; 
+        0x0019 - 0x0036 reg=5 tr2 Ljava/lang/Thread; 
+        0x0000 - 0x0036 reg=8 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 14 (Monitor_enter.java)
+
+Class #2 header:
+class_idx           : 11
+access_flags        : 0 (0x0000)
+superclass_idx      : 6
+interfaces_off      : 972 (0x0003cc)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 1533 (0x0005fd)
+static_fields_size  : 0
+instance_fields_size: 1
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #2            -
+  Class descriptor  : 'Lmonitor_enter;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+    #0              : 'Ljava/lang/Runnable;'
+  Static fields     -
+  Instance fields   -
+    #0              : (in Lmonitor_enter;)
+      name          : 'counter'
+      type          : 'I'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in Lmonitor_enter;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 7 16-bit code units
+000348:                                        |[000348] monitor_enter.<init>:()V
+000358: 7010 0600 0100                         |0000: invoke-direct {v1}, Ljava/lang/Object;.<init>:()V // method@0006
+00035e: 1200                                   |0003: const/4 v0, #int 0 // #0
+000360: 5910 0200                              |0004: iput v0, v1, Lmonitor_enter;.counter:I // field@0002
+000364: 0e00                                   |0006: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=31
+        0x0003 line=32
+        0x0006 line=31
+      locals        : 
+        0x0000 - 0x0007 reg=1 this Lmonitor_enter; 
+
+  Virtual methods   -
+    #0              : (in Lmonitor_enter;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 26 16-bit code units
+000368:                                        |[000368] monitor_enter.run:()V
+000378: 1d04                                   |0000: monitor-enter v4
+00037a: 5240 0200                              |0001: iget v0, v4, Lmonitor_enter;.counter:I // field@0002
+00037e: 1602 f401                              |0003: const-wide/16 v2, #int 500 // #1f4
+000382: 7120 0900 3200                         |0005: invoke-static {v2, v3}, Ljava/lang/Thread;.sleep:(J)V // method@0009
+000388: d800 0001                              |0008: add-int/lit8 v0, v0, #int 1 // #01
+00038c: 5940 0200                              |000a: iput v0, v4, Lmonitor_enter;.counter:I // field@0002
+000390: 1e04                                   |000c: monitor-exit v4
+000392: 0e00                                   |000d: return-void
+000394: 0d01                                   |000e: move-exception v1
+000396: 6202 0100                              |000f: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00039a: 1a03 0200                              |0011: const-string v3, "Interrupted" // string@0002
+00039e: 6e20 0500 3200                         |0013: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0005
+0003a4: 28f2                                   |0016: goto 0008 // -000e
+0003a6: 0d02                                   |0017: move-exception v2
+0003a8: 1e04                                   |0018: monitor-exit v4
+0003aa: 2702                                   |0019: throw v2
+      catches       : 3
+        0x0001 - 0x0003
+          <any> -> 0x0017
+        0x0005 - 0x0008
+          Ljava/lang/InterruptedException; -> 0x000e
+          <any> -> 0x0017
+        0x000a - 0x0019
+          <any> -> 0x0017
+      positions     : 
+        0x0000 line=35
+        0x0001 line=36
+        0x0003 line=38
+        0x0008 line=43
+        0x000c line=35
+        0x000d line=45
+        0x000e line=39
+        0x000f line=40
+        0x0017 line=35
+      locals        : 
+        0x0003 - 0x0017 reg=0 a I 
+        0x000f - 0x0017 reg=1 e Ljava/lang/InterruptedException; 
+        0x0000 - 0x001a reg=4 this Lmonitor_enter; 
+
+  source_file_idx   : 14 (Monitor_enter.java)
+

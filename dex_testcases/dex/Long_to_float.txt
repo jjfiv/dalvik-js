@@ -1,0 +1,70 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Long_to_float.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Long_to_float.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 7
+annotations_off     : 0 (0x000000)
+class_data_off      : 612 (0x000264)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LLong_to_float;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LLong_to_float;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] Long_to_float.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LLong_to_float; 
+
+    #1              : (in LLong_to_float;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 12 16-bit code units
+000160:                                        |[000160] Long_to_float.main:([Ljava/lang/String;)V
+000170: 1800 79df 0d86 4870 0000               |0000: const-wide v0, #double 0.000000 // #00007048860ddf79
+00017a: 8502                                   |0005: long-to-float v2, v0
+00017c: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000180: 6e20 0200 2300                         |0008: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(F)V // method@0002
+000186: 0e00                                   |000b: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=10
+        0x0006 line=13
+        0x000b line=15
+      locals        : 
+        0x0005 - 0x000c reg=0 a J 
+        0x0006 - 0x000c reg=2 b F 
+        0x0000 - 0x000c reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 7 (Long_to_float.java)
+

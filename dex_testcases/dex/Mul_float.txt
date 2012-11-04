@@ -1,0 +1,73 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Mul_float.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Mul_float.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 6
+annotations_off     : 0 (0x000000)
+class_data_off      : 609 (0x000261)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LMul_float;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LMul_float;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000144:                                        |[000144] Mul_float.<init>:()V
+000154: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LMul_float; 
+
+    #1              : (in LMul_float;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 14 16-bit code units
+00015c:                                        |[00015c] Mul_float.main:([Ljava/lang/String;)V
+00016c: 1400 cdcc 2c40                         |0000: const v0, #float 2.700000 // #402ccccd
+000172: 1401 c3f5 4840                         |0003: const v1, #float 3.140000 // #4048f5c3
+000178: a802 0001                              |0006: mul-float v2, v0, v1
+00017c: 6203 0000                              |0008: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000180: 6e20 0200 2300                         |000a: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(F)V // method@0002
+000186: 0e00                                   |000d: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0003 line=10
+        0x0006 line=11
+        0x0008 line=13
+        0x000d line=15
+      locals        : 
+        0x0003 - 0x000e reg=0 x F 
+        0x0006 - 0x000e reg=1 y F 
+        0x0008 - 0x000e reg=2 z F 
+        0x0000 - 0x000e reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 6 (Mul_float.java)
+

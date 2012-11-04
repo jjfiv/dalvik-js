@@ -1,0 +1,71 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Neg_to_int.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Neg_to_int.dex', DEX version '035'
+Class #0 header:
+class_idx           : 4
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 14
+annotations_off     : 0 (0x000000)
+class_data_off      : 591 (0x00024f)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'Lneg_to_int;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lneg_to_int;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000140:                                        |[000140] neg_to_int.<init>:()V
+000150: 7010 0100 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0001
+000156: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lneg_to_int; 
+
+    #1              : (in Lneg_to_int;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 9 16-bit code units
+000158:                                        |[000158] neg_to_int.main:([Ljava/lang/String;)V
+000168: 1210                                   |0000: const/4 v0, #int 1 // #1
+00016a: 0101                                   |0001: move v1, v0
+00016c: 6202 0000                              |0002: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000170: 7b13                                   |0004: neg-int v3, v1
+000172: 6e20 0000 3200                         |0005: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(I)V // method@0000
+000178: 0e00                                   |0008: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0001 line=11
+        0x0002 line=14
+        0x0008 line=16
+      locals        : 
+        0x0001 - 0x0009 reg=0 a I 
+        0x0002 - 0x0009 reg=1 b I 
+        0x0000 - 0x0009 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 14 (neg_to_int.java)
+

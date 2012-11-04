@@ -1,0 +1,71 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Iput_short.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Iput_short.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 15
+annotations_off     : 0 (0x000000)
+class_data_off      : 678 (0x0002a6)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'Liput_short;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_short;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000170:                                        |[000170] iput_short.<init>:()V
+000180: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+000186: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_short; 
+
+    #1              : (in Liput_short;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000188:                                        |[000188] iput_short.main:([Ljava/lang/String;)V
+000198: 2200 0100                              |0000: new-instance v0, LSetter_ishort; // type@0001
+00019c: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_ishort;.<init>:()V // method@0000
+0001a2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001a6: 1302 4d00                              |0007: const/16 v2, #int 77 // #4d
+0001aa: 6e20 0100 2000                         |0009: invoke-virtual {v0, v2}, LSetter_ishort;.i_set:(I)S // method@0001
+0001b0: 0a02                                   |000c: move-result v2
+0001b2: 6e20 0400 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0004
+0001b8: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0010 line=13
+      locals        : 
+        0x0005 - 0x0011 reg=0 t LSetter_ishort; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 15 (iput_short.java)
+

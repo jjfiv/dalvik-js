@@ -1,0 +1,2199 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/If_ne.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/If_ne.dex', DEX version '035'
+Class #0 header:
+class_idx           : 14
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 10
+annotations_off     : 0 (0x000000)
+class_data_off      : 7175 (0x001c07)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LIf_eq;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LIf_eq;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000ba4:                                        |[000ba4] If_eq.<init>:()V
+000bb4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000bba: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LIf_eq; 
+
+    #1              : (in LIf_eq;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000bbc:                                        |[000bbc] If_eq.main:([Ljava/lang/String;)V
+000bcc: 1300 1400                              |0000: const/16 v0, #int 20 // #14
+000bd0: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000bd4: 3310 0a00                              |0004: if-ne v0, v1, 000e // +000a
+000bd8: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000bdc: 3310 0700                              |0008: if-ne v0, v1, 000f // +0007
+000be0: 1212                                   |000a: const/4 v2, #int 1 // #1
+000be2: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000be8: 0e00                                   |000e: return-void
+000bea: 1202                                   |000f: const/4 v2, #int 0 // #0
+000bec: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0002 line=10
+        0x0004 line=12
+        0x0006 line=14
+        0x000e line=16
+        0x000f line=14
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 10 (If_eq.java)
+
+Class #1 header:
+class_idx           : 22
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 87
+annotations_off     : 0 (0x000000)
+class_data_off      : 7189 (0x001c15)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lif_ge;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_ge;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000bf0:                                        |[000bf0] if_ge.<init>:()V
+000c00: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000c06: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_ge; 
+
+    #1              : (in Lif_ge;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000c08:                                        |[000c08] if_ge.main:([Ljava/lang/String;)V
+000c18: 1300 1500                              |0000: const/16 v0, #int 21 // #15
+000c1c: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000c20: 3410 0a00                              |0004: if-lt v0, v1, 000e // +000a
+000c24: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000c28: 3410 0700                              |0008: if-lt v0, v1, 000f // +0007
+000c2c: 1212                                   |000a: const/4 v2, #int 1 // #1
+000c2e: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000c34: 0e00                                   |000e: return-void
+000c36: 1202                                   |000f: const/4 v2, #int 0 // #0
+000c38: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0002 line=10
+        0x0004 line=12
+        0x0006 line=14
+        0x000e line=16
+        0x000f line=14
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 87 (if_ge.java)
+
+Class #2 header:
+class_idx           : 23
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 88
+annotations_off     : 0 (0x000000)
+class_data_off      : 7203 (0x001c23)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #2            -
+  Class descriptor  : 'Lif_gt;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_gt;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000c3c:                                        |[000c3c] if_gt.<init>:()V
+000c4c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000c52: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_gt; 
+
+    #1              : (in Lif_gt;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000c54:                                        |[000c54] if_gt.main:([Ljava/lang/String;)V
+000c64: 1300 1500                              |0000: const/16 v0, #int 21 // #15
+000c68: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000c6c: 3710 0a00                              |0004: if-le v0, v1, 000e // +000a
+000c70: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000c74: 3710 0700                              |0008: if-le v0, v1, 000f // +0007
+000c78: 1212                                   |000a: const/4 v2, #int 1 // #1
+000c7a: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000c80: 0e00                                   |000e: return-void
+000c82: 1202                                   |000f: const/4 v2, #int 0 // #0
+000c84: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0004 line=13
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=15
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 88 (if_gt.java)
+
+Class #3 header:
+class_idx           : 24
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 89
+annotations_off     : 0 (0x000000)
+class_data_off      : 7217 (0x001c31)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #3            -
+  Class descriptor  : 'Lif_le;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_le;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000c88:                                        |[000c88] if_le.<init>:()V
+000c98: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000c9e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_le; 
+
+    #1              : (in Lif_le;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000ca0:                                        |[000ca0] if_le.main:([Ljava/lang/String;)V
+000cb0: 1300 1300                              |0000: const/16 v0, #int 19 // #13
+000cb4: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000cb8: 3610 0a00                              |0004: if-gt v0, v1, 000e // +000a
+000cbc: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000cc0: 3610 0700                              |0008: if-gt v0, v1, 000f // +0007
+000cc4: 1212                                   |000a: const/4 v2, #int 1 // #1
+000cc6: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000ccc: 0e00                                   |000e: return-void
+000cce: 1202                                   |000f: const/4 v2, #int 0 // #0
+000cd0: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0004 line=13
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=15
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 89 (if_le.java)
+
+Class #4 header:
+class_idx           : 25
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 90
+annotations_off     : 0 (0x000000)
+class_data_off      : 7231 (0x001c3f)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #4            -
+  Class descriptor  : 'Lif_lt;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_lt;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000cd4:                                        |[000cd4] if_lt.<init>:()V
+000ce4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000cea: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_lt; 
+
+    #1              : (in Lif_lt;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000cec:                                        |[000cec] if_lt.main:([Ljava/lang/String;)V
+000cfc: 1300 1300                              |0000: const/16 v0, #int 19 // #13
+000d00: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000d04: 3510 0a00                              |0004: if-ge v0, v1, 000e // +000a
+000d08: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000d0c: 3510 0700                              |0008: if-ge v0, v1, 000f // +0007
+000d10: 1212                                   |000a: const/4 v2, #int 1 // #1
+000d12: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000d18: 0e00                                   |000e: return-void
+000d1a: 1202                                   |000f: const/4 v2, #int 0 // #0
+000d1c: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0004 line=13
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=15
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 90 (if_lt.java)
+
+Class #5 header:
+class_idx           : 26
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 91
+annotations_off     : 0 (0x000000)
+class_data_off      : 7245 (0x001c4d)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #5            -
+  Class descriptor  : 'Lif_ne;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lif_ne;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000d20:                                        |[000d20] if_ne.<init>:()V
+000d30: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000d36: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lif_ne; 
+
+    #1              : (in Lif_ne;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000d38:                                        |[000d38] if_ne.main:([Ljava/lang/String;)V
+000d48: 1300 1300                              |0000: const/16 v0, #int 19 // #13
+000d4c: 1301 1400                              |0002: const/16 v1, #int 20 // #14
+000d50: 3210 0a00                              |0004: if-eq v0, v1, 000e // +000a
+000d54: 6203 0000                              |0006: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000d58: 3510 0700                              |0008: if-ge v0, v1, 000f // +0007
+000d5c: 1212                                   |000a: const/4 v2, #int 1 // #1
+000d5e: 6e20 6500 2300                         |000b: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000d64: 0e00                                   |000e: return-void
+000d66: 1202                                   |000f: const/4 v2, #int 0 // #0
+000d68: 28fb                                   |0010: goto 000b // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0002 line=11
+        0x0004 line=13
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=15
+      locals        : 
+        0x0002 - 0x0011 reg=0 a I 
+        0x0004 - 0x0011 reg=1 b I 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 91 (if_ne.java)
+
+Class #6 header:
+class_idx           : 27
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 92
+annotations_off     : 0 (0x000000)
+class_data_off      : 7259 (0x001c5b)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #6            -
+  Class descriptor  : 'Liget;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000d6c:                                        |[000d6c] iget.<init>:()V
+000d7c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000d82: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget; 
+
+    #1              : (in Liget;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000d84:                                        |[000d84] iget.main:([Ljava/lang/String;)V
+000d94: 2200 0500                              |0000: new-instance v0, LGetter_i; // type@0005
+000d98: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_i;.<init>:()V // method@0000
+000d9e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000da2: 6e10 0100 0000                         |0007: invoke-virtual {v0}, LGetter_i;.i_get:()I // method@0001
+000da8: 0a02                                   |000a: move-result v2
+000daa: 6e20 6200 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+000db0: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000e line=14
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_i; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 92 (iget.java)
+
+Class #7 header:
+class_idx           : 28
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 93
+annotations_off     : 0 (0x000000)
+class_data_off      : 7273 (0x001c69)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #7            -
+  Class descriptor  : 'Liget_boolean;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_boolean;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000db4:                                        |[000db4] iget_boolean.<init>:()V
+000dc4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000dca: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_boolean; 
+
+    #1              : (in Liget_boolean;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000dcc:                                        |[000dcc] iget_boolean.main:([Ljava/lang/String;)V
+000ddc: 2200 0600                              |0000: new-instance v0, LGetter_ibool; // type@0006
+000de0: 7010 0200 0000                         |0002: invoke-direct {v0}, LGetter_ibool;.<init>:()V // method@0002
+000de6: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000dea: 6e10 0300 0000                         |0007: invoke-virtual {v0}, LGetter_ibool;.i_get:()Z // method@0003
+000df0: 0a02                                   |000a: move-result v2
+000df2: 6e20 6500 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000df8: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ibool; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 93 (iget_boolean.java)
+
+Class #8 header:
+class_idx           : 29
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 94
+annotations_off     : 0 (0x000000)
+class_data_off      : 7287 (0x001c77)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #8            -
+  Class descriptor  : 'Liget_byte;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_byte;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000dfc:                                        |[000dfc] iget_byte.<init>:()V
+000e0c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000e12: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_byte; 
+
+    #1              : (in Liget_byte;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000e14:                                        |[000e14] iget_byte.main:([Ljava/lang/String;)V
+000e24: 2200 0700                              |0000: new-instance v0, LGetter_ibyte; // type@0007
+000e28: 7010 0400 0000                         |0002: invoke-direct {v0}, LGetter_ibyte;.<init>:()V // method@0004
+000e2e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000e32: 6e10 0500 0000                         |0007: invoke-virtual {v0}, LGetter_ibyte;.i_get:()B // method@0005
+000e38: 0a02                                   |000a: move-result v2
+000e3a: 6e20 6200 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+000e40: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ibyte; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 94 (iget_byte.java)
+
+Class #9 header:
+class_idx           : 30
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 95
+annotations_off     : 0 (0x000000)
+class_data_off      : 7301 (0x001c85)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #9            -
+  Class descriptor  : 'Liget_char;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000e44:                                        |[000e44] iget_char.<init>:()V
+000e54: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000e5a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_char; 
+
+    #1              : (in Liget_char;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000e5c:                                        |[000e5c] iget_char.main:([Ljava/lang/String;)V
+000e6c: 2200 0800                              |0000: new-instance v0, LGetter_ichar; // type@0008
+000e70: 7010 0600 0000                         |0002: invoke-direct {v0}, LGetter_ichar;.<init>:()V // method@0006
+000e76: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000e7a: 6e10 0700 0000                         |0007: invoke-virtual {v0}, LGetter_ichar;.i_get:()C // method@0007
+000e80: 0a02                                   |000a: move-result v2
+000e82: 6e20 6000 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0060
+000e88: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ichar; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 95 (iget_char.java)
+
+Class #10 header:
+class_idx           : 31
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 96
+annotations_off     : 0 (0x000000)
+class_data_off      : 7315 (0x001c93)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #10            -
+  Class descriptor  : 'Liget_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000e8c:                                        |[000e8c] iget_long.<init>:()V
+000e9c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000ea2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_long; 
+
+    #1              : (in Liget_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 15 16-bit code units
+000ea4:                                        |[000ea4] iget_long.main:([Ljava/lang/String;)V
+000eb4: 2200 0900                              |0000: new-instance v0, LGetter_ilong; // type@0009
+000eb8: 7010 0800 0000                         |0002: invoke-direct {v0}, LGetter_ilong;.<init>:()V // method@0008
+000ebe: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000ec2: 6e10 0900 0000                         |0007: invoke-virtual {v0}, LGetter_ilong;.i_get:()J // method@0009
+000ec8: 0b02                                   |000a: move-result-wide v2
+000eca: 6e30 6300 2103                         |000b: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0063
+000ed0: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ilong; 
+        0x0000 - 0x000f reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 96 (iget_long.java)
+
+Class #11 header:
+class_idx           : 32
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 97
+annotations_off     : 0 (0x000000)
+class_data_off      : 7329 (0x001ca1)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #11            -
+  Class descriptor  : 'Liget_object;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_object;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000ed4:                                        |[000ed4] iget_object.<init>:()V
+000ee4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000eea: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_object; 
+
+    #1              : (in Liget_object;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000eec:                                        |[000eec] iget_object.main:([Ljava/lang/String;)V
+000efc: 2200 0a00                              |0000: new-instance v0, LGetter_iobject; // type@000a
+000f00: 7010 0a00 0000                         |0002: invoke-direct {v0}, LGetter_iobject;.<init>:()V // method@000a
+000f06: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000f0a: 6e10 0b00 0000                         |0007: invoke-virtual {v0}, LGetter_iobject;.i_get:()Ljava/lang/Object; // method@000b
+000f10: 0c02                                   |000a: move-result-object v2
+000f12: 6e20 6400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0064
+000f18: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_iobject; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 97 (iget_object.java)
+
+Class #12 header:
+class_idx           : 33
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 98
+annotations_off     : 0 (0x000000)
+class_data_off      : 7343 (0x001caf)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #12            -
+  Class descriptor  : 'Liget_short;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_short;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000f1c:                                        |[000f1c] iget_short.<init>:()V
+000f2c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000f32: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_short; 
+
+    #1              : (in Liget_short;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+000f34:                                        |[000f34] iget_short.main:([Ljava/lang/String;)V
+000f44: 2200 0b00                              |0000: new-instance v0, LGetter_ishort; // type@000b
+000f48: 7010 0c00 0000                         |0002: invoke-direct {v0}, LGetter_ishort;.<init>:()V // method@000c
+000f4e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000f52: 6e10 0d00 0000                         |0007: invoke-virtual {v0}, LGetter_ishort;.i_get:()S // method@000d
+000f58: 0a02                                   |000a: move-result v2
+000f5a: 6e20 6200 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+000f60: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_ishort; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 98 (iget_short.java)
+
+Class #13 header:
+class_idx           : 34
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 99
+annotations_off     : 0 (0x000000)
+class_data_off      : 7357 (0x001cbd)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #13            -
+  Class descriptor  : 'Liget_wide;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liget_wide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000f64:                                        |[000f64] iget_wide.<init>:()V
+000f74: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000f7a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liget_wide; 
+
+    #1              : (in Liget_wide;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 15 16-bit code units
+000f7c:                                        |[000f7c] iget_wide.main:([Ljava/lang/String;)V
+000f8c: 2200 0c00                              |0000: new-instance v0, LGetter_iwide; // type@000c
+000f90: 7010 0e00 0000                         |0002: invoke-direct {v0}, LGetter_iwide;.<init>:()V // method@000e
+000f96: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000f9a: 6e10 0f00 0000                         |0007: invoke-virtual {v0}, LGetter_iwide;.i_get:()J // method@000f
+000fa0: 0b02                                   |000a: move-result-wide v2
+000fa2: 6e30 6300 2103                         |000b: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0063
+000fa8: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_iwide; 
+        0x0000 - 0x000f reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 99 (iget_wide.java)
+
+Class #14 header:
+class_idx           : 35
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 101
+annotations_off     : 0 (0x000000)
+class_data_off      : 7371 (0x001ccb)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #14            -
+  Class descriptor  : 'Linstance_of;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Linstance_of;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000fac:                                        |[000fac] instance_of.<init>:()V
+000fbc: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+000fc2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Linstance_of; 
+
+    #1              : (in Linstance_of;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+000fc4:                                        |[000fc4] instance_of.main:([Ljava/lang/String;)V
+000fd4: 2201 0d00                              |0000: new-instance v1, LGetter_of; // type@000d
+000fd8: 7010 1000 0100                         |0002: invoke-direct {v1}, LGetter_of;.<init>:()V // method@0010
+000fde: 1a00 0000                              |0005: const-string v0, "" // string@0000
+000fe2: 6202 0000                              |0007: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000fe6: 6e20 1100 0100                         |0009: invoke-virtual {v1, v0}, LGetter_of;.instan:(Ljava/lang/Object;)Z // method@0011
+000fec: 0a03                                   |000c: move-result v3
+000fee: 6e20 6500 3200                         |000d: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+000ff4: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=9
+        0x0007 line=12
+        0x0010 line=14
+      locals        : 
+        0x0007 - 0x0011 reg=0 s Ljava/lang/String; 
+        0x0005 - 0x0011 reg=1 t LGetter_of; 
+        0x0000 - 0x0011 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 101 (instance_of.java)
+
+Class #15 header:
+class_idx           : 36
+access_flags        : 0 (0x0000)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 102
+annotations_off     : 0 (0x000000)
+class_data_off      : 7385 (0x001cd9)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #15            -
+  Class descriptor  : 'Lint2byte;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2byte;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000ff8:                                        |[000ff8] int2byte.<init>:()V
+001008: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+00100e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2byte; 
+
+  Virtual methods   -
+    #0              : (in Lint2byte;)
+      name          : 'i2b'
+      type          : '(I)B'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+001010:                                        |[001010] int2byte.i2b:(I)B
+001020: 8d20                                   |0000: int-to-byte v0, v2
+001022: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=1 this Lint2byte; 
+        0x0000 - 0x0002 reg=2 a I 
+
+  source_file_idx   : 102 (int_to_byte.java)
+
+Class #16 header:
+class_idx           : 37
+access_flags        : 0 (0x0000)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 103
+annotations_off     : 0 (0x000000)
+class_data_off      : 7399 (0x001ce7)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #16            -
+  Class descriptor  : 'Lint2char;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001024:                                        |[001024] int2char.<init>:()V
+001034: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+00103a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2char; 
+
+  Virtual methods   -
+    #0              : (in Lint2char;)
+      name          : 'i2c'
+      type          : '(I)C'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+00103c:                                        |[00103c] int2char.i2c:(I)C
+00104c: 8e20                                   |0000: int-to-char v0, v2
+00104e: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=1 this Lint2char; 
+        0x0000 - 0x0002 reg=2 a I 
+
+  source_file_idx   : 103 (int_to_char.java)
+
+Class #17 header:
+class_idx           : 38
+access_flags        : 0 (0x0000)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 104
+annotations_off     : 0 (0x000000)
+class_data_off      : 7413 (0x001cf5)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #17            -
+  Class descriptor  : 'Lint2double;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2double;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001050:                                        |[001050] int2double.<init>:()V
+001060: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001066: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2double; 
+
+  Virtual methods   -
+    #0              : (in Lint2double;)
+      name          : 'i2c'
+      type          : '(I)D'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+001068:                                        |[001068] int2double.i2c:(I)D
+001078: 8330                                   |0000: int-to-double v0, v3
+00107a: 1000                                   |0001: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=2 this Lint2double; 
+        0x0000 - 0x0002 reg=3 a I 
+
+  source_file_idx   : 104 (int_to_double.java)
+
+Class #18 header:
+class_idx           : 39
+access_flags        : 0 (0x0000)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 105
+annotations_off     : 0 (0x000000)
+class_data_off      : 7427 (0x001d03)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #18            -
+  Class descriptor  : 'Lint2long;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00107c:                                        |[00107c] int2long.<init>:()V
+00108c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001092: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2long; 
+
+  Virtual methods   -
+    #0              : (in Lint2long;)
+      name          : 'i2c'
+      type          : '(I)J'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+001094:                                        |[001094] int2long.i2c:(I)J
+0010a4: 8130                                   |0000: int-to-long v0, v3
+0010a6: 1000                                   |0001: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=2 this Lint2long; 
+        0x0000 - 0x0002 reg=3 a I 
+
+  source_file_idx   : 105 (int_to_long.java)
+
+Class #19 header:
+class_idx           : 40
+access_flags        : 0 (0x0000)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 106
+annotations_off     : 0 (0x000000)
+class_data_off      : 7441 (0x001d11)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #19            -
+  Class descriptor  : 'Lint2short;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2short;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0010a8:                                        |[0010a8] int2short.<init>:()V
+0010b8: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0010be: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2short; 
+
+  Virtual methods   -
+    #0              : (in Lint2short;)
+      name          : 'i2c'
+      type          : '(I)S'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+0010c0:                                        |[0010c0] int2short.i2c:(I)S
+0010d0: 8f20                                   |0000: int-to-short v0, v2
+0010d2: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0002 reg=1 this Lint2short; 
+        0x0000 - 0x0002 reg=2 a I 
+
+  source_file_idx   : 106 (int_to_short.java)
+
+Class #20 header:
+class_idx           : 41
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 102
+annotations_off     : 0 (0x000000)
+class_data_off      : 7455 (0x001d1f)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #20            -
+  Class descriptor  : 'Lint_to_byte;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint_to_byte;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0010d4:                                        |[0010d4] int_to_byte.<init>:()V
+0010e4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0010ea: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint_to_byte; 
+
+    #1              : (in Lint_to_byte;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+0010ec:                                        |[0010ec] int_to_byte.main:([Ljava/lang/String;)V
+0010fc: 2200 2400                              |0000: new-instance v0, Lint2byte; // type@0024
+001100: 7010 3e00 0000                         |0002: invoke-direct {v0}, Lint2byte;.<init>:()V // method@003e
+001106: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00110a: 1212                                   |0007: const/4 v2, #int 1 // #1
+00110c: 6e20 3f00 2000                         |0008: invoke-virtual {v0, v2}, Lint2byte;.i2b:(I)B // method@003f
+001112: 0a02                                   |000b: move-result v2
+001114: 6e20 6200 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+00111a: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000f line=14
+      locals        : 
+        0x0005 - 0x0010 reg=0 t Lint2byte; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 102 (int_to_byte.java)
+
+Class #21 header:
+class_idx           : 42
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 103
+annotations_off     : 0 (0x000000)
+class_data_off      : 7469 (0x001d2d)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #21            -
+  Class descriptor  : 'Lint_to_char;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint_to_char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00111c:                                        |[00111c] int_to_char.<init>:()V
+00112c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001132: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint_to_char; 
+
+    #1              : (in Lint_to_char;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+001134:                                        |[001134] int_to_char.main:([Ljava/lang/String;)V
+001144: 2200 2500                              |0000: new-instance v0, Lint2char; // type@0025
+001148: 7010 4000 0000                         |0002: invoke-direct {v0}, Lint2char;.<init>:()V // method@0040
+00114e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+001152: 1302 4100                              |0007: const/16 v2, #int 65 // #41
+001156: 6e20 4100 2000                         |0009: invoke-virtual {v0, v2}, Lint2char;.i2c:(I)C // method@0041
+00115c: 0a02                                   |000c: move-result v2
+00115e: 6e20 6000 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0060
+001164: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x0010 line=14
+      locals        : 
+        0x0005 - 0x0011 reg=0 t Lint2char; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 103 (int_to_char.java)
+
+Class #22 header:
+class_idx           : 43
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 104
+annotations_off     : 0 (0x000000)
+class_data_off      : 7483 (0x001d3b)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #22            -
+  Class descriptor  : 'Lint_to_double;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint_to_double;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001168:                                        |[001168] int_to_double.<init>:()V
+001178: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+00117e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint_to_double; 
+
+    #1              : (in Lint_to_double;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 16 16-bit code units
+001180:                                        |[001180] int_to_double.main:([Ljava/lang/String;)V
+001190: 2200 2600                              |0000: new-instance v0, Lint2double; // type@0026
+001194: 7010 4200 0000                         |0002: invoke-direct {v0}, Lint2double;.<init>:()V // method@0042
+00119a: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00119e: 1212                                   |0007: const/4 v2, #int 1 // #1
+0011a0: 6e20 4300 2000                         |0008: invoke-virtual {v0, v2}, Lint2double;.i2c:(I)D // method@0043
+0011a6: 0b02                                   |000b: move-result-wide v2
+0011a8: 6e30 6100 2103                         |000c: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(D)V // method@0061
+0011ae: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000f line=14
+      locals        : 
+        0x0005 - 0x0010 reg=0 t Lint2double; 
+        0x0000 - 0x0010 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 104 (int_to_double.java)
+
+Class #23 header:
+class_idx           : 44
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 105
+annotations_off     : 0 (0x000000)
+class_data_off      : 7497 (0x001d49)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #23            -
+  Class descriptor  : 'Lint_to_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint_to_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0011b0:                                        |[0011b0] int_to_long.<init>:()V
+0011c0: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0011c6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint_to_long; 
+
+    #1              : (in Lint_to_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 18 16-bit code units
+0011c8:                                        |[0011c8] int_to_long.main:([Ljava/lang/String;)V
+0011d8: 2200 2700                              |0000: new-instance v0, Lint2long; // type@0027
+0011dc: 7010 4400 0000                         |0002: invoke-direct {v0}, Lint2long;.<init>:()V // method@0044
+0011e2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0011e6: 1402 40e2 0100                         |0007: const v2, #float 0.000000 // #0001e240
+0011ec: 6e20 4500 2000                         |000a: invoke-virtual {v0, v2}, Lint2long;.i2c:(I)J // method@0045
+0011f2: 0b02                                   |000d: move-result-wide v2
+0011f4: 6e30 6300 2103                         |000e: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0063
+0011fa: 0e00                                   |0011: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x0011 line=14
+      locals        : 
+        0x0005 - 0x0012 reg=0 t Lint2long; 
+        0x0000 - 0x0012 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 105 (int_to_long.java)
+
+Class #24 header:
+class_idx           : 45
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 106
+annotations_off     : 0 (0x000000)
+class_data_off      : 7511 (0x001d57)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #24            -
+  Class descriptor  : 'Lint_to_short;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint_to_short;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0011fc:                                        |[0011fc] int_to_short.<init>:()V
+00120c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001212: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint_to_short; 
+
+    #1              : (in Lint_to_short;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+001214:                                        |[001214] int_to_short.main:([Ljava/lang/String;)V
+001224: 2200 2800                              |0000: new-instance v0, Lint2short; // type@0028
+001228: 7010 4600 0000                         |0002: invoke-direct {v0}, Lint2short;.<init>:()V // method@0046
+00122e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+001232: 1212                                   |0007: const/4 v2, #int 1 // #1
+001234: 6e20 4700 2000                         |0008: invoke-virtual {v0, v2}, Lint2short;.i2c:(I)S // method@0047
+00123a: 0a02                                   |000b: move-result v2
+00123c: 6e20 6200 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+001242: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000f line=13
+      locals        : 
+        0x0005 - 0x0010 reg=0 t Lint2short; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 106 (int_to_short.java)
+
+Class #25 header:
+class_idx           : 46
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 107
+annotations_off     : 0 (0x000000)
+class_data_off      : 7525 (0x001d65)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #25            -
+  Class descriptor  : 'Liput;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001244:                                        |[001244] iput.<init>:()V
+001254: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+00125a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput; 
+
+    #1              : (in Liput;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+00125c:                                        |[00125c] iput.main:([Ljava/lang/String;)V
+00126c: 2200 0f00                              |0000: new-instance v0, LSetter_i; // type@000f
+001270: 7010 1400 0000                         |0002: invoke-direct {v0}, LSetter_i;.<init>:()V // method@0014
+001276: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00127a: 1212                                   |0007: const/4 v2, #int 1 // #1
+00127c: 6e20 1500 2000                         |0008: invoke-virtual {v0, v2}, LSetter_i;.i_set:(I)I // method@0015
+001282: 0a02                                   |000b: move-result v2
+001284: 6e20 6200 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+00128a: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000f line=14
+      locals        : 
+        0x0005 - 0x0010 reg=0 t LSetter_i; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 107 (iput.java)
+
+Class #26 header:
+class_idx           : 47
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 108
+annotations_off     : 0 (0x000000)
+class_data_off      : 7539 (0x001d73)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #26            -
+  Class descriptor  : 'Liput_boolean;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_boolean;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00128c:                                        |[00128c] iput_boolean.<init>:()V
+00129c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0012a2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_boolean; 
+
+    #1              : (in Liput_boolean;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+0012a4:                                        |[0012a4] iput_boolean.main:([Ljava/lang/String;)V
+0012b4: 2200 1000                              |0000: new-instance v0, LSetter_ibool; // type@0010
+0012b8: 7010 1600 0000                         |0002: invoke-direct {v0}, LSetter_ibool;.<init>:()V // method@0016
+0012be: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0012c2: 1212                                   |0007: const/4 v2, #int 1 // #1
+0012c4: 6e20 1700 2000                         |0008: invoke-virtual {v0, v2}, LSetter_ibool;.i_set:(Z)Z // method@0017
+0012ca: 0a02                                   |000b: move-result v2
+0012cc: 6e20 6500 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0065
+0012d2: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000f line=13
+      locals        : 
+        0x0005 - 0x0010 reg=0 t LSetter_ibool; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 108 (iput_boolean.java)
+
+Class #27 header:
+class_idx           : 48
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 109
+annotations_off     : 0 (0x000000)
+class_data_off      : 7553 (0x001d81)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #27            -
+  Class descriptor  : 'Liput_byte;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_byte;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0012d4:                                        |[0012d4] iput_byte.<init>:()V
+0012e4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0012ea: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_byte; 
+
+    #1              : (in Liput_byte;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+0012ec:                                        |[0012ec] iput_byte.main:([Ljava/lang/String;)V
+0012fc: 2200 1100                              |0000: new-instance v0, LSetter_ibyte; // type@0011
+001300: 7010 1800 0000                         |0002: invoke-direct {v0}, LSetter_ibyte;.<init>:()V // method@0018
+001306: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00130a: 1302 4d00                              |0007: const/16 v2, #int 77 // #4d
+00130e: 6e20 1900 2000                         |0009: invoke-virtual {v0, v2}, LSetter_ibyte;.i_set:(I)B // method@0019
+001314: 0a02                                   |000c: move-result v2
+001316: 6e20 6200 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+00131c: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0010 line=13
+      locals        : 
+        0x0005 - 0x0011 reg=0 t LSetter_ibyte; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 109 (iput_byte.java)
+
+Class #28 header:
+class_idx           : 49
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 110
+annotations_off     : 0 (0x000000)
+class_data_off      : 7567 (0x001d8f)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #28            -
+  Class descriptor  : 'Liput_char;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001320:                                        |[001320] iput_char.<init>:()V
+001330: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001336: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_char; 
+
+    #1              : (in Liput_char;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+001338:                                        |[001338] iput_char.main:([Ljava/lang/String;)V
+001348: 2200 1200                              |0000: new-instance v0, LSetter_ichar; // type@0012
+00134c: 7010 1a00 0000                         |0002: invoke-direct {v0}, LSetter_ichar;.<init>:()V // method@001a
+001352: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+001356: 1302 4100                              |0007: const/16 v2, #int 65 // #41
+00135a: 6e20 1b00 2000                         |0009: invoke-virtual {v0, v2}, LSetter_ichar;.i_set:(I)C // method@001b
+001360: 0a02                                   |000c: move-result v2
+001362: 6e20 6000 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0060
+001368: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0010 line=13
+      locals        : 
+        0x0005 - 0x0011 reg=0 t LSetter_ichar; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 110 (iput_char.java)
+
+Class #29 header:
+class_idx           : 50
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 111
+annotations_off     : 0 (0x000000)
+class_data_off      : 7581 (0x001d9d)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #29            -
+  Class descriptor  : 'Liput_object;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_object;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00136c:                                        |[00136c] iput_object.<init>:()V
+00137c: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001382: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_object; 
+
+    #1              : (in Liput_object;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+001384:                                        |[001384] iput_object.main:([Ljava/lang/String;)V
+001394: 2200 1300                              |0000: new-instance v0, LSetter_iobject; // type@0013
+001398: 7010 1c00 0000                         |0002: invoke-direct {v0}, LSetter_iobject;.<init>:()V // method@001c
+00139e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0013a2: 6e10 1d00 0000                         |0007: invoke-virtual {v0}, LSetter_iobject;.i_set:()Ljava/lang/Object; // method@001d
+0013a8: 0c02                                   |000a: move-result-object v2
+0013aa: 6e20 6400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0064
+0013b0: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LSetter_iobject; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 111 (iput_object.java)
+
+Class #30 header:
+class_idx           : 51
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 112
+annotations_off     : 0 (0x000000)
+class_data_off      : 7595 (0x001dab)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #30            -
+  Class descriptor  : 'Liput_short;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_short;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0013b4:                                        |[0013b4] iput_short.<init>:()V
+0013c4: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+0013ca: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_short; 
+
+    #1              : (in Liput_short;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+0013cc:                                        |[0013cc] iput_short.main:([Ljava/lang/String;)V
+0013dc: 2200 1400                              |0000: new-instance v0, LSetter_ishort; // type@0014
+0013e0: 7010 1e00 0000                         |0002: invoke-direct {v0}, LSetter_ishort;.<init>:()V // method@001e
+0013e6: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0013ea: 1302 4d00                              |0007: const/16 v2, #int 77 // #4d
+0013ee: 6e20 1f00 2000                         |0009: invoke-virtual {v0, v2}, LSetter_ishort;.i_set:(I)S // method@001f
+0013f4: 0a02                                   |000c: move-result v2
+0013f6: 6e20 6200 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0062
+0013fc: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0010 line=13
+      locals        : 
+        0x0005 - 0x0011 reg=0 t LSetter_ishort; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 112 (iput_short.java)
+
+Class #31 header:
+class_idx           : 52
+access_flags        : 1 (0x0001)
+superclass_idx      : 54
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 113
+annotations_off     : 0 (0x000000)
+class_data_off      : 7609 (0x001db9)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #31            -
+  Class descriptor  : 'Liput_wide;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Liput_wide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+001400:                                        |[001400] iput_wide.<init>:()V
+001410: 7010 6600 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0066
+001416: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Liput_wide; 
+
+    #1              : (in Liput_wide;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 20 16-bit code units
+001418:                                        |[001418] iput_wide.main:([Ljava/lang/String;)V
+001428: 2200 1500                              |0000: new-instance v0, LSetter_iwide; // type@0015
+00142c: 7010 2000 0000                         |0002: invoke-direct {v0}, LSetter_iwide;.<init>:()V // method@0020
+001432: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+001436: 1802 2941 015a b500 0000               |0007: const-wide v2, #double 0.000000 // #000000b55a014129
+001440: 6e30 2100 2003                         |000c: invoke-virtual {v0, v2, v3}, LSetter_iwide;.i_set:(J)J // method@0021
+001446: 0b02                                   |000f: move-result-wide v2
+001448: 6e30 6300 2103                         |0010: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0063
+00144e: 0e00                                   |0013: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0013 line=13
+      locals        : 
+        0x0005 - 0x0014 reg=0 t LSetter_iwide; 
+        0x0000 - 0x0014 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 113 (iput_wide.java)
+

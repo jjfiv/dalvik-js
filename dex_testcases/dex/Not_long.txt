@@ -1,0 +1,132 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Not_long.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Not_long.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 740 (0x0002e4)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LNLong;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LNLong;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000188:                                        |[000188] NLong.<init>:()V
+000198: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+00019e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LNLong; 
+
+  Virtual methods   -
+    #0              : (in LNLong;)
+      name          : 'not'
+      type          : '(J)J'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 5
+      ins           : 3
+      outs          : 0
+      insns size    : 2 16-bit code units
+0001a0:                                        |[0001a0] NLong.not:(J)J
+0001b0: 7d30                                   |0000: neg-long v0, v3
+0001b2: 1000                                   |0001: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0002 reg=2 this LNLong; 
+        0x0000 - 0x0002 reg=3 i J 
+
+  source_file_idx   : 8 (Not_long.java)
+
+Class #1 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 8
+annotations_off     : 0 (0x000000)
+class_data_off      : 754 (0x0002f2)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'LNot_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LNot_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001b4:                                        |[0001b4] Not_long.<init>:()V
+0001c4: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001ca: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LNot_long; 
+
+    #1              : (in LNot_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 18 16-bit code units
+0001cc:                                        |[0001cc] Not_long.main:([Ljava/lang/String;)V
+0001dc: 2200 0100                              |0000: new-instance v0, LNLong; // type@0001
+0001e0: 7010 0000 0000                         |0002: invoke-direct {v0}, LNLong;.<init>:()V // method@0000
+0001e6: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ea: 1702 20a1 0700                         |0007: const-wide/32 v2, #float 0.000000 // #0007a120
+0001f0: 6e30 0100 2003                         |000a: invoke-virtual {v0, v2, v3}, LNLong;.not:(J)J // method@0001
+0001f6: 0b02                                   |000d: move-result-wide v2
+0001f8: 6e30 0400 2103                         |000e: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0004
+0001fe: 0e00                                   |0011: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x0011 line=14
+      locals        : 
+        0x0005 - 0x0012 reg=0 i LNLong; 
+        0x0000 - 0x0012 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 8 (Not_long.java)
+
