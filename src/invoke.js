@@ -81,6 +81,7 @@ var intercept = {
       }
     }
   },
+
   "Ljava/lang/reflect/Array;" : { 
     "newInstance" : function(thread, method, args) {
       return args[1];
@@ -111,13 +112,16 @@ var intercept = {
     "toString" : function(thread, method, args){
     },
     "getClass" : function(thread, method, args) {
-      //return args[0].getClass(_thread.getClassLibrary());
+      return args[0].getClass(thread.getClassLibrary());
     }
   },
   "Ljava/lang/Class;" : {
     "isPrimitive" : function(thread, method, args){
       return args[0].type.isPrimitive();
-    }
+    },
+    "getCanonicalName" : function(thread, method, args) {
+      return args[0].type.toDots();
+    },
   },
   "Ljava/lang/Throwable;" : { 
     "<init>" : function(thread, method, args) {
