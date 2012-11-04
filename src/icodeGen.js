@@ -250,8 +250,8 @@ opName[0x12] = "const/4";
 opArgs[0x12] = function(_dcode, _icode, _dex) {
   _icode.op = "move-const";  
   var x = _dcode.get();
-  _icode.dest = signExtend(lowNibble(x), 4, 32);
-  _icode.value = highNibble(x);
+  _icode.dest = lowNibble(x);
+  _icode.value = signExtend(highNibble(x), 4, 32);
 };
 
 opName[0x13] = "const/16";
