@@ -93,15 +93,20 @@ var icodeHandlers = {
 
   "new-instance": function(_inst, _thread) {
     // get the class for the corresponding type from classLibrary
-    var _class = _thread._vm.classLibrary.findClass(_inst.type);
-    var _instance = _class.makeNew(_thread.getClassLibrary());
-    
-    _thread.setRegister(_inst.dest, _instance);
-    //console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
-    
-    if (isRunnable(_inst.type, _thread.getClassLibrary())){
-      _instance.thread = _thread.spawn(_inst.type);
-      //console.log("new Thread made with id "+_instance.thread.uid);
+    if (_inst.type.getTypeString() == "Ljava/lang/StringBuilder;") {
+      _thread.setRegister(_inst.dest, "");
+    }
+    else {
+      var _class = _thread._vm.classLibrary.findClass(_inst.type);
+      var _instance = _class.makeNew(_thread.getClassLibrary());
+
+      _thread.setRegister(_inst.dest, _instance);
+      //console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+
+      if (isRunnable(_inst.type, _thread.getClassLibrary())){
+        _instance.thread = _thread.spawn(_inst.type);
+        //console.log("new Thread made with id "+_instance.thread.uid);
+      }
     }
   },
 

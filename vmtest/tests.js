@@ -45,8 +45,8 @@ doTest("PrimitiveCast.dex",
       );
 
 
-//doTest("string.dex", "Lstring;", "23Hi12Bye\n");
-//
+doTest("string.dex", "Lstring;", "23Hi12Bye\n");
+
 doTest("Bird.dex", "LBird;", "Rexy\ntrue\nfalse\nBlack\ntrue\ntrue\nHumpty\nfalse\nfalse\n");
 
 doTest("ArrayTest.dex", "LArrayTest;", "3,4,5,6\n");

@@ -148,6 +148,17 @@ var intercept = {
     "length" : function(thread, method, args){
       return args[0].length;
     }
+  },
+  "Ljava/lang/StringBuilder;" : { 
+    "<init>" : function(thread, method, args){
+      return "";
+    },
+    "append" : function(thread, method, args){
+      return "" + args[0] + args[1];
+    },
+    "toString" : function(thread, method, args){
+      return "" + args[0];
+    }
   }
 };
 
@@ -196,7 +207,7 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod(method.definingClass, method.signature);
   }
 
-  if(kind === 'interface'){
+  if((kind === 'interface') && (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;")){
     // method is currently set to the interface's abstract method; replace with the 
     // instance's method. instance is sitting in the 0th arg, as usual.
     method = _thread.getClassLibrary().findMethod(argValues[0].type, method.signature);
@@ -209,16 +220,13 @@ var invoke = function(_inst,_thread){
 
 
   // find an override if there is one
-  if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 
-      method.definingClass.getTypeString() !== "Ljava/lang/AbstractStringBuilder;") {
-    var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
-    // if we have a native "javascript" handler for this method
-    if (_javaIntercept){
-      _thread._result = _javaIntercept(_thread, method, argValues);
-      return;
-    }
+  var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
+  // if we have a native "javascript" handler for this method
+  if (_javaIntercept){
+    _thread._result = _javaIntercept(_thread, method, argValues);
+    return;
   }
-  
+
   assert(!method.isNative(), "Native method ("+method.definingClass.getTypeString()+"."+method.getName()+") is not implemented in Javascript, or not noticed by invoke() in invoke.js, so we have to crash now.");
   
   // create the register set for the new method
