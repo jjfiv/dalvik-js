@@ -177,3 +177,11 @@ doTest("New_instance.dex", "LNew_instance;", "0\n");
 doTest("Nop.dex", "LNop;", "true\n");
 doTest("Not_int.dex", "LNot_int;", "-5\n");
 doTest("Not_long.dex", "LNot_long;", "-500000\n");
+doTest("Or_int_2addr.dex", "LOr_int_2addr;", "16\n");
+doTest("Or_int_lit16.dex", "LOr_int_lit16;", "15\n");
+doTest("Or_int_lit8.dex", "LOr_int_lit8;", "15\n");
+doTest("Or_int.dex", "LOr_int;", "15\n");
+doTest("Or_long_2addr.dex", "LOr_long_2addr;", "123456789124\n");
+doTest("Or_long.dex", "LOr_long;", "123456789123\n");
+doTest("Packed_switch.dex", "LPacked_switch;", "Green\n");
+
