@@ -45,8 +45,8 @@ doTest("PrimitiveCast.dex",
       );
 
 
-//doTest("string.dex", "Lstring;", "23Hi12Bye\n");
-//
+doTest("string.dex", "Lstring;", "23Hi12Bye\n");
+
 doTest("Bird.dex", "LBird;", "Rexy\ntrue\nfalse\nBlack\ntrue\ntrue\nHumpty\nfalse\nfalse\n");
 
 doTest("ArrayTest.dex", "LArrayTest;", "3,4,5,6\n");
@@ -240,4 +240,10 @@ doTest("Ushr_int_lit8.dex", "LUshr_int_lit8;", "7\n");
 doTest("Ushr_int.dex", "LUshr_int;", "7\n");
 doTest("Ushr_long_2addr.dex", "LUshr_long_2addr;", "5000000001\n");
 doTest("Ushr_long.dex", "LUshr_long;", "5000000000\n");
+doTest("Xor_int_2addr.dex", "LXor_int_2addr;", "8\n");
+doTest("Xor_int_lit16.dex", "LXor_int_lit16;", "7\n");
+doTest("Xor_int_lit8.dex", "LXor_int_lit8;", "7\n");
+doTest("Xor_int.dex", "LXor_int;", "7\n");
+doTest("Xor_long_2addr.dex", "LXor_long_2addr;", "4\n");
+doTest("Xor_long.dex", "LXor_long;", "3\n");
 

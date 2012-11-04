@@ -1,0 +1,130 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Sput_boolean.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Sput_boolean.dex', DEX version '035'
+Class #0 header:
+class_idx           : 0
+access_flags        : 0 (0x0000)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 18
+annotations_off     : 0 (0x000000)
+class_data_off      : 760 (0x0002f8)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LSetter_sbool;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LSetter_sbool;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00018c:                                        |[00018c] Setter_sbool.<init>:()V
+00019c: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001a2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LSetter_sbool; 
+
+    #1              : (in LSetter_sbool;)
+      name          : 's_set'
+      type          : '(Z)Z'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 0
+      insns size    : 1 16-bit code units
+0001a4:                                        |[0001a4] Setter_sbool.s_set:(Z)Z
+0001b4: 0f00                                   |0000: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0001 reg=0 s Z 
+
+  Virtual methods   -
+  source_file_idx   : 18 (sput_boolean.java)
+
+Class #1 header:
+class_idx           : 4
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 18
+annotations_off     : 0 (0x000000)
+class_data_off      : 774 (0x000306)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lsput_boolean;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lsput_boolean;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001b8:                                        |[0001b8] sput_boolean.<init>:()V
+0001c8: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001ce: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lsput_boolean; 
+
+    #1              : (in Lsput_boolean;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 16 16-bit code units
+0001d0:                                        |[0001d0] sput_boolean.main:([Ljava/lang/String;)V
+0001e0: 2200 0000                              |0000: new-instance v0, LSetter_sbool; // type@0000
+0001e4: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_sbool;.<init>:()V // method@0000
+0001ea: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001ee: 1212                                   |0007: const/4 v2, #int 1 // #1
+0001f0: 7110 0100 0200                         |0008: invoke-static {v2}, LSetter_sbool;.s_set:(Z)Z // method@0001
+0001f6: 0a02                                   |000b: move-result v2
+0001f8: 6e20 0200 2100                         |000c: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001fe: 0e00                                   |000f: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000f line=13
+      locals        : 
+        0x0005 - 0x0010 reg=0 t LSetter_sbool; 
+        0x0000 - 0x0010 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 18 (sput_boolean.java)
+

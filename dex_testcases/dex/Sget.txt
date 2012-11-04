@@ -1,0 +1,136 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Sget.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Sget.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 17
+annotations_off     : 0 (0x000000)
+class_data_off      : 748 (0x0002ec)
+static_fields_size  : 1
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LGetter_s;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in LGetter_s;)
+      name          : 's'
+      type          : 'I'
+      access        : 0x0009 (PUBLIC STATIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LGetter_s;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000190:                                        |[000190] Getter_s.<init>:()V
+0001a0: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001a6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_s; 
+
+    #1              : (in LGetter_s;)
+      name          : 's_get'
+      type          : '()I'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 0
+      insns size    : 6 16-bit code units
+0001a8:                                        |[0001a8] Getter_s.s_get:()I
+0001b8: 1250                                   |0000: const/4 v0, #int 5 // #5
+0001ba: 6700 0000                              |0001: sput v0, LGetter_s;.s:I // field@0000
+0001be: 6000 0000                              |0003: sget v0, LGetter_s;.s:I // field@0000
+0001c2: 0f00                                   |0005: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=22
+        0x0003 line=23
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 17 (sget.java)
+
+Class #1 header:
+class_idx           : 5
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 17
+annotations_off     : 0 (0x000000)
+class_data_off      : 764 (0x0002fc)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lsget;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lsget;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001c4:                                        |[0001c4] sget.<init>:()V
+0001d4: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001da: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lsget; 
+
+    #1              : (in Lsget;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+0001dc:                                        |[0001dc] sget.main:([Ljava/lang/String;)V
+0001ec: 2200 0100                              |0000: new-instance v0, LGetter_s; // type@0001
+0001f0: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_s;.<init>:()V // method@0000
+0001f6: 6201 0100                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+0001fa: 7100 0100 0000                         |0007: invoke-static {}, LGetter_s;.s_get:()I // method@0001
+000200: 0a02                                   |000a: move-result v2
+000202: 6e20 0200 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000208: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=9
+        0x0005 line=12
+        0x000e line=14
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_s; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 17 (sget.java)
+

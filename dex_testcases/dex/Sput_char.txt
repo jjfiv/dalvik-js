@@ -1,0 +1,131 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Sput_char.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Sput_char.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 19
+annotations_off     : 0 (0x000000)
+class_data_off      : 777 (0x000309)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LSetter_schar;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LSetter_schar;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000194:                                        |[000194] Setter_schar.<init>:()V
+0001a4: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001aa: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LSetter_schar; 
+
+    #1              : (in LSetter_schar;)
+      name          : 's_set'
+      type          : '(I)C'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 2 16-bit code units
+0001ac:                                        |[0001ac] Setter_schar.s_set:(I)C
+0001bc: 8e10                                   |0000: int-to-char v0, v1
+0001be: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0002 reg=1 s I 
+
+  Virtual methods   -
+  source_file_idx   : 19 (sput_char.java)
+
+Class #1 header:
+class_idx           : 6
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 19
+annotations_off     : 0 (0x000000)
+class_data_off      : 791 (0x000317)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lsput_char;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lsput_char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001c0:                                        |[0001c0] sput_char.<init>:()V
+0001d0: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001d6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lsput_char; 
+
+    #1              : (in Lsput_char;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 17 16-bit code units
+0001d8:                                        |[0001d8] sput_char.main:([Ljava/lang/String;)V
+0001e8: 2200 0200                              |0000: new-instance v0, LSetter_schar; // type@0002
+0001ec: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_schar;.<init>:()V // method@0000
+0001f2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001f6: 1302 4100                              |0007: const/16 v2, #int 65 // #41
+0001fa: 7110 0100 0200                         |0009: invoke-static {v2}, LSetter_schar;.s_set:(I)C // method@0001
+000200: 0a02                                   |000c: move-result v2
+000202: 6e20 0200 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0002
+000208: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x0010 line=13
+      locals        : 
+        0x0005 - 0x0011 reg=0 t LSetter_schar; 
+        0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 19 (sput_char.java)
+
