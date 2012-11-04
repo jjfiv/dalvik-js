@@ -1,0 +1,136 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Sget_wide.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Sget_wide.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 17
+annotations_off     : 0 (0x000000)
+class_data_off      : 770 (0x000302)
+static_fields_size  : 1
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LGetter_swide;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in LGetter_swide;)
+      name          : 's'
+      type          : 'J'
+      access        : 0x0009 (PUBLIC STATIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LGetter_swide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000190:                                        |[000190] Getter_swide.<init>:()V
+0001a0: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001a6: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_swide; 
+
+    #1              : (in LGetter_swide;)
+      name          : 's_get'
+      type          : '()J'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 0
+      outs          : 0
+      insns size    : 10 16-bit code units
+0001a8:                                        |[0001a8] Getter_swide.s_get:()J
+0001b8: 1800 cb46 dd73 3a0b 0000               |0000: const-wide v0, #double 0.000000 // #00000b3a73dd46cb
+0001c2: 6800 0000                              |0005: sput-wide v0, LGetter_swide;.s:J // field@0000
+0001c6: 6100 0000                              |0007: sget-wide v0, LGetter_swide;.s:J // field@0000
+0001ca: 1000                                   |0009: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+        0x0007 line=22
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 17 (sget_wide.java)
+
+Class #1 header:
+class_idx           : 5
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 17
+annotations_off     : 0 (0x000000)
+class_data_off      : 786 (0x000312)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lsget_wide;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lsget_wide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001cc:                                        |[0001cc] sget_wide.<init>:()V
+0001dc: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001e2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lsget_wide; 
+
+    #1              : (in Lsget_wide;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 3
+      insns size    : 15 16-bit code units
+0001e4:                                        |[0001e4] sget_wide.main:([Ljava/lang/String;)V
+0001f4: 2200 0100                              |0000: new-instance v0, LGetter_swide; // type@0001
+0001f8: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_swide;.<init>:()V // method@0000
+0001fe: 6201 0100                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000202: 7100 0100 0000                         |0007: invoke-static {}, LGetter_swide;.s_get:()J // method@0001
+000208: 0b02                                   |000a: move-result-wide v2
+00020a: 6e30 0200 2103                         |000b: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0002
+000210: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LGetter_swide; 
+        0x0000 - 0x000f reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 17 (sget_wide.java)
+

@@ -1,0 +1,67 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Shr_long.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Shr_long.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 6
+annotations_off     : 0 (0x000000)
+class_data_off      : 579 (0x000243)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LShr_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LShr_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00013c:                                        |[00013c] Shr_long.<init>:()V
+00014c: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000152: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LShr_long; 
+
+    #1              : (in LShr_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 3
+      insns size    : 11 16-bit code units
+000154:                                        |[000154] Shr_long.main:([Ljava/lang/String;)V
+000164: 1800 00f2 052a 0100 0000               |0000: const-wide v0, #double 0.000000 // #000000012a05f200
+00016e: 6202 0000                              |0005: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000172: 6e30 0200 0201                         |0007: invoke-virtual {v2, v0, v1}, Ljava/io/PrintStream;.println:(J)V // method@0002
+000178: 0e00                                   |000a: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=13
+        0x0005 line=15
+        0x000a line=17
+      locals        : 
+        0x0005 - 0x000b reg=0 c J 
+        0x0000 - 0x000b reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 6 (Shr_long.java)
+

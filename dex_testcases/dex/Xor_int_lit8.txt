@@ -1,0 +1,75 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Xor_int_lit8.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Xor_int_lit8.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 9
+annotations_off     : 0 (0x000000)
+class_data_off      : 616 (0x000268)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LXor_int_lit8;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LXor_int_lit8;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000144:                                        |[000144] Xor_int_lit8.<init>:()V
+000154: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LXor_int_lit8; 
+
+    #1              : (in LXor_int_lit8;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 13 16-bit code units
+00015c:                                        |[00015c] Xor_int_lit8.main:([Ljava/lang/String;)V
+00016c: 1300 0f00                              |0000: const/16 v0, #int 15 // #f
+000170: 1301 0800                              |0002: const/16 v1, #int 8 // #8
+000174: 1202                                   |0004: const/4 v2, #int 0 // #0
+000176: 9702 0001                              |0005: xor-int v2, v0, v1
+00017a: 6203 0000                              |0007: sget-object v3, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00017e: 6e20 0200 2300                         |0009: invoke-virtual {v3, v2}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000184: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0002 line=9
+        0x0004 line=10
+        0x0005 line=12
+        0x0007 line=15
+        0x000c line=17
+      locals        : 
+        0x0002 - 0x000d reg=0 a I 
+        0x0004 - 0x000d reg=1 b I 
+        0x0005 - 0x000d reg=2 c I 
+        0x0000 - 0x000d reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 9 (Xor_int_lit8.java)
+

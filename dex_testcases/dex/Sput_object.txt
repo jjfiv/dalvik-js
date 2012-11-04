@@ -1,0 +1,133 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Sput_object.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Sput_object.dex', DEX version '035'
+Class #0 header:
+class_idx           : 0
+access_flags        : 0 (0x0000)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 16
+annotations_off     : 0 (0x000000)
+class_data_off      : 751 (0x0002ef)
+static_fields_size  : 1
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LSetter_sobject;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in LSetter_sobject;)
+      name          : 's'
+      type          : 'Ljava/lang/Object;'
+      access        : 0x0009 (PUBLIC STATIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LSetter_sobject;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000188:                                        |[000188] Setter_sobject.<init>:()V
+000198: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00019e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LSetter_sobject; 
+
+    #1              : (in LSetter_sobject;)
+      name          : 's_set'
+      type          : '()Ljava/lang/Object;'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 0
+      insns size    : 3 16-bit code units
+0001a0:                                        |[0001a0] Setter_sobject.s_set:()Ljava/lang/Object;
+0001b0: 6200 0000                              |0000: sget-object v0, LSetter_sobject;.s:Ljava/lang/Object; // field@0000
+0001b4: 1100                                   |0002: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 16 (sput_object.java)
+
+Class #1 header:
+class_idx           : 4
+access_flags        : 1 (0x0001)
+superclass_idx      : 2
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 16
+annotations_off     : 0 (0x000000)
+class_data_off      : 767 (0x0002ff)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #1            -
+  Class descriptor  : 'Lsput_object;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lsput_object;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0001b8:                                        |[0001b8] sput_object.<init>:()V
+0001c8: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001ce: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lsput_object; 
+
+    #1              : (in Lsput_object;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 15 16-bit code units
+0001d0:                                        |[0001d0] sput_object.main:([Ljava/lang/String;)V
+0001e0: 2200 0000                              |0000: new-instance v0, LSetter_sobject; // type@0000
+0001e4: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_sobject;.<init>:()V // method@0000
+0001ea: 6201 0100                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+0001ee: 7100 0100 0000                         |0007: invoke-static {}, LSetter_sobject;.s_set:()Ljava/lang/Object; // method@0001
+0001f4: 0c02                                   |000a: move-result-object v2
+0001f6: 6e20 0200 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0002
+0001fc: 0e00                                   |000e: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=11
+        0x000e line=13
+      locals        : 
+        0x0005 - 0x000f reg=0 t LSetter_sobject; 
+        0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 16 (sput_object.java)
+
