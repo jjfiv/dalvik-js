@@ -65,14 +65,13 @@ Thread.prototype.getRegister = function(_idx) {
   return this.currentFrame().regs[_idx];
 }; 
 
-
 Thread.prototype.setRegister = function(_idx, _value) {
   this.currentFrame().regs[_idx] = _value;
 }; 
 
 Thread.prototype.throwException = function(exceptionObj) {
   if (this._stack.length === 0){
-    throw "Uncaught Java Exception.";
+    throw "Uncaught Java Exception: " + exceptionObj;
   }
   var newPC;
   var type = exceptionObj.type;
@@ -92,7 +91,7 @@ Thread.prototype.throwException = function(exceptionObj) {
 
 Thread.prototype.doNextInstruction = function() {
   if (this.state === 'RUNNABLE'){
-    this.showStack();
+    //this.showStack();
     var _frame = this.currentFrame();
     var _inst = _frame.method.icode[_frame.pc];
     var _handler = icodeHandlers[_inst.op];
@@ -103,7 +102,7 @@ Thread.prototype.doNextInstruction = function() {
 
     this._vm.logIcode(_inst.dalvikName);
 
-    console.log('execute ' + _inst.op);
+    //console.log('execute ' + _inst.op);
     var _inc = _handler(_inst, this);
     _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
 

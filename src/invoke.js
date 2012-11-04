@@ -130,7 +130,7 @@ var intercept = {
       args[2]._data = args[0]._data;
     },
     "currentTimeMillis" : function(thread, method, args){
-      return new Date().getTime();
+      return gLong.fromNumber(new Date().getTime());
     }
   },
   "Ljava/lang/IntegralToString;" : { 
@@ -144,9 +144,23 @@ var intercept = {
       }
     }
   },
+  "Ljava/lang/Integer;" : { 
+    "parseInt" : function(thread, method, args) {
+      return parseInt(args[0], 10);
+    },
+  },
   "Ljava/lang/String;" : { 
     "length" : function(thread, method, args){
       return args[0].length;
+    },
+    "equals" : function(thread, method, args) {
+      assert(isString(args[0]), "String equals on strings");
+      assert(isString(args[1]), "String equals on strings");
+      return args[0] === args[1];
+    },
+    "charAt" : function(thread, method, args) {
+      assert(isString(args[0]), "String equals on strings");
+      return args[0].charCodeAt(args[1]);
     }
   },
   "Ljava/lang/StringBuilder;" : { 

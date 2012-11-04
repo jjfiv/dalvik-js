@@ -59,7 +59,12 @@ var icodeHandlers = {
   },
 
   "check-cast": function(_inst, _thread) {
-    var _typeA = _thread.getRegister(_inst.src).type;
+    var _src = _thread.getRegister(_inst.src);
+    if(isString(_src)) {
+      return _inst.type.isEquals(TYPE_STRING);
+    }
+
+    var _typeA = _src.type;
     var _typeB = _inst.type;
     //console.log(_thread.getRegister(_inst.src));
     //console.log(_typeA);
@@ -401,7 +406,7 @@ var icodeHandlers = {
     if (_inst.type.isEquals(TYPE_DOUBLE)) {
       _thread.setRegister(_inst.dest, gLongFromDouble (numA - numB));
     } else if (_inst.type.isEquals(TYPE_LONG)) {
-      _thread.setRegister(_inst.dest, numA.add(numB));
+      _thread.setRegister(_inst.dest, numA.subtract(numB));
     } else if (_inst.type.isEquals(TYPE_BYTE) || _inst.type.isEquals(TYPE_INT) || _inst.type.isEquals(TYPE_SHORT)) {
       _thread.setRegister(_inst.dest, _inst.type.trimNum(numA - numB));
     } else if (_inst.type.isEquals(TYPE_FLOAT)) {
