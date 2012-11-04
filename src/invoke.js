@@ -84,6 +84,7 @@ var intercept = {
   },
   "Ljava/lang/Thread;" : {
     "<init>" : function(thread, method, args) {
+      assert(args.length === 1, "Thread<init> only implemented for 1 arg\n");
       var _newThread = args[0];
       var _run = thread.getClassLibrary().findMethod(_newThread.thread.threadClass, new MethodSignature('run', TYPE_VOID));
       _newThread.thread.pushMethod(_run, makeRegistersForMethod(_run, 'virtual', [_newThread]));
@@ -182,6 +183,13 @@ var invoke = function(_inst,_thread){
   // convert given argument registers into the values of their registers
   var argValues = _inst.argumentRegisters.map(function (_id) { return _thread.getRegister(_id); });
 
+  //console.log('invoke-'+kind);
+  //console.log(_inst);
+  //console.log(argValues);
+  //console.log(method);
+  //console.log(method.getName());
+  //console.log(method.definingClass.getTypeString());
+  //
   // if this is an invoke-super; it means that we call the current method's parent instead
   // resolve it before our _javaIntercept
   if(kind === 'super') {
@@ -199,12 +207,6 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
   }
 
-  //console.log('invoke');
-  //console.log(_inst);
-  //console.log(argValues);
-  //console.log(method);
-  //console.log(method.getName());
-  //console.log(method.definingClass.getTypeString());
 
   // find an override if there is one
   if (method.definingClass.getTypeString() !== "Ljava/lang/StringBuilder;" && 

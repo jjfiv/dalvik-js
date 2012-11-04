@@ -37,7 +37,7 @@ var icodeHandlers = {
   "monitor-enter": function(_inst, _thread) {
     var _container = _thread.getRegister(_inst.src);
     if (isUndefined(_container.type)) {
-      console.log(inspect(_container));
+      //console.log(inspect(_container));
       assert(isA(_container, 'Type'), 'monitor-enter on a class/type object');
       // This is a type object from const-class
       _container = _thread._vm.classLibrary.findClass(_container);
@@ -61,9 +61,9 @@ var icodeHandlers = {
   "check-cast": function(_inst, _thread) {
     var _typeA = _thread.getRegister(_inst.src).type;
     var _typeB = _inst.type;
-    console.log(_thread.getRegister(_inst.src));
-    console.log(_typeA);
-    console.log(_typeB);
+    //console.log(_thread.getRegister(_inst.src));
+    //console.log(_typeA);
+    //console.log(_typeB);
     if (_typeA.isPrimitive() || !_typeA.isEquals(_typeB)) {
       throw "ClassCastException";
     }      
@@ -97,11 +97,11 @@ var icodeHandlers = {
     var _instance = _class.makeNew(_thread.getClassLibrary());
     
     _thread.setRegister(_inst.dest, _instance);
-    console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
+    //console.log("new-instance made: " + inspect(_thread.getRegister(_inst.dest)));
     
     if (isRunnable(_inst.type, _thread.getClassLibrary())){
       _instance.thread = _thread.spawn(_inst.type);
-      console.log("new Thread made with id "+_instance.thread.uid);
+      //console.log("new Thread made with id "+_instance.thread.uid);
     }
   },
 
@@ -235,10 +235,7 @@ var icodeHandlers = {
   "array-get": function(_inst, _thread) {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
-    console.log("array-get");
-    console.log(_array);
-    console.log(_index);
-    console.log(_array[_index]);
+    //console.log("array-get");
     assert(_array, "Array is not undefined");
     assert(_index < _array.length, "array-get index is out of bounds");
     _thread.setRegister (_inst.value, _array[_index]);
@@ -249,11 +246,6 @@ var icodeHandlers = {
     var _array = _thread.getRegister (_inst.array);
     var _index = _thread.getRegister (_inst.index);
     var _value = _thread.getRegister (_inst.value);
-    console.log("array-put");
-    console.log(_array[_index]);
-    console.log(_array);
-    console.log(_index);
-    console.log(_value);
     assert(_array, "Array is not undefined");
     _array[_index] = _value;
     assert(_array, "Array is not undefined");
@@ -278,10 +270,7 @@ var icodeHandlers = {
     _result.primtype = _field.type;
     _result.value = 0;
 
-    console.log(_field);
-
     _val = _class.getField(_field);
-    console.log(_val);
 
     _thread.setRegister (_dest, _val);
   },
@@ -334,7 +323,7 @@ var icodeHandlers = {
     }
     
     if (srcType.isEquals(TYPE_LONG)) {
-      console.log("long to smth: " + val);
+      //console.log("long to smth: " + val);
       if (destType.isEquals(TYPE_INT)) {
         val = val.toInt();
       } else if (destType.isEquals(TYPE_FLOAT)) {
@@ -346,7 +335,7 @@ var icodeHandlers = {
         assert(false, "Unrecognized target type conversion from long"); 
       }
     } else {
-      console.log("number to smth: " + val);
+      //console.log("number to smth: " + val);
       if (destType.isEquals(TYPE_INT)) {
         val = parseInt(val.toString(), 10);
       } else if (destType.isEquals(TYPE_FLOAT)) {
@@ -374,7 +363,7 @@ var icodeHandlers = {
       val = signExtend(val, 16, 32);
     } else if (dstType.isEquals(TYPE_CHAR)) {
       val = val & 0xFFFF;
-      console.log("val after 0x: " + val);
+      //console.log("val after 0x: " + val);
     } else if (dstType.isEquals(TYPE_BYTE)) {
       val = val & 0xFF;
       val = signExtend(val, 8, 32);

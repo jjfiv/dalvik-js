@@ -154,6 +154,7 @@ var TYPE_DOUBLE  = new Type('D');
 
 // assorted class constants
 var TYPE_OBJECT  = new Type('Ljava/lang/Object;');
+var TYPE_THREAD  = new Type('Ljava/lang/Thread;');
 var TYPE_STRING  = new Type('Ljava/lang/String;');
 var TYPE_ARR_STRING = new Type('[Ljava/lang/String;');
 
