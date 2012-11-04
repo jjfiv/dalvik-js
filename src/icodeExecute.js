@@ -1,12 +1,6 @@
 // icode is the "Internal or Interpreter Codes"
 // dependencies: icodeGen.js (needed to resolve values for keys), assert.js, invoke.js
 
-// NYI or "Not Yet Implemented"
-var NYI = function(_inst) {
-  console.log("Instruction " + _inst.op + " from Dalvik '"+_inst.dalvikName+"' not yet implemented.");
-  throw "Not Implemented";
-};
-
 var icodeHandlers = {
   "nop": function(_inst, _thread) {
     // does nothing
@@ -76,12 +70,20 @@ var icodeHandlers = {
   },
 
   "instance-of": function(_inst, _thread) {
-    var _realSrc = _inst.dest, _realDest = _inst.src; //handling swap issue
     var _type = _inst.type;
-    var _obj = _thread.getRegister(_realSrc);
+    var _obj = _thread.getRegister(_inst.src);
+    
+    //console.log("instance-of "+_type+"?");
+    
+    // special-case Ljava/lang/String;
+    if(_type.isEquals(TYPE_STRING)) {
+      _thread.setRegister(_inst.dest, isString(_obj) );
+      return;
+    }
+
     assert(_thread._vm.classLibrary.findClass(_obj.type), "Class "+_obj.getTypeString()+" not found.");
     assert(isA(_obj, 'Instance'), "Object "+inspect(_obj)+" is not an Instance");
-    _thread.setRegister(_realDest, (!_type.isPrimitive() && (_obj.type.isEquals(_type))));
+    _thread.setRegister(_inst.dest, (!_type.isPrimitive() && (_obj.type.isEquals(_type))));
   },
 
   "array-length": function(_inst, _thread) {

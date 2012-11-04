@@ -44,6 +44,11 @@ var isArray = function(_obj) {
   return _obj instanceof Array;
 };
 
+var isString = function(_obj) {
+  // if it has a substring method, good chance it's a string
+  return !isUndefined(_obj.substring);
+};
+
 var isFunction = function(_obj) {
   return typeof(_obj) === 'function';
 };

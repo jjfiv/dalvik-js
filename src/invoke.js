@@ -3,11 +3,6 @@
 // This is also where we're going to deal with intercepting calls to java stuff,
 // as well as threads.
 
-var NYI = function(_inst) {
-  console.log("Instruction " + _inst.op + " from Dalvik '"+_inst.dalvikName+"' not yet implemented.");
-  throw "Not Implemented";
-};
-
 //
 // Turn values into strings for print
 //

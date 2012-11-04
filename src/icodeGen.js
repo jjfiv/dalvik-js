@@ -1,11 +1,6 @@
 //--- A translator for Dalvik Bytecode into icode
 // dependencies : bitutil.js, dexLoader.js, util.js
 
-var NOT_IMPLEMENTED = function(_icode) {
-  console.log("The translation of Dalvik '" + _icode.dalvikName + "' to our icode '" + _icode.op + "' is not complete.");
-  throw "Not Implemented";
-};
-
 // These are helper functions for parsing bytecode arguments
 var dest4src4 = function(_dcode, _icode, _dex) {
   var x = _dcode.get();
@@ -383,8 +378,8 @@ opName[0x20] = "instance-of";
 opArgs[0x20] = function(_dcode, _icode, _dex) {
   _icode.op = "instance-of";
   var x = _dcode.get();
-  _icode.dest = highNibble(x);
-  _icode.src = lowNibble(x);
+  _icode.dest = lowNibble(x);
+  _icode.src = highNibble(x);
   _icode.type = _dex.types[_dcode.get16()];
 };
 
