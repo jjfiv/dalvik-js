@@ -88,7 +88,7 @@ var doTest = function(fileName, mainClass, expectedOutput) {
     _output = exception;
   }
 
-  console.log(_output);
+  //console.log(_output);
   var tableId = (_output === expectedOutput) ? "passTable" : "failTable";
   _addRow(tableId, fileName, expectedOutput, _output, _dcodes);
 

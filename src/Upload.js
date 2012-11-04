@@ -15,6 +15,7 @@ var Upload = function(_cbk, _vm) {
   this._loadButton.addEventListener('click', function(evt) { _self.onClickLoad(evt); }, false);
   this._runButton.addEventListener('click', function(evt) { 
                                      var _cc = _self._classChooser;
+                                     var start = (new Date()).getTime();
                                      _vm.clear();
                                      if (_cc.selectedIndex()!==-1){
                                        _vm.start(_cc.selectedItem());
@@ -22,6 +23,8 @@ var Upload = function(_cbk, _vm) {
                                          _vm.clockTick();
                                        }
                                      }
+                                     var end = (new Date()).getTime();
+                                     terminal.println("RUNTIME(ms): " + (end-start));
                                    }, false);
 };
 
@@ -34,9 +37,6 @@ Upload.prototype.onClickLoad = function(clickEvent) {
       var target = loadEvent.target;
       var byteArray = new Uint8Array(target.result);
       
-      console.log('fileReady!');
-      console.log(target);
-    
       // this error happens when in Chrome with default settings
       if(target.result === null) {
         console.log(target.error);
@@ -44,13 +44,9 @@ Upload.prototype.onClickLoad = function(clickEvent) {
         return;
       }
 
-      console.log('Loaded "' +f.name+'"');
-
       self.onFileReady(f.name, byteArray);
     };
   };
-
-  console.log(selectedFiles);
 
   for(i=0; i<selectedFiles.length; i++) {
     var f = selectedFiles[i];
@@ -61,8 +57,6 @@ Upload.prototype.onClickLoad = function(clickEvent) {
     //reader.onload = fileReady;
     reader.onloadend = fileReady(self, f);
     reader.readAsArrayBuffer(f);
-
-    console.log(reader);
   }
 };
 

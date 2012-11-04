@@ -16,16 +16,6 @@
 //
 
 
-// controls whether dexDebug does anything or not
-var DEX_LOADER_DEBUG = true; // refresh-time constant
-
-// prints a line of dexDebug information from dexLoader, if appropriate
-var dexDebug = function(s) { };
-if(DEX_LOADER_DEBUG) {
-  dexDebug = function(s) { console.log(s); }; // for debugging inline with other output
-  //dexDebug = console.log; // for debugging in Firefox only, gives real line numbers
-}
-
 // file format constants
 var DEX_FILE_MAGIC = [ 0x64, 0x65, 0x78, 0xa, 0x30, 0x33, 0x35, 0x00 ];
 var DEX_HEADER_SIZE = 0x70;
@@ -53,21 +43,8 @@ var DEXData = function(file, quiet) {
   this.classes = []; // array of Class
 
 
-  // shut up the dexDebug function if quiet == true
-  var prevDebug = dexDebug;
-  if(quiet) {
-    dexDebug = function() {};
-  }
-
   //--- parse the file
   this.parse();
-
-  // restore dexDebug function
-  dexDebug = prevDebug;
-
-  dexDebug("Done Parsing!");
-  //console.log(this.classes); // uncommenting this on core.dex crashes firefox :)
-  
 };
 
 DEXData.prototype.parse = function() {
@@ -80,13 +57,11 @@ DEXData.prototype.parse = function() {
   //--- check magic number
   for(_i=0; _i<DEX_FILE_MAGIC.length; _i++) {
     var x = _fp.get();
-    //dexDebug(hex(x) + " vs exp: " + hex(DEX_FILE_MAGIC[_i]));
     if(DEX_FILE_MAGIC[_i] !== x) {
-      dexDebug("Error, DEX_FILE_MAGIC incorrect!\n");
+      console.log("Error, DEX_FILE_MAGIC incorrect!\n");
       return;
     }
   }
-  dexDebug("DEX_FILE_MAGIC correct");
 
   var __checksum = _fp.get32();
   
@@ -119,17 +94,11 @@ DEXData.prototype.parse = function() {
   //var _dataSection = new DEXSection(_fp);
 
   this._parseStrings(_stringSection);
-  //dexDebug(this.strings);
   this._parseTypes(_typeSection);
-  //dexDebug(this.types);
   this._parsePrototypes(_prototypeSection);
-  //dexDebug(enumerate("prototype", this.prototypes));
   this._parseFields(_fieldSection);
-  //dexDebug(this.fields);
   this._parseMethods(_methodSection);
-  //dexDebug(this.methods);
   this._parseClasses(_classSection);
-  //dexDebug(this.classes);
 };
 
 DEXData.prototype._parseStrings = function(_section) {
@@ -187,7 +156,6 @@ DEXData.prototype._parseTypeList = function(_offset) {
 
   //--- encoded as a number of types, and then a bunch of indices
   _count = _fp.get32();
-  //dexDebug(_count);
   //assert(_count < 15, "Count is reasonable.");
 
   for(_i=0; _i<_count; _i++) {
@@ -362,7 +330,6 @@ DEXData.prototype._parseEncodedValue = function() {
   var _size = _valueArg+1;
 
 
-  //dexDebug("ValueType: 0x" + hex(_valueType));
   
   if(_valueType === ValueType.Byte) {
     _value = signExtend(_fp.get(),8,32);
@@ -650,11 +617,9 @@ DEXData.prototype._parseCode = function(_m) {
     _byteCode.push(_fp.get());
   }
 
-  dexDebug("_parseCode for " + _m.getName());
   // see icodeGen.js
   var _icode = icodeGen(this, new ArrayFile(_byteCode));
 
-  dexDebug(enumerate("_icode",_icode));
   // create a translation list of offsets for this function, pulling the offset field out
   var _offsets = _icode.map(function(_inst) {
     var _off = _inst.offset;
@@ -678,8 +643,6 @@ DEXData.prototype._parseCode = function(_m) {
   // grab try / catch and handler information
   //  returns an array of TryRange objects
   _m.tryInfo = this._parseTryCatch(_numTries, _offsets);
-  dexDebug(_m.tryInfo);
-  //enumerate('try-catch', _m.tryInfo);
 
   return;
 };

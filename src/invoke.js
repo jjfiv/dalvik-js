@@ -57,8 +57,6 @@ var intercept = {
       if(paramTypes.length === 1) {
         var _type = paramTypes[0].getTypeString();
         var _value = args[1];
-        console.log("println " + _value + " to " + inspect(args[0]) + "!");
-        console.log(args);
         printValueOfType(_type, _value);
       }
 
@@ -71,7 +69,6 @@ var intercept = {
       if(paramTypes.length === 1) {
         var _type = paramTypes[0].getTypeString();
         var _value = args[1];
-        console.log("print " + _value + " to " + inspect(args[0]) + "!");
         printValueOfType(_type, _value);
       }
     }

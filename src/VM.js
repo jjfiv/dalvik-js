@@ -35,7 +35,6 @@ VM.prototype.logIcode = function(_dalvikName){
 
 VM.prototype.defineClasses = function(_data){
   this.classLibrary.defineClasses(_data);
-  if (DEBUG){ console.log(this.classLibrary.classes.toString()); }
 };
 
 VM.prototype.createThread = function( _directMethod ) {
@@ -45,8 +44,6 @@ VM.prototype.createThread = function( _directMethod ) {
 };
 
 VM.prototype.start = function ( _selectedClassAsType ) {
-  if (DEBUG) { console.log('starting VM on '+_selectedClassAsType.getName()); }
-
   // find specified classname
   var _class = this.classLibrary.findClass(_selectedClassAsType);
 

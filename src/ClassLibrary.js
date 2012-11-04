@@ -11,7 +11,7 @@ var ClassLibrary = function() {
 ClassLibrary.prototype.addClass = function(_class){
   var _className = _class.getTypeString();
   if (this.classes[_className]){
-    console.log("WARNING: "+_className+" already inserted into ClassLibrary.");
+    //console.log("WARNING: "+_className+" already inserted into ClassLibrary.");
   } else {
     this.classes[_className] = _class;
     return true;

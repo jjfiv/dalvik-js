@@ -106,9 +106,12 @@ Thread.prototype.doNextInstruction = function() {
     var _inc = _handler(_inst, this);
     _frame.pc += (isUndefined(_inc)) ? 1 : _inc;
 
-  } else {
+  } 
+  /*
+  else {
     console.log('Thread '+this.uid+' not executing; currently state is '+this.state);
   }
+  */
 };
 
 Thread.prototype.showStack = function() {
