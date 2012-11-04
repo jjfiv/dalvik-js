@@ -1,3 +1,24 @@
+//Global var to hold all opcodes for the final summary
+
+var opCodes = new function(){
+  // first create a hash of opcode names and their numbers
+  var ops={}, i;
+  for (i=0;i<opName.length;i++){
+    ops[opName[i]]={ opcode : '0x'+i.toString(16), //display string in hex, to facilitate searching the spec
+                     files : []
+                   };
+  }
+  this.ops = ops;
+  this.addOps = function(icodeUsage, currentFile){
+    var codesAtThisFile = icodeUsage[currentFile];
+    for (code in codesAtThisFile){
+      if (codesAtThisFile.hasOwnProperty(code)){
+        ops[code].files.push(currentFile);
+      }
+    }
+  };
+}();
+
 
 //
 // This method is mostly taken from various sites, just adds the
@@ -23,8 +44,7 @@ var _addRow = function(_tableId, _testId, _expected, _actual, _dcodes) {
 };
 
 //
-// This method creates a VM, runs the test, captures the output, and clears it
-// Creates an entry in the appropriate table when run."V"
+// // This method creates a VM, runs the test, captures the output, and clears it// Creates an entry in the appropriate table when run."V"
 //
 var doTest = function(fileName, mainClass, expectedOutput) {
   var _outField = document.getElementById('output');
@@ -32,29 +52,34 @@ var doTest = function(fileName, mainClass, expectedOutput) {
     _outField.innerHTML = "";
   };
 
-
   _clearOutput();
 
-  //--- main
+  //--- mainClass
   var _output, _dcodes="";
   try {
+
     var classes = (new DEXData(new ArrayFile(files[fileName]))).classes;
     var myVM = new VM();
     myVM.currentFile = fileName;
-    myVM.icodeUsage = {};
+    myVM.icodeUsage = {
+        };
 
     myVM.defineClasses(gStdLib);
     myVM.defineClasses(classes);
     myVM.start(new Type(mainClass));
 
     while(myVM.hasThreads()) {
+        
       myVM.clockTick();
     }
 
     _output = _outField.innerHTML;
-    var set = myVM.icodeUsage[fileName];
-    for (code in set){
-      if (set.hasOwnProperty(code)){
+    opCodes.addOps(myVM.icodeUsage, fileName);
+    var codeSet = myVM.icodeUsage[fileName];
+    for (code in codeSet){
+        
+      if (codeSet.hasOwnProperty(code)){
+          
         _dcodes+=","+code;
       }
     }
@@ -69,7 +94,3 @@ var doTest = function(fileName, mainClass, expectedOutput) {
 
   _clearOutput();
 };
-
-
-
-
