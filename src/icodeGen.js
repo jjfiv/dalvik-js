@@ -80,12 +80,24 @@ var dest8srcB8srcA8 = function(_dcode, _icode, _dex) {
 //---------------------------------------------------
 // Relevant to binary ops of type c = a + b:        |
 // _icode.dest == target register (8bit)            |
-// _icode.srcA == register with first value (8bit)  |
 // _icode.srcB == register with second value (8bit) |
+// _icode.srcA == register with first value (8bit)  |
 //---------------------------------------------------
   _icode.dest = _dcode.get();
   _icode.srcB = _dcode.get();
   _icode.srcA = _dcode.get();
+};
+
+var dest8srcA8srcB8 = function(_dcode, _icode, _dex) {
+//---------------------------------------------------
+// Relevant to binary ops of type c = a + b:        |
+// _icode.dest == target register (8bit)            |
+// _icode.srcA == register with first value (8bit)  |
+// _icode.srcB == register with second value (8bit) |
+//---------------------------------------------------
+  _icode.dest = _dcode.get();
+  _icode.srcA = _dcode.get();
+  _icode.srcB = _dcode.get();
 };
 
 var destsrcA4srcB4 = function(_dcode, _icode, _dex) {
@@ -1309,7 +1321,7 @@ opArgs[0x8f] = function(_dcode, _icode, _dex) {
 opName[0x90] = "add-int";
 opArgs[0x90] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
@@ -1323,7 +1335,7 @@ opArgs[0x91] = function(_dcode, _icode, _dex) {
 opName[0x92] = "mul-int";
 opArgs[0x92] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
@@ -1344,42 +1356,42 @@ opArgs[0x94] = function(_dcode, _icode, _dex) {
 opName[0x95] = "and-int";
 opArgs[0x95] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
 opName[0x96] = "or-int";
 opArgs[0x96] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
 opName[0x97] = "xor-int";
 opArgs[0x97] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
 opName[0x98] = "shl-int";
 opArgs[0x98] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
 opName[0x99] = "shr-int";
 opArgs[0x99] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
 opName[0x9a] = "ushr-int";
 opArgs[0x9a] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_INT;
 };
 
@@ -1387,7 +1399,7 @@ opName[0x9b] = "add-long";
 opArgs[0x9b] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1395,7 +1407,7 @@ opName[0x9c] = "sub-long";
 opArgs[0x9c] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1403,7 +1415,7 @@ opName[0x9d] = "mul-long";
 opArgs[0x9d] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1427,7 +1439,7 @@ opName[0xa0] = "and-long";
 opArgs[0xa0] = function(_dcode, _icode, _dex) {
   _icode.op = "and";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1435,7 +1447,7 @@ opName[0xa1] = "or-long";
 opArgs[0xa1] = function(_dcode, _icode, _dex) {
   _icode.op = "or";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1443,7 +1455,7 @@ opName[0xa2] = "xor-long";
 opArgs[0xa2] = function(_dcode, _icode, _dex) {
   _icode.op = "xor";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1451,7 +1463,7 @@ opName[0xa3] = "shl-long";
 opArgs[0xa3] = function(_dcode, _icode, _dex) {
   _icode.op = "shl";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1459,7 +1471,7 @@ opName[0xa4] = "shr-long";
 opArgs[0xa4] = function(_dcode, _icode, _dex) {
   _icode.op = "shr";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
@@ -1467,28 +1479,28 @@ opName[0xa5] = "ushr-long";
 opArgs[0xa5] = function(_dcode, _icode, _dex) {
   _icode.op = "ushr";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_LONG;
 };
 
 opName[0xa6] = "add-float";
 opArgs[0xa6] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_FLOAT;
 };
 
 opName[0xa7] = "sub-float";
 opArgs[0xa7] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_FLOAT;
 };
 
 opName[0xa8] = "mul-float";
 opArgs[0xa8] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_FLOAT;
 };
 
@@ -1510,7 +1522,7 @@ opName[0xab] = "add-double";
 opArgs[0xab] = function(_dcode, _icode, _dex) {
   _icode.op = "add";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_DOUBLE;
 };
 
@@ -1518,7 +1530,7 @@ opName[0xac] = "sub-double";
 opArgs[0xac] = function(_dcode, _icode, _dex) {
   _icode.op = "sub";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_DOUBLE;
 };
 
@@ -1526,7 +1538,7 @@ opName[0xad] = "mul-double";
 opArgs[0xad] = function(_dcode, _icode, _dex) {
   _icode.op = "mul";
   _icode.wide = true;
-  dest8srcB8srcA8(_dcode, _icode, _dex);
+  dest8srcA8srcB8(_dcode, _icode, _dex);
   _icode.type = TYPE_DOUBLE;
 };
 

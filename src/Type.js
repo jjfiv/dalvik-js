@@ -93,9 +93,12 @@ Type.prototype.getArrayBase = function() {
 
 Type.prototype.trimNum = function(value) {
   if (this.isEquals(TYPE_BYTE)) {
-    return value & 0xFF;
+    return signExtend(value & 0xFF,8,32);
   }
-  if (this.isEquals(TYPE_SHORT) || this.isEquals(TYPE_CHAR)) {
+  if (this.isEquals(TYPE_SHORT)) {
+    return signExtend(value & 0xFFFF,16,32);
+  }
+  if (this.isEquals(TYPE_CHAR)) {
     return value & 0xFFFF;
   }
   if (this.isEquals(TYPE_INT)) {
