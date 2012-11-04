@@ -128,6 +128,9 @@ var intercept = {
   "Ljava/lang/System;" : { 
     "arraycopy" : function(thread, method, args){
       args[2]._data = args[0]._data;
+    },
+    "currentTimeMillis" : function(thread, method, args){
+      return new Date().getTime();
     }
   },
   "Ljava/lang/IntegralToString;" : { 
