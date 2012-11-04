@@ -35,6 +35,14 @@ var printValueOfType = function(_type, _value) {
     terminal.print (_value);
   } else if (_type === "C") {
     terminal.print (String.fromCharCode(_value));
+  } else if (_type === "Ljava/lang/Object;") {
+    if (!isUndefined (_value.fields[0].type._type)) {
+      if (_value.fields[0].type._type === "J") {
+        if (!isUndefined (_value.fields[0].value)) {
+          terminal.print (_value.fields[0].value.toString());
+        }
+      }
+    }
   } else {
     terminal.print (_value);
   }
@@ -120,6 +128,22 @@ var intercept = {
   "Ljava/lang/System;" : { 
     "arraycopy" : function(thread, method, args){
       args[2]._data = args[0]._data;
+    }
+  },
+  "Ljava/lang/IntegralToString;" : { 
+    "appendInt" : function(thread, method, args){
+      if (args[0].fields[0].value === "DEFAULT_FIELD_VALUE") {
+        args[0].fields[2].value.null = args[1].toString();
+        args[0].fields[0].value = 1;
+      } else {
+        args[0].fields[2].value[args[0].fields[0].value] = args[1].toString();
+        args[0].fields[0].value++;
+      }
+    }
+  },
+  "Ljava/lang/String;" : { 
+    "length" : function(thread, method, args){
+      return args[0].length;
     }
   }
 };
