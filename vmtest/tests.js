@@ -143,7 +143,7 @@ doTest("Iget.dex", "Liget;", "5\n");
 doTest("Instance_of.dex", "Linstance_of;", "true\n");
 doTest("Int_to_byte.dex", "Lint_to_byte;", "1\n");
 doTest("Int_to_char.dex", "Lint_to_char;", "A\n");
-doTest("Int_to_double.dex", "Lint_to_double;", "1.0\n");
+doTest("Int_to_double.dex", "Lint_to_double;", "1\n");
 doTest("Int_to_long.dex", "Lint_to_long;", "123456\n");
 doTest("Int_to_short.dex", "Lint_to_short;", "1\n");
 doTest("Iput_boolean.dex", "Liput_boolean;", "true\n");
