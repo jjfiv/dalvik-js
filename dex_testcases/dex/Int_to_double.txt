@@ -1,19 +1,80 @@
 Processing '/home/vjd215/workspace/DalVikVMTest/dex/Int_to_double.dex'...
 Opened '/home/vjd215/workspace/DalVikVMTest/dex/Int_to_double.dex', DEX version '035'
 Class #0 header:
+class_idx           : 2
+access_flags        : 0 (0x0000)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 16
+annotations_off     : 0 (0x000000)
+class_data_off      : 777 (0x000309)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'Lint2double;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2double;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000194:                                        |[000194] int2double.<init>:()V
+0001a4: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001aa: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2double; 
+
+  Virtual methods   -
+    #0              : (in Lint2double;)
+      name          : 'i2c'
+      type          : '(I)D'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+0001ac:                                        |[0001ac] int2double.i2c:(I)D
+0001bc: 8330                                   |0000: int-to-double v0, v3
+0001be: 1000                                   |0001: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=2 this Lint2double; 
+        0x0000 - 0x0002 reg=3 a I 
+
+  source_file_idx   : 16 (int_to_double.java)
+
+Class #1 header:
 class_idx           : 3
 access_flags        : 1 (0x0001)
 superclass_idx      : 5
 interfaces_off      : 0 (0x000000)
-source_file_idx     : 15
+source_file_idx     : 16
 annotations_off     : 0 (0x000000)
-class_data_off      : 683 (0x0002ab)
+class_data_off      : 791 (0x000317)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
 virtual_methods_size: 0
 
-Class #0            -
+Class #1            -
   Class descriptor  : 'Lint_to_double;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Ljava/lang/Object;'
@@ -30,9 +91,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-000170:                                        |[000170] int_to_double.<init>:()V
-000180: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-000186: 0e00                                   |0003: return-void
+0001c0:                                        |[0001c0] int_to_double.<init>:()V
+0001d0: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001d6: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=2
@@ -48,15 +109,15 @@ Class #0            -
       ins           : 1
       outs          : 3
       insns size    : 16 16-bit code units
-000188:                                        |[000188] int_to_double.main:([Ljava/lang/String;)V
-000198: 2200 0200                              |0000: new-instance v0, Lint2double; // type@0002
-00019c: 7010 0000 0000                         |0002: invoke-direct {v0}, Lint2double;.<init>:()V // method@0000
-0001a2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0001a6: 1212                                   |0007: const/4 v2, #int 1 // #1
-0001a8: 6e20 0100 2000                         |0008: invoke-virtual {v0, v2}, Lint2double;.i2c:(I)D // method@0001
-0001ae: 0b02                                   |000b: move-result-wide v2
-0001b0: 6e30 0400 2103                         |000c: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(D)V // method@0004
-0001b6: 0e00                                   |000f: return-void
+0001d8:                                        |[0001d8] int_to_double.main:([Ljava/lang/String;)V
+0001e8: 2200 0200                              |0000: new-instance v0, Lint2double; // type@0002
+0001ec: 7010 0000 0000                         |0002: invoke-direct {v0}, Lint2double;.<init>:()V // method@0000
+0001f2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001f6: 1212                                   |0007: const/4 v2, #int 1 // #1
+0001f8: 6e20 0100 2000                         |0008: invoke-virtual {v0, v2}, Lint2double;.i2c:(I)D // method@0001
+0001fe: 0b02                                   |000b: move-result-wide v2
+000200: 6e30 0400 2103                         |000c: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(D)V // method@0004
+000206: 0e00                                   |000f: return-void
       catches       : (none)
       positions     : 
         0x0000 line=9
@@ -67,5 +128,5 @@ Class #0            -
         0x0000 - 0x0010 reg=4 args [Ljava/lang/String; 
 
   Virtual methods   -
-  source_file_idx   : 15 (int_to_double.java)
+  source_file_idx   : 16 (int_to_double.java)
 

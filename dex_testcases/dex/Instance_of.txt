@@ -1,19 +1,80 @@
 Processing '/home/vjd215/workspace/DalVikVMTest/dex/Instance_of.dex'...
 Opened '/home/vjd215/workspace/DalVikVMTest/dex/Instance_of.dex', DEX version '035'
 Class #0 header:
+class_idx           : 0
+access_flags        : 0 (0x0000)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 16
+annotations_off     : 0 (0x000000)
+class_data_off      : 818 (0x000332)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LGetter_of;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LGetter_of;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00019c:                                        |[00019c] Getter_of.<init>:()V
+0001ac: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001b2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_of; 
+
+  Virtual methods   -
+    #0              : (in LGetter_of;)
+      name          : 'instan'
+      type          : '(Ljava/lang/Object;)Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 3 16-bit code units
+0001b4:                                        |[0001b4] Getter_of.instan:(Ljava/lang/Object;)Z
+0001c4: 2020 0400                              |0000: instance-of v0, v2, Ljava/lang/String; // type@0004
+0001c8: 0f00                                   |0002: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=20
+      locals        : 
+        0x0000 - 0x0003 reg=1 this LGetter_of; 
+        0x0000 - 0x0003 reg=2 o Ljava/lang/Object; 
+
+  source_file_idx   : 16 (instance_of.java)
+
+Class #1 header:
 class_idx           : 1
 access_flags        : 1 (0x0001)
 superclass_idx      : 3
 interfaces_off      : 0 (0x000000)
 source_file_idx     : 16
 annotations_off     : 0 (0x000000)
-class_data_off      : 720 (0x0002d0)
+class_data_off      : 832 (0x000340)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
 virtual_methods_size: 0
 
-Class #0            -
+Class #1            -
   Class descriptor  : 'Linstance_of;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Ljava/lang/Object;'
@@ -30,9 +91,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-000178:                                        |[000178] instance_of.<init>:()V
-000188: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-00018e: 0e00                                   |0003: return-void
+0001cc:                                        |[0001cc] instance_of.<init>:()V
+0001dc: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001e2: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=1
@@ -48,15 +109,15 @@ Class #0            -
       ins           : 1
       outs          : 2
       insns size    : 17 16-bit code units
-000190:                                        |[000190] instance_of.main:([Ljava/lang/String;)V
-0001a0: 2201 0000                              |0000: new-instance v1, LGetter_of; // type@0000
-0001a4: 7010 0000 0100                         |0002: invoke-direct {v1}, LGetter_of;.<init>:()V // method@0000
-0001aa: 1a00 0000                              |0005: const-string v0, "" // string@0000
-0001ae: 6202 0000                              |0007: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0001b2: 6e20 0100 0100                         |0009: invoke-virtual {v1, v0}, LGetter_of;.instan:(Ljava/lang/Object;)Z // method@0001
-0001b8: 0a03                                   |000c: move-result v3
-0001ba: 6e20 0400 3200                         |000d: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Z)V // method@0004
-0001c0: 0e00                                   |0010: return-void
+0001e4:                                        |[0001e4] instance_of.main:([Ljava/lang/String;)V
+0001f4: 2201 0000                              |0000: new-instance v1, LGetter_of; // type@0000
+0001f8: 7010 0000 0100                         |0002: invoke-direct {v1}, LGetter_of;.<init>:()V // method@0000
+0001fe: 1a00 0000                              |0005: const-string v0, "" // string@0000
+000202: 6202 0000                              |0007: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000206: 6e20 0100 0100                         |0009: invoke-virtual {v1, v0}, LGetter_of;.instan:(Ljava/lang/Object;)Z // method@0001
+00020c: 0a03                                   |000c: move-result v3
+00020e: 6e20 0400 3200                         |000d: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Z)V // method@0004
+000214: 0e00                                   |0010: return-void
       catches       : (none)
       positions     : 
         0x0000 line=8

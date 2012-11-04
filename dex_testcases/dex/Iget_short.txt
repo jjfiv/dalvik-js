@@ -1,19 +1,86 @@
 Processing '/home/vjd215/workspace/DalVikVMTest/dex/Iget_short.dex'...
 Opened '/home/vjd215/workspace/DalVikVMTest/dex/Iget_short.dex', DEX version '035'
 Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 15
+annotations_off     : 0 (0x000000)
+class_data_off      : 780 (0x00030c)
+static_fields_size  : 0
+instance_fields_size: 1
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LGetter_ishort;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LGetter_ishort;)
+      name          : 'i'
+      type          : 'S'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in LGetter_ishort;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000198:                                        |[000198] Getter_ishort.<init>:()V
+0001a8: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001ae: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LGetter_ishort; 
+
+  Virtual methods   -
+    #0              : (in LGetter_ishort;)
+      name          : 'i_get'
+      type          : '()S'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 7 16-bit code units
+0001b0:                                        |[0001b0] Getter_ishort.i_get:()S
+0001c0: 1300 800c                              |0000: const/16 v0, #int 3200 // #c80
+0001c4: 5f10 0000                              |0002: iput-short v0, v1, LGetter_ishort;.i:S // field@0000
+0001c8: 5810 0000                              |0004: iget-short v0, v1, LGetter_ishort;.i:S // field@0000
+0001cc: 0f00                                   |0006: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+        0x0004 line=22
+      locals        : 
+        0x0000 - 0x0007 reg=1 this LGetter_ishort; 
+
+  source_file_idx   : 15 (iget_short.java)
+
+Class #1 header:
 class_idx           : 2
 access_flags        : 1 (0x0001)
 superclass_idx      : 4
 interfaces_off      : 0 (0x000000)
-source_file_idx     : 14
+source_file_idx     : 15
 annotations_off     : 0 (0x000000)
-class_data_off      : 666 (0x00029a)
+class_data_off      : 796 (0x00031c)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
 virtual_methods_size: 0
 
-Class #0            -
+Class #1            -
   Class descriptor  : 'Liget_short;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Ljava/lang/Object;'
@@ -30,9 +97,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-00016c:                                        |[00016c] iget_short.<init>:()V
-00017c: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-000182: 0e00                                   |0003: return-void
+0001d0:                                        |[0001d0] iget_short.<init>:()V
+0001e0: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001e6: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=1
@@ -48,14 +115,14 @@ Class #0            -
       ins           : 1
       outs          : 2
       insns size    : 15 16-bit code units
-000184:                                        |[000184] iget_short.main:([Ljava/lang/String;)V
-000194: 2200 0100                              |0000: new-instance v0, LGetter_ishort; // type@0001
-000198: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_ishort;.<init>:()V // method@0000
-00019e: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0001a2: 6e10 0100 0000                         |0007: invoke-virtual {v0}, LGetter_ishort;.i_get:()S // method@0001
-0001a8: 0a02                                   |000a: move-result v2
-0001aa: 6e20 0400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0004
-0001b0: 0e00                                   |000e: return-void
+0001e8:                                        |[0001e8] iget_short.main:([Ljava/lang/String;)V
+0001f8: 2200 0100                              |0000: new-instance v0, LGetter_ishort; // type@0001
+0001fc: 7010 0000 0000                         |0002: invoke-direct {v0}, LGetter_ishort;.<init>:()V // method@0000
+000202: 6201 0100                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000206: 6e10 0100 0000                         |0007: invoke-virtual {v0}, LGetter_ishort;.i_get:()S // method@0001
+00020c: 0a02                                   |000a: move-result v2
+00020e: 6e20 0400 2100                         |000b: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(I)V // method@0004
+000214: 0e00                                   |000e: return-void
       catches       : (none)
       positions     : 
         0x0000 line=8
@@ -66,5 +133,5 @@ Class #0            -
         0x0000 - 0x000f reg=3 args [Ljava/lang/String; 
 
   Virtual methods   -
-  source_file_idx   : 14 (iget_short.java)
+  source_file_idx   : 15 (iget_short.java)
 

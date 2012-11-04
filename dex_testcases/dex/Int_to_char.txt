@@ -1,19 +1,80 @@
 Processing '/home/vjd215/workspace/DalVikVMTest/dex/Int_to_char.dex'...
 Opened '/home/vjd215/workspace/DalVikVMTest/dex/Int_to_char.dex', DEX version '035'
 Class #0 header:
+class_idx           : 2
+access_flags        : 0 (0x0000)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 16
+annotations_off     : 0 (0x000000)
+class_data_off      : 775 (0x000307)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'Lint2char;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lint2char;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000194:                                        |[000194] int2char.<init>:()V
+0001a4: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001aa: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=18
+      locals        : 
+        0x0000 - 0x0004 reg=0 this Lint2char; 
+
+  Virtual methods   -
+    #0              : (in Lint2char;)
+      name          : 'i2c'
+      type          : '(I)C'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 2
+      outs          : 0
+      insns size    : 2 16-bit code units
+0001ac:                                        |[0001ac] int2char.i2c:(I)C
+0001bc: 8e20                                   |0000: int-to-char v0, v2
+0001be: 0f00                                   |0001: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0002 reg=1 this Lint2char; 
+        0x0000 - 0x0002 reg=2 a I 
+
+  source_file_idx   : 16 (int_to_char.java)
+
+Class #1 header:
 class_idx           : 3
 access_flags        : 1 (0x0001)
 superclass_idx      : 5
 interfaces_off      : 0 (0x000000)
-source_file_idx     : 15
+source_file_idx     : 16
 annotations_off     : 0 (0x000000)
-class_data_off      : 681 (0x0002a9)
+class_data_off      : 789 (0x000315)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
 virtual_methods_size: 0
 
-Class #0            -
+Class #1            -
   Class descriptor  : 'Lint_to_char;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Ljava/lang/Object;'
@@ -30,9 +91,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-000170:                                        |[000170] int_to_char.<init>:()V
-000180: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-000186: 0e00                                   |0003: return-void
+0001c0:                                        |[0001c0] int_to_char.<init>:()V
+0001d0: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001d6: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=2
@@ -48,15 +109,15 @@ Class #0            -
       ins           : 1
       outs          : 2
       insns size    : 17 16-bit code units
-000188:                                        |[000188] int_to_char.main:([Ljava/lang/String;)V
-000198: 2200 0200                              |0000: new-instance v0, Lint2char; // type@0002
-00019c: 7010 0000 0000                         |0002: invoke-direct {v0}, Lint2char;.<init>:()V // method@0000
-0001a2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-0001a6: 1302 4100                              |0007: const/16 v2, #int 65 // #41
-0001aa: 6e20 0100 2000                         |0009: invoke-virtual {v0, v2}, Lint2char;.i2c:(I)C // method@0001
-0001b0: 0a02                                   |000c: move-result v2
-0001b2: 6e20 0400 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0004
-0001b8: 0e00                                   |0010: return-void
+0001d8:                                        |[0001d8] int_to_char.main:([Ljava/lang/String;)V
+0001e8: 2200 0200                              |0000: new-instance v0, Lint2char; // type@0002
+0001ec: 7010 0000 0000                         |0002: invoke-direct {v0}, Lint2char;.<init>:()V // method@0000
+0001f2: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001f6: 1302 4100                              |0007: const/16 v2, #int 65 // #41
+0001fa: 6e20 0100 2000                         |0009: invoke-virtual {v0, v2}, Lint2char;.i2c:(I)C // method@0001
+000200: 0a02                                   |000c: move-result v2
+000202: 6e20 0400 2100                         |000d: invoke-virtual {v1, v2}, Ljava/io/PrintStream;.println:(C)V // method@0004
+000208: 0e00                                   |0010: return-void
       catches       : (none)
       positions     : 
         0x0000 line=9
@@ -67,5 +128,5 @@ Class #0            -
         0x0000 - 0x0011 reg=3 args [Ljava/lang/String; 
 
   Virtual methods   -
-  source_file_idx   : 15 (int_to_char.java)
+  source_file_idx   : 16 (int_to_char.java)
 

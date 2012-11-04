@@ -1,19 +1,83 @@
 Processing '/home/vjd215/workspace/DalVikVMTest/dex/Iput_wide.dex'...
 Opened '/home/vjd215/workspace/DalVikVMTest/dex/Iput_wide.dex', DEX version '035'
 Class #0 header:
+class_idx           : 1
+access_flags        : 0 (0x0000)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 15
+annotations_off     : 0 (0x000000)
+class_data_off      : 770 (0x000302)
+static_fields_size  : 0
+instance_fields_size: 1
+direct_methods_size : 1
+virtual_methods_size: 1
+
+Class #0            -
+  Class descriptor  : 'LSetter_iwide;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LSetter_iwide;)
+      name          : 'i'
+      type          : 'J'
+      access        : 0x0001 (PUBLIC)
+  Direct methods    -
+    #0              : (in LSetter_iwide;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000194:                                        |[000194] Setter_iwide.<init>:()V
+0001a4: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001aa: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=17
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LSetter_iwide; 
+
+  Virtual methods   -
+    #0              : (in LSetter_iwide;)
+      name          : 'i_set'
+      type          : '(J)J'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 0
+      insns size    : 1 16-bit code units
+0001ac:                                        |[0001ac] Setter_iwide.i_set:(J)J
+0001bc: 1001                                   |0000: return-wide v1
+      catches       : (none)
+      positions     : 
+        0x0000 line=21
+      locals        : 
+        0x0000 - 0x0001 reg=0 this LSetter_iwide; 
+        0x0000 - 0x0001 reg=1 i J 
+
+  source_file_idx   : 15 (iput_wide.java)
+
+Class #1 header:
 class_idx           : 2
 access_flags        : 1 (0x0001)
 superclass_idx      : 4
 interfaces_off      : 0 (0x000000)
-source_file_idx     : 14
+source_file_idx     : 15
 annotations_off     : 0 (0x000000)
-class_data_off      : 668 (0x00029c)
+class_data_off      : 786 (0x000312)
 static_fields_size  : 0
 instance_fields_size: 0
 direct_methods_size : 2
 virtual_methods_size: 0
 
-Class #0            -
+Class #1            -
   Class descriptor  : 'Liput_wide;'
   Access flags      : 0x0001 (PUBLIC)
   Superclass        : 'Ljava/lang/Object;'
@@ -30,9 +94,9 @@ Class #0            -
       ins           : 1
       outs          : 1
       insns size    : 4 16-bit code units
-000168:                                        |[000168] iput_wide.<init>:()V
-000178: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
-00017e: 0e00                                   |0003: return-void
+0001c0:                                        |[0001c0] iput_wide.<init>:()V
+0001d0: 7010 0500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0005
+0001d6: 0e00                                   |0003: return-void
       catches       : (none)
       positions     : 
         0x0000 line=1
@@ -48,15 +112,15 @@ Class #0            -
       ins           : 1
       outs          : 3
       insns size    : 20 16-bit code units
-000180:                                        |[000180] iput_wide.main:([Ljava/lang/String;)V
-000190: 2200 0100                              |0000: new-instance v0, LSetter_iwide; // type@0001
-000194: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_iwide;.<init>:()V // method@0000
-00019a: 6201 0000                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
-00019e: 1802 2941 015a b500 0000               |0007: const-wide v2, #double 0.000000 // #000000b55a014129
-0001a8: 6e30 0100 2003                         |000c: invoke-virtual {v0, v2, v3}, LSetter_iwide;.i_set:(J)J // method@0001
-0001ae: 0b02                                   |000f: move-result-wide v2
-0001b0: 6e30 0400 2103                         |0010: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0004
-0001b6: 0e00                                   |0013: return-void
+0001d8:                                        |[0001d8] iput_wide.main:([Ljava/lang/String;)V
+0001e8: 2200 0100                              |0000: new-instance v0, LSetter_iwide; // type@0001
+0001ec: 7010 0000 0000                         |0002: invoke-direct {v0}, LSetter_iwide;.<init>:()V // method@0000
+0001f2: 6201 0100                              |0005: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+0001f6: 1802 2941 015a b500 0000               |0007: const-wide v2, #double 0.000000 // #000000b55a014129
+000200: 6e30 0100 2003                         |000c: invoke-virtual {v0, v2, v3}, LSetter_iwide;.i_set:(J)J // method@0001
+000206: 0b02                                   |000f: move-result-wide v2
+000208: 6e30 0400 2103                         |0010: invoke-virtual {v1, v2, v3}, Ljava/io/PrintStream;.println:(J)V // method@0004
+00020e: 0e00                                   |0013: return-void
       catches       : (none)
       positions     : 
         0x0000 line=8
@@ -67,5 +131,5 @@ Class #0            -
         0x0000 - 0x0014 reg=4 args [Ljava/lang/String; 
 
   Virtual methods   -
-  source_file_idx   : 14 (iput_wide.java)
+  source_file_idx   : 15 (iput_wide.java)
 
