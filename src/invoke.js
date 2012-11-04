@@ -229,6 +229,10 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
   }
 
+  if (method.accessFlags >= 0x400 && method.accessFlags <= 0x799){
+    // if the method is abstract
+    method = _thread.getClassLibrary().findMethod(_thread._result.type, method.signature);
+  }
 
   // find an override if there is one
   var _javaIntercept = (intercept[method.definingClass.getTypeString()] || {})[method.getName()];
