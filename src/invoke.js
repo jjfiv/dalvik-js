@@ -229,7 +229,7 @@ var invoke = function(_inst,_thread){
     method = _thread.getClassLibrary().findMethod (_inst.method.definingClass, _inst.method.signature);
   }
 
-  if (method.accessFlags >= 0x400 && method.accessFlags <= 0x799){
+  if (method.accessFlags & 0x400){
     // if the method is abstract
     method = _thread.getClassLibrary().findMethod(_thread._result.type, method.signature);
   }
