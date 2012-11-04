@@ -235,4 +235,9 @@ doTest("Sub_int_lit8.dex", "LSub_int_lit8;", "4\n");
 doTest("Sub_int.dex", "LSub_int;", "4\n");
 doTest("Sub_long_2addr.dex", "LSub_long_2addr;", "-75308642\n");
 doTest("Sub_long.dex", "LSub_long;", "-75308643\n");
+doTest("Ushr_int_2addr.dex", "LUshr_int_2addr;", "8\n");
+doTest("Ushr_int_lit8.dex", "LUshr_int_lit8;", "7\n");
+doTest("Ushr_int.dex", "LUshr_int;", "7\n");
+doTest("Ushr_long_2addr.dex", "LUshr_long_2addr;", "5000000001\n");
+doTest("Ushr_long.dex", "LUshr_long;", "5000000000\n");
 
