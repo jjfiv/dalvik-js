@@ -1,0 +1,114 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Fill_array_range.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Fill_array_range.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 5
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 963 (0x0003c3)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LFill_array_range;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LFill_array_range;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00019c:                                        |[00019c] Fill_array_range.<init>:()V
+0001ac: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+0001b2: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LFill_array_range; 
+
+    #1              : (in LFill_array_range;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 12
+      ins           : 1
+      outs          : 2
+      insns size    : 71 16-bit code units
+0001b4:                                        |[0001b4] Fill_array_range.main:([Ljava/lang/String;)V
+0001c4: 123a                                   |0000: const/4 v10, #int 3 // #3
+0001c6: 1240                                   |0001: const/4 v0, #int 4 // #4
+0001c8: 1222                                   |0002: const/4 v2, #int 2 // #2
+0001ca: 1209                                   |0003: const/4 v9, #int 0 // #0
+0001cc: 0101                                   |0004: move v1, v0
+0001ce: 0123                                   |0005: move v3, v2
+0001d0: 0124                                   |0006: move v4, v2
+0001d2: 0125                                   |0007: move v5, v2
+0001d4: 2506 0a00 0000                         |0008: filled-new-array/range {v0, v1, v2, v3, v4, v5}, [I // type@000a
+0001da: 0c01                                   |000b: move-result-object v1
+0001dc: 6202 0000                              |000c: sget-object v2, Ljava/lang/Integer;.TYPE:Ljava/lang/Class; // field@0000
+0001e0: 7120 0400 1200                         |000e: invoke-static {v2, v1}, Ljava/lang/reflect/Array;.newInstance:(Ljava/lang/Class;[I)Ljava/lang/Object; // method@0004
+0001e6: 0c08                                   |0011: move-result-object v8
+0001e8: 1f08 0c00                              |0012: check-cast v8, [[[[[[I // type@000c
+0001ec: 1206                                   |0014: const/4 v6, #int 0 // #0
+0001ee: 3406 1900                              |0015: if-lt v6, v0, 002e // +0019
+0001f2: 6201 0100                              |0017: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+0001f6: 4600 080a                              |0019: aget-object v0, v8, v10
+0001fa: 4600 000a                              |001b: aget-object v0, v0, v10
+0001fe: 4600 0009                              |001d: aget-object v0, v0, v9
+000202: 4600 0009                              |001f: aget-object v0, v0, v9
+000206: 4600 0009                              |0021: aget-object v0, v0, v9
+00020a: 4400 0009                              |0023: aget v0, v0, v9
+00020e: 1302 0900                              |0025: const/16 v2, #int 9 // #9
+000212: 3320 1e00                              |0027: if-ne v0, v2, 0045 // +001e
+000216: 1210                                   |0029: const/4 v0, #int 1 // #1
+000218: 6e20 0200 0100                         |002a: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00021e: 0e00                                   |002d: return-void
+000220: 1207                                   |002e: const/4 v7, #int 0 // #0
+000222: 3407 0500                              |002f: if-lt v7, v0, 0034 // +0005
+000226: d806 0601                              |0031: add-int/lit8 v6, v6, #int 1 // #01
+00022a: 28e2                                   |0033: goto 0015 // -001e
+00022c: 4601 0806                              |0034: aget-object v1, v8, v6
+000230: 4601 0107                              |0036: aget-object v1, v1, v7
+000234: 4601 0109                              |0038: aget-object v1, v1, v9
+000238: 4601 0109                              |003a: aget-object v1, v1, v9
+00023c: 4601 0109                              |003c: aget-object v1, v1, v9
+000240: 9202 0607                              |003e: mul-int v2, v6, v7
+000244: 4b02 0109                              |0040: aput v2, v1, v9
+000248: d807 0701                              |0042: add-int/lit8 v7, v7, #int 1 // #01
+00024c: 28eb                                   |0044: goto 002f // -0015
+00024e: 0190                                   |0045: move v0, v9
+000250: 28e4                                   |0046: goto 002a // -001c
+      catches       : (none)
+      positions     : 
+        0x0004 line=12
+        0x0014 line=14
+        0x0017 line=20
+        0x002d line=22
+        0x002e line=15
+        0x0031 line=14
+        0x0034 line=16
+        0x0042 line=15
+        0x0046 line=20
+      locals        : 
+        0x002f - 0x0045 reg=7 j I 
+        0x0015 - 0x0047 reg=6 i I 
+        0x0014 - 0x0047 reg=8 test [[[[[[I 
+        0x0000 - 0x0047 reg=11 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Fill_array_range.java)
+

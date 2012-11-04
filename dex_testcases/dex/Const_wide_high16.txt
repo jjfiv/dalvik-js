@@ -1,0 +1,69 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Const_wide_high16.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Const_wide_high16.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 658 (0x000292)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LConst_wide_high16;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LConst_wide_high16;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000158:                                        |[000158] Const_wide_high16.<init>:()V
+000168: 7010 0400 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0004
+00016e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LConst_wide_high16; 
+
+    #1              : (in LConst_wide_high16;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 3
+      insns size    : 13 16-bit code units
+000170:                                        |[000170] Const_wide_high16.main:([Ljava/lang/String;)V
+000180: 2200 0300                              |0000: new-instance v0, Ljava/lang/Long; // type@0003
+000184: 1901 3412                              |0002: const-wide/high16 v1, #long 1311673391471656960 // #1234
+000188: 7030 0300 1002                         |0004: invoke-direct {v0, v1, v2}, Ljava/lang/Long;.<init>:(J)V // method@0003
+00018e: 6201 0000                              |0007: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000192: 6e20 0200 0100                         |0009: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/Object;)V // method@0002
+000198: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=11
+        0x0007 line=13
+        0x000c line=15
+      locals        : 
+        0x0007 - 0x000d reg=0 high Ljava/lang/Long; 
+        0x0000 - 0x000d reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Const_wide_high16.java)
+

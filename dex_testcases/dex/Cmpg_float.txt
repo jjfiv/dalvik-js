@@ -1,0 +1,79 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Cmpg_float.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Cmpg_float.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 632 (0x000278)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LCmpg_float;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LCmpg_float;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] Cmpg_float.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LCmpg_float; 
+
+    #1              : (in LCmpg_float;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 24 16-bit code units
+000160:                                        |[000160] Cmpg_float.main:([Ljava/lang/String;)V
+000170: 1400 c3f5 4840                         |0000: const v0, #float 3.140000 // #4048f5c3
+000176: 1401 cdcc 2c40                         |0003: const v1, #float 2.700000 // #402ccccd
+00017c: 2d02 0001                              |0006: cmpl-float v2, v0, v1
+000180: 3d02 0900                              |0008: if-lez v2, 0011 // +0009
+000184: 6202 0000                              |000a: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000188: 1213                                   |000c: const/4 v3, #int 1 // #1
+00018a: 6e20 0200 3200                         |000d: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000190: 0e00                                   |0010: return-void
+000192: 6202 0000                              |0011: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000196: 1203                                   |0013: const/4 v3, #int 0 // #0
+000198: 6e20 0200 3200                         |0014: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+00019e: 28f9                                   |0017: goto 0010 // -0007
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0003 line=11
+        0x0006 line=13
+        0x000a line=14
+        0x0010 line=18
+        0x0011 line=16
+      locals        : 
+        0x0003 - 0x0018 reg=0 x F 
+        0x0006 - 0x0018 reg=1 y F 
+        0x0000 - 0x0018 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Cmpg_float.java)
+

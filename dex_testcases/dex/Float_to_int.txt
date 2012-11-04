@@ -1,0 +1,70 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Float_to_int.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Float_to_int.dex', DEX version '035'
+Class #0 header:
+class_idx           : 2
+access_flags        : 1 (0x0001)
+superclass_idx      : 4
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 2
+annotations_off     : 0 (0x000000)
+class_data_off      : 606 (0x00025e)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LFloat_to_int;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LFloat_to_int;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] Float_to_int.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LFloat_to_int; 
+
+    #1              : (in LFloat_to_int;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 10 16-bit code units
+000160:                                        |[000160] Float_to_int.main:([Ljava/lang/String;)V
+000170: 1400 fcff 3f40                         |0000: const v0, #float 2.999999 // #403ffffc
+000176: 8701                                   |0003: float-to-int v1, v0
+000178: 6202 0000                              |0004: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00017c: 6e20 0200 1200                         |0006: invoke-virtual {v2, v1}, Ljava/io/PrintStream;.println:(I)V // method@0002
+000182: 0e00                                   |0009: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0003 line=11
+        0x0004 line=14
+        0x0009 line=15
+      locals        : 
+        0x0003 - 0x000a reg=0 a F 
+        0x0004 - 0x000a reg=1 b I 
+        0x0000 - 0x000a reg=3 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 2 (Float_to_int.java)
+

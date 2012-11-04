@@ -1,0 +1,79 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Cmp_long.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Cmp_long.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 636 (0x00027c)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LCmp_long;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LCmp_long;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] Cmp_long.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LCmp_long; 
+
+    #1              : (in LCmp_long;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 7
+      ins           : 1
+      outs          : 2
+      insns size    : 28 16-bit code units
+000160:                                        |[000160] Cmp_long.main:([Ljava/lang/String;)V
+000170: 1800 d3ce 18e6 1900 0000               |0000: const-wide v0, #double 0.000000 // #00000019e618ced3
+00017a: 1802 d2ce 18e6 1900 0000               |0005: const-wide v2, #double 0.000000 // #00000019e618ced2
+000184: 3104 0002                              |000a: cmp-long v4, v0, v2
+000188: 3d04 0900                              |000c: if-lez v4, 0015 // +0009
+00018c: 6204 0000                              |000e: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000190: 1215                                   |0010: const/4 v5, #int 1 // #1
+000192: 6e20 0200 5400                         |0011: invoke-virtual {v4, v5}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000198: 0e00                                   |0014: return-void
+00019a: 6204 0000                              |0015: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00019e: 1205                                   |0017: const/4 v5, #int 0 // #0
+0001a0: 6e20 0200 5400                         |0018: invoke-virtual {v4, v5}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001a6: 28f9                                   |001b: goto 0014 // -0007
+      catches       : (none)
+      positions     : 
+        0x0000 line=10
+        0x0005 line=11
+        0x000a line=13
+        0x000e line=14
+        0x0014 line=17
+        0x0015 line=15
+      locals        : 
+        0x0005 - 0x001c reg=0 x J 
+        0x000a - 0x001c reg=2 y J 
+        0x0000 - 0x001c reg=6 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Cmp_long.java)
+

@@ -1,0 +1,79 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Cmpl_double.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Cmpl_double.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 642 (0x000282)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LCmpl_double;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LCmpl_double;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000148:                                        |[000148] Cmpl_double.<init>:()V
+000158: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+00015e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LCmpl_double; 
+
+    #1              : (in LCmpl_double;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 7
+      ins           : 1
+      outs          : 2
+      insns size    : 28 16-bit code units
+000160:                                        |[000160] Cmpl_double.main:([Ljava/lang/String;)V
+000170: 1800 1f85 eb51 b81e 0940               |0000: const-wide v0, #double 3.140000 // #40091eb851eb851f
+00017a: 1802 9a99 9999 9999 0540               |0005: const-wide v2, #double 2.700000 // #400599999999999a
+000184: 2f04 0002                              |000a: cmpl-double v4, v0, v2
+000188: 3d04 0900                              |000c: if-lez v4, 0015 // +0009
+00018c: 6204 0000                              |000e: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+000190: 1215                                   |0010: const/4 v5, #int 1 // #1
+000192: 6e20 0200 5400                         |0011: invoke-virtual {v4, v5}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+000198: 0e00                                   |0014: return-void
+00019a: 6204 0000                              |0015: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+00019e: 1205                                   |0017: const/4 v5, #int 0 // #0
+0001a0: 6e20 0200 5400                         |0018: invoke-virtual {v4, v5}, Ljava/io/PrintStream;.println:(Z)V // method@0002
+0001a6: 28f9                                   |001b: goto 0014 // -0007
+      catches       : (none)
+      positions     : 
+        0x0000 line=11
+        0x0005 line=12
+        0x000a line=14
+        0x000e line=15
+        0x0014 line=19
+        0x0015 line=17
+      locals        : 
+        0x0005 - 0x001c reg=0 x D 
+        0x000a - 0x001c reg=2 y D 
+        0x0000 - 0x001c reg=6 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Cmpl_double.java)
+

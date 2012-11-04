@@ -1,0 +1,79 @@
+Processing '/home/vjd215/workspace/DalVikVMTest/dex/Fill_array.dex'...
+Opened '/home/vjd215/workspace/DalVikVMTest/dex/Fill_array.dex', DEX version '035'
+Class #0 header:
+class_idx           : 1
+access_flags        : 1 (0x0001)
+superclass_idx      : 3
+interfaces_off      : 0 (0x000000)
+source_file_idx     : 1
+annotations_off     : 0 (0x000000)
+class_data_off      : 708 (0x0002c4)
+static_fields_size  : 0
+instance_fields_size: 0
+direct_methods_size : 2
+virtual_methods_size: 0
+
+Class #0            -
+  Class descriptor  : 'LFill_array;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LFill_array;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+00016c:                                        |[00016c] Fill_array.<init>:()V
+00017c: 7010 0300 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0003
+000182: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LFill_array; 
+
+    #1              : (in LFill_array;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 21 16-bit code units
+000184:                                        |[000184] Fill_array.main:([Ljava/lang/String;)V
+000194: 1252                                   |0000: const/4 v2, #int 5 // #5
+000196: 2320 0700                              |0001: new-array v0, v2, [I // type@0007
+00019a: 1201                                   |0003: const/4 v1, #int 0 // #0
+00019c: 3421 0b00                              |0004: if-lt v1, v2, 000f // +000b
+0001a0: 6202 0000                              |0006: sget-object v2, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0000
+0001a4: 1243                                   |0008: const/4 v3, #int 4 // #4
+0001a6: 4403 0003                              |0009: aget v3, v0, v3
+0001aa: 6e20 0200 3200                         |000b: invoke-virtual {v2, v3}, Ljava/io/PrintStream;.println:(I)V // method@0002
+0001b0: 0e00                                   |000e: return-void
+0001b2: 7120 0400 1000                         |000f: invoke-static {v0, v1}, Ljava/util/Arrays;.fill:([II)V // method@0004
+0001b8: d801 0101                              |0012: add-int/lit8 v1, v1, #int 1 // #01
+0001bc: 28f0                                   |0014: goto 0004 // -0010
+      catches       : (none)
+      positions     : 
+        0x0001 line=10
+        0x0003 line=12
+        0x0006 line=15
+        0x000e line=17
+        0x000f line=13
+        0x0012 line=12
+      locals        : 
+        0x0003 - 0x0015 reg=0 arr [I 
+        0x0004 - 0x0015 reg=1 i I 
+        0x0000 - 0x0015 reg=4 args [Ljava/lang/String; 
+
+  Virtual methods   -
+  source_file_idx   : 1 (Fill_array.java)
+
