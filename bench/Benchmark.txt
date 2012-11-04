@@ -1,0 +1,600 @@
+Processing 'Benchmark.dex'...
+Opened 'Benchmark.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LBenchmark;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LBenchmark;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000488:                                        |[000488] Benchmark.<init>:()V
+000498: 7010 1500 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0015
+00049e: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LBenchmark; 
+
+    #1              : (in LBenchmark;)
+      name          : 'doBenchmark'
+      type          : '()V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 6
+      ins           : 0
+      outs          : 2
+      insns size    : 98 16-bit code units
+0004a0:                                        |[0004a0] Benchmark.doBenchmark:()V
+0004b0: 1203                                   |0000: const/4 v3, #int 0 // #0
+0004b2: 0131                                   |0001: move v1, v3
+0004b4: 1250                                   |0002: const/4 v0, #int 5 // #5
+0004b6: 3501 5b00                              |0003: if-ge v1, v0, 005e // +005b
+0004ba: 2204 0400                              |0005: new-instance v4, LLinkedList; // type@0004
+0004be: 7010 0700 0400                         |0007: invoke-direct {v4}, LLinkedList;.<init>:()V // method@0007
+0004c4: 0110                                   |000a: move v0, v1
+0004c6: 0132                                   |000b: move v2, v3
+0004c8: 1305 0a00                              |000c: const/16 v5, #int 10 // #a
+0004cc: 3550 0d00                              |000e: if-ge v0, v5, 001b // +000d
+0004d0: 7110 1400 0000                         |0010: invoke-static {v0}, Ljava/lang/Integer;.toString:(I)Ljava/lang/String; // method@0014
+0004d6: 0c05                                   |0013: move-result-object v5
+0004d8: 6e20 0d00 5400                         |0014: invoke-virtual {v4, v5}, LLinkedList;.push:(Ljava/lang/Object;)V // method@000d
+0004de: b002                                   |0017: add-int/2addr v2, v0
+0004e0: d800 0001                              |0018: add-int/lit8 v0, v0, #int 1 // #01
+0004e4: 28f2                                   |001a: goto 000c // -000e
+0004e6: 6e10 0f00 0400                         |001b: invoke-virtual {v4}, LLinkedList;.reverse:()LLinkedList; // method@000f
+0004ec: 0c00                                   |001e: move-result-object v0
+0004ee: 1a04 0800                              |001f: const-string v4, "+" // string@0008
+0004f2: 6e20 0d00 4000                         |0021: invoke-virtual {v0, v4}, LLinkedList;.push:(Ljava/lang/Object;)V // method@000d
+0004f8: 7110 0200 0000                         |0024: invoke-static {v0}, LBenchmark;.eval:(LLinkedList;)Ljava/lang/String; // method@0002
+0004fe: 0c04                                   |0027: move-result-object v4
+000500: 7110 1400 0200                         |0028: invoke-static {v2}, Ljava/lang/Integer;.toString:(I)Ljava/lang/String; // method@0014
+000506: 0c05                                   |002b: move-result-object v5
+000508: 6e20 1700 5400                         |002c: invoke-virtual {v4, v5}, Ljava/lang/String;.equals:(Ljava/lang/Object;)Z // method@0017
+00050e: 0a04                                   |002f: move-result v4
+000510: 3904 2f00                              |0030: if-nez v4, 005f // +002f
+000514: 6201 0400                              |0032: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+000518: 2203 0d00                              |0034: new-instance v3, Ljava/lang/StringBuilder; // type@000d
+00051c: 7010 1800 0300                         |0036: invoke-direct {v3}, Ljava/lang/StringBuilder;.<init>:()V // method@0018
+000522: 1a04 1100                              |0039: const-string v4, "ERROR '" // string@0011
+000526: 6e20 1b00 4300                         |003b: invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+00052c: 0c03                                   |003e: move-result-object v3
+00052e: 6e20 1900 2300                         |003f: invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;.append:(I)Ljava/lang/StringBuilder; // method@0019
+000534: 0c02                                   |0042: move-result-object v2
+000536: 1a03 0200                              |0043: const-string v3, "' != '" // string@0002
+00053a: 6e20 1b00 3200                         |0045: invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+000540: 0c02                                   |0048: move-result-object v2
+000542: 7110 0200 0000                         |0049: invoke-static {v0}, LBenchmark;.eval:(LLinkedList;)Ljava/lang/String; // method@0002
+000548: 0c00                                   |004c: move-result-object v0
+00054a: 6e20 1b00 0200                         |004d: invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+000550: 0c00                                   |0050: move-result-object v0
+000552: 1a02 0100                              |0051: const-string v2, "'" // string@0001
+000556: 6e20 1b00 2000                         |0053: invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+00055c: 0c00                                   |0056: move-result-object v0
+00055e: 6e10 1c00 0000                         |0057: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@001c
+000564: 0c00                                   |005a: move-result-object v0
+000566: 6e20 1200 0100                         |005b: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0012
+00056c: 0e00                                   |005e: return-void
+00056e: d801 0101                              |005f: add-int/lit8 v1, v1, #int 1 // #01
+000572: 28a1                                   |0061: goto 0002 // -005f
+      catches       : (none)
+      positions     : 
+        0x0002 line=31
+        0x0005 line=34
+        0x000c line=35
+        0x0010 line=36
+        0x0017 line=37
+        0x0018 line=35
+        0x001b line=40
+        0x001f line=41
+        0x0024 line=43
+        0x0032 line=44
+        0x005e line=49
+        0x005f line=31
+      locals        : 
+
+    #2              : (in LBenchmark;)
+      name          : 'eval'
+      type          : '(LLinkedList;)Ljava/lang/String;'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 5
+      ins           : 1
+      outs          : 2
+      insns size    : 82 16-bit code units
+000574:                                        |[000574] Benchmark.eval:(LLinkedList;)Ljava/lang/String;
+000584: 6e10 0a00 0400                         |0000: invoke-virtual {v4}, LLinkedList;.first:()Ljava/lang/Object; // method@000a
+00058a: 0c00                                   |0003: move-result-object v0
+00058c: 1f00 0c00                              |0004: check-cast v0, Ljava/lang/String; // type@000c
+000590: 3900 0500                              |0006: if-nez v0, 000b // +0005
+000594: 1a00 0400                              |0008: const-string v0, "()" // string@0004
+000598: 1100                                   |000a: return-object v0
+00059a: 6e10 0e00 0400                         |000b: invoke-virtual {v4}, LLinkedList;.rest:()LLinkedList; // method@000e
+0005a0: 0c02                                   |000e: move-result-object v2
+0005a2: 1a01 0800                              |000f: const-string v1, "+" // string@0008
+0005a6: 6e20 1700 1000                         |0011: invoke-virtual {v0, v1}, Ljava/lang/String;.equals:(Ljava/lang/Object;)Z // method@0017
+0005ac: 0a01                                   |0014: move-result v1
+0005ae: 3801 1c00                              |0015: if-eqz v1, 0031 // +001c
+0005b2: 1200                                   |0017: const/4 v0, #int 0 // #0
+0005b4: 0101                                   |0018: move v1, v0
+0005b6: 6e10 0900 0200                         |0019: invoke-virtual {v2}, LLinkedList;.empty:()Z // method@0009
+0005bc: 0a00                                   |001c: move-result v0
+0005be: 3900 0f00                              |001d: if-nez v0, 002c // +000f
+0005c2: 6e10 0c00 0200                         |001f: invoke-virtual {v2}, LLinkedList;.pop:()Ljava/lang/Object; // method@000c
+0005c8: 0c00                                   |0022: move-result-object v0
+0005ca: 1f00 0c00                              |0023: check-cast v0, Ljava/lang/String; // type@000c
+0005ce: 7110 1300 0000                         |0025: invoke-static {v0}, Ljava/lang/Integer;.parseInt:(Ljava/lang/String;)I // method@0013
+0005d4: 0a00                                   |0028: move-result v0
+0005d6: b010                                   |0029: add-int/2addr v0, v1
+0005d8: 0101                                   |002a: move v1, v0
+0005da: 28ee                                   |002b: goto 0019 // -0012
+0005dc: 7110 1400 0100                         |002c: invoke-static {v1}, Ljava/lang/Integer;.toString:(I)Ljava/lang/String; // method@0014
+0005e2: 0c00                                   |002f: move-result-object v0
+0005e4: 28da                                   |0030: goto 000a // -0026
+0005e6: 6201 0400                              |0031: sget-object v1, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+0005ea: 2202 0d00                              |0033: new-instance v2, Ljava/lang/StringBuilder; // type@000d
+0005ee: 7010 1800 0200                         |0035: invoke-direct {v2}, Ljava/lang/StringBuilder;.<init>:()V // method@0018
+0005f4: 1a03 2900                              |0038: const-string v3, "Undefined function '" // string@0029
+0005f8: 6e20 1b00 3200                         |003a: invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+0005fe: 0c02                                   |003d: move-result-object v2
+000600: 6e20 1b00 0200                         |003e: invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+000606: 0c00                                   |0041: move-result-object v0
+000608: 1a02 0100                              |0042: const-string v2, "'" // string@0001
+00060c: 6e20 1b00 2000                         |0044: invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+000612: 0c00                                   |0047: move-result-object v0
+000614: 6e10 1c00 0000                         |0048: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@001c
+00061a: 0c00                                   |004b: move-result-object v0
+00061c: 6e20 1200 0100                         |004c: invoke-virtual {v1, v0}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@0012
+000622: 1a00 3f00                              |004f: const-string v0, "nil" // string@003f
+000626: 28b9                                   |0051: goto 000a // -0047
+      catches       : (none)
+      positions     : 
+        0x0000 line=7
+        0x0006 line=10
+        0x0008 line=11
+        0x000a line=26
+        0x000b line=14
+        0x000f line=16
+        0x0017 line=17
+        0x0019 line=19
+        0x001f line=20
+        0x0029 line=21
+        0x002b line=22
+        0x002c line=23
+        0x0031 line=25
+        0x004f line=26
+      locals        : 
+
+    #3              : (in LBenchmark;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 6
+      ins           : 1
+      outs          : 3
+      insns size    : 19 16-bit code units
+000628:                                        |[000628] Benchmark.main:([Ljava/lang/String;)V
+000638: 7100 0400 0000                         |0000: invoke-static {}, LBenchmark;.timeNow:()J // method@0004
+00063e: 0b00                                   |0003: move-result-wide v0
+000640: 7100 0100 0000                         |0004: invoke-static {}, LBenchmark;.doBenchmark:()V // method@0001
+000646: 7100 0400 0000                         |0007: invoke-static {}, LBenchmark;.timeNow:()J // method@0004
+00064c: 0b02                                   |000a: move-result-wide v2
+00064e: 6204 0400                              |000b: sget-object v4, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0004
+000652: 9c00 0200                              |000d: sub-long v0, v2, v0
+000656: 6e30 1100 0401                         |000f: invoke-virtual {v4, v0, v1}, Ljava/io/PrintStream;.println:(J)V // method@0011
+00065c: 0e00                                   |0012: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=53
+        0x0004 line=55
+        0x0007 line=57
+        0x000b line=58
+        0x0012 line=59
+      locals        : 
+
+    #4              : (in LBenchmark;)
+      name          : 'timeNow'
+      type          : '()J'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 2
+      ins           : 0
+      outs          : 0
+      insns size    : 5 16-bit code units
+000660:                                        |[000660] Benchmark.timeNow:()J
+000670: 7100 1d00 0000                         |0000: invoke-static {}, Ljava/lang/System;.currentTimeMillis:()J // method@001d
+000676: 0b00                                   |0003: move-result-wide v0
+000678: 1000                                   |0004: return-wide v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=3
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 16 (Benchmark.java)
+
+Class #1            -
+  Class descriptor  : 'LLinkedList$Node;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LLinkedList$Node;)
+      name          : 'data'
+      type          : 'Ljava/lang/Object;'
+      access        : 0x0001 (PUBLIC)
+    #1              : (in LLinkedList$Node;)
+      name          : 'next'
+      type          : 'LLinkedList$Node;'
+      access        : 0x0001 (PUBLIC)
+    #2              : (in LLinkedList$Node;)
+      name          : 'this$0'
+      type          : 'LLinkedList;'
+      access        : 0x1010 (FINAL SYNTHETIC)
+  Direct methods    -
+    #0              : (in LLinkedList$Node;)
+      name          : '<init>'
+      type          : '(LLinkedList;Ljava/lang/Object;)V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 3
+      ins           : 3
+      outs          : 1
+      insns size    : 8 16-bit code units
+00067c:                                        |[00067c] LinkedList.Node.<init>:(LLinkedList;Ljava/lang/Object;)V
+00068c: 5b01 0200                              |0000: iput-object v1, v0, LLinkedList$Node;.this$0:LLinkedList; // field@0002
+000690: 7010 1500 0000                         |0002: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0015
+000696: 5b02 0000                              |0005: iput-object v2, v0, LLinkedList$Node;.data:Ljava/lang/Object; // field@0000
+00069a: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=4
+      locals        : 
+        0x0000 - 0x0008 reg=0 this LLinkedList$Node; 
+
+  Virtual methods   -
+    #0              : (in LLinkedList$Node;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 7 16-bit code units
+00069c:                                        |[00069c] LinkedList.Node.toString:()Ljava/lang/String;
+0006ac: 5410 0000                              |0000: iget-object v0, v1, LLinkedList$Node;.data:Ljava/lang/Object; // field@0000
+0006b0: 6e10 1600 0000                         |0002: invoke-virtual {v0}, Ljava/lang/Object;.toString:()Ljava/lang/String; // method@0016
+0006b6: 0c00                                   |0005: move-result-object v0
+0006b8: 1100                                   |0006: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=5
+      locals        : 
+        0x0000 - 0x0007 reg=1 this LLinkedList$Node; 
+
+  source_file_idx   : 32 (LinkedList.java)
+
+Class #2            -
+  Class descriptor  : 'LLinkedList;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in LLinkedList;)
+      name          : 'head'
+      type          : 'LLinkedList$Node;'
+      access        : 0x0002 (PRIVATE)
+  Direct methods    -
+    #0              : (in LLinkedList;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 7 16-bit code units
+0006bc:                                        |[0006bc] LinkedList.<init>:()V
+0006cc: 7010 1500 0100                         |0000: invoke-direct {v1}, Ljava/lang/Object;.<init>:()V // method@0015
+0006d2: 1200                                   |0003: const/4 v0, #int 0 // #0
+0006d4: 5b10 0300                              |0004: iput-object v0, v1, LLinkedList;.head:LLinkedList$Node; // field@0003
+0006d8: 0e00                                   |0006: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=14
+        0x0003 line=15
+        0x0006 line=16
+      locals        : 
+        0x0000 - 0x0007 reg=1 this LLinkedList; 
+
+  Virtual methods   -
+    #0              : (in LLinkedList;)
+      name          : 'append'
+      type          : '(Ljava/lang/Object;)V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 3
+      insns size    : 31 16-bit code units
+0006dc:                                        |[0006dc] LinkedList.append:(Ljava/lang/Object;)V
+0006ec: 6e10 0900 0200                         |0000: invoke-virtual {v2}, LLinkedList;.empty:()Z // method@0009
+0006f2: 0a00                                   |0003: move-result v0
+0006f4: 3800 0a00                              |0004: if-eqz v0, 000e // +000a
+0006f8: 2200 0300                              |0006: new-instance v0, LLinkedList$Node; // type@0003
+0006fc: 7030 0500 2003                         |0008: invoke-direct {v0, v2, v3}, LLinkedList$Node;.<init>:(LLinkedList;Ljava/lang/Object;)V // method@0005
+000702: 5b20 0300                              |000b: iput-object v0, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+000706: 0e00                                   |000d: return-void
+000708: 5420 0300                              |000e: iget-object v0, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+00070c: 5401 0100                              |0010: iget-object v1, v0, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000710: 3801 0500                              |0012: if-eqz v1, 0017 // +0005
+000714: 5400 0100                              |0014: iget-object v0, v0, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000718: 28fa                                   |0016: goto 0010 // -0006
+00071a: 2201 0300                              |0017: new-instance v1, LLinkedList$Node; // type@0003
+00071e: 7030 0500 2103                         |0019: invoke-direct {v1, v2, v3}, LLinkedList$Node;.<init>:(LLinkedList;Ljava/lang/Object;)V // method@0005
+000724: 5b01 0100                              |001c: iput-object v1, v0, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000728: 28ef                                   |001e: goto 000d // -0011
+      catches       : (none)
+      positions     : 
+        0x0000 line=62
+        0x0006 line=63
+        0x000d line=74
+        0x000e line=68
+        0x0010 line=69
+        0x0014 line=70
+        0x0017 line=73
+      locals        : 
+        0x0000 - 0x001f reg=2 this LLinkedList; 
+
+    #1              : (in LLinkedList;)
+      name          : 'empty'
+      type          : '()Z'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 0
+      insns size    : 8 16-bit code units
+00072c:                                        |[00072c] LinkedList.empty:()Z
+00073c: 5410 0300                              |0000: iget-object v0, v1, LLinkedList;.head:LLinkedList$Node; // field@0003
+000740: 3900 0400                              |0002: if-nez v0, 0006 // +0004
+000744: 1210                                   |0004: const/4 v0, #int 1 // #1
+000746: 0f00                                   |0005: return v0
+000748: 1200                                   |0006: const/4 v0, #int 0 // #0
+00074a: 28fe                                   |0007: goto 0005 // -0002
+      catches       : (none)
+      positions     : 
+        0x0000 line=33
+      locals        : 
+        0x0000 - 0x0008 reg=1 this LLinkedList; 
+
+    #2              : (in LLinkedList;)
+      name          : 'first'
+      type          : '()Ljava/lang/Object;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 13 16-bit code units
+00074c:                                        |[00074c] LinkedList.first:()Ljava/lang/Object;
+00075c: 6e10 0900 0100                         |0000: invoke-virtual {v1}, LLinkedList;.empty:()Z // method@0009
+000762: 0a00                                   |0003: move-result v0
+000764: 3800 0400                              |0004: if-eqz v0, 0008 // +0004
+000768: 1200                                   |0006: const/4 v0, #int 0 // #0
+00076a: 1100                                   |0007: return-object v0
+00076c: 5410 0300                              |0008: iget-object v0, v1, LLinkedList;.head:LLinkedList$Node; // field@0003
+000770: 5400 0000                              |000a: iget-object v0, v0, LLinkedList$Node;.data:Ljava/lang/Object; // field@0000
+000774: 28fb                                   |000c: goto 0007 // -0005
+      catches       : (none)
+      positions     : 
+        0x0000 line=19
+        0x0006 line=20
+        0x0007 line=21
+      locals        : 
+        0x0000 - 0x000d reg=1 this LLinkedList; 
+
+    #3              : (in LLinkedList;)
+      name          : 'length'
+      type          : '()I'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 0
+      insns size    : 11 16-bit code units
+000778:                                        |[000778] LinkedList.length:()I
+000788: 5421 0300                              |0000: iget-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+00078c: 1200                                   |0002: const/4 v0, #int 0 // #0
+00078e: 3801 0700                              |0003: if-eqz v1, 000a // +0007
+000792: 5411 0100                              |0005: iget-object v1, v1, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000796: d800 0001                              |0007: add-int/lit8 v0, v0, #int 1 // #01
+00079a: 28fa                                   |0009: goto 0003 // -0006
+00079c: 0f00                                   |000a: return v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=37
+        0x0002 line=38
+        0x0003 line=39
+        0x0005 line=40
+        0x0007 line=41
+        0x000a line=43
+      locals        : 
+        0x0000 - 0x000b reg=2 this LLinkedList; 
+
+    #4              : (in LLinkedList;)
+      name          : 'pop'
+      type          : '()Ljava/lang/Object;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 0
+      insns size    : 11 16-bit code units
+0007a0:                                        |[0007a0] LinkedList.pop:()Ljava/lang/Object;
+0007b0: 5420 0300                              |0000: iget-object v0, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007b4: 5400 0000                              |0002: iget-object v0, v0, LLinkedList$Node;.data:Ljava/lang/Object; // field@0000
+0007b8: 5421 0300                              |0004: iget-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007bc: 5411 0100                              |0006: iget-object v1, v1, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+0007c0: 5b21 0300                              |0008: iput-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007c4: 1100                                   |000a: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=55
+        0x0004 line=56
+        0x000a line=57
+      locals        : 
+        0x0000 - 0x000b reg=2 this LLinkedList; 
+
+    #5              : (in LLinkedList;)
+      name          : 'push'
+      type          : '(Ljava/lang/Object;)V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 3
+      insns size    : 14 16-bit code units
+0007c8:                                        |[0007c8] LinkedList.push:(Ljava/lang/Object;)V
+0007d8: 5420 0300                              |0000: iget-object v0, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007dc: 2201 0300                              |0002: new-instance v1, LLinkedList$Node; // type@0003
+0007e0: 7030 0500 2103                         |0004: invoke-direct {v1, v2, v3}, LLinkedList$Node;.<init>:(LLinkedList;Ljava/lang/Object;)V // method@0005
+0007e6: 5b21 0300                              |0007: iput-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007ea: 5421 0300                              |0009: iget-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+0007ee: 5b10 0100                              |000b: iput-object v0, v1, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+0007f2: 0e00                                   |000d: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=47
+        0x0002 line=48
+        0x0009 line=49
+        0x000d line=50
+      locals        : 
+        0x0000 - 0x000e reg=2 this LLinkedList; 
+
+    #6              : (in LLinkedList;)
+      name          : 'rest'
+      type          : '()LLinkedList;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 1
+      insns size    : 12 16-bit code units
+0007f4:                                        |[0007f4] LinkedList.rest:()LLinkedList;
+000804: 2200 0400                              |0000: new-instance v0, LLinkedList; // type@0004
+000808: 7010 0700 0000                         |0002: invoke-direct {v0}, LLinkedList;.<init>:()V // method@0007
+00080e: 5421 0300                              |0005: iget-object v1, v2, LLinkedList;.head:LLinkedList$Node; // field@0003
+000812: 5411 0100                              |0007: iget-object v1, v1, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000816: 5b01 0300                              |0009: iput-object v1, v0, LLinkedList;.head:LLinkedList$Node; // field@0003
+00081a: 1100                                   |000b: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=27
+        0x0005 line=28
+        0x000b line=29
+      locals        : 
+        0x0000 - 0x000c reg=2 this LLinkedList; 
+
+    #7              : (in LLinkedList;)
+      name          : 'reverse'
+      type          : '()LLinkedList;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 18 16-bit code units
+00081c:                                        |[00081c] LinkedList.reverse:()LLinkedList;
+00082c: 2201 0400                              |0000: new-instance v1, LLinkedList; // type@0004
+000830: 7010 0700 0100                         |0002: invoke-direct {v1}, LLinkedList;.<init>:()V // method@0007
+000836: 5430 0300                              |0005: iget-object v0, v3, LLinkedList;.head:LLinkedList$Node; // field@0003
+00083a: 3800 0a00                              |0007: if-eqz v0, 0011 // +000a
+00083e: 5402 0000                              |0009: iget-object v2, v0, LLinkedList$Node;.data:Ljava/lang/Object; // field@0000
+000842: 6e20 0d00 2100                         |000b: invoke-virtual {v1, v2}, LLinkedList;.push:(Ljava/lang/Object;)V // method@000d
+000848: 5400 0100                              |000e: iget-object v0, v0, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+00084c: 28f7                                   |0010: goto 0007 // -0009
+00084e: 1101                                   |0011: return-object v1
+      catches       : (none)
+      positions     : 
+        0x0000 line=77
+        0x0005 line=79
+        0x0007 line=80
+        0x0009 line=81
+        0x000e line=82
+        0x0011 line=84
+      locals        : 
+        0x0000 - 0x0012 reg=3 this LLinkedList; 
+
+    #8              : (in LLinkedList;)
+      name          : 'toString'
+      type          : '()Ljava/lang/String;'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 4
+      ins           : 1
+      outs          : 2
+      insns size    : 67 16-bit code units
+000850:                                        |[000850] LinkedList.toString:()Ljava/lang/String;
+000860: 1a01 0300                              |0000: const-string v1, "(" // string@0003
+000864: 5430 0300                              |0002: iget-object v0, v3, LLinkedList;.head:LLinkedList$Node; // field@0003
+000868: 3800 2b00                              |0004: if-eqz v0, 002f // +002b
+00086c: 2202 0d00                              |0006: new-instance v2, Ljava/lang/StringBuilder; // type@000d
+000870: 7010 1800 0200                         |0008: invoke-direct {v2}, Ljava/lang/StringBuilder;.<init>:()V // method@0018
+000876: 6e20 1b00 1200                         |000b: invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+00087c: 0c01                                   |000e: move-result-object v1
+00087e: 6e20 1a00 0100                         |000f: invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder; // method@001a
+000884: 0c01                                   |0012: move-result-object v1
+000886: 6e10 1c00 0100                         |0013: invoke-virtual {v1}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@001c
+00088c: 0c01                                   |0016: move-result-object v1
+00088e: 5400 0100                              |0017: iget-object v0, v0, LLinkedList$Node;.next:LLinkedList$Node; // field@0001
+000892: 3800 ebff                              |0019: if-eqz v0, 0004 // -0015
+000896: 2202 0d00                              |001b: new-instance v2, Ljava/lang/StringBuilder; // type@000d
+00089a: 7010 1800 0200                         |001d: invoke-direct {v2}, Ljava/lang/StringBuilder;.<init>:()V // method@0018
+0008a0: 6e20 1b00 1200                         |0020: invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+0008a6: 0c01                                   |0023: move-result-object v1
+0008a8: 1a02 0000                              |0024: const-string v2, " " // string@0000
+0008ac: 6e20 1b00 2100                         |0026: invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+0008b2: 0c01                                   |0029: move-result-object v1
+0008b4: 6e10 1c00 0100                         |002a: invoke-virtual {v1}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@001c
+0008ba: 0c01                                   |002d: move-result-object v1
+0008bc: 28d6                                   |002e: goto 0004 // -002a
+0008be: 2200 0d00                              |002f: new-instance v0, Ljava/lang/StringBuilder; // type@000d
+0008c2: 7010 1800 0000                         |0031: invoke-direct {v0}, Ljava/lang/StringBuilder;.<init>:()V // method@0018
+0008c8: 6e20 1b00 1000                         |0034: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+0008ce: 0c00                                   |0037: move-result-object v0
+0008d0: 1a01 0700                              |0038: const-string v1, ")" // string@0007
+0008d4: 6e20 1b00 1000                         |003a: invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@001b
+0008da: 0c00                                   |003d: move-result-object v0
+0008dc: 6e10 1c00 0000                         |003e: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@001c
+0008e2: 0c00                                   |0041: move-result-object v0
+0008e4: 1100                                   |0042: return-object v0
+      catches       : (none)
+      positions     : 
+        0x0000 line=88
+        0x0002 line=90
+        0x0004 line=91
+        0x0006 line=92
+        0x0017 line=93
+        0x0019 line=94
+        0x001b line=95
+        0x002f line=98
+      locals        : 
+        0x0000 - 0x0043 reg=3 this LLinkedList; 
+
+  source_file_idx   : 32 (LinkedList.java)
+
