@@ -225,4 +225,14 @@ doTest("Sput_object.dex", "Lsput_object;", "null\n");
 doTest("Sput_short.dex", "Lsput_short;", "77\n");
 doTest("Sput_wide.dex", "Lsput_wide;", "778899112233\n");
 doTest("Sput.dex", "Lsput;", "2\n");
+doTest("Sub_double_2addr.dex", "LSub_double_2addr;", "0.56\n");
+doTest("Sub_double.dex", "LSub_double;", "-0.43999999999999995\n");
+doTest("Sub_float_2addr.dex", "LSub_float_2addr;", "0.559999942779541\n");
+doTest("Sub_float.dex", "LSub_float;", "-0.440000057220459\n");
+doTest("Sub_int_2addr.dex", "LSub_int_2addr;", "5\n");
+doTest("Sub_int_lit16.dex", "LSub_int_lit16;", "4\n");
+doTest("Sub_int_lit8.dex", "LSub_int_lit8;", "4\n");
+doTest("Sub_int.dex", "LSub_int;", "4\n");
+doTest("Sub_long_2addr.dex", "LSub_long_2addr;", "-75308642\n");
+doTest("Sub_long.dex", "LSub_long;", "-75308643\n");
 
