@@ -8,6 +8,9 @@ Project for CS 691ST - Dalvik VM implementation in Javascript
 Setup environment for git access
 Download project from here: https://github.com/jjfiv/dalvik-js.git
 
+Live page hosted at: http://guptha-.github.com
+Dex files can be loaded from the local machine.
+
 Recommended supported browsers Firefox (15 and higher) and Chrome (22 and higher)
 Open file in browser
 example: ``install_path/dalvik-js/vmtest/index.html``
