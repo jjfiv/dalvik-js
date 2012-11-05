@@ -18,6 +18,12 @@ var printValueOfType = function(_type, _value) {
     } else {
       terminal.print ("false");
     }
+  } else if ((_type === "I") && (!isUndefined(_value.value))){
+    terminal.print (_value.value);
+  } else if ((_type === "C") && (!isUndefined(_value.value))){
+    terminal.print (String.fromCharCode(_value.value));
+  } else if ((_type === "J") && (!isUndefined(_value.value))){
+    terminal.print (_value.value.toString());
   } else if (_type === "Ljava/lang/String;") {
     /* JF ignore this for now
     if(isUndefined(_value.fields)) {
