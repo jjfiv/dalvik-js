@@ -1,3 +1,9 @@
+project status
+===
+
+This was a course project. The implementation of the VM translates from DEX into an internal format, which is then executed. All opcodes are supported, but library / native call support is very limited. There is currently no development on this project.
+
+
 dalvik-js
 =========
 
@@ -27,9 +33,6 @@ example: ``install_path/dalvik-js/src/index.html``
 2. Runnable class files will be present
 3. Select file and click run class button
 4. Output produced by executed instructions will be displayed at bottom of page
-
-Support is funded solely by tin canning, the development team greatly appreciates your contributions.
-
 
 Useful Links
 ------------
