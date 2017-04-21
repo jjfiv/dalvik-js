@@ -104,13 +104,13 @@ ArrayFile.prototype.getMUTF8 = function() {
     // 2 or 3-byte code
     if((c & 0x80) !== 0) {
       if((c & 0x20) === 0) { // 2-byte code
-        cur = (c & 0x1f) << 6;
-        cur |= (this.get() & 0x3f);
+        c = (c & 0x1f) << 6;
+        c |= (this.get() & 0x3f);
       } else {
         assert( (c & 0x10) === 0, "Should be a start of three byte code");
-        cur = (c & 0xf) << 12;
-        cur |= (this.get() & 0x3f);
-        cur |= (this.get() & 0x3f);
+        c = (c & 0xf) << 12;
+        c |= (this.get() & 0x3f) << 6;
+        c |= (this.get() & 0x3f);
       }
     }
     bytes.push(c);
